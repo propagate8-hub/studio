@@ -102,28 +102,3 @@ export default function BuyAcetPage() {
         </div>
     );
 }
-
-// A hook to dynamically load the paystack script
-function usePaystack(config: any, onSuccess: (ref: any) => void, onClose: () => void) {
-    const initializePayment = () => {
-        if (typeof window === 'undefined' || !(window as any).PaystackPop) {
-            console.error('Paystack script not loaded');
-            return;
-        }
-
-        const handler = (window as any).PaystackPop.setup({
-            ...config,
-            onClose: onClose,
-            callback: onSuccess,
-        });
-        handler.openIframe();
-    };
-
-    return initializePayment;
-}
-
-// The following is a placeholder for the usePaystack hook that would be in its own file.
-// For this single-file generation, it's included here.
-// In a real app, `usePaystack` might be in `@/hooks/use-paystack.ts`.
-// It would dynamically load the Paystack script.
-// `import usePaystack from '@paystack/inline-js';` doesn't work as expected in this setup, so a manual hook is better.
