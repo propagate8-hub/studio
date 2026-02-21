@@ -1,3 +1,46 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "Abstract background for hero section",
+      "imageUrl": "https://images.unsplash.com/photo-1663970206579-c157cba7edda?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzcxNjY5NzU2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract background"
+    },
+    {
+      "id": "service-acet",
+      "description": "Image for ACET service",
+      "imageUrl": "https://images.unsplash.com/photo-1509062522246-3755977927d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxlZHVjYXRpb24lMjB0ZWNobm9sb2d5fGVufDB8fHx8MTc3MTYwNjM4NHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "education technology"
+    },
+    {
+      "id": "service-identity",
+      "description": "Image for Identity service",
+      "imageUrl": "https://images.unsplash.com/photo-1585079374502-415f8516dcc3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxiaW9tZXRyaWMlMjBpZGVudGl0eXxlbnwwfHx8fDE3NzE3MTI2NTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "biometric identity"
+    },
+    {
+      "id": "service-ssr",
+      "description": "Image for School Stakeholder Research service",
+      "imageUrl": "https://images.unsplash.com/photo-1680602240363-533176c499cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdXJ2ZXklMjByZXNlYXJjaHxlbnwwfHx8fDE3NzE3MTI2NTh8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "survey research"
+    },
+    {
+      "id": "service-custom",
+      "description": "Image for Custom Assessments service",
+      "imageUrl": "https://images.unsplash.com/photo-1764267408666-2003276ae435?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8Y3VzdG9tJTIwc29sdXRpb258ZW58MHx8fHwxNzcxNzEyNjU5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "custom solution"
+    },
+    {
+      "id": "avatar-1",
+      "description": "User avatar 1",
+      "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzE2OTk5MDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "avatar-2",
+      "description": "User avatar 2",
+      "imageUrl": "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzE2OTk5MDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    }
+  ]
 }
