@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Propagate8 Digital | EdTech Solutions',
+  title: 'Propagate Digital | EdTech Solutions',
   description: 'Propagate Digital is a comprehensive EdTech solution for modern schools, offering offline testing, secure identity management, and insightful stakeholder feedback.',
 };
 

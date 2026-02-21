@@ -78,10 +78,10 @@ export default function LoginPage() {
       <Card className="w-full max-w-md shadow-2xl">
         <CardHeader className="text-center">
           <Link href="/" className="inline-block mx-auto mb-4">
-             <Image src="/logo.svg" alt="Propagate8 Digital Logo" width={40} height={40} />
+             <Image src="/logo.svg" alt="Propagate Digital Logo" width={40} height={40} />
           </Link>
           <CardTitle className="text-3xl font-headline">Welcome Back</CardTitle>
-          <CardDescription>Sign in to access the Propagate8 Portal</CardDescription>
+          <CardDescription>Sign in to access the Propagate Digital Portal</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>

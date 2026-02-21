@@ -12,9 +12,9 @@ export function MarketingHeader() {
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <Image src="/logo.svg" alt="Propagate8 Digital Logo" width={32} height={32} />
+            <Image src="/logo.svg" alt="Propagate Digital Logo" width={32} height={32} />
             <span className="font-bold font-headline sm:inline-block text-primary">
-              Propagate8 Digital
+              Propagate Digital
             </span>
           </Link>
           <nav className="hidden gap-6 text-sm md:flex">
@@ -52,8 +52,8 @@ export function MarketingHeader() {
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <nav className="flex flex-col gap-4">
                 <Link href="/" className="flex items-center space-x-2">
-                  <Image src="/logo.svg" alt="Propagate8 Digital Logo" width={24} height={24} />
-                  <span className="font-bold font-headline">Propagate8 Digital</span>
+                  <Image src="/logo.svg" alt="Propagate Digital Logo" width={24} height={24} />
+                  <span className="font-bold font-headline">Propagate Digital</span>
                 </Link>
                 <Link
                   href="/"

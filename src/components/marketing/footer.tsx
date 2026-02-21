@@ -31,9 +31,9 @@ export function MarketingFooter() {
           </div>
           <div className="mt-8 md:order-1 md:mt-0">
             <div className="flex items-center justify-center gap-2">
-                <Image src="/logo.svg" alt="Propagate8 Digital Logo" width={24} height={24} />
+                <Image src="/logo.svg" alt="Propagate Digital Logo" width={24} height={24} />
                 <p className="text-center text-sm text-secondary-foreground/80">
-                &copy; {new Date().getFullYear()} Propagate8 Digital. All rights reserved.
+                &copy; {new Date().getFullYear()} Propagate Digital. All rights reserved.
                 </p>
             </div>
           </div>

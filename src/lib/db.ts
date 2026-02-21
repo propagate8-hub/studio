@@ -1,12 +1,12 @@
 import Dexie, { type Table } from 'dexie';
 import type { Assessment, AssessmentLog } from './types';
 
-export class Propagate8LocalDB extends Dexie {
+export class PropagateDigitalLocalDB extends Dexie {
   assessments!: Table<Assessment>;
   assessment_logs!: Table<AssessmentLog>;
 
   constructor() {
-    super('Propagate8_Local');
+    super('PropagateDigital_Local');
     this.version(1).stores({
       assessments: 'assessment_id, title, type, is_offline_enabled',
       assessment_logs: '++log_id, user_id, assessment_id, sync_status',
@@ -14,4 +14,4 @@ export class Propagate8LocalDB extends Dexie {
   }
 }
 
-export const localDb = new Propagate8LocalDB();
+export const localDb = new PropagateDigitalLocalDB();
