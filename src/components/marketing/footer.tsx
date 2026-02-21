@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpenCheck } from "lucide-react";
+import Image from "next/image";
 
 export function MarketingFooter() {
   return (
@@ -19,7 +19,7 @@ export function MarketingFooter() {
               className="mx-2 text-sm text-secondary-foreground/80 hover:text-secondary-foreground"
               aria-label="Buy ACET"
             >
-              Buy ACET Test
+              Buy ACET
             </Link>
             <Link
               href="/portal/login"
@@ -31,9 +31,9 @@ export function MarketingFooter() {
           </div>
           <div className="mt-8 md:order-1 md:mt-0">
             <div className="flex items-center justify-center gap-2">
-                <BookOpenCheck className="h-6 w-6 text-primary" />
+                <Image src="/logo.svg" alt="Propagate8 Digital Logo" width={24} height={24} />
                 <p className="text-center text-sm text-secondary-foreground/80">
-                &copy; {new Date().getFullYear()} ACET Platform. All rights reserved.
+                &copy; {new Date().getFullYear()} Propagate8 Digital. All rights reserved.
                 </p>
             </div>
           </div>

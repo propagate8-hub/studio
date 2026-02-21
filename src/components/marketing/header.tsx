@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { BookOpenCheck, Menu, Mountain } from "lucide-react";
+import Image from "next/image";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
@@ -11,9 +12,9 @@ export function MarketingHeader() {
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <BookOpenCheck className="h-6 w-6 text-primary" />
-            <span className="font-bold font-headline sm:inline-block">
-              ACET Platform
+            <Image src="/logo.svg" alt="Propagate8 Digital Logo" width={32} height={32} />
+            <span className="font-bold font-headline sm:inline-block text-primary">
+              Propagate8 Digital
             </span>
           </Link>
           <nav className="hidden gap-6 text-sm md:flex">
@@ -51,8 +52,8 @@ export function MarketingHeader() {
             <SheetContent side="right" className="w-[300px] sm:w-[400px]">
               <nav className="flex flex-col gap-4">
                 <Link href="/" className="flex items-center space-x-2">
-                  <BookOpenCheck className="h-6 w-6 text-primary" />
-                  <span className="font-bold font-headline">ACET Platform</span>
+                  <Image src="/logo.svg" alt="Propagate8 Digital Logo" width={24} height={24} />
+                  <span className="font-bold font-headline">Propagate8 Digital</span>
                 </Link>
                 <Link
                   href="/"

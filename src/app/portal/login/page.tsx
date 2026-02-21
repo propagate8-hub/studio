@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -12,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { BookOpenCheck, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -77,10 +78,10 @@ export default function LoginPage() {
       <Card className="w-full max-w-md shadow-2xl">
         <CardHeader className="text-center">
           <Link href="/" className="inline-block mx-auto mb-4">
-             <BookOpenCheck className="h-10 w-10 text-primary" />
+             <Image src="/logo.svg" alt="Propagate8 Digital Logo" width={40} height={40} />
           </Link>
           <CardTitle className="text-3xl font-headline">Welcome Back</CardTitle>
-          <CardDescription>Sign in to access the ACET Portal</CardDescription>
+          <CardDescription>Sign in to access the Propagate8 Portal</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>

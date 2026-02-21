@@ -70,13 +70,13 @@ export default function ContactPage() {
                                 Let's Connect
                             </h1>
                             <p className="text-lg text-foreground/80">
-                                Have questions about how the ACET Platform can benefit your institution?
+                                Have questions about how Propagate Digital can benefit your institution?
                                 Fill out the form, and our team will get in touch to schedule a personalized demo.
                             </p>
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3">
                                     <Mail className="h-5 w-5 text-primary" />
-                                    <a href="mailto:sales@acet-platform.com" className="hover:underline">sales@acet-platform.com</a>
+                                    <a href="mailto:sales@propagate8.com" className="hover:underline">sales@propagate8.com</a>
                                 </div>
                                  <div className="flex items-center gap-3">
                                     <Building className="h-5 w-5 text-primary" />

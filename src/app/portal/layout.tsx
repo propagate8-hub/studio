@@ -4,7 +4,8 @@ import { UserNav } from "@/components/portal/user-nav";
 import { SyncManager } from "@/components/sync-manager";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { BookOpenCheck, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -20,8 +21,8 @@ export default function PortalLayout({
           <div className="flex h-full max-h-screen flex-col gap-2">
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
               <Link href="/" className="flex items-center gap-2 font-semibold text-sidebar-foreground">
-                <BookOpenCheck className="h-6 w-6 text-sidebar-primary" />
-                <span className="font-headline">ACET Portal</span>
+                <Image src="/logo.svg" alt="Propagate8 Digital Logo" width={32} height={32} />
+                <span className="font-headline">Propagate8 Portal</span>
               </Link>
             </div>
             <div className="flex-1">
@@ -45,8 +46,8 @@ export default function PortalLayout({
               <SheetContent side="left" className="flex flex-col bg-sidebar text-sidebar-foreground p-0">
                  <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                     <Link href="/" className="flex items-center gap-2 font-semibold text-sidebar-foreground">
-                        <BookOpenCheck className="h-6 w-6 text-sidebar-primary" />
-                        <span className="font-headline">ACET Portal</span>
+                        <Image src="/logo.svg" alt="Propagate8 Digital Logo" width={24} height={24} />
+                        <span className="font-headline">Propagate8 Portal</span>
                     </Link>
                 </div>
                 <SidebarNav />

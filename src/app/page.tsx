@@ -2,35 +2,31 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { CheckCircle, ShieldCheck, WifiOff, Users, PencilRuler } from "lucide-react";
+import { BookOpen, Fingerprint, Users, FileEdit, ShieldCheck, WifiOff } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { MarketingHeader } from "@/components/marketing/header";
 import { MarketingFooter } from "@/components/marketing/footer";
 
 const services = [
   {
-    icon: <CheckCircle className="h-8 w-8 text-primary" />,
+    icon: <BookOpen className="h-16 w-16 text-primary" />,
     title: "ACET Assessments",
     description: "Standardized, offline-first cognitive and academic testing for accurate student evaluation.",
-    image: PlaceHolderImages.find(img => img.id === 'service-acet'),
   },
   {
-    icon: <ShieldCheck className="h-8 w-8 text-primary" />,
+    icon: <Fingerprint className="h-16 w-16 text-primary" />,
     title: "Identity Management",
     description: "Secure and efficient student identification using biometrics and RFID, powered by AI.",
-    image: PlaceHolderImages.find(img => img.id === 'service-identity'),
   },
   {
-    icon: <Users className="h-8 w-8 text-primary" />,
-    title: "School Stakeholder Research (SSR)",
+    icon: <Users className="h-16 w-16 text-primary" />,
+    title: "School Growth Audit",
     description: "Gather 360-degree feedback from parents, students, and teachers with our dynamic survey tools.",
-    image: PlaceHolderImages.find(img => img.id === 'service-ssr'),
   },
   {
-    icon: <PencilRuler className="h-8 w-8 text-primary" />,
+    icon: <FileEdit className="h-16 w-16 text-primary" />,
     title: "Custom Assessments",
     description: "Tailor-made assessment solutions to meet your institution's unique requirements.",
-    image: PlaceHolderImages.find(img => img.id === 'service-custom'),
   },
 ];
 
@@ -56,17 +52,17 @@ export default function Home() {
           <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
             <div className="max-w-3xl mx-auto">
               <h1 className="text-4xl font-headline font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-primary">
-                Smarter Assessments, Brighter Futures
+                Tailored Data Driven Solutions for the Educational Sector.
               </h1>
               <p className="mt-6 text-lg text-foreground/80 md:text-xl">
-                The ACET Platform is a comprehensive EdTech solution for modern schools, offering offline testing, secure identity management, and insightful stakeholder feedback.
+                Propagate Digital is a comprehensive EdTech solution for modern schools, offering offline testing, secure identity management, and insightful stakeholder feedback.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
                 <Button asChild size="lg" className="font-bold">
                   <Link href="/contact">Request a Demo</Link>
                 </Button>
                 <Button asChild size="lg" variant="secondary" className="font-bold">
-                  <Link href="/buy-acet">Buy ACET for Individuals</Link>
+                  <Link href="/portal/login">Client Portal</Link>
                 </Button>
               </div>
             </div>
@@ -79,7 +75,7 @@ export default function Home() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                  <div className="inline-block rounded-lg bg-secondary px-3 py-1 text-sm font-semibold text-secondary-foreground">Key Features</div>
-                <h2 className="text-3xl font-headline font-bold tracking-tighter sm:text-5xl">Why Choose ACET?</h2>
+                <h2 className="text-3xl font-headline font-bold tracking-tighter sm:text-5xl">Why Choose Propagate Digital?</h2>
                 <p className="max-w-[900px] text-foreground/80 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   Our platform is built to address the core challenges of modern education with robust, reliable, and intelligent tools.
                 </p>
@@ -110,7 +106,7 @@ export default function Home() {
                         <Users className="h-8 w-8 text-primary"/>
                     </div>
                   <CardTitle className="font-headline mt-2">360° Feedback Loop</CardTitle>
-                  <CardDescription>Gain holistic insights into your school's climate and performance with our School Stakeholder Research (SSR) tools.</CardDescription>
+                  <CardDescription>Gain holistic insights into your school's climate and performance with our School Growth Audit tools.</CardDescription>
                 </CardHeader>
               </Card>
             </div>
@@ -128,24 +124,12 @@ export default function Home() {
             </div>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               {services.map((service) => (
-                <Card key={service.title} className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-                  {service.image && (
-                    <div className="relative h-48 w-full">
-                      <Image
-                        src={service.image.imageUrl}
-                        alt={service.image.description}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        data-ai-hint={service.image.imageHint}
-                      />
-                    </div>
-                  )}
-                  <CardHeader>
-                    <div className="flex items-center gap-4">
+                <Card key={service.title} className="overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl text-center">
+                  <CardHeader className="pt-8">
+                    <div className="flex justify-center mb-4">
                         {service.icon}
-                        <CardTitle className="font-headline">{service.title}</CardTitle>
                     </div>
+                    <CardTitle className="font-headline">{service.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <p className="text-foreground/80">{service.description}</p>
@@ -162,7 +146,7 @@ export default function Home() {
             <div className="max-w-2xl mx-auto">
                 <h2 className="text-3xl font-bold font-headline tracking-tighter sm:text-4xl md:text-5xl">Ready to Transform Your Institution?</h2>
                 <p className="mt-4 text-lg text-foreground/80 md:text-xl">
-                Join the growing number of schools leveraging ACET to drive academic excellence and operational efficiency.
+                Join the growing number of schools leveraging Propagate Digital to drive academic excellence and operational efficiency.
                 </p>
                 <div className="mt-8">
                 <Button asChild size="lg" className="font-bold">
