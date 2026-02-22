@@ -9,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, CheckCircle, Save } from "lucide-react";
+import { Loader2, CheckCircle, Save, Timer } from "lucide-react";
 import type { Assessment, AssessmentLog } from "@/lib/types";
 import { useAuth } from "@/components/providers/auth-provider";
 
@@ -28,6 +28,8 @@ const mockAssessment: Assessment = {
   ],
 };
 
+const TEST_DURATION_MINUTES = 90;
+
 export default function TestEnginePage() {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -36,6 +38,7 @@ export default function TestEnginePage() {
   const [answers, setAnswers] = useState<{ [key: string]: string }>({});
   const [isFinished, setIsFinished] = useState(false);
   const [score, setScore] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(TEST_DURATION_MINUTES * 60);
 
   // Attempt to load assessment from Dexie, fallback to mock and populate Dexie
   const localAssessment = useLiveQuery(() => localDb.assessments.get(mockAssessment.assessment_id), []);
@@ -45,13 +48,38 @@ export default function TestEnginePage() {
       if (localAssessment) {
         setAssessment(localAssessment);
       } else {
-        // If not in Dexie, populate it
+        // If not in Dexie, populate it for offline use
         await localDb.assessments.put(mockAssessment);
         setAssessment(mockAssessment);
       }
     }
     setupAssessment();
   }, [localAssessment]);
+
+  useEffect(() => {
+    if (!assessment || isFinished) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft(prevTime => {
+        if (prevTime <= 1) {
+          clearInterval(timer);
+          finishTest();
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [assessment, isFinished]);
+
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
 
   if (!assessment) {
     return <div className="flex justify-center items-center h-full"><Loader2 className="h-8 w-8 animate-spin" /> <span className="ml-2">Loading Assessment...</span></div>;
@@ -69,6 +97,9 @@ export default function TestEnginePage() {
   };
 
   const finishTest = async () => {
+    if (isFinished) return; // Prevent multiple submissions
+    setIsFinished(true);
+
     let finalScore = 0;
     assessment.questions?.forEach(q => {
       if (answers[q.id] === q.answer) {
@@ -76,14 +107,13 @@ export default function TestEnginePage() {
       }
     });
     setScore(finalScore);
-    setIsFinished(true);
-
+    
     if (!user) {
         toast({variant: "destructive", title: "Error", description: "You must be logged in to save results."})
         return;
     }
 
-    const newLog: Omit<AssessmentLog, 'log_id'> & { log_id?: string } = {
+    const newLog: AssessmentLog = {
         log_id: `log_${user.user_id}_${assessment.assessment_id}_${Date.now()}`,
         user_id: user.user_id,
         assessment_id: assessment.assessment_id,
@@ -94,7 +124,7 @@ export default function TestEnginePage() {
     };
     
     try {
-        await localDb.assessment_logs.add(newLog as AssessmentLog);
+        await localDb.assessment_logs.add(newLog);
         toast({
             title: "Test Finished!",
             description: "Your results have been saved locally. They will sync to the cloud when you're online.",
@@ -128,7 +158,13 @@ export default function TestEnginePage() {
   return (
     <Card className="max-w-3xl mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl font-headline">{assessment.title}</CardTitle>
+        <div className="flex justify-between items-center">
+            <CardTitle className="text-2xl font-headline">{assessment.title}</CardTitle>
+            <div className="flex items-center gap-2 text-lg font-semibold text-primary">
+                <Timer className="h-5 w-5"/>
+                <span>{formatTime(timeLeft)}</span>
+            </div>
+        </div>
         <CardDescription>Question {currentQuestionIndex + 1} of {assessment.questions?.length}</CardDescription>
         <Progress value={progress} className="mt-2" />
       </CardHeader>

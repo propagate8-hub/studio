@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { localDb } from "@/lib/db";
 import { db } from "@/lib/firebase";
-import { collection, doc, setDoc, writeBatch } from "firebase/firestore";
+import { doc, writeBatch } from "firebase/firestore";
 import { useToast } from "@/hooks/use-toast";
 import { Wifi, WifiOff, UploadCloud, Loader2 } from "lucide-react";
 
