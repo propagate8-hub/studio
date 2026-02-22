@@ -36,6 +36,24 @@ const formSchema = z.object({
   }),
 });
 
+const WhatsAppIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-5 w-5 text-primary"
+    viewBox="0 0 24 24"
+    strokeWidth="2"
+    stroke="currentColor"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+    <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+  </svg>
+);
+
+
 export default function ContactPage() {
     const { toast } = useToast();
 
@@ -81,6 +99,10 @@ export default function ContactPage() {
                                  <div className="flex items-center gap-3">
                                     <Building className="h-5 w-5 text-primary" />
                                     <span>23 Queen Street, Alagomeji, Yaba, Lagos</span>
+                                </div>
+                                <div className="flex items-center gap-3">
+                                    <WhatsAppIcon />
+                                    <a href="https://wa.me/2348036407558" target="_blank" rel="noopener noreferrer" className="hover:underline">08036407558</a>
                                 </div>
                             </div>
                         </div>
