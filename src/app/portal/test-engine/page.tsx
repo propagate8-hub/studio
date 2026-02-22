@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useLiveQuery } from "dexie-react-hooks";
 import { localDb } from "@/lib/db";
 import { Button } from "@/components/ui/button";
@@ -10,37 +10,44 @@ import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, CheckCircle, Save, Timer } from "lucide-react";
-import type { Assessment, AssessmentLog } from "@/lib/types";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import type { Assessment, AssessmentLog, Question } from "@/lib/types";
 import { useAuth } from "@/components/providers/auth-provider";
+import { mockAdaptiveQuestions } from "@/lib/mock-data";
 
-// Mock assessment data that would be fetched from Firestore and saved to Dexie
+
 const mockAssessment: Assessment = {
-  assessment_id: "acet-001",
-  title: "Aptitude and Career Exploration Test",
+  assessment_id: "acet-adaptive-001",
+  title: "Aptitude and Career Exploration Test (Adaptive)",
   type: "ACET",
   is_offline_enabled: true,
-  questions: [
-    { id: 'q1', text: 'If a train travels at 60 km/h, how far does it travel in 30 minutes?', options: ['30 km', '60 km', '15 km', '120 km'], answer: '30 km' },
-    { id: 'q2', text: 'Which of the following is a prime number?', options: ['4', '9', '17', '21'], answer: '17' },
-    { id: 'q3', text: 'What is the capital of Canada?', options: ['Toronto', 'Vancouver', 'Ottawa', 'Montreal'], answer: 'Ottawa' },
-    { id: 'q4', text: 'Solve for x: 2x + 5 = 15', options: ['5', '10', '2.5', '7.5'], answer: '5' },
-    { id: 'q5', text: 'The sun is a...', options: ['Planet', 'Star', 'Comet', 'Satellite'], answer: 'Star' },
-  ],
+  questions: mockAdaptiveQuestions,
 };
 
 const TEST_DURATION_MINUTES = 90;
+const APTITUDE_CATEGORIES: Question['aptitude_category'][] = ["Verbal", "Numerical", "Spatial", "Abstract"];
+const QUESTIONS_PER_CATEGORY = 5;
+const TOTAL_QUESTIONS = APTITUDE_CATEGORIES.length * QUESTIONS_PER_CATEGORY;
+const STARTING_DIFFICULTY = 3;
+const MIN_DIFFICULTY = 1;
+const MAX_DIFFICULTY = 5;
+
 
 export default function TestEnginePage() {
   const { user } = useAuth();
   const { toast } = useToast();
   const [assessment, setAssessment] = useState<Assessment | undefined>(undefined);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState<{ [key: string]: string }>({});
+  
+  const [categoryStates, setCategoryStates] = useState<Record<string, { difficulty: number; questionsAnswered: number; history: string[] }>>({});
+  const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
+  const [currentCategory, setCurrentCategory] = useState<Question['aptitude_category']>(APTITUDE_CATEGORIES[0]);
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  
   const [isFinished, setIsFinished] = useState(false);
-  const [score, setScore] = useState(0);
+  const [finalScores, setFinalScores] = useState<Record<string, number>>({});
   const [timeLeft, setTimeLeft] = useState(TEST_DURATION_MINUTES * 60);
 
-  // Attempt to load assessment from Dexie, fallback to mock and populate Dexie
   const localAssessment = useLiveQuery(() => localDb.assessments.get(mockAssessment.assessment_id), []);
 
   useEffect(() => {
@@ -48,17 +55,36 @@ export default function TestEnginePage() {
       if (localAssessment) {
         setAssessment(localAssessment);
       } else {
-        // If not in Dexie, populate it for offline use
         await localDb.assessments.put(mockAssessment);
         setAssessment(mockAssessment);
       }
+
+      // Initialize states for the adaptive test
+      const initialCategoryStates: typeof categoryStates = {};
+      for (const category of APTITUDE_CATEGORIES) {
+        initialCategoryStates[category] = {
+          difficulty: STARTING_DIFFICULTY,
+          questionsAnswered: 0,
+          history: [],
+        };
+      }
+      setCategoryStates(initialCategoryStates);
+      setQuestionNumber(1);
     }
     setupAssessment();
   }, [localAssessment]);
+  
+  useEffect(() => {
+    if (assessment && Object.keys(categoryStates).length > 0) {
+      const nextQuestion = findNextQuestion();
+      setCurrentQuestion(nextQuestion);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [assessment, categoryStates, currentCategory]);
+
 
   useEffect(() => {
     if (!assessment || isFinished) return;
-
     const timer = setInterval(() => {
       setTimeLeft(prevTime => {
         if (prevTime <= 1) {
@@ -69,62 +95,103 @@ export default function TestEnginePage() {
         return prevTime - 1;
       });
     }, 1000);
-
     return () => clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [assessment, isFinished]);
 
 
-  const formatTime = (seconds: number) => {
-    const m = Math.floor(seconds / 60);
-    const s = seconds % 60;
-    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  const findNextQuestion = () => {
+    if (!assessment?.questions || isFinished) return null;
+    
+    const state = categoryStates[currentCategory];
+    const { difficulty, history } = state;
+
+    const availableQuestions = assessment.questions.filter(q => 
+        q.aptitude_category === currentCategory &&
+        q.difficulty_level === difficulty &&
+        !history.includes(q.id)
+    );
+
+    if (availableQuestions.length > 0) {
+      return availableQuestions[0];
+    }
+    
+    // Fallback: if no question at current difficulty, try adjacent difficulties
+    for (let offset = 1; offset <= MAX_DIFFICULTY; offset++) {
+        const higherDifficulty = Math.min(MAX_DIFFICULTY, difficulty + offset);
+        const lowerDifficulty = Math.max(MIN_DIFFICULTY, difficulty - offset);
+
+        const higherQuestions = assessment.questions.filter(q => q.aptitude_category === currentCategory && q.difficulty_level === higherDifficulty && !history.includes(q.id));
+        if (higherQuestions.length > 0) return higherQuestions[0];
+
+        const lowerQuestions = assessment.questions.filter(q => q.aptitude_category === currentCategory && q.difficulty_level === lowerDifficulty && !history.includes(q.id));
+        if (lowerQuestions.length > 0) return lowerQuestions[0];
+    }
+
+    return null; // Should not happen with enough questions
   };
 
-  if (!assessment) {
-    return <div className="flex justify-center items-center h-full"><Loader2 className="h-8 w-8 animate-spin" /> <span className="ml-2">Loading Assessment...</span></div>;
-  }
-  
-  const currentQuestion = assessment.questions?.[currentQuestionIndex];
-  const progress = (currentQuestionIndex / (assessment.questions?.length || 1)) * 100;
-
   const handleNext = () => {
-    if (currentQuestionIndex < (assessment.questions?.length || 0) - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    if (!currentQuestion || selectedAnswer === null) return;
+    
+    const isCorrect = selectedAnswer === currentQuestion.answer;
+    
+    // Update category state
+    const currentState = categoryStates[currentCategory];
+    const newDifficulty = isCorrect
+      ? Math.min(MAX_DIFFICULTY, currentState.difficulty + 1)
+      : Math.max(MIN_DIFFICULTY, currentState.difficulty - 1);
+
+    const updatedState = {
+      ...currentState,
+      difficulty: newDifficulty,
+      questionsAnswered: currentState.questionsAnswered + 1,
+      history: [...currentState.history, currentQuestion.id],
+    };
+
+    const newCategoryStates = { ...categoryStates, [currentCategory]: updatedState };
+    setCategoryStates(newCategoryStates);
+    
+    if (questionNumber >= TOTAL_QUESTIONS) {
+        finishTest(newCategoryStates);
     } else {
-      finishTest();
+        // Move to the next category
+        const currentCategoryIndex = APTITUDE_CATEGORIES.indexOf(currentCategory);
+        const nextCategoryIndex = (currentCategoryIndex + 1) % APTITUDE_CATEGORIES.length;
+        setCurrentCategory(APTITUDE_CATEGORIES[nextCategoryIndex]);
+        setQuestionNumber(prev => prev + 1);
+        setSelectedAnswer(null);
     }
   };
 
-  const finishTest = async () => {
-    if (isFinished) return; // Prevent multiple submissions
+  const finishTest = async (finalStates?: typeof categoryStates) => {
+    if (isFinished) return;
     setIsFinished(true);
 
-    let finalScore = 0;
-    assessment.questions?.forEach(q => {
-      if (answers[q.id] === q.answer) {
-        finalScore++;
-      }
-    });
-    setScore(finalScore);
+    const statesToUse = finalStates || categoryStates;
+    const scores: Record<string, number> = {};
+    for (const category of APTITUDE_CATEGORIES) {
+      scores[category] = statesToUse[category].difficulty;
+    }
+    setFinalScores(scores);
     
     if (!user) {
         toast({variant: "destructive", title: "Error", description: "You must be logged in to save results."})
         return;
     }
 
-    const newLog: AssessmentLog = {
-        log_id: `log_${user.user_id}_${assessment.assessment_id}_${Date.now()}`,
+    const newLog: Omit<AssessmentLog, 'completedAt'> & { completedAt: Date } = {
+        log_id: `log_${user.user_id}_${assessment?.assessment_id}_${Date.now()}`,
         user_id: user.user_id,
-        assessment_id: assessment.assessment_id,
-        raw_score: finalScore,
+        assessment_id: assessment!.assessment_id,
+        scores: scores,
         sync_status: 'pending',
         payment_status: 'paid', // Assuming B2C flow
         completedAt: new Date(),
     };
     
     try {
-        await localDb.assessment_logs.add(newLog);
+        await localDb.assessment_logs.add(newLog as AssessmentLog);
         toast({
             title: "Test Finished!",
             description: "Your results have been saved locally. They will sync to the cloud when you're online.",
@@ -135,6 +202,18 @@ export default function TestEnginePage() {
     }
   };
 
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  };
+
+  const progress = (questionNumber / TOTAL_QUESTIONS) * 100;
+
+  if (!assessment || !currentQuestion) {
+    return <div className="flex justify-center items-center h-full"><Loader2 className="h-8 w-8 animate-spin" /> <span className="ml-2">Loading Adaptive Assessment...</span></div>;
+  }
+
   if (isFinished) {
     return (
         <Card className="max-w-2xl mx-auto">
@@ -144,9 +223,24 @@ export default function TestEnginePage() {
                 <CardDescription>You have successfully completed the {assessment.title}.</CardDescription>
             </CardHeader>
             <CardContent className="text-center">
-                <p className="text-lg">Your Score:</p>
-                <p className="text-5xl font-bold font-headline text-primary">{score} / {assessment.questions?.length}</p>
-                <p className="text-muted-foreground mt-4">Your results are saved and will be synced.</p>
+                <p className="text-lg font-semibold">Your Final Aptitude Levels:</p>
+                <Table className="mt-4">
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[50%]">Aptitude Category</TableHead>
+                      <TableHead className="text-right">Stabilized Level</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {Object.entries(finalScores).map(([category, score]) => (
+                      <TableRow key={category}>
+                        <TableCell className="font-medium">{category}</TableCell>
+                        <TableCell className="text-right font-bold text-primary">{score} / {MAX_DIFFICULTY}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+                <p className="text-muted-foreground mt-4">Your detailed report will be generated and made available in your dashboard after results are synced.</p>
                 <Button asChild className="mt-6">
                     <a href="/portal/b2c/dashboard">Back to Dashboard</a>
                 </Button>
@@ -165,15 +259,15 @@ export default function TestEnginePage() {
                 <span>{formatTime(timeLeft)}</span>
             </div>
         </div>
-        <CardDescription>Question {currentQuestionIndex + 1} of {assessment.questions?.length}</CardDescription>
+        <CardDescription>Question {questionNumber} of {TOTAL_QUESTIONS} | Category: <span className="font-semibold text-primary">{currentCategory}</span></CardDescription>
         <Progress value={progress} className="mt-2" />
       </CardHeader>
       <CardContent>
         <div className="py-8">
           <h3 className="text-lg font-semibold">{currentQuestion.text}</h3>
           <RadioGroup 
-            value={answers[currentQuestion.id]}
-            onValueChange={(value) => setAnswers({...answers, [currentQuestion.id]: value})}
+            value={selectedAnswer || ""}
+            onValueChange={setSelectedAnswer}
             className="mt-6 space-y-4"
           >
             {currentQuestion.options.map((option: string) => (
@@ -185,8 +279,8 @@ export default function TestEnginePage() {
           </RadioGroup>
         </div>
         <div className="flex justify-end">
-            <Button onClick={handleNext} disabled={!answers[currentQuestion.id]}>
-                {currentQuestionIndex === (assessment.questions?.length || 0) - 1 ? (
+            <Button onClick={handleNext} disabled={selectedAnswer === null}>
+                {questionNumber === TOTAL_QUESTIONS ? (
                     <>
                     <Save className="mr-2 h-4 w-4" /> Finish & Save
                     </>

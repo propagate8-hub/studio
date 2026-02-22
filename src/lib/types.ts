@@ -24,19 +24,28 @@ export interface IdentityRecord {
   status: 'active' | 'inactive' | 'pending';
 }
 
+export interface Question {
+    id: string;
+    text: string;
+    options: string[];
+    answer: string;
+    aptitude_category: 'Verbal' | 'Numerical' | 'Spatial' | 'Abstract';
+    difficulty_level: number; // 1 to 5
+}
+
 export interface Assessment {
   assessment_id: string;
   title: string;
   type: 'ACET' | 'Academic';
   is_offline_enabled: boolean;
-  questions?: any[]; // Could be a more specific type
+  questions?: Question[];
 }
 
 export interface AssessmentLog {
   log_id: string;
   user_id: string;
   assessment_id: string;
-  raw_score: number;
+  scores: Record<string, number>;
   sync_status: 'pending' | 'synced';
   payment_status: 'paid' | 'n/a';
   completedAt: Date;
