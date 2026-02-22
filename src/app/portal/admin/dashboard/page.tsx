@@ -7,8 +7,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { File, ListFilter, PlusCircle, Users, BarChart3, ShieldCheck } from "lucide-react";
+import { File, ListFilter, PlusCircle, Users, BarChart3, ShieldCheck, Users2 } from "lucide-react";
 import { IdentityMatcher } from "@/components/portal/admin/identity-matcher";
+import { BulkUserUpload } from "@/components/portal/admin/bulk-user-upload";
 
 export default function AdminDashboard() {
   return (
@@ -26,6 +27,10 @@ export default function AdminDashboard() {
             <TabsTrigger value="identity">
               <ShieldCheck className="mr-2 h-4 w-4"/>
               AI Identity Matcher
+            </TabsTrigger>
+            <TabsTrigger value="bulk-upload">
+              <Users2 className="mr-2 h-4 w-4" />
+              Bulk User Upload
             </TabsTrigger>
           </TabsList>
           <div className="ml-auto flex items-center gap-2">
@@ -123,6 +128,9 @@ export default function AdminDashboard() {
         </TabsContent>
         <TabsContent value="identity">
             <IdentityMatcher />
+        </TabsContent>
+        <TabsContent value="bulk-upload">
+            <BulkUserUpload />
         </TabsContent>
       </Tabs>
     </>

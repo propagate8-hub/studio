@@ -35,13 +35,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (fbUser) {
         // In a real app, you would fetch the user profile from Firestore
         // to get their role and other app-specific data.
+        const userRole = fbUser.email?.includes('admin') ? 'Admin' : fbUser.email?.includes('b2c') ? 'B2C' : 'Student';
         const mockUser: AppUser = {
           user_id: fbUser.uid,
           email: fbUser.email!,
-          // This is a mock role. You should fetch this from your 'Users' collection in Firestore.
-          role: fbUser.email?.includes('admin') ? 'Admin' : fbUser.email?.includes('b2c') ? 'B2C' : 'Student', 
+          role: userRole,
           displayName: fbUser.displayName,
           photoURL: fbUser.photoURL,
+          ...(userRole === 'Admin' && { school_id: 'sch_123' }) // Add mock school_id for admin
         };
         setUser(mockUser);
       } else {

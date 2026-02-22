@@ -69,3 +69,15 @@ export interface Transaction {
   gateway_reference: string;
   date: Date;
 }
+
+export interface UploadTask {
+    task_id: string;
+    school_id: string;
+    fileName: string;
+    status: 'pending' | 'processing' | 'completed' | 'error';
+    progress: number;
+    error?: string;
+    createdAt: Date;
+    completedAt?: Date;
+    userId: string;
+}
