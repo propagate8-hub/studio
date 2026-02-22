@@ -76,11 +76,11 @@ export default function ContactPage() {
                             <div className="space-y-4">
                                 <div className="flex items-center gap-3">
                                     <Mail className="h-5 w-5 text-primary" />
-                                    <a href="mailto:sales@propagate8.com" className="hover:underline">sales@propagate8.com</a>
+                                    <a href="mailto:sales@propagate8digital.com" className="hover:underline">sales@propagate8digital.com</a>
                                 </div>
                                  <div className="flex items-center gap-3">
                                     <Building className="h-5 w-5 text-primary" />
-                                    <span>123 Education Lane, Knowledge City, 45678</span>
+                                    <span>23 Queen Street, Alagomeji, Yaba, Lagos</span>
                                 </div>
                             </div>
                         </div>
