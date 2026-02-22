@@ -10,8 +10,8 @@ import { MarketingFooter } from "@/components/marketing/footer";
 const services = [
   {
     icon: <BookOpen className="h-16 w-16 text-primary" />,
-    title: "ACET Assessments",
-    description: "Standardized, offline-first cognitive and academic testing for accurate student evaluation.",
+    title: "Aptitude and Career Exploration Test (ACET)",
+    description: "Standardized, offline-first aptitude and career exploration testing for accurate student evaluation.",
   },
   {
     icon: <Fingerprint className="h-16 w-16 text-primary" />,

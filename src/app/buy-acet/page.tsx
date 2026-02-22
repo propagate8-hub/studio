@@ -55,9 +55,9 @@ export default function BuyAcetPage() {
                         <Card className="shadow-2xl">
                             <CardHeader className="text-center space-y-4 pt-10">
                                 {acetImage && <Image src={acetImage.imageUrl} alt="ACET Test" width={120} height={80} className="mx-auto rounded-lg" data-ai-hint={acetImage.imageHint}/>}
-                                <CardTitle className="font-headline text-3xl md:text-4xl text-primary">Unlock Your Potential with ACET</CardTitle>
+                                <CardTitle className="font-headline text-3xl md:text-4xl text-primary">Unlock Your Potential with the Aptitude and Career Exploration Test</CardTitle>
                                 <p className="text-muted-foreground text-lg">
-                                    Purchase your personal Academic & Cognitive Evaluation Test (ACET) and gain valuable insights into your abilities.
+                                    Purchase your personal Aptitude and Career Exploration Test (ACET) and gain valuable insights into your abilities.
                                 </p>
                             </CardHeader>
                             <CardContent className="mt-6">

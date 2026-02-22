@@ -16,7 +16,7 @@ import { useAuth } from "@/components/providers/auth-provider";
 // Mock assessment data that would be fetched from Firestore and saved to Dexie
 const mockAssessment: Assessment = {
   assessment_id: "acet-001",
-  title: "Academic & Cognitive Evaluation Test",
+  title: "Aptitude and Career Exploration Test",
   type: "ACET",
   is_offline_enabled: true,
   questions: [

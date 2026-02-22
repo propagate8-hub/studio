@@ -8,7 +8,7 @@ export default function B2CDashboard() {
   const purchasedTests = [
     {
       id: "acet-001",
-      title: "Academic & Cognitive Evaluation Test (ACET)",
+      title: "Aptitude and Career Exploration Test (ACET)",
       status: "Not Started",
     },
   ];
