@@ -1,7 +1,16 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 export function MarketingFooter() {
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   return (
     <footer className="bg-secondary/10 border-t">
       <div className="container mx-auto px-6 py-12">
@@ -32,14 +41,14 @@ export function MarketingFooter() {
           <div className="mt-8 md:order-1 md:mt-0">
             <div className="flex flex-col items-center md:items-start gap-4">
                 <Image 
-                  src="/logo.png" 
+                  src="/logo.svg" 
                   alt="Propagate Digital Logo" 
                   width={150} 
                   height={40} 
                   className="h-8 w-auto object-contain grayscale hover:grayscale-0 transition-all" 
                 />
                 <p className="text-center md:text-left text-sm text-muted-foreground">
-                &copy; {new Date().getFullYear()} Propagate Digital. All rights reserved.
+                &copy; {year || "..."} Propagate Digital. All rights reserved.
                 </p>
             </div>
           </div>
