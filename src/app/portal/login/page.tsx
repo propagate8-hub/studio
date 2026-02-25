@@ -79,7 +79,7 @@ export default function LoginPage() {
         <CardHeader className="text-center">
           <Link href="/" className="inline-block mx-auto mb-6">
              <Image 
-                src="/logo.png" 
+                src="/logo.svg" 
                 alt="Propagate Digital Logo" 
                 width={200} 
                 height={50} 

@@ -34,7 +34,7 @@ export default function BuyAcetPage() {
         console.log("Payment Successful. Reference: ", reference);
         toast({
             title: "Payment Successful!",
-            description: "Your ACET test has been unlocked. You can now proceed to your dashboard.",
+            description: "Your Aptitude and Career Exploration Test (ACET) has been unlocked. You can now proceed to your dashboard.",
         });
         // Redirect to B2C dashboard
         // window.location.href = '/portal/b2c/dashboard';

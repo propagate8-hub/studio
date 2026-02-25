@@ -1,6 +1,13 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M16 0L32 9.33333V22.6667L16 32L0 22.6667V9.33333L16 0Z" fill="#004AAD"/>
-<path d="M16 4.66663L6.66667 10.1111V21.8889L16 27.3333L25.3333 21.8889V10.1111L16 4.66663Z" stroke="#FAFAFA" stroke-width="2"/>
-<path d="M2.66666 9.77777L16 17.5555L29.3333 9.77777" stroke="#FAFAFA" stroke-width="2"/>
-<path d="M16 30.6667V17.5555" stroke="#FAFAFA" stroke-width="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100">
+  <defs>
+    <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#004AAD;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#38BDF8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="100" fill="transparent"/>
+  <circle cx="45" cy="50" r="35" fill="url(#logoGrad)" />
+  <path d="M35 40 L55 40 L45 65 Z" fill="white" />
+  <text x="95" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="700" fill="#004AAD">Propagate</text>
+  <text x="305" y="65" font-family="system-ui, -apple-system, sans-serif" font-size="42" font-weight="400" fill="#38BDF8">Digital</text>
 </svg>

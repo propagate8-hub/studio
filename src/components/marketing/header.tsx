@@ -22,8 +22,8 @@ export function MarketingHeader() {
             <Image 
               src="/logo.svg" 
               alt="Propagate Digital Logo" 
-              width={400} 
-              height={100} 
+              width={200} 
+              height={50} 
               className="h-10 w-auto object-contain" 
               priority
             />

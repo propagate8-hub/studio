@@ -22,11 +22,11 @@ export default function PortalLayout({
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
               <Link href="/" className="flex items-center">
                 <Image 
-                  src="/logo.png" 
+                  src="/logo.svg" 
                   alt="Propagate Digital Logo" 
                   width={200} 
                   height={50} 
-                  className="h-8 w-auto object-contain" 
+                  className="h-8 w-auto object-contain brightness-0 invert" 
                 />
               </Link>
             </div>
@@ -52,11 +52,11 @@ export default function PortalLayout({
                  <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                     <Link href="/" className="flex items-center">
                         <Image 
-                          src="/logo.png" 
+                          src="/logo.svg" 
                           alt="Propagate Digital Logo" 
                           width={150} 
                           height={40} 
-                          className="h-6 w-auto object-contain" 
+                          className="h-6 w-auto object-contain brightness-0 invert" 
                         />
                     </Link>
                 </div>
