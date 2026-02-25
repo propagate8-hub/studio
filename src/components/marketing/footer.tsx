@@ -41,11 +41,11 @@ export function MarketingFooter() {
           <div className="mt-8 md:order-1 md:mt-0">
             <div className="flex flex-col items-center md:items-start gap-4">
                 <Image 
-                  src="/logo.svg" 
+                  src="/Propagate8 Logo 400 x 100 px.png" 
                   alt="Propagate Digital Logo" 
-                  width={150} 
-                  height={40} 
-                  className="h-8 w-auto object-contain grayscale hover:grayscale-0 transition-all" 
+                  width={200} 
+                  height={50} 
+                  className="h-8 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity" 
                 />
                 <p className="text-center md:text-left text-sm text-muted-foreground">
                 &copy; {year || "..."} Propagate Digital. All rights reserved.

@@ -79,11 +79,11 @@ export default function LoginPage() {
         <CardHeader className="text-center">
           <Link href="/" className="inline-block mx-auto mb-6">
              <Image 
-                src="/logo.svg" 
+                src="/Propagate8 Logo 400 x 100 px.png" 
                 alt="Propagate Digital Logo" 
-                width={200} 
-                height={50} 
-                className="h-12 w-auto object-contain" 
+                width={400} 
+                height={100} 
+                className="h-14 w-auto object-contain" 
               />
           </Link>
           <CardTitle className="text-2xl font-headline">Portal Access</CardTitle>

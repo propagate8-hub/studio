@@ -20,10 +20,10 @@ export function MarketingHeader() {
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center">
             <Image 
-              src="/logo.svg" 
+              src="/Propagate8 Logo 400 x 100 px.png" 
               alt="Propagate Digital Logo" 
-              width={200} 
-              height={50} 
+              width={400} 
+              height={100} 
               className="h-10 w-auto object-contain" 
               priority
             />
@@ -65,11 +65,11 @@ export function MarketingHeader() {
                 <nav className="flex flex-col gap-4 mt-8">
                   <Link href="/" className="flex items-center mb-4">
                     <Image 
-                      src="/logo.svg" 
+                      src="/Propagate8 Logo 400 x 100 px.png" 
                       alt="Propagate Digital Logo" 
-                      width={200} 
-                      height={50} 
-                      className="h-8 w-auto object-contain" 
+                      width={400} 
+                      height={100} 
+                      className="h-10 w-auto object-contain" 
                     />
                   </Link>
                   <Link
