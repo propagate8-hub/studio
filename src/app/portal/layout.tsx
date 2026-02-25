@@ -20,12 +20,17 @@ export default function PortalLayout({
         <div className="hidden border-r bg-sidebar md:block">
           <div className="flex h-full max-h-screen flex-col gap-2">
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-              <Link href="/" className="flex items-center gap-2 font-semibold text-sidebar-foreground">
-                <Image src="/logo.svg" alt="Propagate Digital Logo" width={32} height={32} />
-                <span className="font-headline">Propagate Digital Portal</span>
+              <Link href="/" className="flex items-center">
+                <Image 
+                  src="/logo.png" 
+                  alt="Propagate Digital Logo" 
+                  width={200} 
+                  height={50} 
+                  className="h-8 w-auto object-contain" 
+                />
               </Link>
             </div>
-            <div className="flex-1">
+            <div className="flex-1 overflow-y-auto">
               <SidebarNav />
             </div>
           </div>
@@ -45,16 +50,22 @@ export default function PortalLayout({
               </SheetTrigger>
               <SheetContent side="left" className="flex flex-col bg-sidebar text-sidebar-foreground p-0">
                  <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-                    <Link href="/" className="flex items-center gap-2 font-semibold text-sidebar-foreground">
-                        <Image src="/logo.svg" alt="Propagate Digital Logo" width={24} height={24} />
-                        <span className="font-headline">Propagate Digital Portal</span>
+                    <Link href="/" className="flex items-center">
+                        <Image 
+                          src="/logo.png" 
+                          alt="Propagate Digital Logo" 
+                          width={150} 
+                          height={40} 
+                          className="h-6 w-auto object-contain" 
+                        />
                     </Link>
                 </div>
-                <SidebarNav />
+                <div className="flex-1 overflow-y-auto pt-4">
+                  <SidebarNav />
+                </div>
               </SheetContent>
             </Sheet>
             <div className="w-full flex-1">
-              {/* Optional: Add search bar or other header content here */}
             </div>
             <UserNav />
           </header>

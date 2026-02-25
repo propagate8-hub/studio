@@ -43,7 +43,7 @@ export default function LoginPage() {
     try {
       await signInWithEmailAndPassword(auth, values.email, values.password);
       toast({ title: "Login Successful", description: "Redirecting to your dashboard..." });
-      router.push("/portal/admin/dashboard"); // Redirect to a default dashboard
+      router.push("/portal/admin/dashboard");
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -74,14 +74,20 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4 bg-secondary">
+    <div className="flex min-h-screen items-center justify-center p-4 bg-secondary/20">
       <Card className="w-full max-w-md shadow-2xl">
         <CardHeader className="text-center">
-          <Link href="/" className="inline-block mx-auto mb-4">
-             <Image src="/logo.svg" alt="Propagate Digital Logo" width={40} height={40} />
+          <Link href="/" className="inline-block mx-auto mb-6">
+             <Image 
+                src="/logo.png" 
+                alt="Propagate Digital Logo" 
+                width={200} 
+                height={50} 
+                className="h-12 w-auto object-contain" 
+              />
           </Link>
-          <CardTitle className="text-3xl font-headline">Welcome Back</CardTitle>
-          <CardDescription>Sign in to access the Propagate Digital Portal</CardDescription>
+          <CardTitle className="text-2xl font-headline">Portal Access</CardTitle>
+          <CardDescription>Sign in to manage your institution</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -112,7 +118,7 @@ export default function LoginPage() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button type="submit" className="w-full font-bold" disabled={loading}>
                 {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Sign In
               </Button>
@@ -136,7 +142,7 @@ export default function LoginPage() {
           </Button>
 
            <p className="mt-6 text-center text-sm">
-                <Link href="/" className="underline hover:text-primary">
+                <Link href="/" className="underline hover:text-primary transition-colors">
                 &larr; Back to main site
                 </Link>
             </p>
