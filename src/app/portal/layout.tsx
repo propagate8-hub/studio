@@ -20,13 +20,13 @@ export default function PortalLayout({
         <div className="hidden border-r bg-sidebar md:block">
           <div className="flex h-full max-h-screen flex-col gap-2">
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-              <Link href="/" className="flex items-center">
+              <Link href="/" className="flex items-center px-4">
                 <Image 
                   src="/logo.png" 
                   alt="Propagate Digital Logo" 
-                  width={200} 
-                  height={50} 
-                  className="h-8 w-auto object-contain brightness-0 invert" 
+                  width={400} 
+                  height={100} 
+                  className="h-10 w-auto object-contain brightness-0 invert" 
                 />
               </Link>
             </div>
@@ -50,13 +50,13 @@ export default function PortalLayout({
               </SheetTrigger>
               <SheetContent side="left" className="flex flex-col bg-sidebar text-sidebar-foreground p-0">
                  <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-                    <Link href="/" className="flex items-center">
+                    <Link href="/" className="flex items-center px-4">
                         <Image 
                           src="/logo.png" 
                           alt="Propagate Digital Logo" 
-                          width={150} 
-                          height={40} 
-                          className="h-6 w-auto object-contain brightness-0 invert" 
+                          width={400} 
+                          height={100} 
+                          className="h-10 w-auto object-contain brightness-0 invert" 
                         />
                     </Link>
                 </div>
