@@ -7,8 +7,6 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
-const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-8583003732-8c0f2.firebasestorage.app/o/Propagate8%20Logo%20400%20x%20100%20px.png?alt=media";
-
 export function MarketingHeader() {
   const [mounted, setMounted] = useState(false);
 
@@ -22,7 +20,7 @@ export function MarketingHeader() {
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center">
             <Image 
-              src={LOGO_URL}
+              src="/logo.png"
               alt="Propagate Digital Logo" 
               width={400} 
               height={100} 
@@ -67,7 +65,7 @@ export function MarketingHeader() {
                 <nav className="flex flex-col gap-4 mt-8">
                   <Link href="/" className="flex items-center mb-4">
                     <Image 
-                      src={LOGO_URL}
+                      src="/logo.png"
                       alt="Propagate Digital Logo" 
                       width={400} 
                       height={100} 

@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-8583003732-8c0f2.firebasestorage.app/o/Propagate8%20Logo%20400%20x%20100%20px.png?alt=media";
-
 export function MarketingFooter() {
   const [year, setYear] = useState<number | null>(null);
 
@@ -43,7 +41,7 @@ export function MarketingFooter() {
           <div className="mt-8 md:order-1 md:mt-0">
             <div className="flex flex-col items-center md:items-start gap-4">
                 <Image 
-                  src={LOGO_URL} 
+                  src="/logo.png" 
                   alt="Propagate Digital Logo" 
                   width={200} 
                   height={50} 

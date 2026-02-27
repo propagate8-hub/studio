@@ -9,8 +9,6 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-8583003732-8c0f2.firebasestorage.app/o/Propagate8%20Logo%20400%20x%20100%20px.png?alt=media";
-
 export default function PortalLayout({
   children,
 }: {
@@ -24,7 +22,7 @@ export default function PortalLayout({
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
               <Link href="/" className="flex items-center px-4">
                 <Image 
-                  src={LOGO_URL} 
+                  src="/logo.png" 
                   alt="Propagate Digital Logo" 
                   width={400} 
                   height={100} 
@@ -54,7 +52,7 @@ export default function PortalLayout({
                  <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                     <Link href="/" className="flex items-center px-4">
                         <Image 
-                          src={LOGO_URL} 
+                          src="/logo.png" 
                           alt="Propagate Digital Logo" 
                           width={400} 
                           height={100} 
