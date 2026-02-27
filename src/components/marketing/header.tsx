@@ -24,7 +24,7 @@ export function MarketingHeader() {
               alt="Propagate Digital Logo" 
               width={400} 
               height={100} 
-              className="h-10 w-auto object-contain" 
+              className="h-10 w-auto object-contain mix-blend-multiply" 
               priority
             />
           </Link>
@@ -69,7 +69,7 @@ export function MarketingHeader() {
                       alt="Propagate Digital Logo" 
                       width={400} 
                       height={100} 
-                      className="h-10 w-auto object-contain" 
+                      className="h-10 w-auto object-contain mix-blend-multiply" 
                     />
                   </Link>
                   <Link

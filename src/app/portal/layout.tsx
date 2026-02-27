@@ -26,7 +26,7 @@ export default function PortalLayout({
                   alt="Propagate Digital Logo" 
                   width={400} 
                   height={100} 
-                  className="h-10 w-auto object-contain brightness-0 invert" 
+                  className="h-10 w-auto object-contain mix-blend-multiply" 
                 />
               </Link>
             </div>
@@ -56,7 +56,7 @@ export default function PortalLayout({
                           alt="Propagate Digital Logo" 
                           width={400} 
                           height={100} 
-                          className="h-10 w-auto object-contain brightness-0 invert" 
+                          className="h-10 w-auto object-contain mix-blend-multiply" 
                         />
                     </Link>
                 </div>

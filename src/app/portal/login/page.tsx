@@ -83,7 +83,7 @@ export default function LoginPage() {
                 alt="Propagate Digital Logo" 
                 width={400} 
                 height={100} 
-                className="h-14 w-auto object-contain" 
+                className="h-10 w-auto object-contain mix-blend-multiply" 
               />
           </Link>
           <CardTitle className="text-2xl font-headline">Portal Access</CardTitle>
