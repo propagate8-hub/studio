@@ -4,17 +4,13 @@ const path = require('path');
 
 /**
  * SEED SCRIPT FOR ACET QUESTIONS
- * 
- * To run this script:
- * 1. Download your service account key JSON from the Firebase Console (Settings > Service Accounts).
- * 2. Save it locally (e.g., as service-account.json) but DO NOT commit it to version control.
- * 3. Set the environment variable: export GOOGLE_APPLICATION_CREDENTIALS="path/to/service-account.json"
- * 4. Run: npm run db:seed
  */
 
-// Initialize Firebase Admin
-// If running locally with GOOGLE_APPLICATION_CREDENTIALS, initializeApp() will work automatically.
+// Initialize Firebase Admin using the service account key in the root directory
+const serviceAccount = require('../serviceAccountKey.json');
+
 admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
   projectId: 'studio-8583003732-8c0f2'
 });
 
