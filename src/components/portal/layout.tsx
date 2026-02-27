@@ -9,6 +9,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-8583003732-8c0f2.firebasestorage.app/o/Propagate8%20Logo%20400%20x%20100%20px.png?alt=media";
+
 export default function PortalLayout({
   children,
 }: {
@@ -20,13 +22,13 @@ export default function PortalLayout({
         <div className="hidden border-r bg-sidebar md:block">
           <div className="flex h-full max-h-screen flex-col gap-2">
             <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
-              <Link href="/" className="flex items-center">
+              <Link href="/" className="flex items-center px-4">
                 <Image 
-                  src="/Propagate8 Logo 400 x 100 px.png" 
+                  src={LOGO_URL} 
                   alt="Propagate Digital Logo" 
                   width={400} 
                   height={100} 
-                  className="h-10 w-auto object-contain" 
+                  className="h-10 w-auto object-contain brightness-0 invert" 
                 />
               </Link>
             </div>
@@ -52,11 +54,11 @@ export default function PortalLayout({
                  <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
                     <Link href="/" className="flex items-center px-4">
                         <Image 
-                          src="/Propagate8 Logo 400 x 100 px.png" 
+                          src={LOGO_URL} 
                           alt="Propagate Digital Logo" 
                           width={400} 
                           height={100} 
-                          className="h-8 w-auto object-contain" 
+                          className="h-8 w-auto object-contain brightness-0 invert" 
                         />
                     </Link>
                 </div>

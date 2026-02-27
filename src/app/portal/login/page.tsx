@@ -15,6 +15,8 @@ import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Loader2 } from "lucide-react";
 
+const LOGO_URL = "https://firebasestorage.googleapis.com/v0/b/studio-8583003732-8c0f2.firebasestorage.app/o/Propagate8%20Logo%20400%20x%20100%20px.png?alt=media";
+
 const formSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
   password: z.string().min(6, { message: "Password must be at least 6 characters." }),
@@ -79,7 +81,7 @@ export default function LoginPage() {
         <CardHeader className="text-center">
           <Link href="/" className="inline-block mx-auto mb-6">
              <Image 
-                src="/Propagate8 Logo 400 x 100 px.png" 
+                src={LOGO_URL} 
                 alt="Propagate Digital Logo" 
                 width={400} 
                 height={100} 
