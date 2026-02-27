@@ -1,0 +1,272 @@
+[
+  {
+    "question_id": "INT_REA_001",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Realistic",
+    "text": "I would enjoy fixing broken electronics at home, like a spoilt rechargeable fan, radio, or extension board.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Realistic"
+  },
+  {
+    "question_id": "INT_REA_002",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Realistic",
+    "text": "I like working with my hands in the Basic Technology workshop to build or repair wooden and metal objects.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Realistic"
+  },
+  {
+    "question_id": "INT_REA_003",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Realistic",
+    "text": "I would love to learn how to operate, service, and repair big machines, like a car engine or the school's standby generator.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Realistic"
+  },
+  {
+    "question_id": "INT_REA_004",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Realistic",
+    "text": "I enjoy doing physical outdoor work, like planting crops, making ridges, or taking care of animals for Agricultural Science practicals.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Realistic"
+  },
+  {
+    "question_id": "INT_REA_005",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Realistic",
+    "text": "I find it very interesting to dismantle mechanical things, like a bicycle chain or a padlock, just to see how the parts work together.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Realistic"
+  },
+  {
+    "question_id": "INT_INV_001",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Investigative",
+    "text": "I would love to conduct chemical experiments in the school laboratory using test tubes, beakers, and microscopes.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Investigative"
+  },
+  {
+    "question_id": "INT_INV_002",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Investigative",
+    "text": "I enjoy spending my free time researching and reading about how the human body works, or how certain diseases are cured.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Investigative"
+  },
+  {
+    "question_id": "INT_INV_003",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Investigative",
+    "text": "I find it fun to solve complex Mathematics or logical puzzles, even when they are not part of my homework.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Investigative"
+  },
+  {
+    "question_id": "INT_INV_004",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Investigative",
+    "text": "I enjoy watching documentaries or reading articles about outer space, planets, and new technological inventions.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Investigative"
+  },
+  {
+    "question_id": "INT_INV_005",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Investigative",
+    "text": "I like figuring out the hidden scientific causes of natural events, like why earthquakes happen or how weather patterns change.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Investigative"
+  },
+  {
+    "question_id": "INT_ART_001",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Artistic",
+    "text": "I love drawing, painting, or creating beautiful physical artworks during my Fine Arts classes.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Artistic"
+  },
+  {
+    "question_id": "INT_ART_002",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Artistic",
+    "text": "I enjoy writing my own original stories, poems, or interesting articles for the school press club or magazine.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Artistic"
+  },
+  {
+    "question_id": "INT_ART_003",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Artistic",
+    "text": "I would love to act in school stage dramas, participate in cultural dances, or sing and perform in the school choir.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Artistic"
+  },
+  {
+    "question_id": "INT_ART_004",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Artistic",
+    "text": "I find it very exciting to design creative posters, logos, or digital graphics on a computer or smartphone.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Artistic"
+  },
+  {
+    "question_id": "INT_ART_005",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Artistic",
+    "text": "I prefer to express my personal feelings and ideas through creative fashion, music, or photography rather than just talking.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Artistic"
+  },
+  {
+    "question_id": "INT_SOC_001",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Social",
+    "text": "I feel very happy when I am teaching or explaining difficult school subjects to my classmates who are struggling to understand.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Social"
+  },
+  {
+    "question_id": "INT_SOC_002",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Social",
+    "text": "I am always willing to listen to my friends' personal problems and give them good advice to help them feel better.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Social"
+  },
+  {
+    "question_id": "INT_SOC_003",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Social",
+    "text": "I would love to work as a volunteer helping sick people in a local clinic or taking care of young children in a primary school.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Social"
+  },
+  {
+    "question_id": "INT_SOC_004",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Social",
+    "text": "I enjoy organizing community service activities, like a school compound cleanup or organizing a visit to an orphanage.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Social"
+  },
+  {
+    "question_id": "INT_SOC_005",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Social",
+    "text": "I like roles where my main job is to ensure the wellbeing, harmony, and happiness of other people around me.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Social"
+  },
+  {
+    "question_id": "INT_ENT_001",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Enterprising",
+    "text": "I would enjoy being the president of a school club, like the JETS club or Debate society, and making the important decisions.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Enterprising"
+  },
+  {
+    "question_id": "INT_ENT_002",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Enterprising",
+    "text": "I love coming up with new business ideas, like buying and selling small items, snacks, or crafts to make a personal profit.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Enterprising"
+  },
+  {
+    "question_id": "INT_ENT_003",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Enterprising",
+    "text": "I enjoy representing my school in debate competitions because I like arguing my points and convincing the judges that I am right.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Enterprising"
+  },
+  {
+    "question_id": "INT_ENT_004",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Enterprising",
+    "text": "I am good at persuading people to support a cause, join a team, or vote for me during school prefectship elections.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Enterprising"
+  },
+  {
+    "question_id": "INT_ENT_005",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Enterprising",
+    "text": "I like taking charge of a group project and confidently directing the other students on exactly what they need to do to win.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Enterprising"
+  },
+  {
+    "question_id": "INT_CON_001",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Conventional",
+    "text": "I like keeping a very accurate personal notebook or ledger of exactly how I spend my pocket money every single week.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Conventional"
+  },
+  {
+    "question_id": "INT_CON_002",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Conventional",
+    "text": "I enjoy sorting, organizing, and filing documents, like helping the class teacher arrange the continuous assessment records neatly.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Conventional"
+  },
+  {
+    "question_id": "INT_CON_003",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Conventional",
+    "text": "I would love working with numbers and spreadsheets, like calculating the total scores, percentages, and averages for my whole class.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Conventional"
+  },
+  {
+    "question_id": "INT_CON_004",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Conventional",
+    "text": "I prefer tasks where I have to follow clear, strict rules and established step-by-step procedures to complete the work perfectly.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Conventional"
+  },
+  {
+    "question_id": "INT_CON_005",
+    "section": "C",
+    "type": "Occupational Interest",
+    "category": "Conventional",
+    "text": "I would enjoy managing the inventory for the school tuck shop or keeping a strict, organized record of all the books in the school library.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Conventional"
+  }
+]

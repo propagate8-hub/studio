@@ -1,0 +1,1033 @@
+[
+  {
+    "question_id": "NUM_001",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "Chinedu bought 5 identical notebooks for his JSS 3 classes at a total cost of ₦1,500. How much does one notebook cost?",
+    "options": [
+      "₦200",
+      "₦250",
+      "₦300",
+      "₦350"
+    ],
+    "correct_answer": "₦300",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic fluid arithmetic. Requires a single-step direct division: 1500 ÷ 5."
+  },
+  {
+    "question_id": "NUM_002",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "In a JSS 3 class of 40 students at Lagoon Secondary School, 25 of the students are girls. What is the fraction of boys in the class in its lowest term?",
+    "options": [
+      "5/8",
+      "3/8",
+      "1/4",
+      "2/5"
+    ],
+    "correct_answer": "3/8",
+    "image_url": null,
+    "rationale": "Level 1 question testing basic subtraction and fraction simplification. 40 - 25 = 15 boys. Fraction = 15/40, which simplifies to 3/8."
+  },
+  {
+    "question_id": "NUM_003",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "Amina and Tunde won a debate competition and decided to share their cash prize of ₦10,000 in the ratio 3:2 respectively. How much does Amina receive?",
+    "options": [
+      "₦3,000",
+      "₦4,000",
+      "₦5,000",
+      "₦6,000"
+    ],
+    "correct_answer": "₦6,000",
+    "image_url": null,
+    "rationale": "Level 2 question involving two-step basic arithmetic and ratio sharing. Total ratio is 5. Amina's share is (3/5) * 10,000."
+  },
+  {
+    "question_id": "NUM_004",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "If 3y + 15 = 45, what is the value of y?",
+    "options": [
+      "10",
+      "15",
+      "20",
+      "30"
+    ],
+    "correct_answer": "10",
+    "image_url": null,
+    "rationale": "Level 2 question assessing fundamental algebraic equation solving expected at the JSS 3 BECE level. 3y = 30, so y = 10."
+  },
+  {
+    "question_id": "NUM_005",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "The average score of 4 students in a mock BECE Mathematics test is 65%. If three of the students scored 60%, 70%, and 55%, what did the fourth student score?",
+    "options": [
+      "65%",
+      "70%",
+      "75%",
+      "80%"
+    ],
+    "correct_answer": "75%",
+    "image_url": null,
+    "rationale": "Level 3 question testing intermediate understanding of averages and missing values. Total sum = 65 * 4 = 260. Sum of three = 185. 260 - 185 = 75."
+  },
+  {
+    "question_id": "NUM_006",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "Mr. Adebayo wants to buy a television at Alaba International Market. The marked price is ₦120,000, but he negotiates a 15% discount. How much does he finally pay?",
+    "options": [
+      "₦100,000",
+      "₦102,000",
+      "₦105,000",
+      "₦115,000"
+    ],
+    "correct_answer": "₦102,000",
+    "image_url": null,
+    "rationale": "Level 3 question requiring percentage calculation applied to real-world Nigerian commercial scenarios. Discount = 15% of 120,000 = 18,000. 120,000 - 18,000 = 102,000."
+  },
+  {
+    "question_id": "NUM_007",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "The pie chart shows the monthly budget allocation of the Ojo family. If their total monthly income is ₦240,000, how much is spent on Food?",
+    "options": [
+      "₦60,000",
+      "₦80,000",
+      "₦100,000",
+      "₦120,000"
+    ],
+    "correct_answer": "₦80,000",
+    "image_url": "NUM_007.png",
+    "image_brief": "Draw a clear 2D pie chart titled 'Ojo Family Monthly Budget'. Divide it into four sectors with the following angles explicitly labeled: Food (120°), Education (100°), Rent (90°), and Savings (50°). Ensure the angles visually represent their proportions. Use a simple, clean, academic style suitable for a standardized test.",
+    "rationale": "Level 4 question requiring data interpretation from visual graphs, converting degrees of a circle (360°) into monetary value. (120/360) * 240,000 = 80,000."
+  },
+  {
+    "question_id": "NUM_008",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "Bisi can weave a traditional basket in 6 hours, while Halima can weave the exact same basket in 3 hours. If they decide to work together at their respective rates, how long will it take them to weave one basket?",
+    "options": [
+      "1.5 hours",
+      "2 hours",
+      "3 hours",
+      "4.5 hours"
+    ],
+    "correct_answer": "2 hours",
+    "image_url": null,
+    "rationale": "Level 4 question assessing understanding of work rates and inverse proportions. Combined rate = (1/6) + (1/3) = 3/6 = 1/2 basket per hour. Total time = 2 hours."
+  },
+  {
+    "question_id": "NUM_009",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "At a bookshop in Yaba, 3 Mathematics textbooks and 2 Basic Science textbooks cost ₦14,000. At the same shop, 1 Mathematics textbook and 4 Basic Science textbooks cost ₦13,000. What is the cost of one Basic Science textbook?",
+    "options": [
+      "₦2,000",
+      "₦2,500",
+      "₦3,000",
+      "₦4,000"
+    ],
+    "correct_answer": "₦2,500",
+    "image_url": null,
+    "rationale": "Level 5 question testing the ability to abstract a word problem into simultaneous linear equations and solve it. Let M = Math, S = Science. 3M + 2S = 14000; M + 4S = 13000. Solving yields S = 2500."
+  },
+  {
+    "question_id": "NUM_010",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "A school's overhead water tank is 3/4 full. After 45 liters of water are drawn from it to clean the laboratory, the tank is now 1/2 full. What is the total capacity of the water tank when completely full?",
+    "options": [
+      "90 liters",
+      "120 liters",
+      "150 liters",
+      "180 liters"
+    ],
+    "correct_answer": "180 liters",
+    "image_url": null,
+    "rationale": "Level 5 question requiring multi-layered fraction algebra. Let capacity be C. (3/4)C - (1/2)C = 45. (1/4)C = 45. C = 180."
+  }
+]
+  {
+    "question_id": "NUM_011",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "Funke goes to a bookshop in Gbagada. She buys a mathematical set for ₦800 and two blue pens for ₦50 each. If she pays the cashier with a ₦1,000 note, how much change will she receive?",
+    "options": [
+      "₦50",
+      "₦100",
+      "₦150",
+      "₦200"
+    ],
+    "correct_answer": "₦100",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic fluid arithmetic with Nigerian currency. Requires simple multiplication and subtraction: 1000 - (800 + (2 * 50))."
+  },
+  {
+    "question_id": "NUM_012",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "A school bus leaves Ikeja at 7:15 AM and arrives at the school campus in Surulere at 8:05 AM. How many minutes did the journey take?",
+    "options": [
+      "40 minutes",
+      "45 minutes",
+      "50 minutes",
+      "55 minutes"
+    ],
+    "correct_answer": "50 minutes",
+    "image_url": null,
+    "rationale": "Level 1 question assessing fundamental time calculation. 7:15 AM to 8:00 AM is 45 minutes, plus 5 minutes to 8:05 AM makes 50 minutes."
+  },
+  {
+    "question_id": "NUM_013",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "At a local secondary school, 40% of the 500 JSS 3 students have chosen to join the commercial class next session. How many students are joining the commercial class?",
+    "options": [
+      "150",
+      "200",
+      "250",
+      "300"
+    ],
+    "correct_answer": "200",
+    "image_url": null,
+    "rationale": "Level 2 question testing direct percentage calculation. (40/100) * 500 = 200 students."
+  },
+  {
+    "question_id": "NUM_014",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "The school's agricultural science farm is in the shape of a rectangle. If the length of the farm is 25 meters and the width is 15 meters, what is the perimeter of the farm?",
+    "options": [
+      "40 meters",
+      "60 meters",
+      "80 meters",
+      "375 meters"
+    ],
+    "correct_answer": "80 meters",
+    "image_url": null,
+    "rationale": "Level 2 question assessing basic geometry formulas expected at BECE level. Perimeter = 2 * (Length + Width) = 2 * (25 + 15) = 80."
+  },
+  {
+    "question_id": "NUM_015",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "Mr. Okafor is three times as old as his son, Obi. If the sum of their ages is 48 years, how old is Obi?",
+    "options": [
+      "12 years",
+      "16 years",
+      "24 years",
+      "36 years"
+    ],
+    "correct_answer": "12 years",
+    "image_url": null,
+    "rationale": "Level 3 question evaluating the ability to translate word problems into linear algebraic equations. Let Obi's age = x, Mr. Okafor's age = 3x. 4x = 48, x = 12."
+  },
+  {
+    "question_id": "NUM_016",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "A standard recipe for making Nigerian puff-puff requires a flour to sugar ratio of 3:1. If a Home Economics student uses 12 cups of flour for a large batch, how many cups of sugar are needed?",
+    "options": [
+      "2 cups",
+      "3 cups",
+      "4 cups",
+      "6 cups"
+    ],
+    "correct_answer": "4 cups",
+    "image_url": null,
+    "rationale": "Level 3 question testing direct proportion and practical application of ratios. If 3 parts = 12 cups, then 1 part = 12/3 = 4 cups."
+  },
+  {
+    "question_id": "NUM_017",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "A cylindrical water storage tank in a school compound has a base radius of 7 meters and a height of 10 meters. Using π = 22/7, what is the volume of the tank?",
+    "options": [
+      "154 m³",
+      "440 m³",
+      "1540 m³",
+      "3080 m³"
+    ],
+    "correct_answer": "1540 m³",
+    "image_url": null,
+    "rationale": "Level 4 question requiring recall and application of 3D geometric formulas (Volume of a cylinder). V = πr²h = (22/7) * 49 * 10 = 1540."
+  },
+  {
+    "question_id": "NUM_018",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "Look at the bar chart showing the number of students who passed different subjects in the mock BECE. What is the ratio of students who passed Mathematics to those who passed Basic Science?",
+    "options": [
+      "3:4",
+      "4:3",
+      "5:4",
+      "4:5"
+    ],
+    "correct_answer": "4:3",
+    "image_url": "NUM_018.png",
+    "image_brief": "Draw a clear 2D vertical bar chart titled 'Mock BECE Subject Pass Rates'. The Y-axis should be 'Number of Students' ranging from 0 to 80 in increments of 10. The X-axis should have four subjects: Mathematics (bar height exactly 60), Basic Science (bar height exactly 45), English (bar height exactly 75), and Social Studies (bar height exactly 50). Ensure gridlines are visible so students can easily read the values.",
+    "rationale": "Level 4 question combining data interpretation from a visual graph with ratio simplification. Math = 60, Science = 45. Ratio 60:45 simplifies to 4:3."
+  },
+  {
+    "question_id": "NUM_019",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "A bag contains 5 red marbles, 3 blue marbles, and 2 green marbles. If a JSS 3 student picks a marble at random without looking, what is the probability that the marble picked is NOT a red marble?",
+    "options": [
+      "1/5",
+      "3/10",
+      "1/2",
+      "3/5"
+    ],
+    "correct_answer": "1/2",
+    "image_url": null,
+    "rationale": "Level 5 question introducing foundational probability concepts. Total marbles = 10. Number of non-red marbles (blue + green) = 5. Probability = 5/10 = 1/2."
+  },
+  {
+    "question_id": "NUM_020",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "A poultry farmer in Epe bought 60 day-old chicks for ₦30,000. Unfortunately, 10 chicks died due to cold weather. If he wants to make an overall profit of 20% on his initial cost, for how much must he sell each of the remaining chicks?",
+    "options": [
+      "₦600",
+      "₦720",
+      "₦750",
+      "₦800"
+    ],
+    "correct_answer": "₦720",
+    "image_url": null,
+    "rationale": "Level 5 question testing complex, multi-step commercial arithmetic (profit calculation over reduced inventory). Target revenue = Cost + 20% Profit = 30000 + 6000 = 36000. Surviving chicks = 50. Selling price per chick = 36000 / 50 = 720."
+  }
+]
+  {
+    "question_id": "NUM_021",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "Shade buys 3 loaves of Agege bread for ₦600 each. She gives the seller a ₦2,000 note. What is her change?",
+    "options": [
+      "₦100",
+      "₦200",
+      "₦300",
+      "₦400"
+    ],
+    "correct_answer": "₦200",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic fluid arithmetic in a practical context. Requires simple multiplication and subtraction: 2000 - (3 * 600) = 200."
+  },
+  {
+    "question_id": "NUM_022",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "The temperature in Kano was 35°C in the afternoon. By midnight, it had dropped by 12°C. What was the temperature at midnight?",
+    "options": [
+      "12°C",
+      "23°C",
+      "27°C",
+      "47°C"
+    ],
+    "correct_answer": "23°C",
+    "image_url": null,
+    "rationale": "Level 1 question assessing direct subtraction using a real-world measurement context. 35 - 12 = 23."
+  },
+  {
+    "question_id": "NUM_023",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "A tailor in Aba needs 2.5 yards of Ankara fabric to sew one standard dress. How many yards of fabric will he need to sew 4 identical dresses?",
+    "options": [
+      "8 yards",
+      "9 yards",
+      "10 yards",
+      "12 yards"
+    ],
+    "correct_answer": "10 yards",
+    "image_url": null,
+    "rationale": "Level 2 question testing the multiplication of decimals/fractions in a common vocational context. 2.5 * 4 = 10."
+  },
+  {
+    "question_id": "NUM_024",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "In a JSS 3 class of 45 students, 3/5 of the students are members of the Boys' Scout or Girls' Guide. How many students are members of these groups?",
+    "options": [
+      "18",
+      "25",
+      "27",
+      "30"
+    ],
+    "correct_answer": "27",
+    "image_url": null,
+    "rationale": "Level 2 question evaluating the ability to find the fraction of a whole number. (3/5) * 45 = 3 * 9 = 27."
+  },
+  {
+    "question_id": "NUM_025",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "Emeka deposits ₦50,000 in a savings account at a Nigerian bank that pays Simple Interest at a rate of 5% per annum. How much interest will his money earn after exactly 2 years?",
+    "options": [
+      "₦2,500",
+      "₦5,000",
+      "₦10,000",
+      "₦55,000"
+    ],
+    "correct_answer": "₦5,000",
+    "image_url": null,
+    "rationale": "Level 3 question requiring the recall and application of the Simple Interest formula (I = PRT/100). (50000 * 5 * 2) / 100 = 5000."
+  },
+  {
+    "question_id": "NUM_026",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "The ages of 5 students in a JSS 3 study group are 13, 14, 15, 13, and 15. What is the median age of the group?",
+    "options": [
+      "13",
+      "14",
+      "14.5",
+      "15"
+    ],
+    "correct_answer": "14",
+    "image_url": null,
+    "rationale": "Level 3 question testing basic statistical concepts. Requires ordering the data set (13, 13, 14, 15, 15) and identifying the middle value."
+  },
+  {
+    "question_id": "NUM_027",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "Look at the Venn diagram showing the food preferences of 50 students at a school party. How many students do NOT like either Jollof Rice or Fried Rice?",
+    "options": [
+      "5",
+      "10",
+      "15",
+      "20"
+    ],
+    "correct_answer": "5",
+    "image_url": "NUM_027.png",
+    "image_brief": "Draw a clear 2D Venn diagram enclosed in a rectangle (representing the universal set of 50). Create two intersecting circles labeled 'Jollof Rice' and 'Fried Rice'. Place the number '10' in the intersection. Place the number '20' in the 'Jollof Rice' only section. Place the number '15' in the 'Fried Rice' only section. Leave the area outside the circles blank or mark it with a '?'.",
+    "rationale": "Level 4 question requiring set theory comprehension and visual data interpretation. Total inside circles = 20 + 10 + 15 = 45. Students outside circles = 50 - 45 = 5."
+  },
+  {
+    "question_id": "NUM_028",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "A market woman mixed two types of garri. She bought 3 basins of Ijebu garri at ₦4,000 per basin and 2 basins of regular garri at ₦3,000 per basin. What is the average cost of one basin of her mixed garri?",
+    "options": [
+      "₦3,200",
+      "₦3,400",
+      "₦3,500",
+      "₦3,600"
+    ],
+    "correct_answer": "₦3,600",
+    "image_url": null,
+    "rationale": "Level 4 question testing weighted averages and commercial arithmetic. Total cost = (3 * 4000) + (2 * 3000) = 12000 + 6000 = 18000. Total basins = 5. Average = 18000 / 5 = 3600."
+  },
+  {
+    "question_id": "NUM_029",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "A fast-moving BRT bus travels from Ikorodu to Fadeyi at an average speed of 60 km/h. Due to heavy traffic, it returns along the exact same route at an average speed of 40 km/h. What is the average speed of the bus for the entire round trip?",
+    "options": [
+      "48 km/h",
+      "50 km/h",
+      "52 km/h",
+      "100 km/h"
+    ],
+    "correct_answer": "48 km/h",
+    "image_url": null,
+    "rationale": "Level 5 question testing advanced distance-speed-time concepts, specifically the harmonic mean. Average speed = Total Distance / Total Time. Let distance = 120km (LCM). Time there = 2h, Time back = 3h. Total distance = 240km, Total time = 5h. Speed = 240/5 = 48."
+  },
+  {
+    "question_id": "NUM_030",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "A cylindrical tin of Milo has a base radius of 7 cm and a height of 10 cm. If the tin is exactly half full of Milo powder, what is the volume of the Milo powder? (Take π = 22/7)",
+    "options": [
+      "385 cm³",
+      "770 cm³",
+      "1540 cm³",
+      "3080 cm³"
+    ],
+    "correct_answer": "770 cm³",
+    "image_url": null,
+    "rationale": "Level 5 question involving 3D geometry and fractional volumes. Full volume = πr²h = (22/7) * 49 * 10 = 1540 cm³. Half volume = 1540 / 2 = 770 cm³."
+  }
+]
+  {
+    "question_id": "NUM_031",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "A JSS 3 student buys 4 packets of Cabin biscuits for his boarding house provisions. If one packet costs ₦150, how much does he pay in total?",
+    "options": [
+      "₦450",
+      "₦500",
+      "₦600",
+      "₦750"
+    ],
+    "correct_answer": "₦600",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic fluid arithmetic in a practical context. Requires simple multiplication: 4 * 150 = 600."
+  },
+  {
+    "question_id": "NUM_032",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "The BECE Mathematics examination lasts for 2 and a half hours. How many minutes is the duration of the exam?",
+    "options": [
+      "120 minutes",
+      "150 minutes",
+      "180 minutes",
+      "250 minutes"
+    ],
+    "correct_answer": "150 minutes",
+    "image_url": null,
+    "rationale": "Level 1 question assessing fundamental time conversion. 1 hour = 60 minutes. 2.5 hours * 60 = 150 minutes."
+  },
+  {
+    "question_id": "NUM_033",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "A fruit vendor at Oshodi market starts her day with 100 oranges. She sells 45 oranges in the morning and 37 oranges in the afternoon. How many oranges does she have left?",
+    "options": [
+      "18",
+      "22",
+      "28",
+      "82"
+    ],
+    "correct_answer": "18",
+    "image_url": null,
+    "rationale": "Level 2 question testing two-step arithmetic (addition and subtraction) in a commercial scenario. Total sold = 45 + 37 = 82. Remaining = 100 - 82 = 18."
+  },
+  {
+    "question_id": "NUM_034",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "Solve for x in the following equation: 5x - 10 = 25",
+    "options": [
+      "3",
+      "5",
+      "7",
+      "15"
+    ],
+    "correct_answer": "7",
+    "image_url": null,
+    "rationale": "Level 2 question assessing basic algebraic equation solving expected at the JSS 3 BECE level. 5x = 35, therefore x = 7."
+  },
+  {
+    "question_id": "NUM_035",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "The perimeter of a square school assembly ground is 120 meters. What is the area of the assembly ground?",
+    "options": [
+      "144 m²",
+      "300 m²",
+      "600 m²",
+      "900 m²"
+    ],
+    "correct_answer": "900 m²",
+    "image_url": null,
+    "rationale": "Level 3 question requiring multi-step geometric calculations. Side length = Perimeter / 4 = 120 / 4 = 30m. Area = Side * Side = 30 * 30 = 900 m²."
+  },
+  {
+    "question_id": "NUM_036",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "Tobi, Aisha, and Chika share a profit of ₦15,000 from their Young Farmers Club poultry project in the ratio 2:3:5 respectively. How much is the largest share?",
+    "options": [
+      "₦3,000",
+      "₦4,500",
+      "₦5,000",
+      "₦7,500"
+    ],
+    "correct_answer": "₦7,500",
+    "image_url": null,
+    "rationale": "Level 3 question evaluating the ability to distribute a quantity based on a three-part ratio. Total ratio parts = 2+3+5 = 10. Largest share = (5/10) * 15,000 = 7,500."
+  },
+  {
+    "question_id": "NUM_037",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "A school bus uses 8 liters of petrol to travel 100 kilometers. At this same rate, how many liters of petrol will it need to travel from Lagos to Ibadan, a distance of 150 kilometers?",
+    "options": [
+      "10 liters",
+      "12 liters",
+      "14 liters",
+      "16 liters"
+    ],
+    "correct_answer": "12 liters",
+    "image_url": null,
+    "rationale": "Level 4 question testing direct proportions and rates in a real-world travel context. Rate = 8L/100km = 0.08L/km. Petrol needed = 0.08 * 150 = 12 liters. Alternatively, (150/100) * 8 = 1.5 * 8 = 12."
+  },
+  {
+    "question_id": "NUM_038",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "Look at the line graph showing the daily temperature recorded at a school in Jos over five days. What is the mean temperature for these five days?",
+    "options": [
+      "20°C",
+      "22°C",
+      "24°C",
+      "26°C"
+    ],
+    "correct_answer": "22°C",
+    "image_url": "NUM_038.png",
+    "image_brief": "Draw a clean 2D line graph titled 'Daily Temperature in Jos'. The Y-axis should be 'Temperature (°C)' ranging from 15 to 30. The X-axis should be 'Days' (Mon, Tue, Wed, Thu, Fri). Plot the points precisely at: Mon=20, Tue=22, Wed=18, Thu=24, Fri=26. Connect the points with a solid line.",
+    "rationale": "Level 4 question combining visual data extraction from a line graph with statistical calculation (mean). Sum of temperatures = 20 + 22 + 18 + 24 + 26 = 110. Mean = 110 / 5 = 22."
+  },
+  {
+    "question_id": "NUM_039",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "Mr. Sanusi is currently 4 times as old as his daughter, Zainab. In 10 years, he will be exactly twice as old as she will be. What is Zainab's current age?",
+    "options": [
+      "5 years",
+      "10 years",
+      "15 years",
+      "20 years"
+    ],
+    "correct_answer": "5 years",
+    "image_url": null,
+    "rationale": "Level 5 question testing the abstraction of age word problems into algebraic equations. Let Zainab = z, Sanusi = 4z. In 10 years: 4z + 10 = 2(z + 10). 4z + 10 = 2z + 20. 2z = 10, so z = 5."
+  },
+  {
+    "question_id": "NUM_040",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "In a JSS 3 year group of 400 students, 60% are registered for the Science Club and 50% are registered for the Art Club. If 20% of the students are not registered for either club, how many students are registered for BOTH clubs?",
+    "options": [
+      "40 students",
+      "80 students",
+      "120 students",
+      "160 students"
+    ],
+    "correct_answer": "120 students",
+    "image_url": null,
+    "rationale": "Level 5 question testing set theory and percentage overlaps (Venn diagram logic). Total = 100%. Neither = 20%, so Science Union Art = 80%. P(S) + P(A) - P(Both) = P(Union). 60 + 50 - x = 80. 110 - x = 80. x = 30%. 30% of 400 = 120."
+  }
+]
+  {
+    "question_id": "NUM_041",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "The Lagos State Ministry of Education distributed 120 new Mathematics textbooks equally among 4 JSS 3 classes in a public school. How many textbooks did each class receive?",
+    "options": [
+      "25",
+      "30",
+      "35",
+      "40"
+    ],
+    "correct_answer": "30",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic fluid arithmetic. Requires a single-step direct division: 120 ÷ 4 = 30."
+  },
+  {
+    "question_id": "NUM_042",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "A student answered 4 out of 5 questions correctly in a quick quiz. Express this fraction as a percentage.",
+    "options": [
+      "40%",
+      "45%",
+      "80%",
+      "85%"
+    ],
+    "correct_answer": "80%",
+    "image_url": null,
+    "rationale": "Level 1 question assessing fundamental conversion between fractions and percentages. (4/5) * 100 = 80%."
+  },
+  {
+    "question_id": "NUM_043",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "A map of Nigeria is drawn to a scale where 1 cm represents 50 km. If the distance between Abuja and Lokoja on the map is 4 cm, what is the actual physical distance?",
+    "options": [
+      "100 km",
+      "150 km",
+      "200 km",
+      "250 km"
+    ],
+    "correct_answer": "200 km",
+    "image_url": null,
+    "rationale": "Level 2 question testing simple ratio, proportion, and map scale application. 4 * 50 = 200."
+  },
+  {
+    "question_id": "NUM_044",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "What is the Lowest Common Multiple (LCM) of 12, 15, and 20? This determines how often three different school bells will ring at the exact same time.",
+    "options": [
+      "30",
+      "60",
+      "120",
+      "180"
+    ],
+    "correct_answer": "60",
+    "image_url": null,
+    "rationale": "Level 2 question evaluating foundational number theory required at the BECE level. The smallest number divisible by 12, 15, and 20 is 60."
+  },
+  {
+    "question_id": "NUM_045",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "A trader in Onitsha Main Market bought a small generator for ₦80,000 and later sold it for ₦100,000. What is his percentage profit?",
+    "options": [
+      "15%",
+      "20%",
+      "25%",
+      "30%"
+    ],
+    "correct_answer": "25%",
+    "image_url": null,
+    "rationale": "Level 3 question evaluating commercial arithmetic. Profit = Selling Price - Cost Price = ₦20,000. Percentage Profit = (20,000 / 80,000) * 100 = 25%."
+  },
+  {
+    "question_id": "NUM_046",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "A triangular wooden signboard for the school's inter-house sports has a base of 120 cm and a perpendicular height of 80 cm. What is the area of the signboard?",
+    "options": [
+      "4,800 cm²",
+      "9,600 cm²",
+      "12,000 cm²",
+      "19,200 cm²"
+    ],
+    "correct_answer": "4,800 cm²",
+    "image_url": null,
+    "rationale": "Level 3 question requiring the recall and application of 2D geometric formulas (Area of a triangle). Area = 1/2 * base * height = 1/2 * 120 * 80 = 4800."
+  },
+  {
+    "question_id": "NUM_047",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "A rectangular classroom in Port Harcourt measures 8 meters long, 6 meters wide, and 3 meters high. Assuming there are no windows or doors, what is the total surface area of its four walls that needs to be painted?",
+    "options": [
+      "42 m²",
+      "84 m²",
+      "144 m²",
+      "168 m²"
+    ],
+    "correct_answer": "84 m²",
+    "image_url": null,
+    "rationale": "Level 4 question testing 3D geometry and lateral surface area calculation. Area of walls = 2 * height * (length + width) = 2 * 3 * (8 + 6) = 6 * 14 = 84."
+  },
+  {
+    "question_id": "NUM_048",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "Look at the pie chart showing how 180 students travel to a secondary school in Enugu. How many students travel to school by Car?",
+    "options": [
+      "30",
+      "45",
+      "60",
+      "90"
+    ],
+    "correct_answer": "45",
+    "image_url": "NUM_048.png",
+    "image_brief": "Draw a clear 2D pie chart titled 'Modes of Transport to School'. Divide it into three sectors with the following angles explicitly labeled: Walking (150°), Bus (120°), and Car (90°). Ensure the 90° sector for 'Car' has a clear right-angle indicator.",
+    "rationale": "Level 4 question requiring data interpretation from visual graphs, converting degrees of a circle (360°) into an absolute quantity. The 'Car' sector is 90°. (90/360) * 180 = (1/4) * 180 = 45."
+  },
+  {
+    "question_id": "NUM_049",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "In a scholarship examination, a student scores 5 marks for every correct answer and loses 2 marks for every wrong answer. If Halima answered all 20 questions and scored a total of 72 marks, how many questions did she answer correctly?",
+    "options": [
+      "12",
+      "14",
+      "15",
+      "16"
+    ],
+    "correct_answer": "16",
+    "image_url": null,
+    "rationale": "Level 5 question testing the ability to abstract a complex word problem into simultaneous equations. Let x = correct, y = wrong. x + y = 20. 5x - 2y = 72. Substituting y = 20 - x gives 5x - 2(20 - x) = 72. 7x - 40 = 72. 7x = 112. x = 16."
+  },
+  {
+    "question_id": "NUM_050",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "A wealthy merchant in Kano leaves 1/3 of his estate to his wife, 2/5 of the remainder to his children, and the rest to a local charity. If the charity receives ₦600,000, what was the total value of the estate?",
+    "options": [
+      "₦1,000,000",
+      "₦1,200,000",
+      "₦1,500,000",
+      "₦2,000,000"
+    ],
+    "correct_answer": "₦1,500,000",
+    "image_url": null,
+    "rationale": "Level 5 question requiring advanced, multi-stage fraction algebra. Remainder after wife = 1 - 1/3 = 2/3. Children get 2/5 of 2/3 = 4/15. Charity gets 2/3 - 4/15 = 6/15 = 2/5. If 2/5 of Total = 600,000, then Total = 600,000 * (5/2) = 1,500,000."
+  }
+]
+  {
+    "question_id": "NUM_051",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "A JSS 3 student at Roseville School buys a meat pie for ₦450 and a bottle of water for ₦200 at the tuck shop. If she pays with a ₦1,000 note, how much change should she receive?",
+    "options": [
+      "₦250",
+      "₦300",
+      "₦350",
+      "₦450"
+    ],
+    "correct_answer": "₦350",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic fluid arithmetic. Requires simple addition and subtraction: 1000 - (450 + 200) = 350."
+  },
+  {
+    "question_id": "NUM_052",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 1,
+    "text": "Out of 50 students in a JSS 3 class, 5 students were absent on Monday. What percentage of the class was present?",
+    "options": [
+      "10%",
+      "45%",
+      "90%",
+      "95%"
+    ],
+    "correct_answer": "90%",
+    "image_url": null,
+    "rationale": "Level 1 question assessing fundamental conversion between populations and percentages. 45 present out of 50. (45/50) * 100 = 90%."
+  },
+  {
+    "question_id": "NUM_053",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "During the weekend, Wale spends 1/4 of his study time on Mathematics and 1/3 of his time on Basic Science. What total fraction of his study time is spent on these two subjects?",
+    "options": [
+      "2/7",
+      "5/12",
+      "7/12",
+      "1/6"
+    ],
+    "correct_answer": "7/12",
+    "image_url": null,
+    "rationale": "Level 2 question testing the addition of fractions with different denominators. LCM of 4 and 3 is 12. (3/12) + (4/12) = 7/12."
+  },
+  {
+    "question_id": "NUM_054",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 2,
+    "text": "The Lagoon Secondary School library has a collection of fiction and non-fiction books. There are 20 more fiction books than non-fiction books. If the total number of books in this section is 120, how many non-fiction books are there?",
+    "options": [
+      "40",
+      "50",
+      "60",
+      "70"
+    ],
+    "correct_answer": "50",
+    "image_url": null,
+    "rationale": "Level 2 question evaluating the translation of word problems into basic algebraic equations. Let non-fiction = x. Fiction = x + 20. x + (x + 20) = 120 -> 2x = 100 -> x = 50."
+  },
+  {
+    "question_id": "NUM_055",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "Ngozi scored 65, 70, 85, and 60 in four of her BECE mock exams. What must she score in her fifth exam, Civic Education, to have an overall average (mean) score of 72?",
+    "options": [
+      "70",
+      "75",
+      "80",
+      "85"
+    ],
+    "correct_answer": "80",
+    "image_url": null,
+    "rationale": "Level 3 question testing intermediate understanding of averages and missing values. Total target sum = 72 * 5 = 360. Current sum = 65+70+85+60 = 280. Required score = 360 - 280 = 80."
+  },
+  {
+    "question_id": "NUM_056",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 3,
+    "text": "A trader at Ikeja Computer Village sells a tablet for ₦150,000. If he decides to give a special 8% discount to students, how much will a student pay for the tablet?",
+    "options": [
+      "₦12,000",
+      "₦138,000",
+      "₦142,000",
+      "₦162,000"
+    ],
+    "correct_answer": "₦138,000",
+    "image_url": null,
+    "rationale": "Level 3 question requiring percentage discount calculation applied to Nigerian commercial scenarios. Discount = 8% of 150,000 = 12,000. Price = 150,000 - 12,000 = 138,000."
+  },
+  {
+    "question_id": "NUM_057",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "The pie chart shows the intended SS1 career streams of 200 JSS 3 students at Queens College. If the sector representing the 'Science' stream has an angle of 144°, how many students intend to choose Science?",
+    "options": [
+      "60",
+      "80",
+      "100",
+      "144"
+    ],
+    "correct_answer": "80",
+    "image_url": "NUM_057.png",
+    "image_brief": "Draw a clean 2D pie chart titled 'Intended SS1 Streams'. Divide it into three sectors: Science, Commercial, and Arts. Explicitly label the 'Science' sector with '144°'. The other two sectors do not need explicit degree labels but should visually make up the remainder of the circle.",
+    "rationale": "Level 4 question requiring data interpretation from visual graphs, converting degrees of a circle (360°) into an absolute quantity. (144/360) * 200 = (2/5) * 200 = 80."
+  },
+  {
+    "question_id": "NUM_058",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 4,
+    "text": "During a physical education exercise, a student walks 30 meters due East from the Assembly Hall, then turns and walks 40 meters due North to reach the Science Laboratory. What is the shortest straight-line distance between the Assembly Hall and the Science Laboratory?",
+    "options": [
+      "50 meters",
+      "60 meters",
+      "70 meters",
+      "1200 meters"
+    ],
+    "correct_answer": "50 meters",
+    "image_url": null,
+    "rationale": "Level 4 question testing practical application of the Pythagorean theorem. \u221a(30^2 + 40^2) = \u221a(900 + 1600) = \u221a2500 = 50."
+  },
+  {
+    "question_id": "NUM_059",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "A pencil case contains 4 blue pens and 6 black pens. If a teacher picks two pens at random, one after the other without replacing the first one, what is the probability that both pens picked are blue?",
+    "options": [
+      "2/15",
+      "4/25",
+      "1/6",
+      "2/5"
+    ],
+    "correct_answer": "2/15",
+    "image_url": null,
+    "rationale": "Level 5 question introducing advanced probability (dependent events without replacement). P(Blue 1) = 4/10. P(Blue 2) = 3/9. Total Probability = (4/10) * (3/9) = 12/90 = 2/15."
+  },
+  {
+    "question_id": "NUM_060",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Numerical Reasoning",
+    "difficulty_level": 5,
+    "text": "Pipe A can fill the school's main water tank in 4 hours, while Pipe B can fill the same tank in 6 hours. If the school's maintenance officer opens both pipes at the same time, how long will it take to fill the tank completely?",
+    "options": [
+      "2 hours",
+      "2 hours 24 minutes",
+      "5 hours",
+      "10 hours"
+    ],
+    "correct_answer": "2 hours 24 minutes",
+    "image_url": null,
+    "rationale": "Level 5 question testing complex algebraic word problems (combined work rates). Combined rate = 1/4 + 1/6 = 5/12 tank per hour. Total time = 12/5 hours = 2.4 hours. 0.4 hours * 60 = 24 minutes."
+  }
+]

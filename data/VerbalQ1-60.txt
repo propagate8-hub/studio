@@ -1,0 +1,1027 @@
+[
+  {
+    "question_id": "VER_001",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "During the morning assembly, the principal warned the JSS 3 students that sneaking food into the library is strictly prohibited. What is the nearest in meaning to the word 'prohibited'?",
+    "options": [
+      "Allowed",
+      "Forbidden",
+      "Encouraged",
+      "Ignored"
+    ],
+    "correct_answer": "Forbidden",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic vocabulary in context. 'Prohibited' is a common disciplinary term in Nigerian schools, directly translating to 'forbidden'."
+  },
+  {
+    "question_id": "VER_002",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "Choose the correct word to complete the sentence: Neither the class captain nor the students ________ present when the Basic Technology teacher arrived.",
+    "options": [
+      "was",
+      "were",
+      "is",
+      "are"
+    ],
+    "correct_answer": "were",
+    "image_url": null,
+    "rationale": "Level 1 question assessing standard grammatical concord (subject-verb agreement). According to the rule of proximity, the verb must agree with the closest subject ('students' - plural, past tense)."
+  },
+  {
+    "question_id": "VER_003",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "Naira is to Nigeria as ________ is to Ghana.",
+    "options": [
+      "Dollar",
+      "Rand",
+      "Cedi",
+      "Shilling"
+    ],
+    "correct_answer": "Cedi",
+    "image_url": null,
+    "rationale": "Level 2 question testing simple linguistic analogies and basic West African civic knowledge expected of a JSS 3 student."
+  },
+  {
+    "question_id": "VER_004",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "The senior prefect's speech during the valedictory service was very concise. What is the exact OPPOSITE of the word 'concise'?",
+    "options": [
+      "Brief",
+      "Lengthy",
+      "Accurate",
+      "Loud"
+    ],
+    "correct_answer": "Lengthy",
+    "image_url": null,
+    "rationale": "Level 2 question testing antonyms. Requires understanding that 'concise' means short and to the point, making 'lengthy' the direct opposite."
+  },
+  {
+    "question_id": "VER_005",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "Read the statement and choose the logical conclusion: 'If all SS1 Science students must study Further Mathematics, and Chuka is entering the SS1 Science class, then it is certain that Chuka...'",
+    "options": [
+      "likes Further Mathematics.",
+      "will fail Further Mathematics.",
+      "must study Further Mathematics.",
+      "prefers Commercial subjects."
+    ],
+    "correct_answer": "must study Further Mathematics.",
+    "image_url": null,
+    "rationale": "Level 3 question testing basic deductive logic (syllogism). It assesses the student's ability to draw a direct factual conclusion from provided premises without inserting personal assumptions."
+  },
+  {
+    "question_id": "VER_006",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "When the teacher asked who broke the beaker in the laboratory, the whole class let the cat out of the bag by immediately pointing at Tunde. What does the phrase 'let the cat out of the bag' mean?",
+    "options": [
+      "Released a trapped animal",
+      "Told a deliberate lie",
+      "Revealed a hidden secret",
+      "Remained completely silent"
+    ],
+    "correct_answer": "Revealed a hidden secret",
+    "image_url": null,
+    "rationale": "Level 3 question assessing the comprehension of common English idiomatic expressions regularly used in the Nigerian educational system."
+  },
+  {
+    "question_id": "VER_007",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "Harmattan is to Dryness as Rainy Season is to ________.",
+    "options": [
+      "Cold",
+      "Flooding",
+      "Moisture",
+      "December"
+    ],
+    "correct_answer": "Moisture",
+    "image_url": null,
+    "rationale": "Level 4 question testing advanced analogies. It requires recognizing the core defining characteristic (Harmattan brings dryness, Rainy Season brings moisture), rather than secondary effects like flooding or cold."
+  },
+  {
+    "question_id": "VER_008",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "Arrange the following numbered fragments to form a grammatically correct and logical sentence: \n1. the BECE exam \n2. to prepare for \n3. started reading \n4. the JSS 3 students \n5. diligently",
+    "options": [
+      "4 - 3 - 5 - 2 - 1",
+      "1 - 2 - 4 - 3 - 5",
+      "4 - 2 - 1 - 3 - 5",
+      "2 - 1 - 4 - 3 - 5"
+    ],
+    "correct_answer": "4 - 3 - 5 - 2 - 1",
+    "image_url": null,
+    "rationale": "Level 4 question testing syntax, sentence structuring, and logical flow. 'The JSS 3 students (4) started reading (3) diligently (5) to prepare for (2) the BECE exam (1).'"
+  },
+  {
+    "question_id": "VER_009",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "During an inter-school debate, Queen's College argued: 'Urbanization inevitably leads to the total loss of traditional cultural values in Nigerian youth.' Which of the following statements, if true, most WEAKENS their argument?",
+    "options": [
+      "Many youths in rural areas also experience a decline in traditional values.",
+      "Urbanization provides better access to modern healthcare and education.",
+      "Youth in modern cities like Lagos increasingly use social media platforms to promote and preserve their native languages.",
+      "Urban youths often prefer speaking English rather than their mother tongue."
+    ],
+    "correct_answer": "Youth in modern cities like Lagos increasingly use social media platforms to promote and preserve their native languages.",
+    "image_url": null,
+    "rationale": "Level 5 question testing critical reasoning and argument evaluation. Identifying the weakener requires finding evidence that directly contradicts the premise that urbanization causes a 'total loss' of culture."
+  },
+  {
+    "question_id": "VER_010",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "Despite the heavy downpour that flooded the roads leading to Ikeja, the dedicated principal remained ________ in her commitment to ensuring the mock examinations started strictly on schedule.",
+    "options": [
+      "apathetic",
+      "resolute",
+      "hesitant",
+      "belligerent"
+    ],
+    "correct_answer": "resolute",
+    "image_url": null,
+    "rationale": "Level 5 question assessing nuanced vocabulary and context clues (Cloze test format). 'Resolute' perfectly captures the determined, unwavering stance required by the context 'despite' the obstacles."
+  }
+]
+  {
+    "question_id": "VER_011",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "Which of the following words does NOT belong in the group?",
+    "options": [
+      "Mango",
+      "Cassava",
+      "Orange",
+      "Pawpaw"
+    ],
+    "correct_answer": "Cassava",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic verbal categorization and classification. Mango, Orange, and Pawpaw are fruits commonly found in Nigeria, while Cassava is a root tuber."
+  },
+  {
+    "question_id": "VER_012",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "Choose the correct word to complete the sentence: My parents bought me a new ________ of black shoes for the upcoming school term.",
+    "options": [
+      "pear",
+      "pare",
+      "peer",
+      "pair"
+    ],
+    "correct_answer": "pair",
+    "image_url": null,
+    "rationale": "Level 1 question assessing the understanding of basic homophones and everyday contextual vocabulary expected of a JSS 3 student."
+  },
+  {
+    "question_id": "VER_013",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "The head boy was highly commended by the principal for his ________ behavior, which was a stark contrast to the stubbornness of the junior students.",
+    "options": [
+      "polite",
+      "harsh",
+      "wealthy",
+      "arrogant"
+    ],
+    "correct_answer": "polite",
+    "image_url": null,
+    "rationale": "Level 2 question testing contextual antonyms. The phrase 'stark contrast' and the word 'stubbornness' indicate that the missing word must be a positive behavioral trait."
+  },
+  {
+    "question_id": "VER_014",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "Tailor is to Sewing Machine as Mechanic is to ________.",
+    "options": [
+      "Car",
+      "Spanner",
+      "Workshop",
+      "Driving"
+    ],
+    "correct_answer": "Spanner",
+    "image_url": null,
+    "rationale": "Level 2 question testing functional analogies based on common vocations. A tailor uses a sewing machine as their primary tool; similarly, a mechanic uses a spanner."
+  },
+  {
+    "question_id": "VER_015",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "When the school counselor said the new prefects must 'nip indiscipline in the bud', she meant that they should...",
+    "options": [
+      "plant new flowers in the school garden.",
+      "stop bad behavior early before it becomes a bigger problem.",
+      "report every student to the principal immediately.",
+      "ignore minor offenses and focus on studying."
+    ],
+    "correct_answer": "stop bad behavior early before it becomes a bigger problem.",
+    "image_url": null,
+    "rationale": "Level 3 question evaluating the comprehension of standard idioms widely used in Nigerian educational and formal environments."
+  },
+  {
+    "question_id": "VER_016",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "Read the following statements:\n1. All SS1 Commercial students take Accounting.\n2. Bola is an SS1 student but she does not take Accounting.\nBased ONLY on these statements, which conclusion is definitely true?",
+    "options": [
+      "Bola is a Science student.",
+      "Bola hates Accounting.",
+      "Bola is not a Commercial student.",
+      "Bola failed her JSS 3 mathematics exam."
+    ],
+    "correct_answer": "Bola is not a Commercial student.",
+    "image_url": null,
+    "rationale": "Level 3 question testing basic syllogistic logic. If being a Commercial student requires taking Accounting, and Bola does not take it, she cannot logically belong to that specific group. Other options require outside assumptions."
+  },
+  {
+    "question_id": "VER_017",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "During the inter-house sports debate, the blue house representative presented a very ________ argument that quickly convinced the judges to award them the maximum points.",
+    "options": [
+      "ambiguous",
+      "compelling",
+      "redundant",
+      "vague"
+    ],
+    "correct_answer": "compelling",
+    "image_url": null,
+    "rationale": "Level 4 question testing advanced vocabulary within context (Cloze). The word must mean persuasive or convincing, making 'compelling' the only correct fit among distractors that mean unclear or repetitive."
+  },
+  {
+    "question_id": "VER_018",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "Premise 1: Some school prefects are tall.\nPremise 2: All tall students play on the school basketball team.\nWhich of the following statements must logically follow?",
+    "options": [
+      "All school prefects play on the basketball team.",
+      "Some school prefects play on the basketball team.",
+      "No school prefects play on the basketball team.",
+      "All basketball players are school prefects."
+    ],
+    "correct_answer": "Some school prefects play on the basketball team.",
+    "image_url": null,
+    "rationale": "Level 4 question testing formal logical deduction with overlapping sets. Since the subset of 'tall prefects' exists, and the entire set of 'tall students' plays basketball, that specific subset of prefects must play basketball."
+  },
+  {
+    "question_id": "VER_019",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "Statement: 'The introduction of computer-based testing (CBT) for the mock BECE caused a 15% drop in average scores, yet the school's management insists it is a much fairer evaluation method than paper exams.'\nWhat is the underlying ASSUMPTION made by the school's management?",
+    "options": [
+      "The students are not yet fully trained on how to use computers.",
+      "Paper exams allowed for undetected examination malpractice, artificially inflating past scores.",
+      "Computer-based testing is cheaper to run for the school's administration.",
+      "The 15% drop in scores will naturally reverse itself by the next academic term."
+    ],
+    "correct_answer": "Paper exams allowed for undetected examination malpractice, artificially inflating past scores.",
+    "image_url": null,
+    "rationale": "Level 5 question testing critical reasoning and argument analysis. For management to see a drop in scores as a sign of 'fairness', they must assume the previous higher scores were unfairly obtained."
+  },
+  {
+    "question_id": "VER_020",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "Arrange the following sentences to form a highly coherent and logical paragraph:\n1. However, the installation of large solar panels has provided a sustainable alternative.\n2. Power outages have long been a significant challenge for boarding schools in the country.\n3. Consequently, students can now study during evening preps without the disruption of total darkness.\n4. In the past, these schools relied heavily on noisy and expensive diesel generators during prep time.",
+    "options": [
+      "2 - 4 - 1 - 3",
+      "4 - 2 - 1 - 3",
+      "2 - 1 - 4 - 3",
+      "1 - 3 - 2 - 4"
+    ],
+    "correct_answer": "2 - 4 - 1 - 3",
+    "image_url": null,
+    "rationale": "Level 5 question assessing advanced syntax, transitional logic, and paragraph sequencing. The flow moves from stating the general problem (2), the past flawed solution (4), the new modern solution (1), to the positive result (3)."
+  }
+]
+  {
+    "question_id": "VER_021",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "Every Monday morning during the assembly, the students stand at attention to sing the national ________ before marching to their classrooms.",
+    "options": [
+      "anthem",
+      "song",
+      "rhyme",
+      "poem"
+    ],
+    "correct_answer": "anthem",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic vocabulary in a standard school context. The term 'national anthem' is universally taught in Nigerian civic education from primary school."
+  },
+  {
+    "question_id": "VER_022",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "Chinedu was very **famished** after the intense inter-house sports practice, so he immediately bought three meat pies at the tuck shop. What is the closest meaning of the word 'famished'?",
+    "options": [
+      "Tired",
+      "Hungry",
+      "Thirsty",
+      "Angry"
+    ],
+    "correct_answer": "Hungry",
+    "image_url": null,
+    "rationale": "Level 1 question assessing contextual synonyms. The action of buying and eating meat pies directly implies extreme hunger."
+  },
+  {
+    "question_id": "VER_023",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "Enugu is to Coal as Jos is to ________.",
+    "options": [
+      "Oil",
+      "Tin",
+      "Gold",
+      "Limestone"
+    ],
+    "correct_answer": "Tin",
+    "image_url": null,
+    "rationale": "Level 2 question testing analogies based on standard Nigerian Social Studies and Geography curriculum (natural resources of states) expected of a JSS 3 student."
+  },
+  {
+    "question_id": "VER_024",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "My father advised me to always alight ________ the BRT bus carefully when it gets to my designated bus stop.",
+    "options": [
+      "from",
+      "out",
+      "off",
+      "down"
+    ],
+    "correct_answer": "from",
+    "image_url": null,
+    "rationale": "Level 2 question assessing the correct use of prepositions. 'Alight from' is the grammatically correct standard English phrase, correcting the common colloquial error 'alight down'."
+  },
+  {
+    "question_id": "VER_025",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "Bisi had to **burn the midnight oil** to ensure she passed her Basic Science examination with a distinction. This idiom means she...",
+    "options": [
+      "used a local lantern to read.",
+      "studied late into the night.",
+      "wasted kerosene carelessly.",
+      "slept off while reading."
+    ],
+    "correct_answer": "studied late into the night.",
+    "image_url": null,
+    "rationale": "Level 3 question evaluating comprehension of common idioms. Distractors use literal interpretations of 'oil' and 'burn' to test true figurative understanding."
+  },
+  {
+    "question_id": "VER_026",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "Read the following statements carefully:\n1. All Science students take Biology.\n2. No Arts students take Biology.\n3. Emeka is currently taking Biology.\nBased ONLY on these statements, which of the following MUST be true?",
+    "options": [
+      "Emeka is definitely a Science student.",
+      "Emeka might be an Arts student.",
+      "Emeka is not an Arts student.",
+      "Emeka prefers Biology to Mathematics."
+    ],
+    "correct_answer": "Emeka is not an Arts student.",
+    "image_url": null,
+    "rationale": "Level 3 question testing categorical syllogisms. While we know all Science students take Biology, Commercial students might also take it. Therefore, we cannot definitely say he is a Science student, but because NO Arts students take it, we can definitively say he is not in Arts."
+  },
+  {
+    "question_id": "VER_027",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "Simile is to Comparison as Hyperbole is to ________.",
+    "options": [
+      "Understatement",
+      "Exaggeration",
+      "Truth",
+      "Poetry"
+    ],
+    "correct_answer": "Exaggeration",
+    "image_url": null,
+    "rationale": "Level 4 question testing advanced analogies linked to the JSS Literature-in-English syllabus (figures of speech)."
+  },
+  {
+    "question_id": "VER_028",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "Nigeria gained its independence in 1960, marking its official transition from a British ________ to a sovereign nation.",
+    "options": [
+      "colony",
+      "republic",
+      "continent",
+      "empire"
+    ],
+    "correct_answer": "colony",
+    "image_url": null,
+    "rationale": "Level 4 question evaluating advanced vocabulary within a historical/civic context. The student must understand the political terminology associated with pre-independence Nigeria."
+  },
+  {
+    "question_id": "VER_029",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "The Parent-Teacher Association (PTA) argued: 'Banning smartphones in the JSS 3 boarding house will drastically improve BECE grades because phones only serve to distract students during prep hours.' Which of the following statements, if true, most strongly WEAKENS this argument?",
+    "options": [
+      "Many students rely entirely on their smartphones to access educational platforms and past question papers.",
+      "Smartphones are very expensive and can easily be misplaced or stolen in the boarding house.",
+      "Students often get distracted by playing football or chatting with friends during prep hours anyway.",
+      "Teachers regularly seize smartphones when they ring during classes."
+    ],
+    "correct_answer": "Many students rely entirely on their smartphones to access educational platforms and past question papers.",
+    "image_url": null,
+    "rationale": "Level 5 question testing critical reasoning and argument evaluation. To weaken the premise that phones 'only serve to distract', one must introduce evidence that they are a primary tool for academic success."
+  },
+  {
+    "question_id": "VER_030",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "Arrange the following numbered sentences to form the most logical and cohesive paragraph:\n1. This over-reliance on the oil sector caused agricultural infrastructure to be heavily neglected.\n2. Before the discovery of commercial crude oil, agriculture was the absolute mainstay of Nigeria's economy.\n3. Today, the government is actively trying to diversify the economy by encouraging youths to embrace modern farming.\n4. During that era, cash crops like cocoa, groundnut, and palm oil were the major sources of foreign exchange.",
+    "options": [
+      "2 - 4 - 1 - 3",
+      "2 - 1 - 4 - 3",
+      "4 - 2 - 1 - 3",
+      "3 - 2 - 4 - 1"
+    ],
+    "correct_answer": "2 - 4 - 1 - 3",
+    "image_url": null,
+    "rationale": "Level 5 question assessing advanced syntax, transitional logic, and narrative sequencing. The flow establishes the historical baseline (2), elaborates on that baseline (4), introduces the historical conflict/shift (1), and concludes with the present-day resolution (3)."
+  }
+]
+  {
+    "question_id": "VER_031",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "During the orientation for new JSS 1 students, the principal urged the senior students to strictly **shun** bullying and bad company. What is the nearest in meaning to the word 'shun'?",
+    "options": [
+      "Avoid",
+      "Embrace",
+      "Encourage",
+      "Tolerate"
+    ],
+    "correct_answer": "Avoid",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic vocabulary in context. 'Shun' is a common disciplinary term used in Nigerian moral instruction and school assemblies, meaning to actively avoid."
+  },
+  {
+    "question_id": "VER_032",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "Choose the correct word to complete the sentence: Every student in the JSS 3 class ________ expected to submit the Basic Technology project on Friday.",
+    "options": [
+      "are",
+      "were",
+      "is",
+      "have"
+    ],
+    "correct_answer": "is",
+    "image_url": null,
+    "rationale": "Level 1 question assessing standard grammatical concord. The indefinite pronoun 'every' takes a singular verb, making 'is' the grammatically correct choice."
+  },
+  {
+    "question_id": "VER_033",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "Osun is to Osogbo as Oyo is to ________.",
+    "options": [
+      "Ife",
+      "Ibadan",
+      "Ogbomoso",
+      "Iseyin"
+    ],
+    "correct_answer": "Ibadan",
+    "image_url": null,
+    "rationale": "Level 2 question testing geographic analogies based on the Nigerian Social Studies and Civic Education syllabus (States and Capitals) expected of a JSS 3 student."
+  },
+  {
+    "question_id": "VER_034",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "The school's cultural day was very **lively**, with students dancing energetically to traditional Igbo and Yoruba music. What is the exact OPPOSITE of the word 'lively'?",
+    "options": [
+      "Boring",
+      "Colorful",
+      "Noisy",
+      "Exciting"
+    ],
+    "correct_answer": "Boring",
+    "image_url": null,
+    "rationale": "Level 2 question testing contextual antonyms. The context of 'dancing energetically' implies excitement and activity, making 'boring' the direct opposite."
+  },
+  {
+    "question_id": "VER_035",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "When Tunde realized he had forgotten to copy the continuous assessment notes from the board, he knew he was **in hot water** with his teacher. This phrase means he...",
+    "options": [
+      "was feeling very feverish and sick.",
+      "was going to have his tea break soon.",
+      "was in serious trouble.",
+      "needed to boil water for the teacher."
+    ],
+    "correct_answer": "was in serious trouble.",
+    "image_url": null,
+    "rationale": "Level 3 question evaluating comprehension of common English idioms. The distractors rely on literal interpretations to ensure the student understands the figurative meaning."
+  },
+  {
+    "question_id": "VER_036",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "Read the following statements:\n1. All students in the school choir must attend practice on Wednesdays.\n2. Amina is a dedicated member of the school choir.\nBased ONLY on these statements, which conclusion is definitely true?",
+    "options": [
+      "Amina has the best voice in the choir.",
+      "Amina must attend practice on Wednesdays.",
+      "Amina loves singing on Wednesdays.",
+      "Amina is the choir mistress."
+    ],
+    "correct_answer": "Amina must attend practice on Wednesdays.",
+    "image_url": null,
+    "rationale": "Level 3 question testing basic categorical syllogisms. It requires the student to draw a factual conclusion derived strictly from the provided premises without assuming external information like her vocal quality."
+  },
+  {
+    "question_id": "VER_037",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "Wig is to Lawyer as ________ is to Medical Doctor.",
+    "options": [
+      "Syringe",
+      "Hospital",
+      "Stethoscope",
+      "Patient"
+    ],
+    "correct_answer": "Stethoscope",
+    "image_url": null,
+    "rationale": "Level 4 question testing advanced occupational analogies. A wig is an identifying piece of professional equipment/attire for a lawyer in the Nigerian legal system, just as a stethoscope is for a doctor."
+  },
+  {
+    "question_id": "VER_038",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "Choose the correct phrase to complete the conditional sentence: If I ________ that the principal was inspecting the hostels today, I would have arranged my locker properly.",
+    "options": [
+      "know",
+      "knew",
+      "have known",
+      "had known"
+    ],
+    "correct_answer": "had known",
+    "image_url": null,
+    "rationale": "Level 4 question testing advanced grammar, specifically the Type 3 conditional clause (past perfect tense paired with 'would have' + past participle) reflecting an unfulfilled condition in the past."
+  },
+  {
+    "question_id": "VER_039",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "Argument: 'The school management should ban students from buying snacks from street hawkers outside the school gate because it will drastically reduce the number of students falling sick with typhoid.'\nWhich of the following statements, if true, most strongly STRENGTHENS this argument?",
+    "options": [
+      "Many students prefer the taste of the snacks sold by street hawkers over the school tuck shop.",
+      "Most of the snacks hawked outside the gate are prepared in unhygienic environments with contaminated water.",
+      "The school tuck shop sells snacks at a slightly higher price than the street hawkers.",
+      "Typhoid is a common illness during the rainy season in Nigeria."
+    ],
+    "correct_answer": "Most of the snacks hawked outside the gate are prepared in unhygienic environments with contaminated water.",
+    "image_url": null,
+    "rationale": "Level 5 question testing critical reasoning. To strengthen the argument, the student must identify the option that directly links the street hawkers' snacks to the cause of typhoid (contaminated water/unhygienic preparation)."
+  },
+  {
+    "question_id": "VER_040",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "Arrange the following numbered sentences to form the most logical and cohesive paragraph:\n1. The rainy season in Lagos often brings heavy downpours that cause massive flooding on the roads.\n2. To prevent this crisis, the state government recently cleared the major drainage channels in Surulere.\n3. Consequently, residents of the area experienced a much smoother flow of traffic this year.\n4. Previously, these blocked drains caused vehicles to break down, resulting in terrible traffic jams.",
+    "options": [
+      "1 - 4 - 2 - 3",
+      "1 - 2 - 4 - 3",
+      "4 - 1 - 2 - 3",
+      "2 - 3 - 1 - 4"
+    ],
+    "correct_answer": "1 - 4 - 2 - 3",
+    "image_url": null,
+    "rationale": "Level 5 question assessing advanced syntax, transitional logic, and paragraph sequencing. The flow establishes the general problem (1), elaborates on the historical consequence of the problem (4), introduces the specific intervention (2), and concludes with the positive result (3)."
+  }
+]
+  {
+    "question_id": "VER_041",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "The invigilator instructed the students to **commence** writing their mock BECE as soon as the bell rang. What is the nearest in meaning to the word 'commence'?",
+    "options": [
+      "Stop",
+      "Begin",
+      "Pause",
+      "Finish"
+    ],
+    "correct_answer": "Begin",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic vocabulary in an academic context. 'Commence' is a formal word frequently used in Nigerian examination settings, meaning to start or begin."
+  },
+  {
+    "question_id": "VER_042",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "Choose the correct preposition to complete the sentence: My mother usually goes to Tejuosho market ________ Saturdays to buy groceries for the house.",
+    "options": [
+      "in",
+      "at",
+      "on",
+      "by"
+    ],
+    "correct_answer": "on",
+    "image_url": null,
+    "rationale": "Level 1 question assessing fundamental grammar. The preposition 'on' is the standard English rule for days of the week."
+  },
+  {
+    "question_id": "VER_043",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "Quickly is to Adverb as Beautiful is to ________.",
+    "options": [
+      "Noun",
+      "Verb",
+      "Pronoun",
+      "Adjective"
+    ],
+    "correct_answer": "Adjective",
+    "image_url": null,
+    "rationale": "Level 2 question testing linguistic analogies based on the JSS English Language syllabus (parts of speech)."
+  },
+  {
+    "question_id": "VER_044",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "The new student was very **timid** during his first week at King's College, but he soon made many friends. What is the exact OPPOSITE of the word 'timid'?",
+    "options": [
+      "Shy",
+      "Bold",
+      "Quiet",
+      "Afraid"
+    ],
+    "correct_answer": "Bold",
+    "image_url": null,
+    "rationale": "Level 2 question testing antonyms in context. 'Timid' means lacking courage or self-confidence, making 'bold' the direct opposite."
+  },
+  {
+    "question_id": "VER_045",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "To pass the Junior WAEC with flying colors, the principal told the JSS 3 students they must **pull up their socks**. This idiom means they should...",
+    "options": [
+      "wear longer school uniform socks.",
+      "work harder and improve their academic performance.",
+      "buy new pairs of socks for the examinations.",
+      "run much faster during the inter-house sports competition."
+    ],
+    "correct_answer": "work harder and improve their academic performance.",
+    "image_url": null,
+    "rationale": "Level 3 question evaluating comprehension of standard idioms. It tests the ability to see past the literal interpretation of an everyday school uniform item to grasp the figurative meaning of making a greater effort."
+  },
+  {
+    "question_id": "VER_046",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "Read the following statements:\n1. All members of the school's JETS (Junior Engineers, Technicians and Scientists) club are excellent at Mathematics.\n2. Dayo is not excellent at Mathematics.\nBased ONLY on these statements, which conclusion is logically valid?",
+    "options": [
+      "Dayo is the president of the JETS club.",
+      "Dayo is definitely a member of the JETS club.",
+      "Dayo might be a member of the JETS club.",
+      "Dayo is not a member of the JETS club."
+    ],
+    "correct_answer": "Dayo is not a member of the JETS club.",
+    "image_url": null,
+    "rationale": "Level 3 question testing basic deductive logic (Modus Tollens). If being in the JETS club requires being excellent at Mathematics (A -> B), and Dayo is not excellent at Mathematics (Not B), then he cannot be in the JETS club (Not A)."
+  },
+  {
+    "question_id": "VER_047",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "Malaria is to Mosquito as Sleeping Sickness is to ________.",
+    "options": [
+      "Rat",
+      "Tsetse fly",
+      "Cockroach",
+      "Housefly"
+    ],
+    "correct_answer": "Tsetse fly",
+    "image_url": null,
+    "rationale": "Level 4 question testing advanced analogies integrated with the JSS Basic Science curriculum (vectors and diseases)."
+  },
+  {
+    "question_id": "VER_048",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "The school management decided to ________ the rules regarding latecoming because too many students were arriving after the 8:00 AM assembly.",
+    "options": [
+      "clamp down on",
+      "look down on",
+      "break down in",
+      "put up with"
+    ],
+    "correct_answer": "clamp down on",
+    "image_url": null,
+    "rationale": "Level 4 question assessing the knowledge of phrasal verbs within a specific context. 'Clamp down on' correctly means to enforce rules strictly to prevent an unwanted activity."
+  },
+  {
+    "question_id": "VER_049",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "Argument: 'The Ministry of Education should make the study of local languages like Hausa, Igbo, and Yoruba compulsory in all secondary schools to prevent these native languages from going extinct.'\nWhich of the following represents an underlying ASSUMPTION made in this argument?",
+    "options": [
+      "Students are entirely responsible for the extinction of local languages in Nigeria.",
+      "Studying local languages in the formal school setting will actually help preserve them and keep them in active use.",
+      "English is the main cause of the decline in local language usage among youths.",
+      "All secondary school teachers in Nigeria are fluent in at least one local language."
+    ],
+    "correct_answer": "Studying local languages in the formal school setting will actually help preserve them and keep them in active use.",
+    "image_url": null,
+    "rationale": "Level 5 question testing critical reasoning and argument analysis. An assumption is an unstated premise that must be true for the argument to hold. The argument relies on the belief that compulsory school education is an effective mechanism for language preservation."
+  },
+  {
+    "question_id": "VER_050",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "Arrange the following numbered sentences to form the most logical and cohesive paragraph:\n1. Consequently, many citizens were plunged into economic hardship due to the rising cost of living.\n2. The sudden removal of the fuel subsidy in Nigeria led to an immediate spike in public transportation fares.\n3. To mitigate this impact, the federal government introduced various palliative measures for vulnerable households.\n4. This sharp increase in transport fares naturally cascaded into the prices of food and basic commodities in the local markets.",
+    "options": [
+      "2 - 4 - 1 - 3",
+      "2 - 1 - 4 - 3",
+      "4 - 2 - 1 - 3",
+      "3 - 2 - 4 - 1"
+    ],
+    "correct_answer": "2 - 4 - 1 - 3",
+    "image_url": null,
+    "rationale": "Level 5 question assessing advanced syntax, transitional logic, and paragraph sequencing. The logical flow establishes the cause (2), follows its immediate secondary effect (4), highlights the broader societal consequence (1), and concludes with the intervention (3)."
+  }
+]
+  {
+    "question_id": "VER_051",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "During the prize-giving day, the best graduating JSS 3 student was highly **applauded** by the parents and teachers. What is the nearest in meaning to the word 'applauded'?",
+    "options": [
+      "Praised",
+      "Scolded",
+      "Ignored",
+      "Questioned"
+    ],
+    "correct_answer": "Praised",
+    "image_url": null,
+    "rationale": "Level 1 question measuring basic vocabulary in a standard school context. 'Applauded' means to show approval or praise, commonly used during ceremonies."
+  },
+  {
+    "question_id": "VER_052",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 1,
+    "text": "Choose the correct preposition to complete the sentence: The school bus broke down, so we have been waiting at the bus stop ________ two hours.",
+    "options": [
+      "since",
+      "for",
+      "from",
+      "in"
+    ],
+    "correct_answer": "for",
+    "image_url": null,
+    "rationale": "Level 1 question assessing fundamental grammar. 'For' is used to indicate a duration or period of time, whereas 'since' is used for a specific starting point."
+  },
+  {
+    "question_id": "VER_053",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "The principal announced that the school's deadline for the payment of the third-term fees is quite **rigid**. What is the exact OPPOSITE of the word 'rigid'?",
+    "options": [
+      "Strict",
+      "Flexible",
+      "Harsh",
+      "Expensive"
+    ],
+    "correct_answer": "Flexible",
+    "image_url": null,
+    "rationale": "Level 2 question testing antonyms in context. 'Rigid' means unable to bend or be changed, making 'flexible' the direct opposite."
+  },
+  {
+    "question_id": "VER_054",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 2,
+    "text": "Cutlass is to Farmer as Chalk is to ________.",
+    "options": [
+      "Carpenter",
+      "Teacher",
+      "Tailor",
+      "Doctor"
+    ],
+    "correct_answer": "Teacher",
+    "image_url": null,
+    "rationale": "Level 2 question testing functional occupational analogies. A cutlass is a primary tool for a Nigerian farmer, just as chalk is for a teacher."
+  },
+  {
+    "question_id": "VER_055",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "When two junior students were arguing over a misplaced biro, the prefect decided to **let sleeping dogs lie** because they had already stopped shouting. This idiom means the prefect decided to...",
+    "options": [
+      "take the boys to the school farm to see the dogs.",
+      "avoid interfering in a situation that is currently causing no problems.",
+      "punish both students for making noise in the classroom.",
+      "report the matter directly to the school principal."
+    ],
+    "correct_answer": "avoid interfering in a situation that is currently causing no problems.",
+    "image_url": null,
+    "rationale": "Level 3 question evaluating comprehension of standard idioms. It tests the ability to understand that the phrase means choosing not to instigate trouble in a settled situation."
+  },
+  {
+    "question_id": "VER_056",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 3,
+    "text": "Read the following statements:\n1. All JSS 3 students at Lagoon Secondary School must take the mock BECE.\n2. Halima is a JSS 3 student at Lagoon Secondary School.\nBased ONLY on these statements, which conclusion is definitely true?",
+    "options": [
+      "Halima will pass the mock BECE.",
+      "Halima must take the mock BECE.",
+      "Halima dislikes the mock BECE.",
+      "Halima is the head girl of the school."
+    ],
+    "correct_answer": "Halima must take the mock BECE.",
+    "image_url": null,
+    "rationale": "Level 3 question testing basic categorical syllogisms (Modus Ponens). It requires drawing a direct, factual conclusion without inserting personal assumptions about her performance or feelings."
+  },
+  {
+    "question_id": "VER_057",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "Executive is to Implementing laws as Judiciary is to ________.",
+    "options": [
+      "Making laws",
+      "Interpreting laws",
+      "Breaking laws",
+      "Voting laws"
+    ],
+    "correct_answer": "Interpreting laws",
+    "image_url": null,
+    "rationale": "Level 4 question testing advanced analogies integrated with the JSS Civic Education curriculum (arms of government and their functions)."
+  },
+  {
+    "question_id": "VER_058",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 4,
+    "text": "Choose the correct question tag to complete the sentence: The students haven't finished their Basic Technology practicals, ________?",
+    "options": [
+      "have they",
+      "haven't they",
+      "did they",
+      "didn't they"
+    ],
+    "correct_answer": "have they",
+    "image_url": null,
+    "rationale": "Level 4 question testing grammatical rules for question tags. A negative statement requires a positive question tag with the matching auxiliary verb."
+  },
+  {
+    "question_id": "VER_059",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "Argument: 'Replacing the school's natural grass pitch with artificial turf will drastically reduce the number of sports injuries among students during inter-house sports.'\nWhich of the following statements, if true, most strongly STRENGTHENS this argument?",
+    "options": [
+      "Artificial turf tends to absorb more heat than natural grass during the afternoon sun.",
+      "Artificial turf provides a completely even playing surface, eliminating the hidden potholes in grass that frequently cause twisted ankles.",
+      "Natural grass pitches are significantly cheaper for the school to maintain over a ten-year period.",
+      "Most JSS 3 students say they prefer the traditional feel of playing football on natural grass."
+    ],
+    "correct_answer": "Artificial turf provides a completely even playing surface, eliminating the hidden potholes in grass that frequently cause twisted ankles.",
+    "image_url": null,
+    "rationale": "Level 5 question testing critical reasoning. To strengthen the argument, the student must identify the option that provides a direct, logical mechanism for how the artificial turf prevents injuries."
+  },
+  {
+    "question_id": "VER_060",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Verbal Reasoning",
+    "difficulty_level": 5,
+    "text": "Arrange the following numbered sentences to form the most logical and cohesive paragraph:\n1. As a result of this habitat loss, many indigenous Nigerian animal species are facing the threat of extinction.\n2. Deforestation remains a critical environmental issue across southern Nigeria.\n3. To combat this looming crisis, environmental clubs in secondary schools are initiating active tree-planting campaigns.\n4. This widespread clearing of forests is primarily driven by the high demand for timber and agricultural land.",
+    "options": [
+      "2 - 4 - 1 - 3",
+      "2 - 1 - 4 - 3",
+      "4 - 2 - 1 - 3",
+      "3 - 2 - 4 - 1"
+    ],
+    "correct_answer": "2 - 4 - 1 - 3",
+    "image_url": null,
+    "rationale": "Level 5 question assessing advanced syntax, transitional logic, and paragraph sequencing. The logical flow introduces the main topic (2), explains its root cause (4), highlights the negative consequence (1), and concludes with a proactive solution (3)."
+  }
+]

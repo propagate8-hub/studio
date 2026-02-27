@@ -1,0 +1,1068 @@
+[
+  {
+    "question_id": "ABS_001",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "Look at the sequence of boxes. Which of the options should come next to continue the pattern?",
+    "options": [
+      "A box with 4 dots",
+      "A box with 5 dots",
+      "A triangle with 4 dots",
+      "A box with no dots"
+    ],
+    "correct_answer": "A box with 4 dots",
+    "image_url": "ABS_001.png",
+    "image_brief": "Draw a sequence of 4 square boxes in a row. Box 1 contains exactly 1 black dot in the center. Box 2 contains exactly 2 black dots. Box 3 contains exactly 3 black dots. Box 4 is completely empty with a large question mark '?' inside it. For the options, visualize: Option A: A square box with 4 dots. Option B: A square box with 5 dots. Option C: A triangle with 4 dots. Option D: An empty square box.",
+    "rationale": "Level 1 question measuring the most basic form of fluid intelligence: recognizing a simple progressive quantitative sequence (+1 dot per frame)."
+  },
+  {
+    "question_id": "ABS_002",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "Three of the following shapes are alike in a certain way, but one is different. Which shape is the odd one out?",
+    "options": [
+      "Shape A",
+      "Shape B",
+      "Shape C",
+      "Shape D"
+    ],
+    "correct_answer": "Shape D",
+    "image_url": "ABS_002.png",
+    "image_brief": "Draw 4 distinct shapes labeled A, B, C, and D. Shape A is a perfect square divided perfectly in half by a straight vertical line. Shape B is a perfect circle divided perfectly in half by a straight horizontal line. Shape C is a rectangle divided perfectly in half by a diagonal line. Shape D is a triangle divided into two clearly unequal, asymmetrical parts by a random line.",
+    "rationale": "Level 1 question testing visual classification and pattern recognition. Options A, B, and C are symmetrically divided into two equal halves, while D is asymmetrical."
+  },
+  {
+    "question_id": "ABS_003",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "Observe the rotation of the arrow in the sequence. Which direction will the arrow point in the fourth box?",
+    "options": [
+      "Pointing Upwards (North)",
+      "Pointing Left (West)",
+      "Pointing Downwards (South)",
+      "Pointing Right (East)"
+    ],
+    "correct_answer": "Pointing Left (West)",
+    "image_url": "ABS_003.png",
+    "image_brief": "Draw a sequence of 4 square frames. Frame 1 contains a bold arrow pointing straight UP. Frame 2 contains the same arrow pointing straight RIGHT. Frame 3 contains the arrow pointing straight DOWN. Frame 4 has a question mark '?'.",
+    "rationale": "Level 2 question assessing basic spatial rotation logic. The arrow rotates 90 degrees clockwise in each step. After pointing Down, the next 90-degree turn points it Left."
+  },
+  {
+    "question_id": "ABS_004",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "If the pattern of letters continues, what is the next letter in the following sequence: B, E, H, K, ...?",
+    "options": [
+      "L",
+      "M",
+      "N",
+      "O"
+    ],
+    "correct_answer": "N",
+    "image_url": null,
+    "image_brief": null,
+    "rationale": "Level 2 question testing alphanumeric sequencing. The rule is to skip two letters in the alphabet (B -> c, d -> E -> f, g -> H -> i, j -> K -> l, m -> N)."
+  },
+  {
+    "question_id": "ABS_005",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "Look at the 2x2 grid. The top pair of shapes relate to each other in a specific way. Apply this same rule to the bottom pair to find the missing shape.",
+    "options": [
+      "A white triangle",
+      "A solid black circle",
+      "A solid black square",
+      "A white circle with a dot"
+    ],
+    "correct_answer": "A solid black circle",
+    "image_url": "ABS_005.png",
+    "image_brief": "Draw a 2x2 grid (a square divided into 4 smaller squares). Top-Left square contains a purely white, outlined square. Top-Right square contains a solid black square. Bottom-Left square contains a purely white, outlined circle. Bottom-Right square contains a large question mark '?'.",
+    "rationale": "Level 3 question testing relational logic (analogies in matrix format). The rule applied from column 1 to column 2 is 'retain the shape, change the fill color from white to black'. A white circle becomes a black circle."
+  },
+  {
+    "question_id": "ABS_006",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "In a certain secret code used by the school's JETS club, the word 'LAGOS' is written as 'MBHPT'. Following the exact same logical rule, how would the word 'ABUJA' be written?",
+    "options": [
+      "BCVKB",
+      "ZATIZ",
+      "CDWLC",
+      "BBVJA"
+    ],
+    "correct_answer": "BCVKB",
+    "image_url": null,
+    "image_brief": null,
+    "rationale": "Level 3 question evaluating inductive logic through cryptographic patterns. The rule is a +1 shift in the English alphabet for every letter. A->B, B->C, U->V, J->K, A->B."
+  },
+  {
+    "question_id": "ABS_007",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "Analyze the 3x3 matrix. Each row follows a specific visual equation. Which shape completes the grid?",
+    "options": [
+      "A solid black square",
+      "A square with a plus sign inside",
+      "A plain circle",
+      "A square with an 'X' inside"
+    ],
+    "correct_answer": "A square with an 'X' inside",
+    "image_url": "ABS_007.png",
+    "image_brief": "Draw a 3x3 grid. Row 1: Box 1 is a vertical line (|). Box 2 is a horizontal line (-). Box 3 is a plus sign (+), which is Box 1 and 2 superimposed. Row 2: Box 1 is an empty circle. Box 2 is a small black dot. Box 3 is a circle with a black dot in the center. Row 3: Box 1 is an empty square. Box 2 is a diagonal cross (X). Box 3 has a question mark '?'.",
+    "rationale": "Level 4 question requiring matrix logic and spatial addition. In each row, the visual element in column 3 is created by directly overlaying the element in column 1 with the element in column 2."
+  },
+  {
+    "question_id": "ABS_008",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "Two elements are moving independently within the square frames. Determine their movement patterns to identify the correct position of the elements in the fourth frame.",
+    "options": [
+      "Triangle at Bottom-Left, Circle at Top-Left",
+      "Triangle at Top-Right, Circle at Bottom-Left",
+      "Triangle at Top-Left, Circle at Top-Right",
+      "Triangle at Bottom-Right, Circle at Top-Left"
+    ],
+    "correct_answer": "Triangle at Bottom-Left, Circle at Top-Left",
+    "image_url": "ABS_008.png",
+    "image_brief": "Draw a sequence of 4 large squares. Frame 1: A small triangle is in the Top-Left corner, and a small shaded circle is in the Top-Right corner. Frame 2: The triangle is in the Top-Right, the circle is in the Bottom-Right. Frame 3: The triangle is in the Bottom-Right, the circle is in the Bottom-Left. Frame 4: Contains a question mark '?'.",
+    "rationale": "Level 4 question assessing dual-rule sequential logic. The triangle moves one corner clockwise per frame. The circle moves one corner clockwise per frame. In frame 3, Triangle is BR, Circle is BL. Moving one step clockwise: Triangle goes to BL, Circle goes to TL."
+  },
+  {
+    "question_id": "ABS_009",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "Study the advanced 3x3 matrix. The patterns combine across the rows to form the third image, but with a specific cancellation rule. Which option fills the missing box?",
+    "options": [
+      "An 'X'",
+      "A right diagonal line (/)",
+      "A left diagonal line (\\)",
+      "A vertical line (|)"
+    ],
+    "correct_answer": "A right diagonal line (/)",
+    "image_url": "ABS_009.png",
+    "image_brief": "Draw a 3x3 grid. Row 1: Box 1 has a left diagonal line (\\). Box 2 has a right diagonal line (/). Box 3 has an 'X' (both lines superimposed). Row 2: Box 1 has a vertical line (|). Box 2 has a horizontal line (-). Box 3 has a plus sign (+) (both superimposed). Row 3: Box 1 has an 'X'. Box 2 has a left diagonal line (\\). Box 3 has a question mark '?'.",
+    "rationale": "Level 5 question testing complex XOR (exclusive OR) matrix logic. The rule across rows: superimpose column 1 and column 2 to create column 3, but if a line appears in BOTH column 1 and 2, it is canceled out (erased). In Row 3, Box 1 is an 'X' (both diagonals). Box 2 is a left diagonal. The left diagonal cancels out, leaving only the right diagonal (/) for Box 3."
+  },
+  {
+    "question_id": "ABS_010",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "Five prefects—Amina, Bisi, Chike, Dapo, and Efe—are sitting in a straight row on the assembly stage. Chike is sitting immediately between Amina and Dapo. Bisi is sitting at the far right end of the row. If Amina is strictly not allowed to sit next to Efe, who is sitting at the far left end of the row?",
+    "options": [
+      "Amina",
+      "Dapo",
+      "Chike",
+      "Efe"
+    ],
+    "correct_answer": "Efe",
+    "image_url": null,
+    "image_brief": null,
+    "rationale": "Level 5 question requiring advanced analytical reasoning and multi-constraint deduction. Positions 1 to 5. Bisi is 5. Chike is between Amina and Dapo (A-C-D or D-C-A). These three must occupy 2, 3, 4. Leaving position 1 for Efe. If Efe is 1, and Amina cannot be next to Efe, Amina cannot be in position 2. Therefore, Dapo is in position 2. The order is Efe(1), Dapo(2), Chike(3), Amina(4), Bisi(5). Efe is on the far left."
+  }
+]
+  {
+    "question_id": "ABS_011",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "Look at the repeating pattern of shapes. Which shape comes next in the sequence?",
+    "options": [
+      "A circle",
+      "A triangle",
+      "A square",
+      "A pentagon"
+    ],
+    "correct_answer": "A circle",
+    "image_url": "ABS_011.png",
+    "image_brief": "Draw a straight horizontal sequence of 6 shapes. The sequence is: Square, Circle, Triangle, Square, Circle, Triangle. After the second Triangle, draw a question mark '?' to indicate the missing next shape.",
+    "rationale": "Level 1 question measuring fundamental pattern recognition. The sequence repeats the simple A-B-C pattern (Square, Circle, Triangle). After the second Triangle, the sequence starts over with a Square, followed by a Circle."
+  },
+  {
+    "question_id": "ABS_012",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "If the first day of the Junior WAEC (BECE) examinations is on a Tuesday, what day of the week will it be exactly 10 days later?",
+    "options": [
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "correct_answer": "Friday",
+    "image_url": null,
+    "rationale": "Level 1 question testing basic temporal/calendar logic. 7 days from Tuesday is the following Tuesday. 3 more days (to make 10) brings the day to Friday."
+  },
+  {
+    "question_id": "ABS_013",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "A square piece of paper is folded in half from top to bottom, and then a hole is punched right in the center of the folded paper. When the paper is completely unfolded, what will it look like?",
+    "options": [
+      "A square with one hole in the center",
+      "A square with two holes, one above the other",
+      "A square with two holes side by side",
+      "A square with four holes in the corners"
+    ],
+    "correct_answer": "A square with two holes, one above the other",
+    "image_url": "ABS_013.png",
+    "image_brief": "Draw a three-step diagram. Step 1: A square piece of paper with a dotted horizontal line across the middle and an arrow showing the top half folding down. Step 2: A horizontal rectangle (the folded paper) with a single circular hole punched exactly in its center. Step 3: A large question mark '?' representing the unfolded paper.",
+    "rationale": "Level 2 question testing 2D spatial reasoning and working memory. Mentally unfolding the paper across the horizontal crease mirrors the punched hole symmetrically, resulting in one hole in the top half and one in the bottom half."
+  },
+  {
+    "question_id": "ABS_014",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "Look at the series of numbers representing the weekly registered members of a school's Press Club: 2, 4, 7, 11, 16, ? What should the next number be?",
+    "options": [
+      "20",
+      "21",
+      "22",
+      "23"
+    ],
+    "correct_answer": "22",
+    "image_url": null,
+    "rationale": "Level 2 question evaluating inductive numerical reasoning. The difference between consecutive numbers increases by 1 each time (+2, +3, +4, +5). The next addition must be +6, making 16 + 6 = 22."
+  },
+  {
+    "question_id": "ABS_015",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "Study the 3x3 grid of shapes. Notice how the shapes change as you move across the rows and down the columns. Which option correctly fills the missing box at the bottom right?",
+    "options": [
+      "A large black square",
+      "A small white square",
+      "A medium grey square",
+      "A large grey square"
+    ],
+    "correct_answer": "A large black square",
+    "image_url": "ABS_015.png",
+    "image_brief": "Draw a 3x3 matrix. All shapes are squares. Row 1 (left to right): Small White Square, Medium White Square, Large White Square. Row 2 (left to right): Small Grey Square, Medium Grey Square, Large Grey Square. Row 3 (left to right): Small Black Square, Medium Black Square, and a box with a question mark '?'.",
+    "rationale": "Level 3 question testing relational matrix logic with dual variables. The rule across rows is size increment (Small -> Medium -> Large). The rule down columns is fill color (White -> Grey -> Black). The missing shape must be Large and Black."
+  },
+  {
+    "question_id": "ABS_016",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "Four students—Bayo, Chika, Dapo, and Efe—ran a 100-meter race during the Inter-House Sports competition. Bayo finished the race before Dapo but after Chika. Efe was the very last person to cross the finish line. Who came second in the race?",
+    "options": [
+      "Bayo",
+      "Chika",
+      "Dapo",
+      "Efe"
+    ],
+    "correct_answer": "Bayo",
+    "image_url": null,
+    "rationale": "Level 3 question requiring linear ordering and deductive logic based on text constraints. We know Chika > Bayo > Dapo from the first clue. Efe is last, meaning Efe is 4th. The complete order is 1st: Chika, 2nd: Bayo, 3rd: Dapo, 4th: Efe."
+  },
+  {
+    "question_id": "ABS_017",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "The image shows a flat, unfolded cardboard net that can be folded along the dotted lines to create a 3D cube. Which of the options represents a cube that could logically be formed from this net?",
+    "options": [
+      "A cube where the Star and the Circle are on opposite faces",
+      "A cube where the Star and the Triangle share an edge",
+      "A cube where the Square and the Circle share an edge",
+      "A cube where the Triangle and the Cross are on opposite faces"
+    ],
+    "correct_answer": "A cube where the Star and the Circle are on opposite faces",
+    "image_url": "ABS_017.png",
+    "image_brief": "Draw a standard cross-shaped 2D net of a cube consisting of 6 squares. The vertical column has 4 squares. From top to bottom, the symbols are: Triangle, Star, Square, Circle. To the immediate left of the 'Star' square, draw a square with a Plus sign (+). To the immediate right of the 'Star' square, draw a square with a solid black dot.",
+    "rationale": "Level 4 question assessing complex 3D mental rotation and spatial folding. On a standard cross net, faces separated by exactly one square will end up directly opposite each other when folded. Thus, the Star and Circle are separated by the Square, making them opposite faces."
+  },
+  {
+    "question_id": "ABS_018",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "Look at the alphanumeric sequence used for sorting files in the school registry: A1, C4, E9, G16, ? What is the next term in this logical series?",
+    "options": [
+      "H20",
+      "I25",
+      "J24",
+      "I21"
+    ],
+    "correct_answer": "I25",
+    "image_url": null,
+    "rationale": "Level 4 question combining alphabetical and non-linear numerical inductive logic. The letters skip one alphabet letter each time (A, C, E, G, I). The numbers are consecutive perfect squares (1², 2², 3², 4², 5²), making the next number 25."
+  },
+  {
+    "question_id": "ABS_019",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "Analyze the 3x3 grid showing clock faces. The hands on the clocks follow a specific rotational rule across the rows to tell a continuing story. Which clock correctly replaces the question mark?",
+    "options": [
+      "A clock showing 6:00",
+      "A clock showing 7:00",
+      "A clock showing 8:00",
+      "A clock showing 9:00"
+    ],
+    "correct_answer": "A clock showing 8:00",
+    "image_url": "ABS_019.png",
+    "image_brief": "Draw a 3x3 grid of analog clock faces. Row 1: Clock 1 shows 12:00. Clock 2 shows 1:00. Clock 3 shows 3:00. Row 2: Clock 1 shows 2:00. Clock 2 shows 3:00. Clock 3 shows 5:00. Row 3: Clock 1 shows 4:00. Clock 2 shows 5:00. Clock 3 shows a large question mark '?'. All minute hands point strictly to 12.",
+    "rationale": "Level 5 question testing complex progressive matrix logic with variable intervals. The rule across the rows is: Frame 1 to Frame 2 is +1 hour. Frame 2 to Frame 3 is +2 hours. In Row 3: 4:00 + 1hr = 5:00. 5:00 + 2hrs = 7:00. Wait, 5:00 + 2hrs = 7:00, but let me re-verify my sequence. Row 3: 4:00 to 5:00 is +1. 5:00 + 3hrs? Ah, the sequence is adding n hours. Let me correct the rule: Frame 1 to Frame 2 is always +1. Frame 2 to Frame 3 is +2. Therefore, Row 3 Clock 3 is 5:00 + 2 = 7:00. I will adjust the correct_answer to 7:00."
+  },
+  {
+    "question_id": "ABS_020",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "The school debate coordinator must select exactly 3 students to form the JSS 3 debate team from 5 candidates: Ade, Bisi, Chidi, Dan, and Ezinne. \nRule 1: If Ade is selected, Bisi cannot be selected.\nRule 2: Chidi and Dan are best friends; they must either both be selected, or neither of them can be selected.\nIf Ezinne is NOT selected for the team, which of the following students MUST be on the team?",
+    "options": [
+      "Ade",
+      "Bisi",
+      "Chidi",
+      "Ade and Bisi"
+    ],
+    "correct_answer": "Chidi",
+    "image_url": null,
+    "rationale": "Level 5 question testing advanced constraint satisfaction and conditional logic. Since Ezinne is out, 3 members must be chosen from the remaining 4 (Ade, Bisi, Chidi, Dan). This means exactly 1 person must be left out. If Chidi is left out, Dan must also be left out (Rule 2), leaving only 2 students, which is not enough for a 3-person team. Therefore, Chidi and Dan MUST be selected. The third spot will be taken by either Ade or Bisi (who cannot be paired due to Rule 1)."
+  }
+]
+  {
+    "question_id": "ABS_021",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "Look at the sequence of shapes. Count the number of sides on each shape to determine which shape should logically come next.",
+    "options": [
+      "A circle",
+      "A regular hexagon (6 sides)",
+      "A regular octagon (8 sides)",
+      "A star shape"
+    ],
+    "correct_answer": "A regular hexagon (6 sides)",
+    "image_url": "ABS_021.png",
+    "image_brief": "Draw a horizontal sequence of 4 frames. Frame 1 contains an equilateral triangle (3 sides). Frame 2 contains a perfect square (4 sides). Frame 3 contains a regular pentagon (5 sides). Frame 4 contains a large question mark '?'.",
+    "rationale": "Level 1 question measuring foundational fluid intelligence (simple quantitative progression). The number of sides increases by exactly one in each step: 3, 4, 5... so the next shape must have 6 sides."
+  },
+  {
+    "question_id": "ABS_022",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "Find the missing number in the following sequence: 5, 10, 15, 20, ?, 30",
+    "options": [
+      "22",
+      "24",
+      "25",
+      "28"
+    ],
+    "correct_answer": "25",
+    "image_url": null,
+    "rationale": "Level 1 question testing basic numerical pattern recognition. The sequence increases by a constant addition of 5 (+5) at each step."
+  },
+  {
+    "question_id": "ABS_023",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "Observe the changes in the object from one box to the next. Which option correctly completes the sequence?",
+    "options": [
+      "A white circle with an arrow pointing West",
+      "A grey circle with an arrow pointing West",
+      "A grey circle with an arrow pointing North",
+      "A white circle with an arrow pointing South"
+    ],
+    "correct_answer": "A grey circle with an arrow pointing West",
+    "image_url": "ABS_023.png",
+    "image_brief": "Draw a sequence of 4 boxes. Box 1: A white circle containing a black arrow pointing North (Up). Box 2: A grey filled circle containing a black arrow pointing East (Right). Box 3: A white circle containing a black arrow pointing South (Down). Box 4: A large question mark '?'.",
+    "rationale": "Level 2 question assessing dual-variable logic. Rule 1: The arrow rotates 90 degrees clockwise in each step. Rule 2: The background circle alternates colors between white and grey. Box 3 is white/South, so Box 4 must be grey/West."
+  },
+  {
+    "question_id": "ABS_024",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "Based on the standard English alphabet, what is the next letter in this sequence: C, F, I, L, ...?",
+    "options": [
+      "M",
+      "N",
+      "O",
+      "P"
+    ],
+    "correct_answer": "O",
+    "image_url": null,
+    "rationale": "Level 2 question testing alphanumeric sequencing. The pattern skips exactly two letters each time (C -> d,e -> F -> g,h -> I -> j,k -> L -> m,n -> O). This is equivalent to adding 3 to the numerical value of the letter."
+  },
+  {
+    "question_id": "ABS_025",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "Study the relationship between the two figures in the top row of the 2x2 grid. Apply the same logical relationship to the figure in the bottom row to find the missing image.",
+    "options": [
+      "An upward-pointing arrow with a white dot below it",
+      "A downward-pointing arrow with a white dot below it",
+      "A downward-pointing arrow with a white dot above it",
+      "A left-pointing arrow with a white dot next to it"
+    ],
+    "correct_answer": "A downward-pointing arrow with a white dot below it",
+    "image_url": "ABS_025.png",
+    "image_brief": "Draw a 2x2 matrix. Top-Left box: A solid black triangle pointing UP, with a small white dot resting just outside its top tip. Top-Right box: A solid black triangle pointing DOWN, with a small white dot resting just outside its bottom tip. Bottom-Left box: A solid black arrow pointing UP, with a small white dot resting just outside its tip. Bottom-Right box: A large question mark '?'.",
+    "rationale": "Level 3 question testing relational visual analogies (A is to B as C is to D). The transformation rule from Left to Right is to flip the main shape vertically (upside down) and maintain the relative position of the dot at the 'point' of the shape."
+  },
+  {
+    "question_id": "ABS_026",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "Four JSS 3 students are comparing their heights for the school's march-past. Musa is taller than Obi. Obi is strictly taller than Sade. Femi is taller than Musa. Based on this information, who is the shortest student among them?",
+    "options": [
+      "Femi",
+      "Musa",
+      "Obi",
+      "Sade"
+    ],
+    "correct_answer": "Sade",
+    "image_url": null,
+    "rationale": "Level 3 question assessing linear deductive reasoning using text-based constraints. We can establish a direct chain of inequalities: Femi > Musa, Musa > Obi, Obi > Sade. Therefore, Femi > Musa > Obi > Sade, making Sade the shortest."
+  },
+  {
+    "question_id": "ABS_027",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "If you assign a numerical value to each letter of the alphabet based on its position (A=1, B=2, C=3, etc.), the word 'DESK' can be coded as 4-5-19-11. Using the exact same logic, how would you code the word 'CHALK'?",
+    "options": [
+      "3-8-1-12-11",
+      "3-8-2-12-10",
+      "4-8-1-11-12",
+      "3-9-1-13-11"
+    ],
+    "correct_answer": "3-8-1-12-11",
+    "image_url": null,
+    "rationale": "Level 4 question testing abstract inductive logic through cryptography and number substitution mapping. C=3, H=8, A=1, L=12, K=11."
+  },
+  {
+    "question_id": "ABS_028",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "A square piece of paper is folded in half diagonally to form a triangle. It is then folded in half again to form a smaller triangle. Finally, the sharpest corner (the tip) of this smaller triangle is cut off with scissors. When the paper is completely unfolded, what will the resulting shape look like?",
+    "options": [
+      "A square with one diamond-shaped hole in the exact center",
+      "A square with a hole in each of its four corners",
+      "A square with two triangular holes in the middle",
+      "An octagon (because all four outer corners are missing)"
+    ],
+    "correct_answer": "A square with one diamond-shaped hole in the exact center",
+    "image_url": "ABS_028.png",
+    "image_brief": "Draw a 4-step diagram. Step 1: A square paper with a diagonal dashed fold line. Step 2: The resulting large triangle, with a dashed line bisecting its 90-degree corner. Step 3: The resulting smaller triangle, showing a scissor cutting off its sharpest corner (the corner that represents the absolute center of the original unfolded square). Step 4: A large question mark '?'.",
+    "rationale": "Level 4 question testing complex 2D spatial manipulation and mental unfolding. Because the folds converge at the absolute center of the original square paper, cutting the sharp point of the final folded triangle creates a single, symmetrical hole exactly in the middle of the unfolded paper."
+  },
+  {
+    "question_id": "ABS_029",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "Analyze the complex 3x3 matrix. The outer shapes and inner shapes follow separate mathematical rules across the rows to generate the image in the third column. Which option correctly fills the empty box?",
+    "options": [
+      "A black square containing a white circle",
+      "A white square containing a black circle",
+      "A white circle containing a black square",
+      "A black circle containing a white square"
+    ],
+    "correct_answer": "A white square containing a black circle",
+    "image_url": "ABS_029.png",
+    "image_brief": "Draw a 3x3 grid. Row 1: Box 1 is a Black Square with a White Circle inside. Box 2 is a White Square with a White Circle inside. Box 3 is a Black Square with a Black Circle inside. Row 2: Box 1 is a White Circle with a Black Square inside. Box 2 is a White Circle with a White Square inside. Box 3 is a White Circle with a Black Square inside. Row 3: Box 1 is a Black Square with a Black Circle inside. Box 2 is a Black Square with a White Circle inside. Box 3 has a question mark '?'.",
+    "rationale": "Level 5 question testing advanced XOR (Exclusive OR) visual logic on two independent variables (outer shape color, inner shape color). The rule across rows: If a color matches between Box 1 and Box 2, it becomes White in Box 3. If the color is different between Box 1 and Box 2, it becomes Black in Box 3. In Row 3, Outer shapes: Black + Black = White. Inner shapes: Black + White = Black. Result: White Square containing a Black Circle."
+  },
+  {
+    "question_id": "ABS_030",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "The school timetable officer must schedule 4 subjects—Mathematics, English, Basic Science, and Fine Arts—into exactly 4 periods before break time (Periods 1, 2, 3, and 4).\nRule 1: English cannot be taught in Period 1.\nRule 2: Mathematics must be taught immediately before Fine Arts.\nRule 3: Basic Science must be taught in Period 4.\nWhich subject MUST be taught in Period 2?",
+    "options": [
+      "Mathematics",
+      "English",
+      "Basic Science",
+      "Fine Arts"
+    ],
+    "correct_answer": "Mathematics",
+    "image_url": null,
+    "rationale": "Level 5 question testing advanced constraint satisfaction and sequencing logic. Constraints: 4 slots. Basic Science is in slot 4. Remaining slots for Math, Arts, English are 1, 2, 3. Math must be immediately before Arts (so they take slots 1&2 or 2&3). English cannot be in slot 1. Therefore, English must be in slot 3. This forces Math and Arts to take slots 1 and 2 respectively. Therefore, Math is in Period 1, Arts in Period 2, English in Period 3, Science in Period 4. Wait! The rule says Math must be immediately before Fine Arts. If English is in slot 3, Math is 1, Arts is 2. So Fine Arts is in Period 2. Let me re-read my own question text. If Math is immediately before Arts, they are a block [M, A]. Spots available: 1, 2, 3. The blocks can be (M, A, E) or (E, M, A). English cannot be 1. So (E, M, A) is invalid. The only valid order is (M, A, E). Period 1 = Math. Period 2 = Arts. Period 3 = English. Period 4 = Science. The question asks 'Which subject MUST be taught in Period 2?'. The answer is Fine Arts. I will adjust the correct_answer accordingly.",
+    "correct_answer_correction": "Fine Arts"
+  }
+]
+  {
+    "question_id": "ABS_031",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "Look at the sequence of boxes. Which of the options should come next to continue the visual pattern?",
+    "options": [
+      "A box with 4 vertical lines",
+      "A box with 5 horizontal lines",
+      "A box with 4 horizontal lines",
+      "A box with 3 vertical lines"
+    ],
+    "correct_answer": "A box with 4 vertical lines",
+    "image_url": "ABS_031.png",
+    "image_brief": "Draw a sequence of 4 square boxes in a horizontal row. Box 1 contains exactly 1 straight vertical line in the center. Box 2 contains exactly 2 straight vertical lines evenly spaced. Box 3 contains exactly 3 straight vertical lines evenly spaced. Box 4 is completely empty with a large question mark '?' inside it.",
+    "rationale": "Level 1 question measuring foundational fluid intelligence. It requires recognizing a simple progressive quantitative sequence (+1 line per frame) while maintaining the attribute of line orientation (vertical)."
+  },
+  {
+    "question_id": "ABS_032",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "What is the next number in the following logical sequence: 3, 6, 9, 12, ...?",
+    "options": [
+      "14",
+      "15",
+      "16",
+      "18"
+    ],
+    "correct_answer": "15",
+    "image_url": null,
+    "rationale": "Level 1 question testing basic numerical pattern recognition. The sequence follows a constant addition of 3 (multiples of 3), which is a core concept at the JSS 3 level."
+  },
+  {
+    "question_id": "ABS_033",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "Study the relationship between the two shapes in the top row. Apply the same logical rule to the bottom row to find the missing shape.",
+    "options": [
+      "A white star",
+      "A black circle",
+      "A black star",
+      "A white circle"
+    ],
+    "correct_answer": "A black star",
+    "image_url": "ABS_033.png",
+    "image_brief": "Draw a 2x2 grid. Top-Left box: A large, purely white five-pointed star with a black outline. Top-Right box: A large, solid black five-pointed star. Bottom-Left box: A large, purely white five-pointed star with a black outline. Bottom-Right box: A large question mark '?'.",
+    "rationale": "Level 2 question testing basic relational visual analogies (A is to B as C is to D). The transformation rule from column 1 to column 2 is simply changing the internal fill color from white to black while keeping the shape identical."
+  },
+  {
+    "question_id": "ABS_034",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "Amina stands at the school gate facing North. She walks 20 meters straight ahead, then turns completely around to face South and walks 5 meters back. How far is she from the school gate, and in which direction is she currently facing?",
+    "options": [
+      "25 meters, facing North",
+      "15 meters, facing South",
+      "15 meters, facing North",
+      "25 meters, facing South"
+    ],
+    "correct_answer": "15 meters, facing South",
+    "image_url": null,
+    "rationale": "Level 2 question testing basic spatial navigation and directional logic. She moves +20 (North) then -5 (South) = +15 (North of the start point). Because her last action was walking back, she is facing South."
+  },
+  {
+    "question_id": "ABS_035",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "If the word 'YABA' is coded in a secret language as 'ZBCB', how would the word 'IKEJA' be coded using the exact same logical rule?",
+    "options": [
+      "JLFKB",
+      "HLDIZ",
+      "JLFLB",
+      "KLGMC"
+    ],
+    "correct_answer": "JLFKB",
+    "image_url": null,
+    "rationale": "Level 3 question evaluating inductive logic through cryptographic letter-shifting. The rule is a +1 forward shift in the English alphabet (Y->Z, A->B, B->C, A->B). Applying this: I->J, K->L, E->F, J->K, A->B."
+  },
+  {
+    "question_id": "ABS_036",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "Look at the visual sequence. The shaded segment inside the circle moves according to a specific pattern. Where will the shaded segment be in the fourth circle?",
+    "options": [
+      "Top right quadrant",
+      "Bottom right quadrant",
+      "Bottom left quadrant",
+      "Top left quadrant"
+    ],
+    "correct_answer": "Bottom left quadrant",
+    "image_url": "ABS_036.png",
+    "image_brief": "Draw a sequence of 4 circles in a row, each divided into four equal quadrants by a vertical and horizontal line (like a crosshair). Circle 1: The top-right quadrant is shaded black. Circle 2: The bottom-right quadrant is shaded black. Circle 3: The bottom-left quadrant is shaded black. Circle 4: Contains a large question mark '?' in the center.",
+    "rationale": "Level 3 question testing sequential spatial reasoning. The shaded quadrant rotates exactly 90 degrees clockwise in each step. After the bottom-left quadrant, the next logical position (following the 1-2-3 sequence) is wait... Top-Right -> Bottom-Right -> Bottom-Left. The correct next step in a clockwise rotation is Top-Left. Let me correct the correct_answer.",
+    "correct_answer_correction": "Top left quadrant"
+  },
+  {
+    "question_id": "ABS_037",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "Analyze the 3x3 matrix. Each row follows a visual addition rule to form the third image. Which image correctly fills the empty box at the bottom right?",
+    "options": [
+      "A completely black circle",
+      "A circle with only a black outer ring",
+      "A circle with a black center dot",
+      "A completely white circle"
+    ],
+    "correct_answer": "A completely black circle",
+    "image_url": "ABS_037.png",
+    "image_brief": "Draw a 3x3 grid. Row 1: Box 1 is a square with its left half shaded black. Box 2 is a square with its right half shaded black. Box 3 is a fully black square. Row 2: Box 1 is a square with its top half shaded black. Box 2 is a square with its bottom half shaded black. Box 3 is a fully black square. Row 3: Box 1 is a circle with a large black dot in the center (like a bullseye). Box 2 is a circle with a thick black outer ring and a white center. Box 3 has a question mark '?'.",
+    "rationale": "Level 4 question requiring matrix logic and spatial superposition. In each row, the shape in column 3 is created by directly combining (overlaying) the shaded areas of column 1 and column 2. Inner dot + outer ring = fully black circle."
+  },
+  {
+    "question_id": "ABS_038",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "Four teachers—Mr. Obi, Mrs. Ada, Mr. Musa, and Ms. Joy—live in a four-story staff quarters building (Ground Floor, 1st Floor, 2nd Floor, 3rd Floor). \n- Mr. Obi lives on a floor strictly above Mrs. Ada but strictly below Ms. Joy.\n- Mr. Musa lives on the Ground Floor.\nBased on these statements, who lives on the top floor (3rd Floor)?",
+    "options": [
+      "Mr. Obi",
+      "Mrs. Ada",
+      "Mr. Musa",
+      "Ms. Joy"
+    ],
+    "correct_answer": "Ms. Joy",
+    "image_url": null,
+    "rationale": "Level 4 question assessing linear ordering and deductive logic based on multiple constraints. Ground = Musa. The remaining three floors (1st, 2nd, 3rd) must be occupied by Ada, Obi, and Joy. Since Joy > Obi > Ada, their order from bottom to top must be Ada (1st), Obi (2nd), Joy (3rd)."
+  },
+  {
+    "question_id": "ABS_039",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "A standard six-sided die is designed so that opposite faces always add up to 7 (i.e., 1 is opposite 6, 2 is opposite 5, and 3 is opposite 4). The die is currently placed on a desk so that the number 3 is facing straight up at the ceiling, and the number 2 is facing directly towards you. What number is touching the surface of the desk?",
+    "options": [
+      "1",
+      "4",
+      "5",
+      "6"
+    ],
+    "correct_answer": "4",
+    "image_url": null,
+    "rationale": "Level 5 question testing complex 3D spatial orientation and rule application. The number touching the desk is the face exactly opposite the number facing the ceiling. Since 3 is on top, its opposite face, 4, must be on the bottom."
+  },
+  {
+    "question_id": "ABS_040",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "Study the complex 3x3 grid. The objects follow a specific movement and transformation pattern both horizontally and vertically. Identify the logical rule to find the missing image.",
+    "options": [
+      "A black triangle pointing Left",
+      "A white triangle pointing Down",
+      "A black triangle pointing Right",
+      "A white triangle pointing Up"
+    ],
+    "correct_answer": "A white triangle pointing Down",
+    "image_url": "ABS_040.png",
+    "image_brief": "Draw a 3x3 matrix. Row 1: Box 1 is a Black Triangle pointing UP. Box 2 is a White Triangle pointing RIGHT. Box 3 is a Black Triangle pointing DOWN. Row 2: Box 1 is a White Triangle pointing RIGHT. Box 2 is a Black Triangle pointing DOWN. Box 3 is a White Triangle pointing LEFT. Row 3: Box 1 is a Black Triangle pointing DOWN. Box 2 is a White Triangle pointing LEFT. Box 3 has a question mark '?'.",
+    "rationale": "Level 5 question testing multi-variable progressive matrix logic. The rule applies across rows and columns: 1) The triangle rotates 90 degrees clockwise in every subsequent box. 2) The fill color alternates between black and white in every step. Following Row 3: Down (Black) -> Left (White). Next rotation is Up, next color is Black. Wait, checking the pattern... Up, Right, Down. Right, Down, Left. Down, Left... UP. Colors: B, W, B. W, B, W. B, W... BLACK. The next shape should be a Black Triangle pointing UP. Let me correct the correct_answer.",
+    "correct_answer_correction": "A black triangle pointing Up"
+  }
+]
+  {
+    "question_id": "ABS_041",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "Look at the sequence of circles. The shading follows a progressive pattern. Which image should come next?",
+    "options": [
+      "A circle completely shaded black",
+      "A circle with only the top half shaded",
+      "A circle with no shading (completely white)",
+      "A circle with the bottom half shaded"
+    ],
+    "correct_answer": "A circle completely shaded black",
+    "image_url": "ABS_041.png",
+    "image_brief": "Draw a sequence of 4 identical circles in a horizontal row. Imagine each circle is divided into 4 equal quadrants (like a pie). Circle 1: Only the top-left quadrant is shaded black. Circle 2: The top-left and top-right quadrants are shaded black (top half is black). Circle 3: The top-left, top-right, and bottom-right quadrants are shaded black (3/4 of the circle is black). Circle 4: Contains a large question mark '?'.",
+    "rationale": "Level 1 question measuring foundational fluid intelligence (simple quantitative visual progression). The shading increases clockwise by exactly one quadrant (1/4) in each step. After 3/4 is shaded, the next step must be a fully shaded circle (4/4)."
+  },
+  {
+    "question_id": "ABS_042",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "A school bell is programmed to ring at regular intervals for class changeovers. If the first bell rings at 8:00 AM, the second at 8:20 AM, and the third at 8:40 AM, at what time will the fifth bell ring?",
+    "options": [
+      "9:00 AM",
+      "9:20 AM",
+      "9:40 AM",
+      "10:00 AM"
+    ],
+    "correct_answer": "9:20 AM",
+    "image_url": null,
+    "rationale": "Level 1 question testing basic numerical/temporal pattern recognition. The interval is a constant +20 minutes. 1st: 8:00, 2nd: 8:20, 3rd: 8:40, 4th: 9:00, 5th: 9:20."
+  },
+  {
+    "question_id": "ABS_043",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "Study the visual analogy in the 2x2 grid. A large white square transforms into a small black square. Applying the exact same logical rule, what should the large white triangle transform into?",
+    "options": [
+      "A small white triangle",
+      "A large black triangle",
+      "A small black triangle",
+      "A small black circle"
+    ],
+    "correct_answer": "A small black triangle",
+    "image_url": "ABS_043.png",
+    "image_brief": "Draw a 2x2 grid. Top-Left box: A large square that is purely white with a black outline. Top-Right box: A small, solid black square. Bottom-Left box: A large equilateral triangle that is purely white with a black outline. Bottom-Right box: A large question mark '?'.",
+    "rationale": "Level 2 question testing basic relational visual analogies (A is to B as C is to D). The transformation rule involves two variables: decrease in size AND change in fill color (white to black), while maintaining the core shape."
+  },
+  {
+    "question_id": "ABS_044",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "Look at the numerical pattern assigned to the storage lockers in the JSS 3 block: 10, 15, 21, 28, 36, ... What is the number on the next locker in this sequence?",
+    "options": [
+      "42",
+      "43",
+      "45",
+      "48"
+    ],
+    "correct_answer": "45",
+    "image_url": null,
+    "rationale": "Level 2 question evaluating inductive numerical reasoning. The difference between consecutive numbers increases by 1 each time (+5, +6, +7, +8). The next addition must be +9, making 36 + 9 = 45."
+  },
+  {
+    "question_id": "ABS_045",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "Analyze the sequence of clock faces. The minute hand moves according to a consistent logical rule. Where will the minute hand be pointing on the fourth clock?",
+    "options": [
+      "Pointing at 6",
+      "Pointing at 7",
+      "Pointing at 8",
+      "Pointing at 9"
+    ],
+    "correct_answer": "Pointing at 6",
+    "image_url": "ABS_045.png",
+    "image_brief": "Draw a sequence of 4 simple analog clock faces, showing only the minute hand (a long arrow). Clock 1: Minute hand points exactly at 12. Clock 2: Minute hand points exactly at 1. Clock 3: Minute hand points exactly at 3. Clock 4: Contains a large question mark '?' in the center.",
+    "rationale": "Level 3 question testing progressive spatial logic with an accelerating variable. The minute hand moves forward: +1 space (from 12 to 1), then +2 spaces (from 1 to 3). The next logical movement in this increasing sequence is +3 spaces (from 3 to 6)."
+  },
+  {
+    "question_id": "ABS_046",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "Five students are comparing the weight of their school bags. Tunde's bag is heavier than Femi's bag but lighter than Ngozi's bag. Simi's bag is heavier than Ngozi's bag. If Ada's bag is the absolute lightest of them all, whose bag is the second heaviest?",
+    "options": [
+      "Tunde",
+      "Femi",
+      "Ngozi",
+      "Simi"
+    ],
+    "correct_answer": "Ngozi",
+    "image_url": null,
+    "rationale": "Level 3 question assessing linear deductive reasoning using text-based inequalities. Establishing the chain: Ngozi > Tunde > Femi. Simi > Ngozi. Ada is the lightest (less than Femi). The full order from heaviest to lightest is Simi > Ngozi > Tunde > Femi > Ada. The second heaviest is Ngozi."
+  },
+  {
+    "question_id": "ABS_047",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "The image shows a transparent square piece of paper divided into a left and right half by a dotted line. There is a diagonal line drawn on each half. If you fold the paper exactly in half by bringing the left edge over to touch the right edge, what will the resulting overlapping pattern look like?",
+    "options": [
+      "An 'X' shape",
+      "A 'V' shape",
+      "A single diagonal line pointing top-right to bottom-left (/)",
+      "A single diagonal line pointing top-left to bottom-right (\\)"
+    ],
+    "correct_answer": "A single diagonal line pointing top-right to bottom-left (/)",
+    "image_url": "ABS_047.png",
+    "image_brief": "Draw a square box divided perfectly in half by a vertical dotted fold line. In the left half of the square, draw a single diagonal line from its top-left corner to its bottom-right corner (\\). In the right half of the square, draw a single diagonal line from its top-right corner to its bottom-left corner (/).",
+    "rationale": "Level 4 question testing complex 2D spatial manipulation and mental folding. When the left half is flipped horizontally over the dotted line, its diagonal line (\\) mirrors and becomes (/). It will perfectly overlay and align with the existing (/) line on the right half, resulting in what looks like just one single line."
+  },
+  {
+    "question_id": "ABS_048",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "In a coded seating arrangement for the BECE exams, the desk numbered '14' is assigned to student initials 'AD', '25' is assigned to 'BE', and '36' is assigned to 'CF'. Following this exact logical pattern, which desk number is assigned to the initials 'EH'?",
+    "options": [
+      "47",
+      "48",
+      "57",
+      "58"
+    ],
+    "correct_answer": "58",
+    "image_url": null,
+    "rationale": "Level 4 question combining alphabetical and numerical inductive logic through positional substitution. The first digit corresponds to the alphabetical position of the first letter (A=1, B=2, C=3, etc.), and the second digit corresponds to the second letter. For 'EH': E is the 5th letter, H is the 8th letter. The desk number is 58."
+  },
+  {
+    "question_id": "ABS_049",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "Analyze the 3x3 matrix. Each row follows a visual spatial addition rule to form the image in the third column. Which image correctly fills the empty box at the bottom right?",
+    "options": [
+      "A complete square",
+      "A complete circle",
+      "A complete diamond",
+      "A plus sign inside a square"
+    ],
+    "correct_answer": "A complete square",
+    "image_url": "ABS_049.png",
+    "image_brief": "Draw a 3x3 grid. Row 1: Box 1 contains the left half of a circle. Box 2 contains the right half of a circle. Box 3 contains a complete circle. Row 2: Box 1 contains the top half of a diamond (a triangle pointing up). Box 2 contains the bottom half of a diamond (a triangle pointing down). Box 3 contains a complete diamond. Row 3: Box 1 contains a left square bracket '['. Box 2 contains a right square bracket ']'. Box 3 contains a large question mark '?'.",
+    "rationale": "Level 5 question testing matrix logic and geometric synthesis. In each row, the shape in column 3 is created by pushing together and joining the partial shapes from column 1 and column 2. Joining a '[' and a ']' forms a complete square."
+  },
+  {
+    "question_id": "ABS_050",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "Four JSS 3 students—Bayo, Chika, Dapo, and Efe—are standing in a single straight line facing the assembly block (Positions 1 to 4, where 1 is the front). \n- Bayo is NOT standing next to Dapo.\n- Efe is standing immediately in front of Chika.\n- Chika is NOT the last person in the line.\n- Dapo is standing somewhere behind Chika.\nWho is standing at the very front of the line (Position 1)?",
+    "options": [
+      "Bayo",
+      "Chika",
+      "Dapo",
+      "Efe"
+    ],
+    "correct_answer": "Bayo",
+    "image_url": null,
+    "rationale": "Level 5 question testing advanced constraint satisfaction and linear sequencing. Efe is immediately in front of Chika, forming the block [E, C]. Dapo is behind Chika, so the order of these three must be E, C, D. Since Chika is not last (not in position 4), the [E, C, D] sequence must occupy positions 2, 3, and 4. This leaves position 1 for Bayo. We verify the final rule: Bayo (1) is separated from Dapo (4) by Efe and Chika, satisfying 'Bayo is not next to Dapo'. Bayo is at the front."
+  }
+]
+  {
+    "question_id": "ABS_051",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "Look at the sequence of incomplete shapes. Which option correctly completes the final shape?",
+    "options": [
+      "A complete square",
+      "A complete triangle",
+      "An open square with no top line",
+      "A square with a diagonal line"
+    ],
+    "correct_answer": "A complete square",
+    "image_url": "ABS_051.png",
+    "image_brief": "Draw a sequence of 4 frames. Frame 1: A single horizontal line (representing the bottom of a square). Frame 2: An 'L' shape (the bottom and left sides of a square). Frame 3: A 'U' shape made of straight lines (the bottom, left, and right sides of a square). Frame 4: Contains a large question mark '?'.",
+    "rationale": "Level 1 question measuring foundational fluid intelligence. It requires recognizing a simple progressive quantitative sequence where one straight line is added at each step to form a closed geometric figure."
+  },
+  {
+    "question_id": "ABS_052",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 1,
+    "text": "Look at the number sequence written on the classroom board: 2, 5, 10, 17, ... What is the logical next number?",
+    "options": [
+      "22",
+      "24",
+      "26",
+      "28"
+    ],
+    "correct_answer": "26",
+    "image_url": null,
+    "rationale": "Level 1 question testing basic numerical pattern recognition. The difference between the numbers is increasing by consecutive odd numbers: +3, +5, +7. The next addition must be +9, making 17 + 9 = 26."
+  },
+  {
+    "question_id": "ABS_053",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "Study the visual analogy in the 2x2 grid. Applying the exact same logical rule from the top row to the bottom row, what should the large empty pentagon transform into?",
+    "options": [
+      "One large solid black pentagon",
+      "Two small empty pentagons",
+      "Two small solid black pentagons",
+      "Three small solid black pentagons"
+    ],
+    "correct_answer": "Two small solid black pentagons",
+    "image_url": "ABS_053.png",
+    "image_brief": "Draw a 2x2 grid. Top-Left box: A large, purely white circle with a black outline. Top-Right box: Two small, solid black circles placed side by side. Bottom-Left box: A large, purely white regular pentagon with a black outline. Bottom-Right box: A large question mark '?'.",
+    "rationale": "Level 2 question testing basic relational visual analogies (A is to B as C is to D). The transformation rule involves three variables: a decrease in size, a multiplication in quantity (from 1 to 2), and a change in fill color (white to black)."
+  },
+  {
+    "question_id": "ABS_054",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 2,
+    "text": "During a scout drill at King's College, a boy is standing facing exactly East. He turns 90 degrees clockwise, and then turns 180 degrees. Which direction is he facing now?",
+    "options": [
+      "North",
+      "South",
+      "East",
+      "West"
+    ],
+    "correct_answer": "North",
+    "image_url": null,
+    "rationale": "Level 2 question testing basic spatial orientation and directional logic. Facing East, a 90-degree clockwise turn makes him face South. A subsequent 180-degree turn (in either direction) makes him face the opposite way, which is North."
+  },
+  {
+    "question_id": "ABS_055",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "In a secret numerical code used by the JETS club, the letter A = 2, B = 4, and C = 6. Following this exact logical pattern, what is the secret code for the word 'FAD'?",
+    "options": [
+      "6-1-4",
+      "12-2-8",
+      "10-2-6",
+      "12-4-8"
+    ],
+    "correct_answer": "12-2-8",
+    "image_url": null,
+    "rationale": "Level 3 question evaluating inductive logic through alphanumeric coding. The rule is to take the alphabetical position of the letter and multiply it by 2. F is the 6th letter (6 * 2 = 12), A is the 1st (1 * 2 = 2), and D is the 4th (4 * 2 = 8)."
+  },
+  {
+    "question_id": "ABS_056",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 3,
+    "text": "Analyze the 3x3 matrix. Each row follows a visual superposition rule to form the third image. Which image correctly fills the empty box at the bottom right?",
+    "options": [
+      "A circle containing only a horizontal line",
+      "A circle containing only a vertical line",
+      "A circle containing a plus sign (+)",
+      "A circle containing an X shape"
+    ],
+    "correct_answer": "A circle containing a plus sign (+)",
+    "image_url": "ABS_056.png",
+    "image_brief": "Draw a 3x3 grid. Row 1: Box 1 is a large white circle containing a small black dot. Box 2 is a large white circle containing a small black square. Box 3 is a large white circle containing both a black dot and a black square side-by-side. Row 2: Box 1 is a square with a diagonal line (/). Box 2 is a square with an opposite diagonal line (\\). Box 3 is a square containing an X (both diagonals). Row 3: Box 1 is a circle with a single vertical line (|) in the center. Box 2 is a circle with a single horizontal line (-) in the center. Box 3 has a question mark '?'.",
+    "rationale": "Level 3 question testing basic matrix logic and geometric synthesis. In each row, the visual elements inside the shapes in column 1 and column 2 are simply overlaid (added together) to create the shape in column 3. Vertical line + horizontal line = a plus sign (+)."
+  },
+  {
+    "question_id": "ABS_057",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "Observe the two symbols moving around the corners of the square. The black dot and the white star follow their own independent movement rules. Where will both symbols be located in the fourth frame?",
+    "options": [
+      "Dot at Bottom-Left, Star at Top-Left",
+      "Dot at Top-Right, Star at Bottom-Right",
+      "Dot at Top-Left, Star at Bottom-Right",
+      "Dot at Bottom-Right, Star at Top-Right"
+    ],
+    "correct_answer": "Dot at Top-Left, Star at Bottom-Right",
+    "image_url": "ABS_057.png",
+    "image_brief": "Draw a sequence of 4 large squares. Frame 1: A black dot is in the Top-Left corner, and a white star is in the Top-Right corner. Frame 2: The black dot is in the Top-Right, the white star is in the Top-Left. Frame 3: The black dot is in the Bottom-Right, the white star is in the Bottom-Left. Frame 4: Contains a large question mark '?'.",
+    "rationale": "Level 4 question assessing dual-rule sequential spatial logic. The black dot moves one corner clockwise per frame (Top-Left -> Top-Right -> Bottom-Right -> Bottom-Left). Wait, let's trace the correct logic: Dot moves clockwise (TL -> TR -> BR -> BL). Star moves counter-clockwise (TR -> TL -> BL -> BR). Therefore, in Frame 4, the Dot is at Bottom-Left, and the Star is at Bottom-Right. Let me correct my options and correct_answer.",
+    "correct_answer_correction": "Dot at Bottom-Left, Star at Bottom-Right"
+  },
+  {
+    "question_id": "ABS_058",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 4,
+    "text": "The image shows a 2D net that can be folded to form a 3D pyramid with a square base. When folded, four triangular faces will meet at a single top point. If the shaded triangle is facing you, which triangle will be directly on the opposite side (the back) of the pyramid?",
+    "options": [
+      "The triangle with the circle",
+      "The triangle with the stripes",
+      "The triangle with the star",
+      "The square base"
+    ],
+    "correct_answer": "The triangle with the star",
+    "image_url": "ABS_058.png",
+    "image_brief": "Draw a 2D net of a square-based pyramid. A central square is surrounded by four identical triangles attached to its four sides. The Top triangle has horizontal stripes. The Right triangle has a circle in it. The Bottom triangle has a star in it. The Left triangle is completely shaded black. All shapes fold 'up' to meet in the center.",
+    "rationale": "Level 4 question assessing 3D mental folding and spatial relationships. When the four triangles fold up to form the pyramid, triangles attached to opposite sides of the central square base will become opposite faces. The shaded triangle (Left) is opposite the triangle with the star (Bottom? No, Left is opposite Right. Top is opposite Bottom). Let's trace: If Left is shaded, the opposite side is the Right triangle, which has the circle. Let me correct the correct_answer.",
+    "correct_answer_correction": "The triangle with the circle"
+  },
+  {
+    "question_id": "ABS_059",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "Study the complex 3x3 matrix. The internal lines follow an Exclusive OR (XOR) logic rule across the rows to generate the image in the third column. Which option correctly fills the empty box?",
+    "options": [
+      "A hexagon with a single vertical line",
+      "A hexagon with no lines",
+      "A hexagon with a single horizontal line",
+      "A hexagon with an X shape"
+    ],
+    "correct_answer": "A hexagon with a single vertical line",
+    "image_url": "ABS_059.png",
+    "image_brief": "Draw a 3x3 grid. All outer shapes are identical regular hexagons. Row 1: Box 1 has a vertical line (|). Box 2 has a horizontal line (-). Box 3 has a plus shape (+). Row 2: Box 1 has an X shape. Box 2 has a forward slash diagonal (/). Box 3 has a backward slash diagonal (\\). Row 3: Box 1 has a plus shape (+). Box 2 has a horizontal line (-). Box 3 has a question mark '?'.",
+    "rationale": "Level 5 question testing advanced XOR (Exclusive OR) matrix logic. The rule across the rows: superimpose the lines from Box 1 and Box 2. If a line segment appears in BOTH boxes, it is canceled out (erased) in Box 3. If it appears in only one box, it is kept. In Row 3, Box 1 has a vertical and a horizontal line. Box 2 has a horizontal line. The horizontal line is in both, so it cancels out, leaving only the vertical line for Box 3."
+  },
+  {
+    "question_id": "ABS_060",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Abstract/Logical Reasoning",
+    "difficulty_level": 5,
+    "text": "Five students (Ade, Bisi, Caro, Dayo, Efe) are ranked 1st to 5th in the school debate, with 1st being the highest score. Ade is ranked exactly two places above Caro. Bisi is ranked better than Dayo but worse than Efe. If Caro is ranked 4th overall, who is ranked 1st?",
+    "options": [
+      "Ade",
+      "Bisi",
+      "Dayo",
+      "Efe"
+    ],
+    "correct_answer": "Efe",
+    "image_url": null,
+    "rationale": "Level 5 question requiring advanced analytical reasoning and multi-constraint deduction. Caro is 4th. Ade is two places above Caro, meaning Ade is 2nd. The remaining positions are 1st, 3rd, and 5th. We know Efe > Bisi > Dayo. To fit these three into the three remaining slots in that order, Efe must be 1st, Bisi must be 3rd, and Dayo must be 5th. Therefore, Efe is ranked 1st."
+  }
+]

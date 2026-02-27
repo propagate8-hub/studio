@@ -1,0 +1,1050 @@
+[
+  {
+    "question_id": "SPA_001",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "A tailor in Aba cuts a square piece of Ankara fabric but accidentally cuts off a corner. Which of the options below represents the exact piece that was cut out to make the fabric a perfect square again?",
+    "options": [
+      "Shape A",
+      "Shape B",
+      "Shape C",
+      "Shape D"
+    ],
+    "correct_answer": "Shape C",
+    "image_url": "SPA_001.png",
+    "image_brief": "Draw a large square piece of patterned fabric with its top-right corner missing (cut out in a jagged, stair-step pattern: down, right, down, right). For the options, draw 4 puzzle pieces. Shape A should be a smooth triangle. Shape B should have the stair-steps facing the wrong way. Shape C must be the exact complementary stair-step piece that perfectly fits the missing gap. Shape D should be a curved piece.",
+    "rationale": "Level 1 question measuring basic 2D spatial visualization and pattern matching. It requires the student to mentally translate and fit a 2D shape into a corresponding void."
+  },
+  {
+    "question_id": "SPA_002",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "Look at the two interlocking gears inside a local pepper grinding machine. If Gear A is turned in a clockwise direction, in which direction will Gear B turn?",
+    "options": [
+      "Clockwise",
+      "Counter-clockwise",
+      "It will not move",
+      "Upwards"
+    ],
+    "correct_answer": "Counter-clockwise",
+    "image_url": "SPA_002.png",
+    "image_brief": "Draw two simple 2D interlocking mechanical gears side by side. Label the left gear 'A' and the right gear 'B'. Draw a clearly visible curved arrow on Gear A indicating a clockwise rotation. Place a question mark on Gear B.",
+    "rationale": "Level 1 question testing fundamental mechanical principles taught in JSS Basic Technology. Two directly meshed gears always rotate in opposite directions."
+  },
+  {
+    "question_id": "SPA_003",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "A bricklayer in Lagos is stacking standard cement blocks to build a wall. Looking at the drawing, how many blocks are there in total, including the ones hidden from view?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correct_answer": "6",
+    "image_url": "SPA_003.png",
+    "image_brief": "Draw a 3D isometric stack of identical rectangular cement blocks. The stack should have 3 blocks on the bottom layer, 2 blocks on the middle layer, and 1 block on the top layer. The blocks must be stacked such that the ones in the upper layers hide the back halves of the blocks below them, requiring the viewer to deduce the presence of supporting blocks.",
+    "rationale": "Level 2 question assessing 3D spatial awareness and object permanence. Students must understand that objects in upper layers require supporting objects beneath them, even if those supporting objects are obscured."
+  },
+  {
+    "question_id": "SPA_004",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "A pair of scissors is a classic example of a simple machine. According to your Basic Technology syllabus, which part of the scissors acts as the 'Fulcrum' or pivot point?",
+    "options": [
+      "The sharp cutting blades",
+      "The plastic handles where fingers are placed",
+      "The screw or pin in the middle holding the two blades together",
+      "The material being cut"
+    ],
+    "correct_answer": "The screw or pin in the middle holding the two blades together",
+    "image_url": "SPA_004.png",
+    "image_brief": "Draw a standard pair of scissors lying flat. Point arrows to three distinct parts: the handles (label A), the central screw/pivot (label B), and the blades (label C).",
+    "rationale": "Level 2 question testing mechanical reasoning related to levers. A pair of scissors is a first-class lever, where the fulcrum is located exactly between the applied effort (handles) and the load (blades)."
+  },
+  {
+    "question_id": "SPA_005",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "An empty square carton of Indomie is unfolded flat onto the ground. If you fold it back up into a 3D cube, which symbol will be on the face directly opposite the Naira (₦) symbol?",
+    "options": [
+      "The Star",
+      "The Triangle",
+      "The Circle",
+      "The Square"
+    ],
+    "correct_answer": "The Triangle",
+    "image_url": "SPA_005.png",
+    "image_brief": "Draw a 2D cross-shaped net of a cube consisting of 6 squares. Arrange them as a vertical column of 4 squares, with one square attached to the left of the second square down, and one to the right. From top to bottom in the vertical column: Circle, Naira symbol (₦), Triangle, Square. The square on the left has a Star. The square on the right has a Plus sign (+).",
+    "rationale": "Level 3 question evaluating 3D mental folding and spatial memory. In a standard cross net, alternate faces in a straight line become opposite faces when folded. Therefore, the Naira symbol is opposite the Triangle."
+  },
+  {
+    "question_id": "SPA_006",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "Look at the arrangement of three gears inside the engine of a Danfo bus. Gear 1 is large, Gear 2 is small, and Gear 3 is large. If Gear 1 turns clockwise, what happens to Gear 3?",
+    "options": [
+      "It turns counter-clockwise at the same speed as Gear 1",
+      "It turns clockwise at the same speed as Gear 1",
+      "It turns clockwise but much faster than Gear 1",
+      "It turns counter-clockwise but much slower than Gear 1"
+    ],
+    "correct_answer": "It turns clockwise at the same speed as Gear 1",
+    "image_url": "SPA_006.png",
+    "image_brief": "Draw three interlocking gears in a straight horizontal line. Gear 1 (left) is large, Gear 2 (middle) is small, and Gear 3 (right) is exactly the same large size as Gear 1. Draw a clockwise arrow on Gear 1.",
+    "rationale": "Level 3 question testing mechanical gear trains. Adjacent gears reverse direction. Gear 1 (CW) turns Gear 2 (CCW), which turns Gear 3 (CW). Because Gear 1 and Gear 3 are the exact same size, their rotational speed remains identical, making the small idler gear irrelevant to the final speed."
+  },
+  {
+    "question_id": "SPA_007",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "A JSS 3 student views a wall clock through a mirror. The mirror image shows the hands pointing to exactly 8:20. What is the actual, real time on the clock?",
+    "options": [
+      "3:40",
+      "4:40",
+      "8:20",
+      "2:40"
+    ],
+    "correct_answer": "3:40",
+    "image_url": "SPA_007.png",
+    "image_brief": "Draw a standard analog clock face with no numbers, only tick marks for the hours. Draw the minute hand pointing exactly at the 4 position (20 minutes). Draw the hour hand positioned slightly past the 8 position. The clock should be drawn as if reflected in a mirror (reversed).",
+    "rationale": "Level 4 question requiring spatial reflection and mental rotation. The axis of reflection is the 12-6 line. An hour hand slightly past 8 reflects to slightly before 4 (i.e., 3). A minute hand at 4 (20 mins) reflects to 8 (40 mins). The sum of actual time and mirror time is always 12:00 (8:20 + 3:40 = 12:00)."
+  },
+  {
+    "question_id": "SPA_008",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "A construction worker at Eko Atlantic uses a movable pulley system to lift a heavy 100kg bag of cement. If the system has two ropes directly supporting the movable pulley, how much effort (force) must the worker apply to lift the bag? (Ignore friction and the weight of the ropes)",
+    "options": [
+      "25kg",
+      "50kg",
+      "100kg",
+      "200kg"
+    ],
+    "correct_answer": "50kg",
+    "image_url": "SPA_008.png",
+    "image_brief": "Draw a mechanical pulley system. A rope is attached to a fixed ceiling beam, goes down around a movable pulley (which has a 100kg bag of cement hanging from it), and then goes straight up to the worker's hands pulling downwards over a second fixed pulley at the top. Clearly show two sections of rope supporting the bottom movable pulley.",
+    "rationale": "Level 4 question testing the physics of mechanical advantage. A movable pulley supported by two sections of rope divides the required effort by 2. Thus, a 100kg load requires only 50kg of effort to lift."
+  },
+  {
+    "question_id": "SPA_009",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 5,
+    "text": "A square piece of paper is folded in half diagonally to form a triangle. It is then folded in half again to form a smaller triangle. A hole is punched exactly through the middle of the longest side of this final triangle. When completely unfolded, how many holes will be in the square paper, and where will they be located?",
+    "options": [
+      "One hole in the exact center",
+      "Two holes located on the diagonal corners",
+      "Four holes located in the center of the four main sides",
+      "Four holes located near the four corners"
+    ],
+    "correct_answer": "Four holes located in the center of the four main sides",
+    "image_url": "SPA_009.png",
+    "image_brief": "Draw a 3-step diagram. Step 1: A square paper folded diagonally (dashed line) to make a large triangle. Step 2: The large triangle folded in half again to make a smaller right-angled triangle. Step 3: A hole punch punching a single circular hole exactly halfway along the hypotenuse (the longest edge) of this final small triangle.",
+    "rationale": "Level 5 question testing complex multi-stage mental unfolding and 2D spatial tracking. The longest side of the final folded triangle corresponds to the outer perimeter edges of the original unfolded square. Punching through this folded edge creates holes on all four outer boundaries of the unfolded paper."
+  },
+  {
+    "question_id": "SPA_010",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 5,
+    "text": "A mechanic is repairing a Sumec Firman generator. He connects a large drive pulley to a smaller alternator pulley using a crossed rubber belt in an '8' shape. If the large pulley turns clockwise at 100 revolutions per minute (RPM), what best describes the motion of the smaller pulley?",
+    "options": [
+      "It turns clockwise at less than 100 RPM",
+      "It turns counter-clockwise at less than 100 RPM",
+      "It turns clockwise at more than 100 RPM",
+      "It turns counter-clockwise at more than 100 RPM"
+    ],
+    "correct_answer": "It turns counter-clockwise at more than 100 RPM",
+    "image_url": "SPA_010.png",
+    "image_brief": "Draw two pulleys separated by a distance. The left pulley is noticeably larger. The right pulley is smaller. They are connected by a drive belt that crosses over itself in the middle, forming a figure-8 shape. Draw a clockwise directional arrow on the large left pulley.",
+    "rationale": "Level 5 question integrating rotational kinematics, drive belts, and ratios. First, a crossed belt reverses the direction of rotation, so the small pulley turns counter-clockwise. Second, a smaller driven pulley must complete more rotations to keep up with the belt speed of a larger driving pulley, meaning it spins faster (>100 RPM)."
+  }
+]
+  {
+    "question_id": "SPA_011",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "In the Basic Technology workshop, a student cuts out a flat cardboard shape consisting of one long rectangle and two identical circles attached to the top and bottom edges of the rectangle. If folded along the edges, what 3D object will this net form?",
+    "options": [
+      "A cone",
+      "A cylinder",
+      "A pyramid",
+      "A triangular prism"
+    ],
+    "correct_answer": "A cylinder",
+    "image_url": "SPA_011.png",
+    "image_brief": "Draw a 2D flat net of a cylinder. This consists of a large horizontal rectangle. Attached to the top edge of the rectangle is a perfect circle. Attached to the bottom edge of the rectangle is an identical perfect circle.",
+    "rationale": "Level 1 question measuring basic 2D to 3D spatial visualization. The net of a cylinder consists of a rectangle (which wraps around to form the curved surface) and two circles (which form the top and bottom bases)."
+  },
+  {
+    "question_id": "SPA_012",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "Two identically sized gears, Gear A and Gear B, have their teeth meshed together. If Gear A is turned exactly one full revolution in a clockwise direction, what will happen to Gear B?",
+    "options": [
+      "It will turn half a revolution counter-clockwise.",
+      "It will turn one full revolution counter-clockwise.",
+      "It will turn one full revolution clockwise.",
+      "It will not turn at all."
+    ],
+    "correct_answer": "It will turn one full revolution counter-clockwise.",
+    "image_url": "SPA_012.png",
+    "image_brief": "Draw two identically sized mechanical gears whose teeth are interlocked. Label the left gear 'A' and the right gear 'B'. Draw a bold circular arrow on Gear A indicating a clockwise rotation. Place a large question mark on Gear B.",
+    "rationale": "Level 1 question testing fundamental mechanical gear interaction. Directly meshed gears turn in opposite directions. Because they are the same size (same number of teeth), one full revolution of the driving gear results in exactly one full revolution of the driven gear."
+  },
+  {
+    "question_id": "SPA_013",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "Imagine the lowercase letter 'p' printed on a transparent piece of plastic. If you flip the plastic perfectly horizontally (from left to right) and then flip it perfectly vertically (upside down), which letter will it look like?",
+    "options": [
+      "b",
+      "d",
+      "q",
+      "p"
+    ],
+    "correct_answer": "d",
+    "image_url": null,
+    "image_brief": null,
+    "rationale": "Level 2 question testing mental rotation and spatial reflection without visual aids. A horizontal flip of 'p' turns it into a 'q'. A subsequent vertical flip of that 'q' turns it into a 'd'."
+  },
+  {
+    "question_id": "SPA_014",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "A bricklayer at a building site in Lekki uses a single fixed pulley attached to a high wooden scaffold to pull up a heavy bucket of water weighing 20kg. How much pulling force (effort) must the bricklayer apply downwards to lift the bucket? (Assume there is no friction)",
+    "options": [
+      "10kg",
+      "20kg",
+      "40kg",
+      "0kg"
+    ],
+    "correct_answer": "20kg",
+    "image_url": "SPA_014.png",
+    "image_brief": "Draw a simple mechanical system with a single fixed pulley attached to an overhead wooden beam. A rope goes over the pulley. On one side, a bucket labeled '20kg' is hanging. On the other side, a downward-pointing arrow represents the effort force being applied by a person. Label this arrow with a '?'.",
+    "rationale": "Level 2 question evaluating the physics of simple machines. A single fixed pulley provides a mechanical advantage of exactly 1. It only changes the direction of the force (allowing the user to pull down instead of lifting up) but does not reduce the amount of effort required."
+  },
+  {
+    "question_id": "SPA_015",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "Three metal gears are connected in a straight row inside a machine. Gear 1 has 10 teeth, Gear 2 has 30 teeth, and Gear 3 has 10 teeth. If Gear 1 is driven at a speed of 60 Revolutions Per Minute (RPM) in a clockwise direction, what is the speed and direction of Gear 3?",
+    "options": [
+      "20 RPM clockwise",
+      "60 RPM clockwise",
+      "20 RPM counter-clockwise",
+      "60 RPM counter-clockwise"
+    ],
+    "correct_answer": "60 RPM clockwise",
+    "image_url": "SPA_015.png",
+    "image_brief": "Draw three interlocking gears in a horizontal row. Gear 1 (left) is small. Gear 2 (middle) is three times larger than Gear 1. Gear 3 (right) is exactly the same small size as Gear 1. Draw a clockwise directional arrow on Gear 1.",
+    "rationale": "Level 3 question testing multi-gear trains and ratio logic. Adjacent gears reverse rotational direction: Gear 1 (CW) drives Gear 2 (CCW), which drives Gear 3 (CW). The middle gear is an idler gear; because Gear 1 and Gear 3 have the same number of teeth, their final rotational speeds remain exactly the same."
+  },
+  {
+    "question_id": "SPA_016",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "A perfectly square sheet of paper is folded exactly in half from top to bottom. It is then folded in half again from left to right, creating a much smaller square. Finally, a single circular hole is punched straight through the absolute top-left corner of this small folded square. When the paper is completely unfolded, what will it look like?",
+    "options": [
+      "One single hole exactly in the center of the paper",
+      "Two holes on the left side of the paper",
+      "Four holes located near the four outer corners of the paper",
+      "Four holes tightly clustered around the exact center of the paper"
+    ],
+    "correct_answer": "Four holes tightly clustered around the exact center of the paper",
+    "image_url": "SPA_016.png",
+    "image_brief": "Draw a 3-step diagram. Step 1: A large square paper with a dashed line across the middle, and an arrow indicating the top half folding down. Step 2: A wide horizontal rectangle with a vertical dashed line in the middle, and an arrow indicating the left half folding over to the right. Step 3: A small square with a hole punch creating a single circle at its very top-left corner.",
+    "rationale": "Level 3 question evaluating complex 2D mental unfolding. Because the paper is folded into quarters, the top-left corner of the final folded square corresponds to the absolute center crossing-point of the fully unfolded paper. Punching near that corner results in four holes meeting around the center point."
+  },
+  {
+    "question_id": "SPA_017",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "A transparent rectangular plastic tank is exactly half full of water. A student firmly seals the top and tilts the entire tank exactly 45 degrees to the right, resting it on a wedge. What will the surface line of the water look like relative to the flat laboratory floor?",
+    "options": [
+      "It will tilt 45 degrees to the right.",
+      "It will tilt 45 degrees to the left.",
+      "It will remain perfectly horizontal to the floor.",
+      "It will form a diagonal V-shape inside the tank."
+    ],
+    "correct_answer": "It will remain perfectly horizontal to the floor.",
+    "image_url": "SPA_017.png",
+    "image_brief": "Draw a rectangular glass tank sitting on a flat horizontal line (the floor), but the tank itself is tilted 45 degrees to the right (propped up by a small triangle wedge). Inside the tank, draw the water level. Leave the exact angle of the water line ambiguous or put a question mark on it, as indicating its angle gives away the answer.",
+    "rationale": "Level 4 question combining spatial reasoning with physical laws. Regardless of the orientation of its container, the surface of a static liquid resting in a gravitational field will always orient itself perfectly horizontally relative to the ground."
+  },
+  {
+    "question_id": "SPA_018",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "A JSS 3 Basic Technology student builds a solid stepped structure out of uniform wooden cubic blocks. The base is a 3x3 solid square (9 blocks). Resting exactly on the center of the base is a 2x2 solid square (4 blocks). Resting exactly on the center of that is a single block. Assuming there are no hidden empty spaces inside the structure, how many individual blocks were used in total?",
+    "options": [
+      "12",
+      "13",
+      "14",
+      "15"
+    ],
+    "correct_answer": "14",
+    "image_url": "SPA_018.png",
+    "image_brief": "Draw a 3D isometric illustration of a stepped pyramid made of cubic blocks. The bottom layer is 3 by 3 blocks. The middle layer is 2 by 2 blocks, centered. The top layer is 1 single block, centered. Make sure the lines separating the individual blocks are clear.",
+    "rationale": "Level 4 question testing 3D volumetric analysis and spatial deduction. The student must mentally separate the structure into its constituent 2D layers and sum them up: 9 (bottom) + 4 (middle) + 1 (top) = 14 total blocks."
+  },
+  {
+    "question_id": "SPA_019",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 5,
+    "text": "In a local cassava processing machine, Pulley A is connected to Pulley B by a straight rubber belt. Pulley B and Pulley C are physically welded together on the same solid metal axle. Pulley C is then connected to Pulley D by a crossed (figure-8) belt. If Pulley A turns in a clockwise direction, what direction will Pulley D turn?",
+    "options": [
+      "Clockwise",
+      "Counter-clockwise",
+      "It will alternate directions",
+      "It will not turn at all"
+    ],
+    "correct_answer": "Counter-clockwise",
+    "image_url": "SPA_019.png",
+    "image_brief": "Draw a mechanical diagram featuring 4 circular pulleys. Pulley A (far left) is connected to Pulley B (middle left) via a straight parallel belt. Pulley B and Pulley C (middle right) are drawn overlapping or connected by a thick solid line indicating they share the same axle. Pulley C is connected to Pulley D (far right) via a crossed belt that forms an 'X' or figure-8. Draw a clockwise arrow on Pulley A.",
+    "rationale": "Level 5 question testing complex interconnected mechanical systems. Tracing the motion: A straight belt transfers motion in the same direction, so Pulley B is CW. Pulleys welded to the same axle rotate identically, so Pulley C is also CW. A crossed belt reverses the direction of motion, so Pulley D must turn CCW."
+  },
+  {
+    "question_id": "SPA_020",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 5,
+    "text": "In an automobile engine, a teardrop-shaped mechanical 'cam' rotates at a constant speed on a central shaft. Its purpose is to lift a spring-loaded vertical metal rod called a 'follower' resting on top of it. What happens to the follower exactly when the pointed tip (the lobe) of the rotating cam points straight up?",
+    "options": [
+      "The follower drops to its absolute lowest position.",
+      "The follower is pushed up to its absolute highest position.",
+      "The follower stops moving entirely.",
+      "The follower gets pushed horizontally to the side."
+    ],
+    "correct_answer": "The follower is pushed up to its absolute highest position.",
+    "image_url": "SPA_020.png",
+    "image_brief": "Draw a teardrop-shaped mechanical cam (a circle with a pointed lobe on one side). Pass a horizontal shaft through the circular center. Above the cam, draw a straight vertical metal rod (the follower) pointing down so its flat bottom rests on the surface of the cam. Draw a rotational arrow around the cam shaft.",
+    "rationale": "Level 5 question integrating rotational kinematics with linear translation components taught in advanced Basic Tech. The cam acts as a wedge or lever; the distance from the shaft to the edge dictates the height of the follower. The pointed lobe represents the greatest radius, so when it rotates to the top, it pushes the follower to its maximum vertical displacement."
+  }
+]
+  {
+    "question_id": "SPA_021",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "Tunde is making a paper dice for a game of Ludo. He draws four different 2D nets on cardboard. Which of these nets can be successfully folded into a complete, closed 3D cube without any overlapping sides?",
+    "options": [
+      "Net A",
+      "Net B",
+      "Net C",
+      "Net D"
+    ],
+    "correct_answer": "Net A",
+    "image_url": "SPA_021.png",
+    "image_brief": "Draw 4 different 2D cardboard nets composed of 6 squares each. Net A: A standard cross shape (4 vertical, 1 on each side of the second square). Net B: A long straight line of 6 squares. Net C: A 3x2 grid of squares. Net D: A T-shape with 5 squares in the top row and 1 hanging down.",
+    "rationale": "Level 1 question measuring foundational 2D to 3D spatial visualization. The standard cross net (Net A) is the most universally recognized valid cube net taught in JSS Mathematics."
+  },
+  {
+    "question_id": "SPA_022",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "Look at the bicycle chain and sprockets. The large front sprocket is connected to the small rear sprocket by a standard continuous metal chain. If a student pedals forward, causing the front sprocket to turn clockwise, in which direction will the rear sprocket turn?",
+    "options": [
+      "Clockwise",
+      "Counter-clockwise",
+      "It alternates directions",
+      "It will not move"
+    ],
+    "correct_answer": "Clockwise",
+    "image_url": "SPA_022.png",
+    "image_brief": "Draw a mechanical diagram of a bicycle drivetrain. A large front toothed sprocket is connected to a small rear toothed sprocket by a closed-loop chain. The chain does not cross over itself. Draw a curved arrow on the large front sprocket indicating clockwise rotation.",
+    "rationale": "Level 1 question testing fundamental mechanical reasoning. Unlike directly meshed gears, two gears or sprockets connected by a straight, uncrossed chain or belt will always rotate in the exact same direction."
+  },
+  {
+    "question_id": "SPA_023",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "A decorative floor tile has an asymmetrical pattern. If a tiler rotates this specific tile exactly 90 degrees clockwise before placing it on the floor, which of the options shows what the tile will look like?",
+    "options": [
+      "Option A",
+      "Option B",
+      "Option C",
+      "Option D"
+    ],
+    "correct_answer": "Option B",
+    "image_url": "SPA_023.png",
+    "image_brief": "Draw a square tile with a distinct, non-symmetrical pattern: a black triangle in the top-left corner pointing inwards, and a black dot in the bottom-right corner. Below it, present 4 options. Option A: Unchanged. Option B: (Correct) Triangle is in top-right pointing inwards, dot is in bottom-left. Option C: Triangle in bottom-right, dot in top-left (180-degree turn). Option D: A mirrored/flipped version of the tile.",
+    "rationale": "Level 2 question testing 2D mental rotation. A 90-degree clockwise rotation shifts the top-left element to the top-right, and the bottom-right element to the bottom-left."
+  },
+  {
+    "question_id": "SPA_024",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "A laborer at a building site in Kano uses a wheelbarrow to move wet sand. According to the principles of levers taught in Basic Technology, which component represents the 'Load'?",
+    "options": [
+      "The single wheel at the front",
+      "The handles where the laborer holds and lifts",
+      "The bucket or tray filled with wet sand",
+      "The legs that rest on the ground"
+    ],
+    "correct_answer": "The bucket or tray filled with wet sand",
+    "image_url": "SPA_024.png",
+    "image_brief": "Draw a standard wheelbarrow loaded with a mound of sand. Add clear label arrows pointing to three parts: The wheel (A), The bucket containing sand (B), and The handles (C).",
+    "rationale": "Level 2 question evaluating the identification of simple machine mechanics. A wheelbarrow is a second-class lever. The wheel is the fulcrum, the handles are the effort, and the bucket holding the sand sits exactly between them as the load."
+  },
+  {
+    "question_id": "SPA_025",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "Cartons of milk are stacked in the school kitchen's storeroom. By looking at the 3D drawing, calculate the total number of cartons in the stack, making sure to include any cartons that are hidden from your direct view but must be there to support the ones above.",
+    "options": [
+      "10",
+      "12",
+      "13",
+      "14"
+    ],
+    "correct_answer": "13",
+    "image_url": "SPA_025.png",
+    "image_brief": "Draw a 3D isometric stack of identical cubic boxes. The bottom layer is a 3x3 square (9 boxes). The middle layer is an L-shape occupying one corner (3 boxes). The top layer is a single box resting on the corner-most box of the middle layer. Ensure the perspective hides the supporting boxes directly underneath the visible upper boxes.",
+    "rationale": "Level 3 question assessing 3D spatial counting and object permanence. The student must break the image into horizontal layers: Bottom layer = 9. Middle layer = 3. Top layer = 1. Total = 9 + 3 + 1 = 13."
+  },
+  {
+    "question_id": "SPA_026",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "Mechanics at a workshop in Ladipo are using a block and tackle pulley system to lift a car engine weighing 200kg. Looking at the diagram, there are 4 vertical sections of rope supporting the movable bottom block. Ignoring friction, how much downward pulling force (effort) must the mechanics apply to lift the engine?",
+    "options": [
+      "50kg",
+      "100kg",
+      "200kg",
+      "800kg"
+    ],
+    "correct_answer": "50kg",
+    "image_url": "SPA_026.png",
+    "image_brief": "Draw a block and tackle pulley system. The top fixed block has two pulleys. The bottom movable block (with a 200kg car engine attached) has two pulleys. A single continuous rope is threaded through them all, resulting in 4 distinct vertical rope segments supporting the bottom block. A mechanic's hands are pulling down on the loose end of the rope.",
+    "rationale": "Level 3 question testing mechanical advantage in complex pulley systems. The mechanical advantage is equal to the number of rope sections directly supporting the movable load. With 4 sections, the effort required is the load divided by 4 (200 / 4 = 50)."
+  },
+  {
+    "question_id": "SPA_027",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "A square sheet of paper is folded in half horizontally, then folded in half vertically to form a smaller square. Finally, it is folded diagonally to form a triangle. A hole punch is used to punch a single hole completely through the sharpest outer corner of the folded triangle. When fully unfolded, how many holes will be in the paper, and where will they be located?",
+    "options": [
+      "One hole in the exact center",
+      "Two holes on opposite corners",
+      "Four holes located in the four corners of the unfolded paper",
+      "Four holes forming a tight square near the center"
+    ],
+    "correct_answer": "Four holes located in the four corners of the unfolded paper",
+    "image_url": "SPA_027.png",
+    "image_brief": "Draw a 4-step diagram. Step 1: A square folded horizontally (top to bottom). Step 2: The resulting rectangle folded vertically (left to right) into a small square. Step 3: The small square folded diagonally (bottom-left to top-right) to form a right-angled triangle. Step 4: A hole is punched through the sharp top-right corner of this final triangle (the corner representing the outer edges of the original paper).",
+    "rationale": "Level 4 question requiring advanced mental unfolding and spatial tracking. The final sharp corner of the folded triangle corresponds to the four extreme outer corners of the original unfolded square piece of paper."
+  },
+  {
+    "question_id": "SPA_028",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "A JSS 3 science teacher sets up an experiment with four glass tubes of completely different shapes and widths. All four tubes are connected by a single horizontal pipe at the bottom. If water is poured into the widest tube until it is half full, what will happen to the water levels in the other three tubes?",
+    "options": [
+      "The widest tube will have the highest water level.",
+      "The narrowest tube will have the highest water level.",
+      "The water level will be exactly the same horizontal height in all four tubes.",
+      "The tubes with curves will have a lower water level due to resistance."
+    ],
+    "correct_answer": "The water level will be exactly the same horizontal height in all four tubes.",
+    "image_url": "SPA_028.png",
+    "image_brief": "Draw four communicating vessels (glass tubes) connected by a single pipe at their base. Tube 1 is a wide cylinder. Tube 2 is a narrow cylinder. Tube 3 is zig-zag shaped. Tube 4 has a bulbous spherical section in the middle. The vessels are empty in the drawing.",
+    "rationale": "Level 4 question testing fluid
+[
+  {
+    "question_id": "SPA_031",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "A student in a rural village uses a simple fixed pulley attached to a tree branch to draw a bucket of water from a deep well. If the student pulls the free end of the rope downwards towards the ground, in which direction will the bucket of water move?",
+    "options": [
+      "Downwards",
+      "Upwards",
+      "Sideways",
+      "It will not move"
+    ],
+    "correct_answer": "Upwards",
+    "image_url": "SPA_031.png",
+    "image_brief": "Draw a simple mechanical system showing a single fixed pulley suspended from a wooden beam. A rope passes over the pulley. One end of the rope drops straight down to a bucket hanging over a well. The other end of the rope drops straight down to a pair of hands pulling it downwards. Draw a downward arrow next to the hands.",
+    "rationale": "Level 1 question measuring basic mechanical intuition. A single fixed pulley changes the direction of the applied force. Pulling down on one side of the rope causes the load on the other side to move up."
+  },
+  {
+    "question_id": "SPA_032",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "A carpenter in Mushin cuts a unique, asymmetrical shape out of a piece of plywood. Which of the options shows the exact same piece of wood, just turned around on the workbench?",
+    "options": [
+      "Option A",
+      "Option B",
+      "Option C",
+      "Option D"
+    ],
+    "correct_answer": "Option B",
+    "image_url": "SPA_032.png",
+    "image_brief": "Draw a reference shape: a 2D irregular polygon (e.g., an L-shape with one jagged, zig-zag edge). Provide 4 options. Option A: A distorted version of the shape. Option B (Correct): The exact same shape rotated 180 degrees. Option C: A horizontally flipped (mirrored) version of the shape, which cannot be achieved by just turning it around on a flat table. Option D: A completely different shape.",
+    "rationale": "Level 1 question testing fundamental 2D mental rotation. It requires the student to distinguish between a shape that has been rotated in the 2D plane versus one that has been reflected (flipped over)."
+  },
+  {
+    "question_id": "SPA_033",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "Tunde is stacking cubes of sugar to put into his tea. He places 4 identical cubic blocks on a flat table to form an 'L' shape. How many flat faces of the sugar cubes are directly touching each other?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "6"
+    ],
+    "correct_answer": "3",
+    "image_url": "SPA_033.png",
+    "image_brief": "Draw a 3D isometric view of 4 identical cubic blocks arranged flat on a surface in an 'L' shape (3 blocks forming a straight line, and 1 block attached to the side of the end block).",
+    "rationale": "Level 2 question assessing 3D spatial visualization and component relationships. In an L-shape of 4 blocks, there are exactly 3 interfaces where two block faces meet (Block 1 touches 2, Block 2 touches 3, Block 3 touches 4)."
+  },
+  {
+    "question_id": "SPA_034",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "A JSS 3 student is riding a bicycle. The bicycle has a large toothed gear (sprocket) attached to the pedals, and a small toothed gear attached to the rear wheel. They are connected by a chain. When the student pedals and makes the large front gear complete exactly ONE full circle, what happens to the small rear gear?",
+    "options": [
+      "It turns less than one full circle.",
+      "It turns exactly one full circle.",
+      "It turns more than one full circle.",
+      "It turns in the opposite direction."
+    ],
+    "correct_answer": "It turns more than one full circle.",
+    "image_url": "SPA_034.png",
+    "image_brief": "Draw a mechanical diagram of a bicycle drivetrain. A large front sprocket is connected to a noticeably smaller rear sprocket by a chain. Draw a circular arrow on the large sprocket representing exactly one revolution.",
+    "rationale": "Level 2 question testing qualitative mechanical reasoning regarding gear ratios. A large driving gear will force a smaller driven gear to complete multiple revolutions for every single revolution the large gear makes."
+  },
+  {
+    "question_id": "SPA_035",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "The prefects are making a customized dice for a school game by folding a cardboard net. If the cardboard is folded into a complete 3D cube and placed on a table so that the 'Square' symbol is flat on the bottom, which symbol will be facing straight up at the ceiling?",
+    "options": [
+      "The Circle",
+      "The Triangle",
+      "The Star",
+      "The Cross"
+    ],
+    "correct_answer": "The Triangle",
+    "image_url": "SPA_035.png",
+    "image_brief": "Draw a 2D cross-shaped net of a cube. The vertical column consists of 4 squares: (from top to bottom) Circle, Square, Triangle, Hexagon. To the left of the 'Square' is a square containing a Star. To the right of the 'Square' is a square containing a Cross (+).",
+    "rationale": "Level 3 question evaluating 3D mental folding and spatial memory. In a standard cross net, alternate squares in a straight line become opposite faces. The Square and the Triangle are separated by one fold, making them opposite faces. If the Square is on the bottom, the Triangle must be on top."
+  },
+  {
+    "question_id": "SPA_036",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "A school prints its logo using a carved rubber stamp. The letter 'R' is carved protruding from the rubber. When the stamp is pressed into an ink pad and then pressed firmly straight down onto a piece of paper, what will the resulting printed ink image look like?",
+    "options": [
+      "A normal letter 'R'",
+      "An upside-down letter 'R'",
+      "A backward (horizontally flipped) letter 'R'",
+      "An upside-down and backward letter 'R'"
+    ],
+    "correct_answer": "A backward (horizontally flipped) letter 'R'",
+    "image_url": "SPA_036.png",
+    "image_brief": "Draw a 3D illustration of a hand holding a rubber stamp. The bottom of the stamp is visible and shows a normally oriented, protruding letter 'R'. An arrow points down from the stamp to a blank sheet of paper, indicating it is about to be pressed down.",
+    "rationale": "Level 3 question testing complex spatial reflection (mental flipping). A stamp transfers an image via direct contact. To print a normal image, the stamp itself must be a mirrored (horizontally flipped) version. Since the stamp in this question has a 'normal' R on it, pressing it face-down onto paper will result in a mirrored/backward image."
+  },
+  {
+    "question_id": "SPA_037",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "A perfectly square piece of colored paper is folded exactly in half horizontally. It is then folded in half vertically, forming a smaller square. Finally, a pair of scissors is used to snip off the absolute center corner of this small folded square (the corner where all the folds meet). When the paper is completely unfolded, what shape will the hole in the center be?",
+    "options": [
+      "A small square",
+      "A small diamond",
+      "A small circle",
+      "A large cross (+)"
+    ],
+    "correct_answer": "A small diamond",
+    "image_url": "SPA_037.png",
+    "image_brief": "Draw a 3-step diagram. Step 1: A square folded horizontally. Step 2: The resulting rectangle folded vertically into a small square. Step 3: A pair of scissors making a straight diagonal cut across the corner of the small square that represents the absolute center of the original unfolded paper. The cut removes a small triangular piece from that corner.",
+    "rationale": "Level 4 question requiring advanced mental unfolding and geometric deduction. Snipping a straight diagonal line across the 90-degree corner of the folded center creates a right-angled triangle void. When unfolded into four quadrants, these four right-angled triangles combine at the center to form a rhombus/diamond."
+  },
+  {
+    "question_id": "SPA_038",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "Mechanics at a workshop are lifting a 150kg car engine using a compound block and tackle pulley system. Looking at the setup, there are 3 distinct vertical ropes pulling upwards on the movable block that holds the engine. Ignoring the weight of the pulleys and friction, how much downward force must the mechanics apply to lift the engine?",
+    "options": [
+      "30kg",
+      "50kg",
+      "75kg",
+      "150kg"
+    ],
+    "correct_answer": "50kg",
+    "image_url": "SPA_038.png",
+    "image_brief": "Draw a block and tackle pulley system. The top fixed block has two pulleys. The bottom movable block has one pulley, and a 150kg engine is attached to it. The rope is tied to the top block, goes down around the bottom pulley, up around the first top pulley, down around the second top pulley (wait, that makes 4 ropes. Let's adjust to make 3). The rope is tied to the BOTTOM movable block, goes up around a top pulley, down around the bottom pulley, up over the second top pulley, and then down to the mechanic's hands. This setup creates exactly 3 vertical ropes supporting the movable bottom block.",
+    "rationale": "Level 4 question testing the mathematical calculation of mechanical advantage in physics. Mechanical advantage = number of rope segments supporting the movable load. MA = 3. Effort = Load / MA = 150 / 3 = 50kg."
+  },
+  {
+    "question_id": "SPA_039",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 5,
+    "text": "Inside a mechanical wall clock, Gear A has 40 teeth and meshes directly with Gear B, which has 20 teeth. Gear B meshes directly with Gear C, which has 10 teeth. If Gear A rotates CLOCKWISE at a speed of 10 Revolutions Per Minute (RPM), what is the rotational speed and direction of Gear C?",
+    "options": [
+      "10 RPM Clockwise",
+      "20 RPM Counter-Clockwise",
+      "40 RPM Clockwise",
+      "40 RPM Counter-Clockwise"
+    ],
+    "correct_answer": "40 RPM Clockwise",
+    "image_url": "SPA_039.png",
+    "image_brief": "Draw three interlocking gears in a straight line. Gear A (left) is very large (labeled 40 teeth). Gear B (middle) is medium-sized (labeled 20 teeth). Gear C (right) is very small (labeled 10 teeth). Draw a clockwise circular arrow on Gear A.",
+    "rationale": "Level 5 question testing complex kinematic gear trains, combining direction reversal and compound speed ratios. Direction: A(CW) -> B(CCW) -> C(CW). Speed: Gear A to Gear C ratio is 40:10 (or 4:1). The middle idler gear (B) reverses direction but does not alter the overall speed ratio between the first and last gear. Because C is 4 times smaller than A, it must spin 4 times faster. 10 RPM * 4 = 40 RPM."
+  },
+  {
+    "question_id": "SPA_040",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 5,
+    "text": "During a Basic Technology practical, a student is given a solid wooden cone that is standing flat on its circular base. The teacher uses a saw to cut the cone perfectly in half, slicing vertically straight down from its pointed top tip, through the absolute center, to the base. If you look directly at the flat surface created by this cut, what 2D geometric shape will you see?",
+    "options": [
+      "A circle",
+      "A semi-circle",
+      "An isosceles triangle",
+      "A rectangle"
+    ],
+    "correct_answer": "An isosceles triangle",
+    "image_url": "SPA_040.png",
+    "image_brief": "Draw a 3D isometric illustration of a solid cone resting on its circular base. Draw a dashed vertical plane passing exactly through the apex (top point) and bisecting the circular base, representing the path of a saw cut. Draw a second image showing the two halves separated, revealing the flat interior cross-section.",
+    "rationale": "Level 5 question assessing advanced 3D to 2D spatial translation (cross-sections). Cutting a cone vertically through its apex and the center of its base exposes a flat surface bounded by the two slanted sides of the cone and the diameter of the base, creating a perfect isosceles triangle."
+  }
+]
+  {
+    "question_id": "SPA_041",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "A student in the Basic Technology workshop cuts a piece of plywood into a perfect circle, then cuts a wedge (like a slice of pizza) out of it. Which of the options below represents the exact piece that was removed?",
+    "options": [
+      "Shape A",
+      "Shape B",
+      "Shape C",
+      "Shape D"
+    ],
+    "correct_answer": "Shape B",
+    "image_url": "SPA_041.png",
+    "image_brief": "Draw a large 2D circle with a distinct, 60-degree wedge missing from the bottom right edge. For the options, draw 4 puzzle pieces. Shape A is a square wedge. Shape B is the exact complementary 60-degree pie slice with a curved outer edge that perfectly fits the void. Shape C is a pie slice with a straight outer edge (a triangle). Shape D is a semi-circle.",
+    "rationale": "Level 1 question measuring basic 2D spatial visualization and form perception. It requires mentally matching a void with its corresponding solid shape."
+  },
+  {
+    "question_id": "SPA_042",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "Two mechanical gears are meshed together in a local milling machine. Gear 1 is much larger than Gear 2. If Gear 1 is turned in a counter-clockwise direction, in which direction will the smaller Gear 2 turn?",
+    "options": [
+      "Clockwise",
+      "Counter-clockwise",
+      "Upwards",
+      "It will not turn"
+    ],
+    "correct_answer": "Clockwise",
+    "image_url": "SPA_042.png",
+    "image_brief": "Draw two interlocking gears. Gear 1 (left) is large. Gear 2 (right) is significantly smaller. Draw a bold curved arrow on Gear 1 indicating a counter-clockwise rotation.",
+    "rationale": "Level 1 question testing fundamental mechanical interaction. Regardless of their size difference, two directly meshed gears will always rotate in opposite directions."
+  },
+  {
+    "question_id": "SPA_043",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "A JSS 3 student holds up a piece of cardboard with the capital letter 'F' printed on it. If she looks at the reflection of this cardboard in a flat mirror, what will the image look like?",
+    "options": [
+      "A normal letter 'F'",
+      "An upside-down letter 'F'",
+      "A horizontally flipped (backward) letter 'F'",
+      "An 'E' shape"
+    ],
+    "correct_answer": "A horizontally flipped (backward) letter 'F'",
+    "image_url": "SPA_043.png",
+    "image_brief": "Draw a large, bold, capital letter 'F'. Next to it, draw a vertical dotted line to represent a mirror. Provide 4 visual options representing the text choices: normal F, upside-down F, backward F, and an E.",
+    "rationale": "Level 2 question testing 2D mental reflection. A standard flat mirror flips images horizontally (left-to-right inversion) but maintains their vertical orientation."
+  },
+  {
+    "question_id": "SPA_044",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "During break time, two JSS 3 students, Emeka (who weighs 50kg) and Tobi (who weighs 30kg), want to balance perfectly on a seesaw. According to the principles of levers, how should they sit to achieve balance?",
+    "options": [
+      "They must both sit at the exact same distance from the middle pivot.",
+      "Emeka must sit closer to the middle pivot, and Tobi must sit further away.",
+      "Tobi must sit closer to the middle pivot, and Emeka must sit further away.",
+      "They must both sit as close to the middle pivot as possible."
+    ],
+    "correct_answer": "Emeka must sit closer to the middle pivot, and Tobi must sit further away.",
+    "image_url": "SPA_044.png",
+    "image_brief": "Draw a simple mechanical seesaw (a flat plank resting on a triangular fulcrum). Label the left side 'Emeka (50kg)' and the right side 'Tobi (30kg)'. Do not place figures on the board, just label the sides.",
+    "rationale": "Level 2 question evaluating qualitative mechanical reasoning of first-class levers. To balance a lever, a heavier load must be placed closer to the fulcrum to equalize the turning moment (Force x Distance) of a lighter load placed further away."
+  },
+  {
+    "question_id": "SPA_045",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "Examine the 3D structure built using uniform wooden cubes. Assuming there are no hidden empty spaces beneath the visible blocks, how many individual cubes were used to build this exact structure?",
+    "options": [
+      "8",
+      "9",
+      "10",
+      "12"
+    ],
+    "correct_answer": "10",
+    "image_url": "SPA_045.png",
+    "image_brief": "Draw a 3D isometric stack of identical cubic blocks. Base layer: A 3x2 rectangle (6 blocks). Middle layer: 3 blocks placed directly on top of the back row of the base layer. Top layer: 1 block placed directly on the center block of the middle layer. The perspective must obscure the blocks directly supporting the upper layers, forcing the student to deduce their presence. Total blocks = 6 + 3 + 1 = 10.",
+    "rationale": "Level 3 question assessing 3D spatial awareness and object permanence. Students must mentally reconstruct the hidden supporting structure to accurately count the total volume (6 + 3 + 1 = 10)."
+  },
+  {
+    "question_id": "SPA_046",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "In a factory in Ikeja, three pulleys are connected by a single, long continuous rubber belt. The belt weaves around the pulleys in a serpentine (snake-like) path. Pulley A and Pulley C are on the outside of the belt loop, while Pulley B is pressed against the inside. If Pulley A rotates clockwise, what are the rotation directions of Pulley B and Pulley C?",
+    "options": [
+      "Pulley B: Clockwise, Pulley C: Clockwise",
+      "Pulley B: Counter-clockwise, Pulley C: Clockwise",
+      "Pulley B: Counter-clockwise, Pulley C: Counter-clockwise",
+      "Pulley B: Clockwise, Pulley C: Counter-clockwise"
+    ],
+    "correct_answer": "Pulley B: Counter-clockwise, Pulley C: Clockwise",
+    "image_url": "SPA_046.png",
+    "image_brief": "Draw three pulleys in a horizontal zig-zag arrangement. Pulley A (left, top), Pulley B (middle, bottom), Pulley C (right, top). A single continuous belt runs over the top of A, down under B, and back up over C, returning straight back to A. This creates a serpentine path. Draw a clockwise arrow on Pulley A.",
+    "rationale": "Level 3 question testing mechanical belt drive systems. Pulleys running on the 'inside' of a serpentine belt (A and C) rotate in the same direction as the driving pulley. Pulleys pressed against the 'outside' or back of the belt (B) rotate in the opposite direction."
+  },
+  {
+    "question_id": "SPA_047",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "A perfectly square sheet of paper is folded exactly in half from left to right. It is then folded in half again from top to bottom, creating a smaller square. A hole punch is used to create a single circular hole in the exact center of this small folded square. When the paper is completely unfolded, what will the pattern of holes look like?",
+    "options": [
+      "One single hole in the center of the paper",
+      "Two holes spaced evenly apart",
+      "Four holes forming a square shape evenly distributed across the paper",
+      "Four holes tightly clustered directly in the center"
+    ],
+    "correct_answer": "Four holes forming a square shape evenly distributed across the paper",
+    "image_url": "SPA_047.png",
+    "image_brief": "Draw a 3-step diagram. Step 1: A large square paper with an arrow folding the left half over the right half. Step 2: A vertical rectangle with an arrow folding the top half over the bottom half. Step 3: A small square with a single circular hole punched exactly in its geometric center.",
+    "rationale": "Level 4 question requiring advanced 2D mental unfolding. Punching the exact center of a paper folded into quadrants results in one hole positioned directly in the center of each of the four quadrants when fully unfolded."
+  },
+  {
+    "question_id": "SPA_048",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "A student rides a multi-gear bicycle. The large front gear connected to the pedals has 60 teeth. The small rear gear connected to the back wheel has 15 teeth. If the student pedals exactly ONE full revolution, how many revolutions will the rear wheel make?",
+    "options": [
+      "1 revolution",
+      "2 revolutions",
+      "3 revolutions",
+      "4 revolutions"
+    ],
+    "correct_answer": "4 revolutions",
+    "image_url": "SPA_048.png",
+    "image_brief": "Draw a bicycle drivetrain. A large front sprocket (labeled '60 Teeth') is connected via a chain to a small rear sprocket (labeled '15 Teeth'). Draw a circular arrow representing motion on the front sprocket.",
+    "rationale": "Level 4 question calculating mechanical gear ratios. The Gear Ratio is calculated as (Teeth on Driving Gear / Teeth on Driven Gear) = 60 / 15 = 4. This means the driven gear will rotate 4 times for every 1 rotation of the driving gear."
+  },
+  {
+    "question_id": "SPA_049",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 5,
+    "text": "A large custom dice has unique symbols painted on its six faces. From the first viewing angle, you can see a Circle, a Star, and a Plus (+). The dice is then rotated 90 degrees strictly on its vertical axis. Which of the following visual transitions proves the object is a valid, rigid 3D cube?",
+    "options": [
+      "The Circle moves to the back, the Star remains in front, and the Plus moves to the top.",
+      "The Plus moves to the left side, the Star moves out of view, and the Circle stays on top.",
+      "The Circle stays on top, the Star moves to the right side, and a new symbol appears in front.",
+      "The Star moves to the top, the Plus stays on the right, and the Circle moves to the bottom."
+    ],
+    "correct_answer": "The Circle stays on top, the Star moves to the right side, and a new symbol appears in front.",
+    "image_url": "SPA_049.png",
+    "image_brief": "Draw two 3D isometric views of the same cube. View 1: Top face has a Circle, Front face has a Star, Right face has a Plus (+). Next to it, draw a curved horizontal arrow indicating a 90-degree leftward turn on the vertical Y-axis. View 2: Top face still has the Circle, Right face now has the Star, and the Front face has a completely new symbol (e.g., a Triangle).",
+    "rationale": "Level 5 question testing complex 3D mental rotation with feature constraints. Rotating a cube exclusively on its vertical axis means the top and bottom faces do not change. The front face (Star) rotates to the right side, and the left face (previously hidden) rotates to the front."
+  },
+  {
+    "question_id": "SPA_050",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 5,
+    "text": "An automated sliding gate in a Lekki residential estate operates using a 'Rack and Pinion' mechanism. The pinion is a circular gear attached to a stationary electric motor. The rack is a flat, straight toothed bar welded to the bottom of the sliding gate. If the motor turns the circular pinion gear CLOCKWISE, in which direction will the flat gate slide?",
+    "options": [
+      "To the left",
+      "To the right",
+      "Upwards",
+      "Downwards"
+    ],
+    "correct_answer": "To the left",
+    "image_url": "SPA_050.png",
+    "image_brief": "Draw a rack and pinion mechanical system. A circular gear (pinion) is positioned above a flat, horizontal bar with gear teeth cut into its top edge (the rack). The teeth of the pinion mesh perfectly with the teeth of the rack. Draw a prominent clockwise circular arrow on the pinion gear.",
+    "rationale": "Level 5 question integrating advanced mechanical translation concepts. A rack and pinion converts rotational motion into linear motion. If the pinion (placed above the rack) turns clockwise, its bottom teeth push horizontally to the left, driving the straight rack to the left."
+  }
+]
+  {
+    "question_id": "SPA_051",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "A carpenter in Bodija market cuts a perfect circle out of a square piece of plywood to make a stool. Which of the options below represents the shape of the hole left in the wood?",
+    "options": [
+      "A square",
+      "A circle",
+      "A triangle",
+      "A rectangle"
+    ],
+    "correct_answer": "A circle",
+    "image_url": "SPA_051.png",
+    "image_brief": "Draw a square piece of wood with a perfectly circular hole cut out of its center. For the options, draw 4 solid 2D shapes: Option A is a solid square. Option B is a solid circle matching the hole. Option C is a solid triangle. Option D is a solid rectangle.",
+    "rationale": "Level 1 question measuring basic 2D spatial visualization and form perception. It requires mentally matching a void with its corresponding solid geometric shape."
+  },
+  {
+    "question_id": "SPA_052",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 1,
+    "text": "Inside a local sugarcane juice extractor, two metal gears of the exact same size are meshed together. If the machine operator turns the left gear manually with a handle in a clockwise direction, which way will the right gear turn?",
+    "options": [
+      "Clockwise",
+      "Counter-clockwise",
+      "Upwards",
+      "Downwards"
+    ],
+    "correct_answer": "Counter-clockwise",
+    "image_url": "SPA_052.png",
+    "image_brief": "Draw two interlocking gears of identical size side by side. The left gear has a hand-crank handle attached to its center and a prominent curved arrow indicating clockwise rotation. The right gear has a large question mark in its center.",
+    "rationale": "Level 1 question testing fundamental mechanical interaction. Two directly meshed gears will always rotate in opposite directions, regardless of their size."
+  },
+  {
+    "question_id": "SPA_053",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "A student drops her school badge, which has a distinct shield shape with a star in the top-left corner. If the badge lands upside down on the floor (rotated exactly 180 degrees), where will the star be located?",
+    "options": [
+      "Top-left corner",
+      "Top-right corner",
+      "Bottom-left corner",
+      "Bottom-right corner"
+    ],
+    "correct_answer": "Bottom-right corner",
+    "image_url": "SPA_053.png",
+    "image_brief": "Draw a shield-shaped school badge with a prominent star located in its top-left corner. Next to it, draw a curved arrow indicating a 180-degree rotation leading to a question mark.",
+    "rationale": "Level 2 question testing 2D mental rotation. Rotating an asymmetrical object 180 degrees in a 2D plane shifts features to their exact diagonal opposite. Top-left becomes bottom-right."
+  },
+  {
+    "question_id": "SPA_054",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 2,
+    "text": "Two JSS 3 students of equal weight are sitting at opposite ends of a see-saw at a playground in Ikeja. If the fulcrum (the pivot point under the board) is moved significantly closer to Student A, what will logically happen when they lift their feet off the ground?",
+    "options": [
+      "Student A will go down, and Student B will go up.",
+      "Student B will go down, and Student A will go up.",
+      "The see-saw will remain perfectly balanced horizontally.",
+      "The see-saw board will break in the middle."
+    ],
+    "correct_answer": "Student B will go down, and Student A will go up.",
+    "image_url": "SPA_054.png",
+    "image_brief": "Draw a simple mechanical see-saw (a flat plank resting on a triangular fulcrum). Label the left end 'Student A' and the right end 'Student B'. The triangular fulcrum should be drawn significantly off-center, placed much closer to Student A than Student B.",
+    "rationale": "Level 2 question evaluating qualitative mechanical reasoning of first-class levers. The turning moment is calculated as Force (weight) x Distance from the fulcrum. Since their weights are equal, the student further from the fulcrum (Student B) creates a greater turning moment and will go down."
+  },
+  {
+    "question_id": "SPA_055",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "A junior student stacks identical cubic cartons of Milo in the storeroom as shown in the diagram. How many cartons are there in total, including the ones hidden at the back supporting the top layers?",
+    "options": [
+      "10 cartons",
+      "12 cartons",
+      "14 cartons",
+      "16 cartons"
+    ],
+    "correct_answer": "14 cartons",
+    "image_url": "SPA_055.png",
+    "image_brief": "Draw a 3D isometric stack of uniform cubes. The bottom layer is a complete 3x3 square grid (9 cubes). The second layer is a 2x2 square grid (4 cubes) placed flush against the back-left corner. The third (top) layer is 1 single cube placed on the very back-left corner of the second layer. The perspective must obscure the cubes directly underneath the upper layers to test object permanence.",
+    "rationale": "Level 3 question assessing 3D spatial awareness and volumetric counting. Students must mentally reconstruct the hidden supporting structure layer by layer: Bottom layer (9) + Middle layer (4) + Top layer (1) = 14 total cartons."
+  },
+  {
+    "question_id": "SPA_056",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 3,
+    "text": "A movable pulley system is used to hoist a heavy 60kg loudspeaker for the school's inter-house sports. If the setup has two lengths of rope directly pulling upwards on the movable pulley that holds the speaker, how much effort force must the students apply to lift it? (Ignore friction)",
+    "options": [
+      "30kg",
+      "60kg",
+      "90kg",
+      "120kg"
+    ],
+    "correct_answer": "30kg",
+    "image_url": "SPA_056.png",
+    "image_brief": "Draw a mechanical pulley system consisting of one fixed pulley attached to an overhead beam and one movable pulley suspended below it. A 60kg loudspeaker hangs from the movable pulley. A continuous rope is tied to the overhead beam, goes down around the movable pulley, up around the fixed pulley, and down to a pair of hands. Clearly show two sections of rope supporting the bottom movable pulley.",
+    "rationale": "Level 3 question testing mechanical advantage in basic pulley systems. The mechanical advantage is determined by the number of rope segments directly supporting the movable load. With two supporting ropes, the required effort is halved (60kg / 2 = 30kg)."
+  },
+  {
+    "question_id": "SPA_057",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "An SS1 student designs a flat cardboard net to make a custom cubic dice for a math project. If the cardboard is completely folded into a 3D cube, which shape will end up directly on the opposite side of the 'Sun' symbol?",
+    "options": [
+      "The Moon",
+      "The Star",
+      "The Cloud",
+      "The Tree"
+    ],
+    "correct_answer": "The Star",
+    "image_url": "SPA_057.png",
+    "image_brief": "Draw a 2D cross-shaped net for a cube. The vertical column consists of 4 squares: (from top to bottom) Moon, Sun, Cloud, Star. To the left of the 'Sun' square is a square containing a Tree. To the right of the 'Sun' square is a square containing a River.",
+    "rationale": "Level 4 question evaluating 3D mental folding and spatial memory. In a standard cross net, alternate faces in any straight row or column become opposite faces when folded. Therefore, the Sun and the Star, separated by the Cloud, will face opposite each other."
+  },
+  {
+    "question_id": "SPA_058",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 4,
+    "text": "In a local agricultural grinding machine, a large Pulley X drives a smaller Pulley Y using a crossed (figure-8) rubber belt. Pulley Y shares the exact same central metal axle with Gear Z. If Pulley X rotates in a clockwise direction, what will be the rotation direction of Gear Z?",
+    "options": [
+      "Clockwise",
+      "Counter-clockwise",
+      "It will alternate directions",
+      "It will not rotate"
+    ],
+    "correct_answer": "Counter-clockwise",
+    "image_url": "SPA_058.png",
+    "image_brief": "Draw a mechanical diagram with three components. A large Pulley X (left) is connected to a smaller Pulley Y (right) via a crossed belt forming a figure-8 shape. Pulley Y has a toothed Gear Z drawn concentrically over it (or directly beside it connected by a solid thick axle line), indicating they share the same shaft. Draw a clockwise directional arrow on Pulley X.",
+    "rationale": "Level 4 question tracing motion through a compound mechanical system. First, a crossed belt reverses the rotational direction, so if Pulley X is clockwise, Pulley Y must be counter-clockwise. Second, components fixed to the same solid axle rotate identically. Therefore, Gear Z rotates in the same counter-clockwise direction as Pulley Y."
+  },
+  {
+    "question_id": "SPA_059",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 5,
+    "text": "A circular piece of paper is folded exactly in half to make a semi-circle. It is then folded in half again to make a quarter-circle (a pie slice shape). Finally, a hole punch is used to create a single circular hole straight through the curved outer edge of this folded pie slice. When the paper is completely unfolded, how many holes will be present, and where will they be located?",
+    "options": [
+      "One hole in the exact center of the circle",
+      "Two holes on opposite sides of the circle",
+      "Four holes evenly spaced around the outer edge of the circle",
+      "Eight holes evenly spaced around the outer edge of the circle"
+    ],
+    "correct_answer": "Four holes evenly spaced around the outer edge of the circle",
+    "image_url": "SPA_059.png",
+    "image_brief": "Draw a 4-step diagram. Step 1: A full circular piece of paper. Step 2: An arrow showing it folded in half into a semi-circle. Step 3: An arrow showing the semi-circle folded in half into a quarter-circle (pie slice). Step 4: A hole punch making a single circular hole near the curved outer boundary of the quarter-circle.",
+    "rationale": "Level 5 question testing complex multi-stage mental unfolding and spatial tracking. Because the paper is folded twice, it creates four layers (quadrants). Punching a hole through the curved edge of the folded stack creates one hole on the perimeter of each of the four quadrants when fully unfolded."
+  },
+  {
+    "question_id": "SPA_060",
+    "section": "A",
+    "type": "Cognitive",
+    "category": "Spatial & Mechanical Reasoning",
+    "difficulty_level": 5,
+    "text": "A solid 3D wooden block in the physics lab has a Triangle painted on its top face, a Circle on its front face, and a Square on its right face. If a student tilts the block forward 90 degrees (tumbling it towards them) and then rotates it 90 degrees clockwise on the flat table, which symbol will now be facing directly towards the student on the front face?",
+    "options": [
+      "The Triangle",
+      "The Circle",
+      "The Square",
+      "A completely blank face"
+    ],
+    "correct_answer": "The Square",
+    "image_url": "SPA_060.png",
+    "image_brief": "Draw a 3D isometric view of a cube. The top face shows a Triangle. The front face shows a Circle. The right face shows a Square. Add two directional arrows indicating the sequence of spatial transformations: first, a forward tumbling motion (90 degrees along the X-axis), then a clockwise spinning motion flat on the table (90 degrees along the Y-axis).",
+    "rationale": "Level 5 question testing complex 3D mental rotation tracking multiple axes. Starting state: Top=Triangle, Front=Circle, Right=Square. Transformation 1 (Tilt forward 90°): The old Top (Triangle) moves to the Front. The old Right (Square) stays on the Right. Transformation 2 (Rotate clockwise 90° on the table): The object spins, so the old Right face (Square) rotates to become the new Front face."
+  }
+]

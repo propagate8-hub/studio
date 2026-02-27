@@ -1,0 +1,182 @@
+[
+  {
+    "question_id": "PER_CON_001",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Conscientiousness",
+    "text": "I always make sure my school uniform is neatly ironed and my sandals are polished before Monday morning assembly.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Conscientiousness"
+  },
+  {
+    "question_id": "PER_CON_002",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Conscientiousness",
+    "text": "During evening prep time, I focus entirely on reading my notes and doing my assignments instead of gisting with my friends.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Conscientiousness"
+  },
+  {
+    "question_id": "PER_CON_003",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Conscientiousness",
+    "text": "I keep my notebooks very neat and always ensure my notes are completely up to date before the mock BECE begins.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Conscientiousness"
+  },
+  {
+    "question_id": "PER_CON_004",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Conscientiousness",
+    "text": "When the teacher gives us a group assignment, I am usually the one making sure everyone submits their part on time.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Conscientiousness"
+  },
+  {
+    "question_id": "PER_CON_005",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Conscientiousness",
+    "text": "I create a personal reading timetable for myself at home and stick to it strictly, even on weekends.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Conscientiousness"
+  },
+  {
+    "question_id": "PER_OPE_001",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Openness to Experience",
+    "text": "I enjoy trying out new foods from different parts of Nigeria, like eating Tuwo Shinkafa, Banga soup, or Edikang Ikong for the first time.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Openness to Experience"
+  },
+  {
+    "question_id": "PER_OPE_002",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Openness to Experience",
+    "text": "During Basic Technology or Fine Arts practicals, I like coming up with my own unique designs instead of just copying what the teacher drew on the board.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Openness to Experience"
+  },
+  {
+    "question_id": "PER_OPE_003",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Openness to Experience",
+    "text": "I love asking the teacher 'why' and 'how' things work, even if the topic is not officially in our JSS 3 syllabus.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Openness to Experience"
+  },
+  {
+    "question_id": "PER_OPE_004",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Openness to Experience",
+    "text": "I enjoy reading novels, storybooks, or watching documentaries about things and places that are completely different from my everyday life in Nigeria.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Openness to Experience"
+  },
+  {
+    "question_id": "PER_OPE_005",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Openness to Experience",
+    "text": "If my school introduces a brand new extracurricular club, like a Robotics, Coding, or Drama club, I am usually one of the first students to join.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Openness to Experience"
+  },
+  {
+    "question_id": "PER_AGR_001",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Agreeableness & Teamwork",
+    "text": "If my classmate forgets their mathematical set or biro during a continuous assessment test, I am always willing to share mine with them.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Agreeableness & Teamwork"
+  },
+  {
+    "question_id": "PER_AGR_002",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Agreeableness & Teamwork",
+    "text": "I try my best to settle arguments between my friends peacefully instead of taking sides and making the fight worse.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Agreeableness & Teamwork"
+  },
+  {
+    "question_id": "PER_AGR_003",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Agreeableness & Teamwork",
+    "text": "When we are doing a group project for Agricultural Science, I make sure to listen carefully to everyone's ideas before we make a final decision.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Agreeableness & Teamwork"
+  },
+  {
+    "question_id": "PER_AGR_004",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Agreeableness & Teamwork",
+    "text": "I feel very bad and try to help when I see a junior student being bullied or treated unfairly by the senior students.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Agreeableness & Teamwork"
+  },
+  {
+    "question_id": "PER_AGR_005",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Agreeableness & Teamwork",
+    "text": "My teachers and classmates usually describe me as a very polite, respectful, and cooperative student.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Agreeableness & Teamwork"
+  },
+  {
+    "question_id": "PER_RES_001",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Resilience & Emotional Stability",
+    "text": "When I fail a test or get a lower grade than I expected, I don't give up; I just figure out my mistakes and study much harder for the next one.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Resilience & Emotional Stability"
+  },
+  {
+    "question_id": "PER_RES_002",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Resilience & Emotional Stability",
+    "text": "I can stay calm and don't panic, even when the principal announces a sudden change to the exam timetable.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Resilience & Emotional Stability"
+  },
+  {
+    "question_id": "PER_RES_003",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Resilience & Emotional Stability",
+    "text": "If a teacher scolds or corrects me in front of the class for making a mistake, I can quickly shake it off and focus on the rest of the lesson.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Resilience & Emotional Stability"
+  },
+  {
+    "question_id": "PER_RES_004",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Resilience & Emotional Stability",
+    "text": "When I am faced with a very difficult Mathematics or Basic Science problem, I don't get angry or frustrated easily.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Resilience & Emotional Stability"
+  },
+  {
+    "question_id": "PER_RES_005",
+    "section": "B",
+    "type": "Personality Trait",
+    "category": "Resilience & Emotional Stability",
+    "text": "I rarely let rumors or negative comments from other students ruin my mood or stop me from having a good day at school.",
+    "scale": "Strongly Disagree to Strongly Agree",
+    "trait_mapped": "Resilience & Emotional Stability"
+  }
+]
