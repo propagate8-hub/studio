@@ -11,6 +11,7 @@ import {
   Settings,
   LayoutDashboard,
   ShieldCheck,
+  FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/components/providers/auth-provider";
@@ -28,7 +29,7 @@ const navItems: NavItem[] = [
   { href: "/portal/admin/dashboard", icon: <BarChart3 className="h-4 w-4" />, label: "Overview", roles: ["Admin"] },
   { href: "/portal/admin/students", icon: <Users className="h-4 w-4" />, label: "Student Roster", roles: ["Admin"] },
   { href: "/portal/admin/assessments", icon: <ClipboardList className="h-4 w-4" />, label: "Test Management", roles: ["Admin"] },
-  { href: "/portal/admin/reports", icon: <FilePieChart className="h-4 w-4" />, label: "AI Reports & Analytics", roles: ["Admin"] },
+  { href: "/portal/admin/reports", icon: <FileText className="h-4 w-4" />, label: "AI Reports & Analytics", roles: ["Admin"] },
   { href: "/portal/admin/identity", icon: <ShieldCheck className="h-4 w-4" />, label: "Identity Mgmt", roles: ["Admin"] },
   
   // B2C / Student Specific
