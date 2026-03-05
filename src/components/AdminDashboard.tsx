@@ -1,17 +1,15 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   LayoutDashboard, Users, FileText, BarChart, Settings, 
-  LogOut, User, WifiOff, CheckCircle, ClipboardList 
+  LogOut, User, WifiOff, CheckCircle, ClipboardList, GraduationCap 
 } from 'lucide-react';
 
 // --- 1. THE LAYOUT COMPONENT ---
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen bg-gray-50 font-sans">
-      
-      {/* SIDEBAR */}
       <aside className="w-64 bg-[#004AAD] text-white flex flex-col">
         <div className="p-6 text-2xl font-bold tracking-wider border-b border-blue-800">
           PROPAGATE
@@ -35,10 +33,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         </nav>
       </aside>
 
-      {/* MAIN CONTENT AREA */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        
-        {/* TOP NAVBAR */}
         <header className="h-16 bg-white border-b flex items-center justify-between px-8 shadow-sm">
           <div className="font-semibold text-lg text-gray-700">
             Greensprings College
@@ -59,7 +54,6 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        {/* PAGE CONTENT */}
         <main className="flex-1 overflow-auto p-8">
           {children}
         </main>
@@ -68,22 +62,55 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-// --- 2. THE OVERVIEW TAB ---
+// --- 2. THE DUAL-LEVEL OVERVIEW TAB ---
 export function DashboardHome() {
+  // This state controls which class level we are currently viewing
+  const [activeLevel, setActiveLevel] = useState<'JSS3' | 'SSS3'>('JSS3');
+
+  // Placeholder data that changes based on the selected level
+  const metrics = {
+    JSS3: { enrolled: 120, completed: 85, pending: 12, reports: 45 },
+    SSS3: { enrolled: 95, completed: 90, pending: 2, reports: 88 }
+  };
+
+  const currentMetrics = metrics[activeLevel];
+
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold text-gray-800">Dashboard Overview</h1>
-        <p className="text-gray-500 mt-1">Welcome back. Here is the latest ACET testing data.</p>
+      {/* HEADER & TOGGLE */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800">Dashboard Overview</h1>
+          <p className="text-gray-500 mt-1">Reviewing testing data for {activeLevel} students.</p>
+        </div>
+        
+        {/* THE DUAL-LEVEL TOGGLE SWITCH */}
+        <div className="flex bg-gray-200 p-1 rounded-lg w-fit">
+          <button 
+            onClick={() => setActiveLevel('JSS3')}
+            className={`flex items-center gap-2 px-6 py-2 rounded-md font-medium transition-all ${
+              activeLevel === 'JSS3' ? 'bg-white text-[#004AAD] shadow-sm' : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <GraduationCap size={18} /> JSS 3 Cohort
+          </button>
+          <button 
+            onClick={() => setActiveLevel('SSS3')}
+            className={`flex items-center gap-2 px-6 py-2 rounded-md font-medium transition-all ${
+              activeLevel === 'SSS3' ? 'bg-white text-[#004AAD] shadow-sm' : 'text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            <GraduationCap size={18} /> SSS 3 Cohort
+          </button>
+        </div>
       </div>
 
-      {/* METRIC CARDS */}
+      {/* DYNAMIC METRIC CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start justify-between">
           <div>
             <p className="text-sm text-gray-500 font-medium mb-1">Total Enrolled</p>
-            <h3 className="text-3xl font-bold text-gray-800">120</h3>
+            <h3 className="text-3xl font-bold text-gray-800">{currentMetrics.enrolled}</h3>
           </div>
           <div className="p-3 bg-blue-50 text-[#004AAD] rounded-lg">
             <Users size={24} />
@@ -93,7 +120,7 @@ export function DashboardHome() {
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start justify-between">
           <div>
             <p className="text-sm text-gray-500 font-medium mb-1">Tests Completed</p>
-            <h3 className="text-3xl font-bold text-gray-800">85</h3>
+            <h3 className="text-3xl font-bold text-gray-800">{currentMetrics.completed}</h3>
           </div>
           <div className="p-3 bg-green-50 text-green-600 rounded-lg">
             <CheckCircle size={24} />
@@ -103,7 +130,7 @@ export function DashboardHome() {
         <div className="bg-white p-6 rounded-xl shadow-sm border border-amber-100 flex items-start justify-between">
           <div>
             <p className="text-sm text-amber-600 font-medium mb-1">Pending Sync</p>
-            <h3 className="text-3xl font-bold text-amber-600">12</h3>
+            <h3 className="text-3xl font-bold text-amber-600">{currentMetrics.pending}</h3>
           </div>
           <div className="p-3 bg-amber-50 text-amber-600 rounded-lg">
             <WifiOff size={24} />
@@ -113,7 +140,7 @@ export function DashboardHome() {
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start justify-between">
           <div>
             <p className="text-sm text-gray-500 font-medium mb-1">Reports Generated</p>
-            <h3 className="text-3xl font-bold text-gray-800">45</h3>
+            <h3 className="text-3xl font-bold text-gray-800">{currentMetrics.reports}</h3>
           </div>
           <div className="p-3 bg-[#e0f2fe] text-[#38BDF8] rounded-lg">
             <ClipboardList size={24} />
@@ -121,10 +148,10 @@ export function DashboardHome() {
         </div>
       </div>
 
-      {/* RECENT ACTIVITY TABLE */}
+      {/* DYNAMIC RECENT ACTIVITY TABLE */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
         <div className="p-6 border-b border-gray-100">
-          <h2 className="text-lg font-bold text-gray-800">Recent Test Submissions</h2>
+          <h2 className="text-lg font-bold text-gray-800">Recent {activeLevel} Submissions</h2>
         </div>
         <table className="w-full text-left border-collapse">
           <thead>
@@ -136,10 +163,10 @@ export function DashboardHome() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {[1, 2, 3, 4, 5].map((item) => (
+            {[1, 2, 3].map((item) => (
               <tr key={item} className="hover:bg-gray-50 transition-colors">
                 <td className="p-4 text-gray-800 font-medium">Student Placeholder {item}</td>
-                <td className="p-4 text-gray-500">JSS 3</td>
+                <td className="p-4 text-gray-500">{activeLevel}</td>
                 <td className="p-4">
                   <span className="px-3 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded-full">Synced</span>
                 </td>
