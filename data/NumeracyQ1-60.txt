@@ -169,8 +169,7 @@
     "correct_answer": "180 liters",
     "image_url": null,
     "rationale": "Level 5 question requiring multi-layered fraction algebra. Let capacity be C. (3/4)C - (1/2)C = 45. (1/4)C = 45. C = 180."
-  }
-]
+  },
   {
     "question_id": "NUM_011",
     "section": "A",
@@ -341,8 +340,7 @@
     "correct_answer": "₦720",
     "image_url": null,
     "rationale": "Level 5 question testing complex, multi-step commercial arithmetic (profit calculation over reduced inventory). Target revenue = Cost + 20% Profit = 30000 + 6000 = 36000. Surviving chicks = 50. Selling price per chick = 36000 / 50 = 720."
-  }
-]
+  },
   {
     "question_id": "NUM_021",
     "section": "A",
@@ -513,8 +511,7 @@
     "correct_answer": "770 cm³",
     "image_url": null,
     "rationale": "Level 5 question involving 3D geometry and fractional volumes. Full volume = πr²h = (22/7) * 49 * 10 = 1540 cm³. Half volume = 1540 / 2 = 770 cm³."
-  }
-]
+  },
   {
     "question_id": "NUM_031",
     "section": "A",
@@ -685,8 +682,7 @@
     "correct_answer": "120 students",
     "image_url": null,
     "rationale": "Level 5 question testing set theory and percentage overlaps (Venn diagram logic). Total = 100%. Neither = 20%, so Science Union Art = 80%. P(S) + P(A) - P(Both) = P(Union). 60 + 50 - x = 80. 110 - x = 80. x = 30%. 30% of 400 = 120."
-  }
-]
+  },
   {
     "question_id": "NUM_041",
     "section": "A",
@@ -857,8 +853,7 @@
     "correct_answer": "₦1,500,000",
     "image_url": null,
     "rationale": "Level 5 question requiring advanced, multi-stage fraction algebra. Remainder after wife = 1 - 1/3 = 2/3. Children get 2/5 of 2/3 = 4/15. Charity gets 2/3 - 4/15 = 6/15 = 2/5. If 2/5 of Total = 600,000, then Total = 600,000 * (5/2) = 1,500,000."
-  }
-]
+  },
   {
     "question_id": "NUM_051",
     "section": "A",
@@ -1029,5 +1024,4 @@
     "correct_answer": "2 hours 24 minutes",
     "image_url": null,
     "rationale": "Level 5 question testing complex algebraic word problems (combined work rates). Combined rate = 1/4 + 1/6 = 5/12 tank per hour. Total time = 12/5 hours = 2.4 hours. 0.4 hours * 60 = 24 minutes."
-  }
-]
+  },

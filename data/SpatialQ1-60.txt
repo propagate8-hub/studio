@@ -359,8 +359,7 @@
     "image_url": "SPA_020.png",
     "image_brief": "Draw a teardrop-shaped mechanical cam (a circle with a pointed lobe on one side). Pass a horizontal shaft through the circular center. Above the cam, draw a straight vertical metal rod (the follower) pointing down so its flat bottom rests on the surface of the cam. Draw a rotational arrow around the cam shaft.",
     "rationale": "Level 5 question integrating rotational kinematics with linear translation components taught in advanced Basic Tech. The cam acts as a wedge or lever; the distance from the shaft to the edge dictates the height of the follower. The pointed lobe represents the greatest radius, so when it rotates to the top, it pushes the follower to its maximum vertical displacement."
-  }
-]
+  },
   {
     "question_id": "SPA_021",
     "section": "A",
@@ -503,8 +502,8 @@
     "correct_answer": "The water level will be exactly the same horizontal height in all four tubes.",
     "image_url": "SPA_028.png",
     "image_brief": "Draw four communicating vessels (glass tubes) connected by a single pipe at their base. Tube 1 is a wide cylinder. Tube 2 is a narrow cylinder. Tube 3 is zig-zag shaped. Tube 4 has a bulbous spherical section in the middle. The vessels are empty in the drawing.",
-    "rationale": "Level 4 question testing fluid
-[
+    "rationale": "Level 4 question testing fluid."
+   },
   {
     "question_id": "SPA_031",
     "section": "A",
@@ -684,8 +683,7 @@
     "image_url": "SPA_040.png",
     "image_brief": "Draw a 3D isometric illustration of a solid cone resting on its circular base. Draw a dashed vertical plane passing exactly through the apex (top point) and bisecting the circular base, representing the path of a saw cut. Draw a second image showing the two halves separated, revealing the flat interior cross-section.",
     "rationale": "Level 5 question assessing advanced 3D to 2D spatial translation (cross-sections). Cutting a cone vertically through its apex and the center of its base exposes a flat surface bounded by the two slanted sides of the cone and the diameter of the base, creating a perfect isosceles triangle."
-  }
-]
+  },
   {
     "question_id": "SPA_041",
     "section": "A",
@@ -865,8 +863,7 @@
     "image_url": "SPA_050.png",
     "image_brief": "Draw a rack and pinion mechanical system. A circular gear (pinion) is positioned above a flat, horizontal bar with gear teeth cut into its top edge (the rack). The teeth of the pinion mesh perfectly with the teeth of the rack. Draw a prominent clockwise circular arrow on the pinion gear.",
     "rationale": "Level 5 question integrating advanced mechanical translation concepts. A rack and pinion converts rotational motion into linear motion. If the pinion (placed above the rack) turns clockwise, its bottom teeth push horizontally to the left, driving the straight rack to the left."
-  }
-]
+  },
   {
     "question_id": "SPA_051",
     "section": "A",
@@ -1047,4 +1044,4 @@
     "image_brief": "Draw a 3D isometric view of a cube. The top face shows a Triangle. The front face shows a Circle. The right face shows a Square. Add two directional arrows indicating the sequence of spatial transformations: first, a forward tumbling motion (90 degrees along the X-axis), then a clockwise spinning motion flat on the table (90 degrees along the Y-axis).",
     "rationale": "Level 5 question testing complex 3D mental rotation tracking multiple axes. Starting state: Top=Triangle, Front=Circle, Right=Square. Transformation 1 (Tilt forward 90°): The old Top (Triangle) moves to the Front. The old Right (Square) stays on the Right. Transformation 2 (Rotate clockwise 90° on the table): The object spins, so the old Right face (Square) rotates to become the new Front face."
   }
-]
+  ]

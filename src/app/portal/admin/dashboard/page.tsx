@@ -1,4 +1,6 @@
-import { Button } from "@/components/ui/button";
+
+"use client";
+
 import {
   Card,
   CardContent,
@@ -6,133 +8,138 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { File, ListFilter, PlusCircle, Users, BarChart3, ShieldCheck, Users2 } from "lucide-react";
-import { IdentityMatcher } from "@/components/portal/admin/identity-matcher";
-import { BulkUserUpload } from "@/components/portal/admin/bulk-user-upload";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { 
+  Users, 
+  CheckCircle2, 
+  Clock, 
+  FileBarChart, 
+  ArrowUpRight,
+  User
+} from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
+const recentActivity = [
+  { id: 1, name: "Chinedu Okafor", grade: "JSS 3", test: "ACET", time: "2 hours ago", status: "Completed" },
+  { id: 2, name: "Amina Yusuf", grade: "JSS 3", test: "ACET", time: "4 hours ago", status: "Completed" },
+  { id: 3, name: "Tunde Balogun", grade: "JSS 3", test: "ACET", time: "Yesterday", status: "Completed" },
+  { id: 4, name: "Bisi Adebayo", grade: "JSS 3", test: "ACET", time: "Yesterday", status: "Completed" },
+  { id: 5, name: "Obi Nwosu", grade: "JSS 3", test: "ACET", time: "2 days ago", status: "Completed" },
+];
 
 export default function AdminDashboard() {
   return (
-    <>
-      <div className="flex items-center">
-        <h1 className="text-lg font-semibold md:text-2xl font-headline">Admin Dashboard</h1>
+    <div className="space-y-8">
+      <div>
+        <h1 className="text-3xl font-bold font-headline text-primary">Dashboard Overview</h1>
+        <p className="text-muted-foreground">Monitor school enrollment, assessment syncs, and report generation.</p>
       </div>
-      <Tabs defaultValue="overview" className="flex-1">
-        <div className="flex items-center">
-          <TabsList>
-            <TabsTrigger value="overview">
-              <BarChart3 className="mr-2 h-4 w-4"/>
-              Overview
-            </TabsTrigger>
-            <TabsTrigger value="identity">
-              <ShieldCheck className="mr-2 h-4 w-4"/>
-              AI Identity Matcher
-            </TabsTrigger>
-            <TabsTrigger value="bulk-upload">
-              <Users2 className="mr-2 h-4 w-4" />
-              Bulk User Upload
-            </TabsTrigger>
-          </TabsList>
-          <div className="ml-auto flex items-center gap-2">
-            <Button size="sm" variant="outline" className="h-8 gap-1">
-              <ListFilter className="h-3.5 w-3.5" />
-              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Filter
-              </span>
-            </Button>
-            <Button size="sm" variant="outline" className="h-8 gap-1">
-              <File className="h-3.5 w-3.5" />
-              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Export
-              </span>
-            </Button>
-            <Button size="sm" className="h-8 gap-1">
-              <PlusCircle className="h-3.5 w-3.5" />
-              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-                Trigger Survey
-              </span>
-            </Button>
+
+      {/* Metric Cards Grid */}
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <Card className="shadow-md border-primary/10">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Enrolled Students</CardTitle>
+            <Users className="h-4 w-4 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">120</div>
+            <p className="text-xs text-muted-foreground mt-1">+4 from last week</p>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-md border-primary/10">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Tests Completed</CardTitle>
+            <CheckCircle2 className="h-4 w-4 text-green-500" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">85</div>
+            <p className="text-xs text-muted-foreground mt-1">71% participation rate</p>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-md border-amber-200 bg-amber-50/30">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium text-amber-700">Tests Pending Sync</CardTitle>
+            <Clock className="h-4 w-4 text-amber-600" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-amber-700">12</div>
+            <p className="text-xs text-amber-600/80 mt-1">Tablets requiring connection</p>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-md border-primary/10">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Reports Generated</CardTitle>
+            <FileBarChart className="h-4 w-4 text-secondary" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold">45</div>
+            <p className="text-xs text-muted-foreground mt-1">Ready for download</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Recent Activity Table */}
+      <Card className="shadow-lg border-none">
+        <CardHeader className="flex flex-row items-center justify-between">
+          <div>
+            <CardTitle className="font-headline">Recent Activity</CardTitle>
+            <CardDescription>Latest student completions across all test categories.</CardDescription>
           </div>
-        </div>
-        <TabsContent value="overview">
-          <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Total Students
-                </CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">1,254</div>
-                <p className="text-xs text-muted-foreground">
-                  +20.1% from last month
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Assessments Taken
-                </CardTitle>
-                <File className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">+2,350</div>
-                <p className="text-xs text-muted-foreground">
-                  +180.1% from last month
-                </p>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Survey Responses</CardTitle>
-                <ListFilter className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">+573</div>
-                <p className="text-xs text-muted-foreground">
-                  +19% from last month
-                </p>
-              </CardContent>
-            </Card>
-             <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  Subscription
-                </CardTitle>
-                <PlusCircle className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">Premium Tier</div>
-                <p className="text-xs text-muted-foreground">
-                  Renews next month
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-          <div className="mt-8">
-            <Card>
-                <CardHeader>
-                    <CardTitle>Recent Activity</CardTitle>
-                    <CardDescription>An overview of recent assessments and survey submissions.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    {/* Placeholder for a table or list of recent activities */}
-                    <div className="text-center text-muted-foreground py-8">
-                        No recent activity to display.
+          <Button variant="outline" size="sm" asChild>
+            <Link href="/portal/admin/students" className="gap-1">
+                View All <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </Button>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Student Name</TableHead>
+                <TableHead>Grade</TableHead>
+                <TableHead>Assessment</TableHead>
+                <TableHead>Time</TableHead>
+                <TableHead>Status</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {recentActivity.map((student) => (
+                <TableRow key={student.id} className="hover:bg-muted/50">
+                  <TableCell className="font-medium">
+                    <div className="flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                            <User className="h-4 w-4 text-primary" />
+                        </div>
+                        {student.name}
                     </div>
-                </CardContent>
-            </Card>
-          </div>
-        </TabsContent>
-        <TabsContent value="identity">
-            <IdentityMatcher />
-        </TabsContent>
-        <TabsContent value="bulk-upload">
-            <BulkUserUpload />
-        </TabsContent>
-      </Tabs>
-    </>
+                  </TableCell>
+                  <TableCell>{student.grade}</TableCell>
+                  <TableCell>{student.test}</TableCell>
+                  <TableCell className="text-muted-foreground">{student.time}</TableCell>
+                  <TableCell>
+                    <Badge variant="secondary" className="bg-green-100 text-green-700 hover:bg-green-100 border-none">
+                        {student.status}
+                    </Badge>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

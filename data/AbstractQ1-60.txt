@@ -178,8 +178,7 @@
     "image_url": null,
     "image_brief": null,
     "rationale": "Level 5 question requiring advanced analytical reasoning and multi-constraint deduction. Positions 1 to 5. Bisi is 5. Chike is between Amina and Dapo (A-C-D or D-C-A). These three must occupy 2, 3, 4. Leaving position 1 for Efe. If Efe is 1, and Amina cannot be next to Efe, Amina cannot be in position 2. Therefore, Dapo is in position 2. The order is Efe(1), Dapo(2), Chike(3), Amina(4), Bisi(5). Efe is on the far left."
-  }
-]
+  },
   {
     "question_id": "ABS_011",
     "section": "A",
@@ -354,8 +353,7 @@
     "correct_answer": "Chidi",
     "image_url": null,
     "rationale": "Level 5 question testing advanced constraint satisfaction and conditional logic. Since Ezinne is out, 3 members must be chosen from the remaining 4 (Ade, Bisi, Chidi, Dan). This means exactly 1 person must be left out. If Chidi is left out, Dan must also be left out (Rule 2), leaving only 2 students, which is not enough for a 3-person team. Therefore, Chidi and Dan MUST be selected. The third spot will be taken by either Ade or Bisi (who cannot be paired due to Rule 1)."
-  }
-]
+  },
   {
     "question_id": "ABS_021",
     "section": "A",
@@ -531,8 +529,7 @@
     "image_url": null,
     "rationale": "Level 5 question testing advanced constraint satisfaction and sequencing logic. Constraints: 4 slots. Basic Science is in slot 4. Remaining slots for Math, Arts, English are 1, 2, 3. Math must be immediately before Arts (so they take slots 1&2 or 2&3). English cannot be in slot 1. Therefore, English must be in slot 3. This forces Math and Arts to take slots 1 and 2 respectively. Therefore, Math is in Period 1, Arts in Period 2, English in Period 3, Science in Period 4. Wait! The rule says Math must be immediately before Fine Arts. If English is in slot 3, Math is 1, Arts is 2. So Fine Arts is in Period 2. Let me re-read my own question text. If Math is immediately before Arts, they are a block [M, A]. Spots available: 1, 2, 3. The blocks can be (M, A, E) or (E, M, A). English cannot be 1. So (E, M, A) is invalid. The only valid order is (M, A, E). Period 1 = Math. Period 2 = Arts. Period 3 = English. Period 4 = Science. The question asks 'Which subject MUST be taught in Period 2?'. The answer is Fine Arts. I will adjust the correct_answer accordingly.",
     "correct_answer_correction": "Fine Arts"
-  }
-]
+  },
   {
     "question_id": "ABS_031",
     "section": "A",
@@ -709,8 +706,7 @@
     "image_brief": "Draw a 3x3 matrix. Row 1: Box 1 is a Black Triangle pointing UP. Box 2 is a White Triangle pointing RIGHT. Box 3 is a Black Triangle pointing DOWN. Row 2: Box 1 is a White Triangle pointing RIGHT. Box 2 is a Black Triangle pointing DOWN. Box 3 is a White Triangle pointing LEFT. Row 3: Box 1 is a Black Triangle pointing DOWN. Box 2 is a White Triangle pointing LEFT. Box 3 has a question mark '?'.",
     "rationale": "Level 5 question testing multi-variable progressive matrix logic. The rule applies across rows and columns: 1) The triangle rotates 90 degrees clockwise in every subsequent box. 2) The fill color alternates between black and white in every step. Following Row 3: Down (Black) -> Left (White). Next rotation is Up, next color is Black. Wait, checking the pattern... Up, Right, Down. Right, Down, Left. Down, Left... UP. Colors: B, W, B. W, B, W. B, W... BLACK. The next shape should be a Black Triangle pointing UP. Let me correct the correct_answer.",
     "correct_answer_correction": "A black triangle pointing Up"
-  }
-]
+  },
   {
     "question_id": "ABS_041",
     "section": "A",
@@ -885,8 +881,7 @@
     "correct_answer": "Bayo",
     "image_url": null,
     "rationale": "Level 5 question testing advanced constraint satisfaction and linear sequencing. Efe is immediately in front of Chika, forming the block [E, C]. Dapo is behind Chika, so the order of these three must be E, C, D. Since Chika is not last (not in position 4), the [E, C, D] sequence must occupy positions 2, 3, and 4. This leaves position 1 for Bayo. We verify the final rule: Bayo (1) is separated from Dapo (4) by Efe and Chika, satisfying 'Bayo is not next to Dapo'. Bayo is at the front."
-  }
-]
+  },
   {
     "question_id": "ABS_051",
     "section": "A",
@@ -1064,5 +1059,4 @@
     "correct_answer": "Efe",
     "image_url": null,
     "rationale": "Level 5 question requiring advanced analytical reasoning and multi-constraint deduction. Caro is 4th. Ade is two places above Caro, meaning Ade is 2nd. The remaining positions are 1st, 3rd, and 5th. We know Efe > Bisi > Dayo. To fit these three into the three remaining slots in that order, Efe must be 1st, Bisi must be 3rd, and Dayo must be 5th. Therefore, Efe is ranked 1st."
-  }
-]
+  },

@@ -1,10 +1,11 @@
+
 import { AuthProvider } from "@/components/providers/auth-provider";
 import { SidebarNav } from "@/components/portal/sidebar-nav";
 import { UserNav } from "@/components/portal/user-nav";
 import { SyncManager } from "@/components/sync-manager";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { Menu, School } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -26,11 +27,11 @@ export default function PortalLayout({
                   alt="Propagate Digital Logo" 
                   width={400} 
                   height={100} 
-                  className="h-10 w-auto object-contain mix-blend-multiply" 
+                  className="h-10 w-auto object-contain brightness-0 invert mix-blend-multiply" 
                 />
               </Link>
             </div>
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto pt-4">
               <SidebarNav />
             </div>
           </div>
@@ -56,7 +57,7 @@ export default function PortalLayout({
                           alt="Propagate Digital Logo" 
                           width={400} 
                           height={100} 
-                          className="h-10 w-auto object-contain mix-blend-multiply" 
+                          className="h-10 w-auto object-contain brightness-0 invert mix-blend-multiply" 
                         />
                     </Link>
                 </div>
@@ -65,7 +66,9 @@ export default function PortalLayout({
                 </div>
               </SheetContent>
             </Sheet>
-            <div className="w-full flex-1">
+            <div className="w-full flex-1 flex items-center gap-2">
+                <School className="h-5 w-5 text-primary" />
+                <span className="font-headline font-bold text-lg hidden sm:inline-block">Greensprings College</span>
             </div>
             <UserNav />
           </header>

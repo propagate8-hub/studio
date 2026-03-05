@@ -1,15 +1,16 @@
+
 "use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  LayoutDashboard,
-  FileText,
-  MessageSquareQuote,
+  BarChart3,
   Users,
-  CreditCard,
+  ClipboardList,
+  FilePieChart,
   Settings,
-  BookCopy,
+  LayoutDashboard,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/components/providers/auth-provider";
@@ -23,14 +24,20 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { href: "/portal/admin/dashboard", icon: <LayoutDashboard />, label: "Dashboard", roles: ["Admin"] },
-  { href: "/portal/b2c/dashboard", icon: <LayoutDashboard />, label: "Dashboard", roles: ["B2C"] },
-  { href: "/portal/test-engine", icon: <FileText />, label: "Take Test", roles: ["B2C", "Student"] },
-  { href: "/portal/surveys", icon: <MessageSquareQuote />, label: "Surveys", roles: ["Parent", "Student", "Teacher"] },
-  { href: "/portal/admin/identity", icon: <Users />, label: "Identity Mgmt", roles: ["Admin"] },
-  { href: "/portal/admin/assessments", icon: <BookCopy />, label: "Assessments", roles: ["Admin"] },
-  { href: "/portal/admin/billing", icon: <CreditCard />, label: "Billing", roles: ["Admin"] },
-  { href: "/portal/settings", icon: <Settings />, label: "Settings", roles: ["Admin", "B2C", "Student", "Teacher", "Parent"] },
+  // Admin Specific
+  { href: "/portal/admin/dashboard", icon: <BarChart3 className="h-4 w-4" />, label: "Overview", roles: ["Admin"] },
+  { href: "/portal/admin/students", icon: <Users className="h-4 w-4" />, label: "Student Roster", roles: ["Admin"] },
+  { href: "/portal/admin/assessments", icon: <ClipboardList className="h-4 w-4" />, label: "Test Management", roles: ["Admin"] },
+  { href: "/portal/admin/reports", icon: <FilePieChart className="h-4 w-4" />, label: "AI Reports & Analytics", roles: ["Admin"] },
+  { href: "/portal/admin/identity", icon: <ShieldCheck className="h-4 w-4" />, label: "Identity Mgmt", roles: ["Admin"] },
+  
+  // B2C / Student Specific
+  { href: "/portal/b2c/dashboard", icon: <LayoutDashboard className="h-4 w-4" />, label: "Dashboard", roles: ["B2C"] },
+  { href: "/portal/test-engine", icon: <ClipboardList className="h-4 w-4" />, label: "Take Test", roles: ["B2C", "Student"] },
+  
+  // Settings (All)
+  { href: "/portal/settings", icon: <Settings className="h-4 w-4" />, label: "School Settings", roles: ["Admin"] },
+  { href: "/portal/settings", icon: <Settings className="h-4 w-4" />, label: "Settings", roles: ["B2C", "Student", "Teacher", "Parent"] },
 ];
 
 export function SidebarNav() {
@@ -44,13 +51,13 @@ export function SidebarNav() {
   return (
     <nav className="flex flex-col gap-2 px-2">
       {userNavItems.map((item) => {
-        const isActive = pathname.startsWith(item.href);
+        const isActive = pathname === item.href || (item.href !== "/portal/admin/dashboard" && pathname.startsWith(item.href));
         return (
           <Link
             key={item.href}
             href={item.href}
             className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-sidebar-foreground transition-all hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground transition-all hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
               isActive && "bg-sidebar-accent text-sidebar-accent-foreground font-semibold"
             )}
           >

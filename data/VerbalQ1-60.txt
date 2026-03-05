@@ -168,8 +168,7 @@
     "correct_answer": "resolute",
     "image_url": null,
     "rationale": "Level 5 question assessing nuanced vocabulary and context clues (Cloze test format). 'Resolute' perfectly captures the determined, unwavering stance required by the context 'despite' the obstacles."
-  }
-]
+  },
   {
     "question_id": "VER_011",
     "section": "A",
@@ -339,8 +338,7 @@
     "correct_answer": "2 - 4 - 1 - 3",
     "image_url": null,
     "rationale": "Level 5 question assessing advanced syntax, transitional logic, and paragraph sequencing. The flow moves from stating the general problem (2), the past flawed solution (4), the new modern solution (1), to the positive result (3)."
-  }
-]
+  },
   {
     "question_id": "VER_021",
     "section": "A",
@@ -510,8 +508,7 @@
     "correct_answer": "2 - 4 - 1 - 3",
     "image_url": null,
     "rationale": "Level 5 question assessing advanced syntax, transitional logic, and narrative sequencing. The flow establishes the historical baseline (2), elaborates on that baseline (4), introduces the historical conflict/shift (1), and concludes with the present-day resolution (3)."
-  }
-]
+  },
   {
     "question_id": "VER_031",
     "section": "A",
@@ -681,8 +678,7 @@
     "correct_answer": "1 - 4 - 2 - 3",
     "image_url": null,
     "rationale": "Level 5 question assessing advanced syntax, transitional logic, and paragraph sequencing. The flow establishes the general problem (1), elaborates on the historical consequence of the problem (4), introduces the specific intervention (2), and concludes with the positive result (3)."
-  }
-]
+  },
   {
     "question_id": "VER_041",
     "section": "A",
@@ -852,8 +848,7 @@
     "correct_answer": "2 - 4 - 1 - 3",
     "image_url": null,
     "rationale": "Level 5 question assessing advanced syntax, transitional logic, and paragraph sequencing. The logical flow establishes the cause (2), follows its immediate secondary effect (4), highlights the broader societal consequence (1), and concludes with the intervention (3)."
-  }
-]
+  },
   {
     "question_id": "VER_051",
     "section": "A",
