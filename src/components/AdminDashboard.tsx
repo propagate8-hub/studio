@@ -1,17 +1,22 @@
+
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   LayoutDashboard, Users, FileText, BarChart, Settings, 
-  LogOut, User, WifiOff, CheckCircle, ClipboardList, GraduationCap 
+  LogOut, User, WifiOff, CheckCircle, GraduationCap, Database 
 } from 'lucide-react';
 
-// --- 1. THE LAYOUT COMPONENT ---
+// 🔥 1. IMPORT FIREBASE
+import { collection, getCountFromServer } from 'firebase/firestore';
+import { db } from '@/lib/firebase'; // Updated to the correct path
+
+// --- THE LAYOUT COMPONENT (Remains exactly the same) ---
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen bg-gray-50 font-sans">
       <aside className="w-64 bg-[#004AAD] text-white flex flex-col">
-        <div className="p-6 text-xl font-bold tracking-tight border-b border-blue-800 leading-tight">
+        <div className="p-6 text-xl font-bold tracking-wider border-b border-blue-800 text-center uppercase">
           ACET ADMIN DASHBOARD
         </div>
         <nav className="flex-1 p-4 space-y-2">
@@ -62,29 +67,44 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-// --- 2. THE DUAL-LEVEL OVERVIEW TAB ---
+// --- THE OVERVIEW TAB (Now wired to Firebase!) ---
 export function DashboardHome() {
-  // This state controls which class level we are currently viewing
   const [activeLevel, setActiveLevel] = useState<'JSS3' | 'SSS3'>('JSS3');
+  
+  // 🔥 2. STATE FOR OUR FIREBASE DATA
+  const [questionCount, setQuestionCount] = useState<number | string>('...');
 
-  // Placeholder data that changes based on the selected level
+  // 🔥 3. FETCH DATA ON LOAD
+  useEffect(() => {
+    async function fetchDatabaseStats() {
+      try {
+        // Point exactly to the collection where we seeded your questions
+        const coll = collection(db, 'Assessments_Bank');
+        const snapshot = await getCountFromServer(coll);
+        setQuestionCount(snapshot.data().count);
+      } catch (error) {
+        console.error("Firebase connection failed:", error);
+        setQuestionCount('Error');
+      }
+    }
+    
+    fetchDatabaseStats();
+  }, []); // The empty array [] means "run this once when the page loads"
+
   const metrics = {
-    JSS3: { enrolled: 120, completed: 85, pending: 12, reports: 45 },
-    SSS3: { enrolled: 95, completed: 90, pending: 2, reports: 88 }
+    JSS3: { enrolled: 120, completed: 85, pending: 12 },
+    SSS3: { enrolled: 95, completed: 90, pending: 2 }
   };
-
   const currentMetrics = metrics[activeLevel];
 
   return (
     <div className="space-y-8">
-      {/* HEADER & TOGGLE */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-800">Dashboard Overview</h1>
           <p className="text-gray-500 mt-1">Reviewing testing data for {activeLevel} students.</p>
         </div>
         
-        {/* THE DUAL-LEVEL TOGGLE SWITCH */}
         <div className="flex bg-gray-200 p-1 rounded-lg w-fit">
           <button 
             onClick={() => setActiveLevel('JSS3')}
@@ -105,8 +125,21 @@ export function DashboardHome() {
         </div>
       </div>
 
-      {/* DYNAMIC METRIC CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        {/* 🔥 4. OUR NEW LIVE FIREBASE METRIC CARD */}
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-indigo-100 flex items-start justify-between relative overflow-hidden">
+          <div className="relative z-10">
+            <p className="text-sm text-indigo-600 font-bold mb-1 tracking-wide uppercase">Live Question Bank</p>
+            <h3 className="text-4xl font-black text-indigo-900">{questionCount}</h3>
+          </div>
+          <div className="p-3 bg-indigo-50 text-indigo-600 rounded-lg relative z-10">
+            <Database size={24} />
+          </div>
+          {/* A subtle background glow to highlight that this card is LIVE */}
+          <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-indigo-50 rounded-full blur-2xl"></div>
+        </div>
+
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start justify-between">
           <div>
             <p className="text-sm text-gray-500 font-medium mb-1">Total Enrolled</p>
@@ -137,15 +170,6 @@ export function DashboardHome() {
           </div>
         </div>
 
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-start justify-between">
-          <div>
-            <p className="text-sm text-gray-500 font-medium mb-1">Reports Generated</p>
-            <h3 className="text-3xl font-bold text-gray-800">{currentMetrics.reports}</h3>
-          </div>
-          <div className="p-3 bg-[#e0f2fe] text-[#38BDF8] rounded-lg">
-            <ClipboardList size={24} />
-          </div>
-        </div>
       </div>
 
       {/* DYNAMIC RECENT ACTIVITY TABLE */}
