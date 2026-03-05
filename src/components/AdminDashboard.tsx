@@ -11,8 +11,8 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen bg-gray-50 font-sans">
       <aside className="w-64 bg-[#004AAD] text-white flex flex-col">
-        <div className="p-6 text-2xl font-bold tracking-wider border-b border-blue-800">
-          PROPAGATE
+        <div className="p-6 text-xl font-bold tracking-tight border-b border-blue-800 leading-tight">
+          ACET ADMIN DASHBOARD
         </div>
         <nav className="flex-1 p-4 space-y-2">
           <a href="#" className="flex items-center gap-3 p-3 bg-blue-800 rounded-lg text-white">
