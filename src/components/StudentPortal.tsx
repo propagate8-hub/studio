@@ -179,7 +179,9 @@ export function StudentPortal() {
               className="h-8 w-auto object-contain mix-blend-multiply" 
             />
             <span className="h-6 w-px bg-gray-300 hidden sm:block"></span>
-            <span className="font-headline font-bold text-gray-600 uppercase tracking-tighter text-sm hidden sm:block">ACET Platform</span>
+            <span className="font-headline font-bold text-gray-600 uppercase tracking-tighter text-sm hidden sm:block">
+              ACET PLATFORM : {studentClass === 'JSS3' ? 'JSS 3' : 'SSS 3'} Cohort
+            </span>
           </div>
           
           <div className={`flex items-center gap-2 px-4 py-2 rounded-full border font-mono font-bold text-lg ${

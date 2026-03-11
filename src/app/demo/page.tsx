@@ -1,15 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Clock, ShieldAlert, Mail, GraduationCap, ArrowRight, BrainCircuit, Lock, Phone, Loader2, CheckCircle2, AlertTriangle } from 'lucide-react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
+import { Clock, ShieldAlert, Mail, GraduationCap, ArrowRight, BrainCircuit, Lock, Phone, Loader2 } from 'lucide-react';
 
 // 🔥 FIREBASE IMPORTS
 import { collection, getDocs, addDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '@/lib/firebase'; 
+import { db } from '../../lib/firebase'; 
 
 export default function MarketingDemo() {
   const [stage, setStage] = useState<'LOBBY' | 'TESTING' | 'ANALYZING' | 'LEAD_CAPTURE'>('LOBBY');
@@ -53,15 +49,12 @@ export default function MarketingDemo() {
   // 🔥 PIPELINE 1: PULL RANDOM QUESTIONS
   // ==========================================
   const startDemo = async () => {
-    if (!classLevel) return;
     setIsLoading(true);
     try {
       const qSnap = await getDocs(collection(db, 'Assessments_Bank'));
       const allDocs = qSnap.docs.map(d => ({ id: d.id, ...d.data() }));
       
-      // Shuffle the entire database and pick exactly 10
       const shuffled = allDocs.sort(() => 0.5 - Math.random()).slice(0, 10);
-      
       setQuestions(shuffled);
       setStage('TESTING');
     } catch (error) {
@@ -85,7 +78,6 @@ export default function MarketingDemo() {
   // 🔥 PIPELINE 2: PUSH LEAD TO FIREBASE
   // ==========================================
   const submitLeadDetails = async () => {
-    if (!email || !phone) return;
     setIsSubmitting(true);
     try {
       await addDoc(collection(db, 'Marketing_Leads'), {
@@ -100,215 +92,205 @@ export default function MarketingDemo() {
       alert("Success! Your AI Report is being generated. Our team will message you shortly.");
       window.location.href = '/'; 
     } catch (error) {
-      console.error("Submission failed:", error);
-      alert("Something went wrong. Please try again.");
+      console.error("Failed to save lead:", error);
+      alert("There was an error saving your details.");
     }
     setIsSubmitting(false);
   };
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
-
+  // ==========================================
+  // VIEW 1: LOBBY
+  // ==========================================
   if (stage === 'LOBBY') {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-        <Card className="w-full max-w-xl shadow-xl">
-          <CardHeader className="text-center space-y-4">
-            <div className="bg-primary/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto">
-              <BrainCircuit className="text-primary w-10 h-10" />
-            </div>
-            <CardTitle className="text-3xl font-headline font-bold">Experience ACET Nano</CardTitle>
-            <CardDescription className="text-lg">Try a 10-question adaptive demo of our testing engine.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <button 
-                onClick={() => setClassLevel('JSS 3')}
-                className={`p-6 border-2 rounded-xl text-left transition-all ${classLevel === 'JSS 3' ? 'border-primary bg-primary/5 ring-4 ring-primary/10' : 'border-slate-200 hover:border-primary/50'}`}
-              >
-                <GraduationCap className={`w-8 h-8 mb-2 ${classLevel === 'JSS 3' ? 'text-primary' : 'text-slate-400'}`} />
-                <p className="font-bold text-lg">JSS 3</p>
-                <p className="text-sm text-slate-500">Junior Secondary</p>
-              </button>
-              <button 
-                onClick={() => setClassLevel('SSS 3')}
-                className={`p-6 border-2 rounded-xl text-left transition-all ${classLevel === 'SSS 3' ? 'border-primary bg-primary/5 ring-4 ring-primary/10' : 'border-slate-200 hover:border-primary/50'}`}
-              >
-                <GraduationCap className={`w-8 h-8 mb-2 ${classLevel === 'SSS 3' ? 'text-primary' : 'text-slate-400'}`} />
-                <p className="font-bold text-lg">SSS 3</p>
-                <p className="text-sm text-slate-500">Senior Secondary</p>
-              </button>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button 
-              size="lg" 
-              className="w-full h-14 text-xl font-bold" 
-              disabled={!classLevel || isLoading}
-              onClick={startDemo}
-            >
-              {isLoading ? <Loader2 className="animate-spin mr-2" /> : <ArrowRight className="mr-2" />}
-              Start Free Demo
-            </Button>
-          </CardFooter>
-        </Card>
-      </div>
-    );
-  }
-
-  if (stage === 'TESTING') {
-    const q = questions[currentIndex];
-    return (
-      <div className="min-h-screen bg-white flex flex-col font-body">
-        {showWarning && (
-          <div className="fixed inset-0 bg-red-900/95 z-50 flex items-center justify-center p-4">
-            <div className="bg-white p-8 rounded-2xl max-w-md text-center shadow-2xl">
-              <ShieldAlert size={64} className="text-red-600 mx-auto mb-4" />
-              <h2 className="text-2xl font-bold mb-2">Security Warning</h2>
-              <p className="text-slate-600 mb-6">
-                You switched tabs. Our AI behavioral monitor has logged this event. 
-                In a real assessment, this could invalidate your results.
-              </p>
-              <Button variant="destructive" className="w-full" onClick={() => setShowWarning(false)}>
-                I Understand, Return to Test
-              </Button>
-            </div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white flex flex-col items-center justify-center p-6">
+        <div className="max-w-3xl w-full text-center space-y-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-[#004AAD] font-bold text-sm mb-4">
+            <BrainCircuit size={18} /> Free Nano-Assessment
           </div>
-        )}
-
-        <header className="h-16 border-b px-6 flex items-center justify-between">
-          <div className="font-bold text-xl text-primary">ACET <span className="text-secondary">NANO</span></div>
-          <div className="flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-lg font-mono font-bold">
-            <Clock size={18} /> {formatTime(timeLeft)}
+          <h1 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tight">
+            Discover your child's true <span className="text-[#004AAD]">cognitive potential.</span>
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+            <button onClick={() => setClassLevel('JSS 3')} className={`p-8 rounded-2xl border-2 text-left transition-all ${classLevel === 'JSS 3' ? 'border-[#004AAD] bg-blue-50 shadow-md scale-105' : 'border-gray-200 bg-white hover:border-blue-200'}`}>
+              <GraduationCap size={40} className={`mb-4 ${classLevel === 'JSS 3' ? 'text-[#004AAD]' : 'text-gray-400'}`} />
+              <h3 className="text-2xl font-bold text-gray-900">JSS 3 Cohort</h3>
+              <p className="text-gray-500 mt-2">Transitioning to Senior Secondary</p>
+            </button>
+            <button onClick={() => setClassLevel('SSS 3')} className={`p-8 rounded-2xl border-2 text-left transition-all ${classLevel === 'SSS 3' ? 'border-[#004AAD] bg-blue-50 shadow-md scale-105' : 'border-gray-200 bg-white hover:border-blue-200'}`}>
+              <GraduationCap size={40} className={`mb-4 ${classLevel === 'SSS 3' ? 'text-[#004AAD]' : 'text-gray-400'}`} />
+              <h3 className="text-2xl font-bold text-gray-900">SSS 3 Cohort</h3>
+              <p className="text-gray-500 mt-2">Preparing for WAEC & JAMB</p>
+            </button>
           </div>
-        </header>
-
-        <Progress value={(currentIndex / questions.length) * 100} className="h-1 rounded-none" />
-
-        <main className="flex-1 max-w-3xl mx-auto w-full px-6 py-12">
-          <div className="mb-8">
-            <span className="text-xs font-bold text-primary uppercase tracking-widest bg-primary/5 px-2 py-1 rounded">
-              {q?.category || 'General'}
-            </span>
-            <h2 className="text-2xl font-headline font-bold mt-4 leading-snug">
-              {q?.text || 'Loading question...'}
-            </h2>
-          </div>
-
-          <div className="grid gap-3">
-            {q?.options?.map((opt: string, i: number) => (
-              <button
-                key={i}
-                onClick={() => setSelectedOption(opt)}
-                className={`p-5 text-left border-2 rounded-xl transition-all flex items-center gap-4 ${
-                  selectedOption === opt ? 'border-primary bg-primary/5 ring-2 ring-primary/20' : 'border-slate-100 hover:border-slate-300'
-                }`}
-              >
-                <div className={`w-8 h-8 rounded flex items-center justify-center font-bold ${
-                  selectedOption === opt ? 'bg-primary text-white' : 'bg-slate-100 text-slate-500'
-                }`}>
-                  {String.fromCharCode(65 + i)}
-                </div>
-                {opt}
-              </button>
-            ))}
-          </div>
-        </main>
-
-        <footer className="h-20 border-t flex items-center justify-end px-6 bg-slate-50">
-          <Button 
-            size="lg" 
-            disabled={!selectedOption} 
-            onClick={handleNextQuestion}
-            className="px-8 font-bold"
+          <button 
+            disabled={!classLevel || isLoading}
+            onClick={startDemo}
+            className={`mt-8 px-12 py-5 rounded-full font-black text-xl flex items-center justify-center gap-3 mx-auto w-full md:w-auto transition-all ${classLevel ? 'bg-[#004AAD] text-white hover:bg-blue-800 hover:-translate-y-1 shadow-lg' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
           >
-            {currentIndex === questions.length - 1 ? 'Finish' : 'Next Question'}
-          </Button>
-        </footer>
-      </div>
-    );
-  }
-
-  if (stage === 'ANALYZING') {
-    return (
-      <div className="min-h-screen bg-primary flex items-center justify-center p-4">
-        <div className="text-center text-white space-y-6">
-          <Loader2 className="w-16 h-16 animate-spin mx-auto opacity-50" />
-          <h2 className="text-3xl font-headline font-bold">Analyzing Your Responses...</h2>
-          <div className="space-y-2 opacity-80 max-w-sm">
-            <p className="animate-pulse">Checking cognitive speed metrics</p>
-            <p className="animate-pulse delay-75">Evaluating adaptive difficulty stabilization</p>
-            <p className="animate-pulse delay-150">Generating focus-integrity score</p>
-          </div>
+            {isLoading ? <><Loader2 className="animate-spin" /> Loading Bank...</> : <>Start 5-Minute Demo <ArrowRight /></>}
+          </button>
         </div>
       </div>
     );
   }
 
+  // ==========================================
+  // VIEW 2: TESTING
+  // ==========================================
+  if (stage === 'TESTING' && questions.length > 0) {
+    const formatTime = (seconds: number) => {
+      const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+      const s = (seconds % 60).toString().padStart(2, '0');
+      return `${m}:${s}`;
+    };
+    
+    const currentQ = questions[currentIndex];
+    
+    // 🔥 THE INDESTRUCTIBLE PARSER
+    let optionsToRender = ['Strongly Agree', 'Agree', 'Disagree', 'Strongly Disagree'];
+
+    if (currentQ.options) {
+      if (Array.isArray(currentQ.options) && currentQ.options.length > 0) {
+        optionsToRender = currentQ.options;
+      } else if (typeof currentQ.options === 'string') {
+        optionsToRender = currentQ.options.split(',').map((s: string) => s.trim());
+      } else if (typeof currentQ.options === 'object') {
+        optionsToRender = Object.values(currentQ.options);
+      }
+    }
+
+    if (!Array.isArray(optionsToRender) || optionsToRender.length === 0 || !optionsToRender[0]) {
+      optionsToRender = ['Strongly Agree', 'Agree', 'Disagree', 'Strongly Disagree'];
+    }
+
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col select-none" onCopy={(e) => e.preventDefault()} onContextMenu={(e) => e.preventDefault()}>
+        
+        {showWarning && (
+          <div className="fixed inset-0 bg-red-900/90 z-50 flex items-center justify-center p-4">
+            <div className="bg-white p-8 rounded-2xl max-w-md text-center shadow-2xl">
+              <ShieldAlert size={64} className="text-red-600 mx-auto mb-4" />
+              <h2 className="text-2xl font-black text-gray-900 mb-2">Security Warning</h2>
+              <p className="text-gray-600 mb-6">You have left the testing environment. This action has been recorded.</p>
+              <p className="text-sm font-bold text-red-600 mb-6">Strikes Recorded: {strikes}</p>
+              <button onClick={() => setShowWarning(false)} className="bg-red-600 text-white px-8 py-3 rounded-lg font-bold w-full hover:bg-red-700">I Understand</button>
+            </div>
+          </div>
+        )}
+
+        <header className="bg-white border-b h-16 flex items-center justify-between px-4 sm:px-8">
+          <div className="font-bold text-gray-500 hidden sm:block">{classLevel} Demo</div>
+          <div className="font-mono font-bold text-lg text-red-600 bg-red-50 px-4 py-1 rounded-md ml-auto flex items-center gap-2">
+            <Clock size={20} /> {formatTime(timeLeft)}
+          </div>
+        </header>
+
+        <main className="flex-1 flex flex-col items-center p-4 sm:p-8 max-w-4xl mx-auto w-full">
+          <div className="w-full mb-8">
+            <div className="flex justify-between text-sm font-bold text-gray-500 mb-2">
+              <span>Question {currentIndex + 1} of {questions.length}</span>
+              <span>{Math.round((currentIndex / questions.length) * 100)}% Completed</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2.5">
+              <div className="bg-[#38BDF8] h-2.5 rounded-full transition-all duration-500" style={{ width: `${(currentIndex / questions.length) * 100}%` }}></div>
+            </div>
+          </div>
+
+          <div className="bg-white w-full rounded-2xl shadow-sm border p-8 md:p-12 mb-6 text-center">
+            {currentQ.image_url && (
+              <img src={currentQ.image_url} alt="Cognitive Visual" className="max-h-64 mx-auto mb-6 rounded-lg object-contain" />
+            )}
+            <h2 className="text-xl sm:text-2xl font-medium text-gray-900 leading-relaxed">
+              {currentQ.question || currentQ.question_text || currentQ.text || "Analyze the information provided above."}
+            </h2>
+          </div>
+
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            {optionsToRender.map((option: string, idx: number) => (
+              <button 
+                key={idx} 
+                onClick={() => setSelectedOption(option)} 
+                className={`p-6 rounded-xl border-2 text-left font-medium text-lg transition-all ${selectedOption === option ? 'border-[#004AAD] bg-blue-50 text-[#004AAD] shadow-md scale-[1.02]' : 'border-gray-200 bg-white hover:border-blue-200'}`}
+              >
+                {String(option)}
+              </button>
+            ))}
+          </div>
+
+          <div className="w-full flex justify-end border-t border-gray-200 pt-6 mt-auto">
+            <button 
+              disabled={!selectedOption} 
+              onClick={handleNextQuestion} 
+              className={`px-10 py-4 rounded-xl font-bold text-lg transition-all ${selectedOption ? 'bg-[#004AAD] text-white hover:bg-blue-800 shadow-lg hover:-translate-y-1' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
+            >
+              {currentIndex === questions.length - 1 ? 'Analyze Results' : 'Next Question'}
+            </button>
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  // ==========================================
+  // VIEW 3: ANALYZING
+  // ==========================================
+  if (stage === 'ANALYZING') {
+    return (
+      <div className="min-h-screen bg-[#004AAD] flex flex-col items-center justify-center text-white p-6 text-center">
+        <BrainCircuit size={80} className="animate-pulse mb-8 text-[#38BDF8]" />
+        <h2 className="text-3xl font-black mb-4">Analyzing Cognitive Velocity...</h2>
+        <p className="text-blue-200 text-lg">Cross-referencing your {classLevel} baseline with 50,000+ data points.</p>
+      </div>
+    );
+  }
+
+  // ==========================================
+  // VIEW 4: LEAD CAPTURE
+  // ==========================================
   if (stage === 'LEAD_CAPTURE') {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
-        <Card className="w-full max-w-lg shadow-2xl border-none">
-          <CardHeader className="text-center space-y-2 pb-8">
-            <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-              <CheckCircle2 className="text-green-600 w-10 h-10" />
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
+        <div className="max-w-md w-full bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center">
+          <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <Lock size={32} />
+          </div>
+          <h2 className="text-3xl font-black text-gray-900 mb-2">Report Generated!</h2>
+          <p className="text-gray-600 mb-8">
+            Your partial {classLevel} metrics are ready. Enter your details to unlock your baseline metrics.
+          </p>
+
+          <div className="space-y-4">
+            <div className="relative">
+              <Mail className="absolute left-4 top-4 text-gray-400" size={20} />
+              <input 
+                type="email" 
+                placeholder="Parent/Guardian Email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-[#004AAD] focus:outline-none text-lg" 
+              />
             </div>
-            <CardTitle className="text-3xl font-headline font-bold">Analysis Ready!</CardTitle>
-            <CardDescription className="text-lg">
-              We've calculated your preliminary aptitude profile. Where should we send the full AI report?
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700">Email Address</label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-                <Input 
-                  type="email" 
-                  placeholder="parent@example.com" 
-                  className="pl-10 h-12"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
+            <div className="relative">
+              <Phone className="absolute left-4 top-4 text-gray-400" size={20} />
+              <input 
+                type="tel" 
+                placeholder="WhatsApp Number" 
+                value={phone} 
+                onChange={(e) => setPhone(e.target.value)} 
+                className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-gray-200 focus:border-[#004AAD] focus:outline-none text-lg" 
+              />
             </div>
-            <div className="space-y-2">
-              <label className="text-sm font-bold text-slate-700">Phone Number (WhatsApp)</label>
-              <div className="relative">
-                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-                <Input 
-                  type="tel" 
-                  placeholder="0803..." 
-                  className="pl-10 h-12"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-            </div>
-            {strikes > 0 && (
-              <div className="flex items-center gap-3 p-3 bg-amber-50 rounded-lg border border-amber-200 mt-4">
-                <AlertTriangle className="text-amber-600 shrink-0" />
-                <p className="text-xs text-amber-800">
-                  Note: <strong>{strikes} focus strikes</strong> detected. This behavior data is included in your integrity analysis.
-                </p>
-              </div>
-            )}
-          </CardContent>
-          <CardFooter className="pt-4">
-            <Button 
-              size="lg" 
-              className="w-full h-14 text-xl font-bold shadow-lg"
-              disabled={!email || !phone || isSubmitting}
+            <button 
+              disabled={!email.includes('@') || phone.length < 10 || isSubmitting}
               onClick={submitLeadDetails}
+              className={`w-full py-4 rounded-xl font-black text-lg transition-all ${email.includes('@') && phone.length >= 10 ? 'bg-[#004AAD] text-white hover:bg-blue-800 shadow-lg hover:-translate-y-1' : 'bg-gray-200 text-gray-400 cursor-not-allowed'}`}
             >
-              {isSubmitting ? <Loader2 className="animate-spin mr-2" /> : <Lock className="mr-2" />}
-              Unlock AI Report
-            </Button>
-          </CardFooter>
-        </Card>
+              {isSubmitting ? <Loader2 className="animate-spin mx-auto" /> : 'Unlock My Free Report'}
+            </button>
+          </div>
+          <p className="text-xs text-gray-400 mt-6">By continuing, you agree to ACET's Terms of Service and Privacy Policy.</p>
+        </div>
       </div>
     );
   }
