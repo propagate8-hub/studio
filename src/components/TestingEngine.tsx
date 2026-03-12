@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -75,13 +76,13 @@ export function TestingEngine() {
     };
     
     setStudentAnswers(prev => [...prev, answerData]);
-    console.log("Data Logged:", answerData); // You can view this in your browser console!
+    console.log("Data Logged:", answerData);
 
     // Move to next question or finish
     if (currentIndex < MOCK_QUESTIONS.length - 1) {
       setCurrentIndex(prev => prev + 1);
       setSelectedOption(null);
-      setQuestionStartTime(Date.now()); // Reset stopwatch for the new question
+      setQuestionStartTime(Date.now());
     } else {
       alert("Test Complete! Processing metrics...");
       console.log("Final Secure Payload:", [...studentAnswers, answerData]);
@@ -89,14 +90,12 @@ export function TestingEngine() {
   };
 
   return (
-    // We disable copying, pasting, and right-clicking on the entire testing wrapper
     <div 
       className="min-h-screen bg-gray-50 flex flex-col font-sans select-none"
       onCopy={(e) => e.preventDefault()}
       onContextMenu={(e) => e.preventDefault()}
     >
       
-      {/* ANTI-CHEAT WARNING MODAL */}
       {showWarning && (
         <div className="fixed inset-0 bg-red-900/90 z-50 flex items-center justify-center p-4">
           <div className="bg-white p-8 rounded-2xl max-w-md text-center shadow-2xl">
@@ -117,13 +116,11 @@ export function TestingEngine() {
         </div>
       )}
 
-      {/* TOP NAVIGATION BAR */}
       <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-8 shadow-sm">
         <div className="font-black text-xl tracking-wider text-[#004AAD]">
-          ACET <span className="text-[#38BDF8]">PLATFORM</span>
+          ACET <span className="text-[#38BDF8]">PLATFORM : JSS 3 Cohort</span>
         </div>
         
-        {/* THE TICKING TIMER */}
         <div className={`flex items-center gap-2 px-4 py-2 rounded-lg font-mono font-bold text-lg border ${
           timeLeft < 300 ? 'bg-red-50 text-red-600 border-red-200 animate-pulse' : 'bg-gray-100 text-gray-800 border-gray-200'
         }`}>
@@ -132,10 +129,7 @@ export function TestingEngine() {
         </div>
       </header>
 
-      {/* MAIN TESTING AREA */}
       <main className="flex-1 flex flex-col items-center p-4 sm:p-8 max-w-4xl mx-auto w-full">
-        
-        {/* PROGRESS BAR */}
         <div className="w-full mb-8">
           <div className="flex justify-between text-sm font-bold text-gray-500 mb-2">
             <span>Question {currentIndex + 1} of {MOCK_QUESTIONS.length}</span>
@@ -149,14 +143,12 @@ export function TestingEngine() {
           </div>
         </div>
 
-        {/* QUESTION CARD */}
         <div className="bg-white w-full rounded-2xl shadow-sm border border-gray-100 p-8 md:p-12 mb-6">
           <h2 className="text-2xl md:text-3xl font-medium text-gray-900 leading-relaxed">
             {currentQuestion.text}
           </h2>
         </div>
 
-        {/* OPTIONS GRID */}
         <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           {currentQuestion.options.map((option, idx) => {
             const isSelected = selectedOption === option;
@@ -184,7 +176,6 @@ export function TestingEngine() {
           })}
         </div>
 
-        {/* BOTTOM ACTION BAR */}
         <div className="w-full flex justify-end border-t border-gray-200 pt-6 mt-auto">
           <button
             onClick={handleNext}
@@ -198,7 +189,6 @@ export function TestingEngine() {
             {currentIndex === MOCK_QUESTIONS.length - 1 ? 'Submit Assessment' : 'Next Question'}
           </button>
         </div>
-
       </main>
     </div>
   );
