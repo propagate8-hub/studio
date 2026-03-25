@@ -4,16 +4,9 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   try {
     const { password } = await req.json();
-    
     const envPassword = process.env.ADMIN_PASSWORD;
 
-    // 🕵️ DEBUG: This will print exactly what the server sees in your terminal
-    console.log("Typed Password:", password);
-    console.log("Server .env Password:", envPassword);
-    
-    // We use .trim() to chop off any invisible spaces at the end of the text
     if (password?.trim() === envPassword?.trim() && envPassword) {
-      
       const cookieStore = await cookies();
       cookieStore.set('admin_token', 'acet_secure_session_active', {
         httpOnly: true, 
