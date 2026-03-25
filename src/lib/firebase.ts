@@ -16,7 +16,7 @@ const firebaseConfig = {
 };
 
 // 1. Initialize the Firebase App
-const app = initializeApp(firebaseConfig);
+export const app = initializeApp(firebaseConfig);
 
 // 2. 🔥 Initialize Firestore WITH Offline Persistence Enabled
 export const db = initializeFirestore(app, {
