@@ -101,7 +101,7 @@ export default function SurveyPage() {
                                                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                     <SelectTrigger><SelectValue placeholder="Select an option" /></SelectTrigger>
                                                     <SelectContent>
-                                                        {q.options.map(opt => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
+                                                    {q.options.map((opt: any) => <SelectItem key={opt} value={opt}>{opt}</SelectItem>)}
                                                     </SelectContent>
                                                 </Select>
                                             )}
