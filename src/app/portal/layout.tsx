@@ -68,7 +68,7 @@ export default function PortalLayout({
             </Sheet>
             <div className="w-full flex-1 flex items-center gap-2">
                 <School className="h-5 w-5 text-primary" />
-                <span className="font-headline font-bold text-lg hidden sm:inline-block">Greensprings College</span>
+                <span className="font-headline font-bold text-lg hidden sm:inline-block">Roseville Secondary School</span>
             </div>
             <UserNav />
           </header>

@@ -41,7 +41,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
       <div className="flex-1 flex flex-col overflow-hidden">
         <header className="h-16 bg-white border-b flex items-center justify-between px-8 shadow-sm">
           <div className="font-semibold text-lg text-gray-700">
-            Greensprings College
+          Roseville Secondary School
           </div>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2 text-sm text-green-600 font-medium bg-green-50 px-3 py-1 rounded-full border border-green-200">
