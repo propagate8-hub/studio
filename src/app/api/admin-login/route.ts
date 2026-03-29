@@ -8,7 +8,13 @@ export async function POST(req: Request) {
 
     if (password?.trim() === envPassword?.trim() && envPassword) {
       const cookieStore = await cookies();
-      cookieStore.set('admin_token', 'acet_secure_session_active', {
+      const cookieStore = await cookies();
+cookieStore.set('admin_token', 'acet_secure_session_active', {
+  httpOnly: true, 
+  secure: process.env.NODE_ENV === 'production', 
+  maxAge: 60 * 60 * 24 * 7, 
+  path: '/',
+}); {
         httpOnly: true, 
         secure: process.env.NODE_ENV === 'production', 
         maxAge: 60 * 60 * 24 * 7, 
