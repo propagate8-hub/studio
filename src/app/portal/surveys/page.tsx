@@ -107,7 +107,7 @@ export default function SurveyPage() {
                                             )}
                                             {q.type === 'rating' && (
                                                 <RadioGroup onValueChange={field.onChange} defaultValue={field.value} className="flex flex-wrap gap-4">
-                                                    {q.options.map(opt => (
+                                                    {q.options.map((opt: any) => (
                                                         <FormItem key={opt} className="flex items-center space-x-2 space-y-0">
                                                             <FormControl>
                                                                 <RadioGroupItem value={opt} />
