@@ -1,9 +1,9 @@
-import { initializeApp } from "firebase/app";
-// 🔥 We bring in the heavy-duty caching tools here:
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { 
   initializeFirestore, 
   persistentLocalCache, 
-  persistentMultipleTabManager 
+  persistentMultipleTabManager,
+  getFirestore
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -15,13 +15,23 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
-// 1. Initialize the Firebase App
-export const app = initializeApp(firebaseConfig);
+// 1. Initialize the Firebase App (ensure we don't initialize twice)
+export const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// 2. 🔥 Initialize Firestore WITH Offline Persistence Enabled
-export const db = initializeFirestore(app, {
-  localCache: persistentLocalCache({
-    // This allows offline mode to work even if the student has multiple tabs open
-    tabManager: persistentMultipleTabManager() 
-  })
-});
+// 2. 🔥 Initialize Firestore SAFELY
+let dbInstance;
+
+// Check if we are running inside a real web browser
+if (typeof window !== "undefined") {
+  // We are in the browser! Turn on the heavy-duty offline cache.
+  dbInstance = initializeFirestore(app, {
+    localCache: persistentLocalCache({
+      tabManager: persistentMultipleTabManager() 
+    })
+  });
+} else {
+  // We are on Vercel's Build Server! Just use the standard database connection.
+  dbInstance = getFirestore(app);
+}
+
+export const db = dbInstance;
