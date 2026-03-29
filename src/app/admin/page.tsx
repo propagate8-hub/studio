@@ -1,5 +1,5 @@
 import React from 'react';
-import BulkUserUpload from '@/components/portal/admin/bulk-user-upload';
+import { BulkUserUpload } from '@/components/portal/admin/bulk-user-upload';
 
 export default function AdminDashboard() {
   return (
