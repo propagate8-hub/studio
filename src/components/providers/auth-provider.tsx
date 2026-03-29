@@ -40,8 +40,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           user_id: fbUser.uid,
           email: fbUser.email!,
           role: userRole,
-          displayName: fbUser.displayName,
-          photoURL: fbUser.photoURL,
+          displayName: fbUser.displayName || undefined,
+          photoURL: fbUser.photoURL || undefined,
           ...(userRole === 'Admin' && { school_id: 'sch_123' }) // Add mock school_id for admin
         };
         setUser(mockUser);
