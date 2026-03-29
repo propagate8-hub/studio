@@ -156,7 +156,7 @@ export default function StudentReportCard() {
               };
               
               // Generate and download the PDF!
-              html2pdf().set(opt).from(element).save();
+              html2pdf().set(opt as any).from(element).save();
             }} 
             className="bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-sm"
           >
