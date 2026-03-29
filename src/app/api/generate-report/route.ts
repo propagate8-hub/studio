@@ -5,9 +5,10 @@ import { db } from '@/lib/firebase';
 
 export const maxDuration = 120; 
 
-const openai = new OpenAI();
-
 export async function POST(req: Request) {
+  // 🔥 Moved inside the function so Vercel ignores it during the build!
+  const openai = new OpenAI(); 
+
   try {
     const body = await req.json();
     const { studentId, gradingResult } = body;
