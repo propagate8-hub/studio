@@ -90,3 +90,4 @@ export interface UploadTask {
     completedAt?: Date;
     userId: string;
 }
+export type AIIdentityRecordSuggesterOutput = any;
