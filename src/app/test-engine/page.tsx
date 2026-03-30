@@ -45,7 +45,7 @@ export default function SecureTestEngine() {
       
       // Shuffle and pick the exam length (e.g., 60 questions for the real test)
       // For testing purposes right now, let's pull 10. You can change this later!
-      const shuffled = allDocs.sort(() => 0.5 - Math.random()).slice(0, 10); 
+      const shuffled = allDocs.sort(() => 0.5 - Math.random()).slice(0, 60);
       
       setQuestions(shuffled);
       setStage('INSTRUCTIONS');
