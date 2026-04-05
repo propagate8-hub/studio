@@ -4,9 +4,8 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 export const maxDuration = 120; 
-const openai = new OpenAI();
 
-export async function POST(req: Request) {
+export async function POST(req: Request) { const openai = new OpenAI();
   try {
     const body = await req.json();
     const { studentId, gradingResult } = body;
