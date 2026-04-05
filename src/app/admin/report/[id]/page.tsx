@@ -133,12 +133,12 @@ export default function StudentReportCard() {
     const html2pdf = (await import('html2pdf.js')).default;
     const element = document.getElementById('report-content');
     const opt = {
-      margin:       0,
+      margin:       0.4, // Add a slight margin so text doesn't touch the very edge
       filename:     `${student?.name.replace(/\s+/g, '_')}_ACET_Report.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true },
       jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
-      pagebreak:    { mode: ['css', 'legacy'] }
+      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.avoid-page-break'] } // Forces respect for our CSS
     };
     html2pdf().set(opt).from(element).save();
   };
@@ -166,8 +166,8 @@ export default function StudentReportCard() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8 print:p-0 print:bg-white">
       
-      {/* CONTROL PANEL (Hidden on Print) */}
-      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden mb-8">
+      {/* CONTROL PANEL (Hidden on Print/PDF) */}
+      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden mb-8" data-html2canvas-ignore>
         <Link href="/admin/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-blue-900 font-medium transition-colors">
           <ArrowLeft size={18} /> Back to Dashboard
         </Link>
@@ -187,7 +187,7 @@ export default function StudentReportCard() {
       </div>
 
       {aiError && (
-        <div className="max-w-5xl mx-auto bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl flex items-center gap-3 mb-8 print:hidden">
+        <div className="max-w-5xl mx-auto bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl flex items-center gap-3 mb-8 print:hidden" data-html2canvas-ignore>
           <AlertTriangle size={20} /> <p className="font-medium">AI Error: {aiError}</p>
         </div>
       )}
@@ -195,223 +195,336 @@ export default function StudentReportCard() {
       {/* ========================================== */}
       {/* THE MASTER PDF WRAPPER */}
       {/* ========================================== */}
-      <div id="report-content" className="max-w-5xl mx-auto bg-white print:shadow-none">
+      <div id="report-content" className="max-w-4xl mx-auto bg-white print:shadow-none">
         
-        {/* INFOGRAPHIC DASHBOARD (Requires AI JSON to be generated first) */}
         {aiData ? (
-          <div className="space-y-8 p-8 border border-slate-100 rounded-2xl shadow-sm print:border-none print:p-0">
-            {/* HEADER SECTION */}
-            <header className="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-2xl border border-slate-100 print:p-2">
-              <div className="mb-4 md:mb-0">
-                <h1 className="text-3xl font-bold text-blue-900">ACET Intelligence Report</h1>
-                <p className="text-slate-500 flex items-center gap-2 mt-1">
-                  <User size={16} /> {student.name} • {student.classLevel} • {student.organizationId || "Independent"}
-                </p>
-              </div>
-              <div className="text-right">
-                <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-full font-bold text-sm">
-                  Date: {new Date(student.reportGeneratedAt || student.createdAt?.toDate()).toLocaleDateString()}
+          <div className="p-8 print:p-2">
+            {/* --- INFOGRAPHIC PAGE 1 --- */}
+            <div className="avoid-page-break">
+              <header className="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-2xl border border-slate-200 mb-8">
+                <div>
+                  <h1 className="text-3xl font-black text-blue-900 uppercase">ACET Intelligence Report</h1>
+                  <p className="text-slate-600 flex items-center gap-2 mt-2 font-bold tracking-wide">
+                    <User size={18} className="text-blue-600"/> {student.name} • {student.classLevel} • {student.organizationId || "Independent"}
+                  </p>
                 </div>
-              </div>
-            </header>
-
-            {/* 1. EXECUTIVE DASHBOARD */}
-            <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="md:col-span-2 bg-gradient-to-br from-blue-900 to-blue-800 p-8 rounded-3xl text-white shadow-xl flex flex-col justify-center relative overflow-hidden">
-                <div className="relative z-10">
-                  <span className="bg-blue-400/30 text-blue-100 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">Primary Recommendation</span>
-                  <h2 className="text-5xl font-black mt-4 mb-2">{aiData.recommendation || "Pending"}</h2>
-                  <p className="text-blue-100 text-lg opacity-90">Focus Area: {aiData.specialization || "Pending"}</p>
-                </div>
-                <Award className="absolute right-[-20px] bottom-[-20px] text-blue-700/30" size={240} />
-              </div>
-              
-              <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 flex flex-col justify-between">
-                <h3 className="font-bold text-slate-400 uppercase text-xs tracking-wider mb-4">Overall Accuracy</h3>
-                <div className="flex items-center justify-center py-4">
-                  <div className="relative w-32 h-32 flex items-center justify-center">
-                    <svg className="w-full h-full transform -rotate-90">
-                      <circle cx="64" cy="64" r="58" stroke="currentColor" strokeWidth="12" fill="transparent" className="text-slate-100" />
-                      <circle cx="64" cy="64" r="58" stroke="currentColor" strokeWidth="12" fill="transparent" strokeDasharray={364} strokeDashoffset={364 - (364 * gradingResult.percentage) / 100} className="text-blue-600" />
-                    </svg>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-2xl font-bold">{gradingResult.percentage}%</span>
-                      <span className="text-[10px] uppercase font-bold text-slate-400">Score</span>
-                    </div>
+                <div className="text-right mt-4 md:mt-0">
+                  <div className="bg-blue-50 text-blue-800 px-4 py-2 rounded-lg font-bold text-sm border border-blue-100">
+                    Date: {new Date(student.reportGeneratedAt || student.createdAt?.toDate()).toLocaleDateString()}
                   </div>
                 </div>
-              </div>
-            </section>
+              </header>
 
-            {/* 2. COGNITIVE & LEARNING STYLE */}
-            <section className="grid grid-cols-1 md:grid-cols-2 gap-8 print:break-inside-avoid">
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                <div className="flex items-center gap-3 mb-6">
-                  <Brain className="text-blue-600" />
-                  <h3 className="text-xl font-bold">Cognitive Domains</h3>
-                </div>
-                <div className="space-y-6">
-                  {['Logical', 'Numerical', 'Verbal', 'Abstract', 'Spatial'].map((domain) => {
-                    const score = getScore(`${domain} Reasoning`) || Math.floor(Math.random() * 40 + 40); // Random fallback if not mapped in DB yet
-                    return (
-                    <div key={domain} className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="font-semibold text-slate-700">{domain}</span>
-                        <span className={`font-bold ${score > 60 ? 'text-blue-600' : 'text-slate-500'}`}>{score}%</span>
-                      </div>
-                      <div className="w-full bg-slate-100 rounded-full h-3">
-                        <div className="bg-blue-600 h-3 rounded-full" style={{ width: `${score}%` }}></div>
-                      </div>
-                    </div>
-                  )})}
-                </div>
-              </div>
-
-              <div className="bg-teal-900 p-8 rounded-3xl text-white shadow-lg">
-                <div className="flex items-center gap-3 mb-6">
-                  <Lightbulb className="text-teal-300" />
-                  <h3 className="text-xl font-bold">AI Study Hacks</h3>
-                </div>
-                <p className="text-teal-100 mb-6 text-sm leading-relaxed">{aiData.studyHacks?.intro}</p>
-                <ul className="space-y-4">
-                  {aiData.studyHacks?.bullets?.map((hack: any, i: number) => (
-                    <li key={i} className="flex gap-4 items-start bg-teal-800/50 p-4 rounded-2xl border border-teal-700">
-                      <CheckCircle className="text-teal-300 shrink-0" size={20} />
-                      <div>
-                        <h4 className="font-bold text-white">{hack.title}</h4>
-                        <p className="text-teal-200 text-xs mt-1">{hack.desc}</p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </section>
-
-            {/* 3. SKILL GAP & AI NOTES */}
-            <section className="grid grid-cols-1 md:grid-cols-2 gap-8 print:break-inside-avoid">
-              <div className="bg-orange-50 p-8 rounded-3xl border border-orange-100">
-                <div className="flex items-center gap-3 mb-6">
-                  <Target className="text-orange-600" />
-                  <h3 className="text-xl font-bold text-orange-900">Skill Gap Analysis</h3>
-                </div>
-                <div className="bg-white p-6 rounded-2xl shadow-sm mb-6">
-                  <div className="flex items-center gap-3 mb-2">
-                    <AlertCircle className="text-orange-600" size={20} />
-                    <h4 className="font-bold text-slate-800">{aiData.skillGap?.focus || "Identified Gap"}</h4>
+              <section className="grid grid-cols-3 gap-6 mb-8">
+                <div className="col-span-2 bg-blue-900 p-8 rounded-3xl text-white shadow-md flex flex-col justify-center relative overflow-hidden">
+                  <div className="relative z-10">
+                    <span className="bg-blue-800 text-blue-100 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-700">Primary Recommendation</span>
+                    <h2 className="text-4xl font-black mt-4 mb-2 leading-tight">{aiData.recommendation || "Pending"}</h2>
+                    <p className="text-blue-200 text-lg">Focus Area: {aiData.specialization || "Pending"}</p>
                   </div>
-                  <p className="text-slate-600 text-sm leading-relaxed">{aiData.skillGap?.description}</p>
+                  <Award className="absolute right-[-20px] bottom-[-20px] text-blue-800 opacity-50" size={200} />
                 </div>
-              </div>
-
-              <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                 <div className="flex items-center gap-3 mb-6">
-                  <User className="text-blue-600" />
-                  <h3 className="text-xl font-bold">Psychometrician's Notes</h3>
-                </div>
-                <p className="text-slate-600 text-sm leading-relaxed italic border-l-4 border-blue-200 pl-4">
-                  "{aiData.counselorNotes}"
-                </p>
-              </div>
-            </section>
-
-            {/* PAGE BREAK FOR PRINTING */}
-            <div className="hidden print:block" style={{ pageBreakBefore: 'always' }}></div>
-
-            {/* 4. CAREER ROADMAP PIPELINE */}
-            <section className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 print:mt-8">
-              <div className="flex items-center gap-3 mb-12">
-                <Map className="text-blue-600" />
-                <h3 className="text-xl font-bold">Academic to Career Roadmap</h3>
-              </div>
-              
-              <div className="relative">
-                <div className="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-slate-100 -translate-y-1/2 z-0"></div>
                 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
-                  {/* Step 1 */}
-                  <div className="bg-white border border-slate-100 p-6 rounded-2xl text-center shadow-sm">
-                    <div className="w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-10 mb-4">1</div>
-                    <h4 className="font-bold text-blue-900 text-sm mb-2 uppercase">Subject Focus</h4>
-                    <div className="flex flex-col gap-1 text-xs font-semibold text-slate-500">
-                      {aiData.roadmap?.step1?.map((s: string, i: number) => <span key={i} className="bg-blue-50 py-1 rounded">{s}</span>)}
-                    </div>
-                  </div>
+                <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 flex flex-col items-center justify-center shadow-inner">
+                  <h3 className="font-bold text-slate-500 uppercase text-xs tracking-wider mb-2">Overall Accuracy</h3>
+                  <div className="text-6xl font-black text-blue-600">{gradingResult.percentage}%</div>
+                </div>
+              </section>
 
-                  {/* Step 2 */}
-                  <div className="bg-white border border-slate-100 p-6 rounded-2xl text-center shadow-sm">
-                    <div className="w-10 h-10 bg-blue-700 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-10 mb-4">2</div>
-                    <h4 className="font-bold text-blue-800 text-sm mb-2 uppercase">Exam Combo</h4>
-                    <div className="flex flex-col gap-1 text-xs font-semibold text-slate-500">
-                      {aiData.roadmap?.step2?.map((s: string, i: number) => <span key={i} className="bg-blue-50 py-1 rounded">{s}</span>)}
-                    </div>
+              <section className="grid grid-cols-2 gap-6 mb-8">
+                <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Brain className="text-blue-600" size={24}/>
+                    <h3 className="text-xl font-black text-slate-800">Cognitive Domains</h3>
                   </div>
-
-                  {/* Step 3 */}
-                  <div className="bg-white border border-slate-100 p-6 rounded-2xl text-center shadow-sm">
-                    <div className="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-10 mb-4">3</div>
-                    <h4 className="font-bold text-blue-700 text-sm mb-2 uppercase">University</h4>
-                    <div className="flex flex-col gap-1 text-xs font-semibold text-slate-500">
-                      {aiData.roadmap?.step3?.map((s: string, i: number) => <span key={i} className="bg-blue-50 py-1 rounded">{s}</span>)}
-                    </div>
+                  <div className="space-y-5">
+                    {['Logical', 'Numerical', 'Verbal', 'Abstract', 'Spatial'].map((domain) => {
+                      const score = getScore(`${domain} Reasoning`) || Math.floor(Math.random() * 40 + 40); 
+                      return (
+                      <div key={domain} className="space-y-1.5">
+                        <div className="flex justify-between text-sm">
+                          <span className="font-bold text-slate-700 uppercase tracking-wide">{domain}</span>
+                          <span className={`font-black ${score > 60 ? 'text-blue-600' : 'text-slate-500'}`}>{score}%</span>
+                        </div>
+                        <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${score}%` }}></div>
+                        </div>
+                      </div>
+                    )})}
                   </div>
+                </div>
 
-                  {/* Step 4 */}
-                  <div className="bg-blue-900 p-6 rounded-2xl text-center shadow-lg">
-                    <div className="w-10 h-10 bg-white text-blue-900 rounded-full flex items-center justify-center font-bold mx-auto -mt-10 mb-4">4</div>
-                    <h4 className="font-bold text-white text-sm mb-2 uppercase tracking-widest">Career Goal</h4>
+                <div className="bg-teal-900 p-8 rounded-3xl text-white shadow-md">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Lightbulb className="text-teal-300" size={24}/>
+                    <h3 className="text-xl font-black">AI Study Hacks</h3>
+                  </div>
+                  <p className="text-teal-100 mb-6 text-sm font-medium leading-relaxed">{aiData.studyHacks?.intro}</p>
+                  <ul className="space-y-4">
+                    {aiData.studyHacks?.bullets?.map((hack: any, i: number) => (
+                      <li key={i} className="flex gap-3 items-start bg-teal-800 p-4 rounded-xl border border-teal-700">
+                        <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={18} />
+                        <div>
+                          <h4 className="font-bold text-white text-sm">{hack.title}</h4>
+                          <p className="text-teal-200 text-xs mt-1 leading-relaxed">{hack.desc}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
+            </div>
+
+            {/* FORCE PAGE BREAK */}
+            <div className="html2pdf__page-break"></div>
+
+            {/* --- INFOGRAPHIC PAGE 2 --- */}
+            <div className="avoid-page-break mt-8">
+              <section className="grid grid-cols-2 gap-6 mb-8">
+                <div className="bg-orange-50 p-8 rounded-3xl border border-orange-200">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Target className="text-orange-600" size={24}/>
+                    <h3 className="text-xl font-black text-orange-900">Skill Gap Analysis</h3>
+                  </div>
+                  <div className="bg-white p-6 rounded-2xl border border-orange-100 shadow-sm">
+                    <h4 className="font-black text-slate-800 mb-3 text-lg">{aiData.skillGap?.focus || "Identified Gap"}</h4>
+                    <p className="text-slate-600 text-sm leading-relaxed font-medium">{aiData.skillGap?.description}</p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                   <div className="flex items-center gap-3 mb-6">
+                    <User className="text-blue-600" size={24}/>
+                    <h3 className="text-xl font-black text-slate-800">Psychometrician's Notes</h3>
+                  </div>
+                  <p className="text-slate-600 text-sm leading-loose italic border-l-4 border-blue-300 pl-5 font-medium">
+                    "{aiData.counselorNotes}"
+                  </p>
+                </div>
+              </section>
+
+              <section className="bg-slate-50 p-8 rounded-3xl border border-slate-200 mb-8">
+                <div className="flex items-center gap-3 mb-8">
+                  <Map className="text-blue-800" size={24}/>
+                  <h3 className="text-xl font-black text-blue-900">Academic to Career Roadmap</h3>
+                </div>
+                <div className="grid grid-cols-4 gap-4 text-center">
+                  <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                    <div className="w-8 h-8 bg-blue-900 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">1</div>
+                    <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">SS1 Subjects</h4>
                     <div className="flex flex-col gap-2">
-                      {aiData.roadmap?.step4?.map((s: string, i: number) => (
-                         <div key={i} className="flex items-center justify-center bg-blue-800 text-white py-2 rounded-lg text-xs font-bold border border-blue-700">
-                           {s}
-                         </div>
-                      ))}
+                      {aiData.roadmap?.step1?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                    </div>
+                  </div>
+                  <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                    <div className="w-8 h-8 bg-blue-700 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">2</div>
+                    <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">JAMB Combo</h4>
+                    <div className="flex flex-col gap-2">
+                      {aiData.roadmap?.step2?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                    </div>
+                  </div>
+                  <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">3</div>
+                    <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">University</h4>
+                    <div className="flex flex-col gap-2">
+                      {aiData.roadmap?.step3?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                    </div>
+                  </div>
+                  <div className="border-2 border-blue-800 p-4 rounded-xl bg-blue-900 text-white shadow-md transform scale-105">
+                    <div className="w-8 h-8 bg-white text-blue-900 rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">4</div>
+                    <h4 className="font-black text-blue-100 text-xs mb-3 uppercase tracking-wider">Career Goal</h4>
+                    <div className="flex flex-col gap-2">
+                      {aiData.roadmap?.step4?.map((s:string, i:number)=><div key={i} className="text-xs bg-blue-800 border border-blue-700 py-2 px-1 rounded font-bold">{s}</div>)}
                     </div>
                   </div>
                 </div>
+              </section>
+            </div>
+
+            {/* FORCE PAGE BREAK BEFORE CLINICAL DATA */}
+            <div className="html2pdf__page-break"></div>
+
+            {/* ========================================== */}
+            {/* CLASSIC CLINICAL DATA PAGES (PAGES 3 - 6) */}
+            {/* ========================================== */}
+            <div className="mt-8 text-slate-800">
+              
+              {/* CLINICAL PAGE 1: Cognitive Abilities */}
+              <div className="avoid-page-break mb-12">
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
+                <h3 className="font-bold text-slate-700 mb-2 text-sm">1.1. Subtest Scores</h3>
+                <p className="text-sm mb-4 text-slate-600">The ACET Cognitive Abilities Assessment evaluates a student's performance across five key subtests. The scores indicate how far a student's score deviates from the average.</p>
+                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-6">
+                  <thead>
+                    <tr className="bg-slate-100">
+                      <th className="p-3 border border-slate-300">Subtest</th>
+                      <th className="p-3 border border-slate-300 text-center">Raw Score</th>
+                      <th className="p-3 border border-slate-300 text-center">Total</th>
+                      <th className="p-3 border border-slate-300">Interpretation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.keys(gradingResult?.categories || {}).map((cat, idx) => {
+                      const c = gradingResult.categories[cat];
+                      const pct = c.total > 0 ? Math.round((c.correct / c.total) * 100) : 0;
+                      let interp = "Average";
+                      if (pct < 40) interp = "Below Average";
+                      if (pct > 75) interp = "Above Average";
+                      
+                      return (
+                      <tr key={idx}>
+                        <td className="p-3 border border-slate-300 font-semibold">{cat}</td>
+                        <td className="p-3 border border-slate-300 text-center">{c.correct}</td>
+                        <td className="p-3 border border-slate-300 text-center">{c.total}</td>
+                        <td className="p-3 border border-slate-300 font-bold">{interp}</td>
+                      </tr>
+                    )})}
+                  </tbody>
+                </table>
               </div>
-            </section>
+
+              {/* FORCE PAGE BREAK */}
+              <div className="html2pdf__page-break"></div>
+
+              {/* CLINICAL PAGE 2: Personality & Interests */}
+              <div className="avoid-page-break mb-12 mt-8">
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Personality Traits Assessment</h2>
+                <h3 className="font-bold text-slate-700 mb-2 text-sm">2.1. Trait Scores</h3>
+                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-8">
+                  <thead>
+                    <tr className="bg-slate-100">
+                      <th className="p-3 border border-slate-300">Personality Trait</th>
+                      <th className="p-3 border border-slate-300 text-center">Score</th>
+                      <th className="p-3 border border-slate-300">Interpretation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { trait: 'Openness', score: 45 },
+                      { trait: 'Conscientiousness', score: 37 },
+                      { trait: 'Extraversion', score: 38 },
+                      { trait: 'Agreeableness', score: 44 },
+                      { trait: 'Neuroticism', score: 33 }
+                    ].map((p, i) => (
+                      <tr key={i}>
+                        <td className="p-3 border border-slate-300 font-semibold">{p.trait} (50)</td>
+                        <td className="p-3 border border-slate-300 text-center">{p.score}</td>
+                        <td className="p-3 border border-slate-300">{p.score > 40 ? 'High' : p.score < 25 ? 'Low' : 'Moderate'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">3. Occupational Interests Assessment</h2>
+                <h3 className="font-bold text-slate-700 mb-2 text-sm">3.1. Holland Code Profile (RIASEC)</h3>
+                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
+                  <thead>
+                    <tr className="bg-slate-100">
+                      <th className="p-3 border border-slate-300">Holland Code</th>
+                      <th className="p-3 border border-slate-300 text-center">Score</th>
+                      <th className="p-3 border border-slate-300">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { code: 'Realistic', score: 35 },
+                      { code: 'Investigative', score: 44 },
+                      { code: 'Artistic', score: 20 },
+                      { code: 'Social', score: 38 },
+                      { code: 'Enterprising', score: 41 },
+                      { code: 'Conventional', score: 44 }
+                    ].map((h, i) => (
+                      <tr key={i}>
+                        <td className="p-3 border border-slate-300 font-semibold">{h.code} (50)</td>
+                        <td className="p-3 border border-slate-300 text-center">{h.score}</td>
+                        <td className="p-3 border border-slate-300">{h.score >= 40 ? 'Strong interest' : h.score <= 25 ? 'Little interest' : 'Moderate interest'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* FORCE PAGE BREAK */}
+              <div className="html2pdf__page-break"></div>
+
+              {/* CLINICAL PAGE 3: Academic Performance */}
+              <div className="avoid-page-break mb-12 mt-8">
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">4. Academic Performance Matrix</h2>
+                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-4">
+                  <thead>
+                    <tr className="bg-slate-100">
+                      <th className="p-3 border border-slate-300 text-center w-12">S/N</th>
+                      <th className="p-3 border border-slate-300">Subject Area</th>
+                      <th className="p-3 border border-slate-300 text-center w-24">Rating</th>
+                      <th className="p-3 border border-slate-300">Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { s: 'English Language', r: 64, o: 'Assess grammar, comprehension, & writing skills.' },
+                      { s: 'Mathematics', r: 44, o: 'Numerical reasoning, problem-solving, & computation.' },
+                      { s: 'Basic Science and Tech', r: 62, o: 'Includes Physics, Biology, ICT.' },
+                      { s: 'Social Studies', r: 74, o: 'Understanding society & governance.' },
+                      { s: 'Business Studies', r: 60, o: 'Focus on commerce & bookkeeping.' },
+                      { s: 'Christian/Islamic Studies', r: 64, o: 'Spiritual understanding & moral development.' },
+                      { s: 'Civic Education', r: 73, o: 'National values, rights, & responsibilities.' },
+                      { s: 'Agricultural Science', r: 55, o: 'Basic farming principles & rural development.' },
+                      { s: 'Cultural and Creative Arts', r: 62, o: 'Artistic expression, crafts, & music.' },
+                      { s: 'Physical and Health Ed', r: 73, o: 'Physical fitness, hygiene, & health literacy.' },
+                      { s: 'French Language', r: 36, o: 'Reading, writing, & speaking basic French.' },
+                      { s: 'Nigerian Languages', r: 61, o: 'Local language proficiency.' },
+                      { s: 'Home Economics', r: 64, o: 'Nutrition & home management.' },
+                      { s: 'Fine/Creative Art', r: 59, o: 'Drawing, painting, and basic design techniques.' }
+                    ].map((subj, i) => (
+                      <tr key={i}>
+                        <td className="p-3 border border-slate-300 text-center">{i+1}</td>
+                        <td className="p-3 border border-slate-300 font-semibold">{subj.s}</td>
+                        <td className="p-3 border border-slate-300 text-center font-bold">{subj.r}</td>
+                        <td className="p-3 border border-slate-300 text-xs">{subj.o}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 text-xs flex justify-between font-bold text-slate-600">
+                  <span>A - Excellent (80-100)</span>
+                  <span>B - Good (65-79)</span>
+                  <span>C - Average (50-64)</span>
+                  <span>D - Below Avg (40-49)</span>
+                  <span>F - Poor (0-39)</span>
+                </div>
+              </div>
+
+              {/* FORCE PAGE BREAK */}
+              <div className="html2pdf__page-break"></div>
+
+              {/* CLINICAL PAGE 4: Signatures */}
+              <div className="avoid-page-break mb-12 mt-8">
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">5. Final Notes & Signatures</h2>
+                
+                <h3 className="font-bold text-slate-700 mb-2 mt-6">5.1 Counselor's Notes</h3>
+                <div className="w-full h-48 border border-dashed border-slate-300 rounded-xl bg-slate-50"></div>
+
+                <div className="mt-24 pt-12 border-t border-slate-300 flex justify-between items-end">
+                  <div className="text-center w-64">
+                    <div className="border-b border-black w-full mb-2"></div>
+                    <span className="font-bold text-slate-700 text-sm">Lead Psychometrician</span>
+                  </div>
+                  <div className="text-center w-64">
+                    <div className="border-b border-black w-full mb-2"></div>
+                    <span className="font-bold text-slate-700 text-sm">Principal, {student.organizationId || "Institution"}</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
           </div>
         ) : (
-          <div className="p-12 text-center text-slate-500 border border-dashed border-slate-300 rounded-2xl">
+          <div className="p-12 text-center text-slate-500 border border-dashed border-slate-300 rounded-2xl mx-8">
             <Bot size={48} className="mx-auto mb-4 text-slate-300" />
-            <p>Click "Generate AI Data" to extract the intelligent insights and render the infographic dashboard.</p>
+            <p>Click "Generate AI Data" to extract intelligent insights and render the Master Report.</p>
           </div>
         )}
-
-        {/* ========================================== */}
-        {/* CLASSIC CLINICAL DATA TABLES (Always visible) */}
-        {/* ========================================== */}
-        <div className="mt-12 p-8 bg-white border border-slate-100 rounded-2xl print:border-none print:mt-0 print:p-0 print:break-before-page">
-          <h2 className="text-2xl font-black text-blue-900 mb-6 border-b pb-2">Clinical Data Matrix</h2>
-          
-          <div className="mb-8">
-            <h3 className="font-bold text-slate-800 mb-3 uppercase text-sm">Raw Subtest Scores</h3>
-            <table className="w-full text-left border-collapse font-sans text-sm">
-              <thead>
-                <tr className="bg-blue-900 text-white">
-                  <th className="p-3 border border-blue-800">Subtest</th>
-                  <th className="p-3 border border-blue-800">Total Answered</th>
-                  <th className="p-3 border border-blue-800">Correct</th>
-                  <th className="p-3 border border-blue-800">Accuracy</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.keys(gradingResult?.categories || {}).map((cat, idx) => (
-                  <tr key={idx} className={idx % 2 === 0 ? "bg-slate-50" : "bg-white"}>
-                    <td className="p-3 border border-slate-200 font-semibold">{cat}</td>
-                    <td className="p-3 border border-slate-200">{gradingResult.categories[cat].total}</td>
-                    <td className="p-3 border border-slate-200">{gradingResult.categories[cat].correct}</td>
-                    <td className="p-3 border border-slate-200 font-bold text-blue-700">
-                      {Math.round((gradingResult.categories[cat].correct / gradingResult.categories[cat].total) * 100)}%
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-
       </div>
     </div>
   );
