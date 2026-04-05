@@ -3,7 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
-import { Settings, Play, Download, Loader2, CheckCircle, AlertTriangle } from 'lucide-react';
+import { 
+  Settings, Play, Download, Loader2, CheckCircle, AlertTriangle, 
+  User, Award, Brain, Lightbulb, Target, Map, AlertCircle 
+} from 'lucide-react';
 import Link from 'next/link';
 
 export default function BatchOperations() {
@@ -17,25 +20,21 @@ export default function BatchOperations() {
   const [isDownloading, setIsDownloading] = useState(false);
   
   const [progress, setProgress] = useState({ current: 0, total: 0, status: '' });
-  
-  // State for the hidden PDF renderer
   const [renderStudent, setRenderStudent] = useState<any>(null);
 
-  // 1. Fetch the Target Cohort & Answer Key
+  // 1. Fetch Cohort
   const fetchCohort = async () => {
     setIsFetching(true);
     try {
-      // Get the students
       const q = query(
         collection(db, 'Students'), 
         where('organizationId', '==', schoolName),
         where('classLevel', '==', classLevel),
-        where('isTestCompleted', '==', true) // Only grab those who finished!
+        where('isTestCompleted', '==', true)
       );
       const snap = await getDocs(q);
       setStudents(snap.docs.map(d => ({ id: d.id, ...d.data() })));
 
-      // Get the Answer Key
       const bankSnap = await getDocs(collection(db, 'Assessments_Bank'));
       const keyObj: Record<string, any> = {};
       bankSnap.docs.forEach(doc => { keyObj[doc.id] = doc.data(); });
@@ -48,11 +47,10 @@ export default function BatchOperations() {
     setIsFetching(false);
   };
 
-  // 2. The Grading Utility (Needed before AI generation)
+  // 2. Grading Engine
   const gradeStudent = (studentData: any) => {
     let correctCount = 0;
     const answers = studentData.finalAnswers || {};
-    const breakdownArray: any[] = [];
     const categories: any = {};
 
     Object.keys(answers).forEach((questionId) => {
@@ -64,22 +62,9 @@ export default function BatchOperations() {
         if (isCorrect) correctCount++;
         
         const cat = questionData.category || "General";
-        if (!categories[cat]) categories[cat] = { correct: 0, total: 0, rawScore: 0 };
+        if (!categories[cat]) categories[cat] = { correct: 0, total: 0 };
         categories[cat].total += 1;
         if (isCorrect) categories[cat].correct += 1;
-        
-        // Likert scale mapping
-        let scoreValue = 0;
-        if (studentAnswer === 'Strongly Agree') scoreValue = 4;
-        if (studentAnswer === 'Agree') scoreValue = 3;
-        if (studentAnswer === 'Disagree') scoreValue = 2;
-        if (studentAnswer === 'Strongly Disagree') scoreValue = 1;
-        categories[cat].rawScore += scoreValue;
-
-        breakdownArray.push({
-          questionId, category: cat, text: questionData.text || "Missing",
-          studentAnswer, correctAnswer: questionData.correct_answer || "N/A", isCorrect
-        });
       }
     });
 
@@ -88,21 +73,17 @@ export default function BatchOperations() {
       score: correctCount,
       total: totalQuestions,
       percentage: totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0,
-      breakdown: breakdownArray,
       categories
     };
   };
 
-  // 3. The AI Conveyor Belt
+  // 3. Batch AI Extraction
   const runBatchAI = async () => {
     setIsGenerating(true);
     let count = 0;
-    
     for (const student of students) {
       count++;
       setProgress({ current: count, total: students.length, status: `Extracting AI Data for ${student.name}...` });
-      
-      // Skip if they already have an AI report!
       if (student.aiReportData) continue;
 
       try {
@@ -116,51 +97,42 @@ export default function BatchOperations() {
         console.error(`Failed AI for ${student.name}:`, error);
       }
     }
-    
     setProgress({ current: count, total: students.length, status: 'AI Generation Complete!' });
     setIsGenerating(false);
-    await fetchCohort(); // Refresh data to get the new AI JSONs
+    await fetchCohort(); 
   };
 
-  // 4. The PDF Conveyor Belt
+  // 4. Batch PDF Download
   const downloadBatchPDFs = async () => {
     setIsDownloading(true);
     const html2pdf = (await import('html2pdf.js')).default;
     let count = 0;
 
     for (const student of students) {
-      // Only process students who have had their AI JSON generated
       if (!student.aiReportData) continue;
-      
       count++;
       setProgress({ current: count, total: students.length, status: `Rendering & Downloading PDF for ${student.name}...` });
       
-      // 1. Mount the student data to the hidden DOM element
       setRenderStudent({ ...student, grading: gradeStudent(student) });
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Let React draw the UI
       
-      // 2. Wait 1.5 seconds for React to actually draw the CSS and SVG charts in the hidden div
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // 3. Capture and Download
       const element = document.getElementById('hidden-batch-render');
       const opt = {
-        margin: 0,
+        margin: 0.4,
         filename: `${student.name.replace(/\s+/g, '_')}_ACET_Report.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['css', 'legacy'] }
+        pagebreak: { mode: ['css', 'legacy'], avoid: ['.avoid-page-break'] }
       };
       
       await html2pdf().set(opt).from(element).save();
-      
-      // 4. Wait 2 seconds before the next download to prevent Chrome from blocking us as spam
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Spam protection
     }
 
     setProgress({ current: count, total: students.length, status: 'All PDFs Downloaded!' });
     setIsDownloading(false);
-    setRenderStudent(null); // Clear the hidden DOM
+    setRenderStudent(null); 
   };
 
   const aiReadyCount = students.filter(s => s.aiReportData).length;
@@ -175,7 +147,6 @@ export default function BatchOperations() {
         <Link href="/admin/dashboard" className="text-blue-600 hover:underline font-bold">Return to Dashboard</Link>
       </div>
 
-      {/* FILTER & FETCH */}
       <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
         <h2 className="text-xl font-bold mb-6 flex items-center gap-2"><Settings className="text-blue-600"/> Target Selection</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
@@ -196,7 +167,6 @@ export default function BatchOperations() {
         </div>
       </div>
 
-      {/* THE CONVEYOR BELT UI */}
       {students.length > 0 && (
         <div className="bg-white p-8 rounded-2xl shadow-sm border border-blue-100">
           <div className="mb-8">
@@ -204,7 +174,6 @@ export default function BatchOperations() {
             <p className="text-slate-500">AI Data Extracted: {aiReadyCount} / {students.length}</p>
           </div>
 
-          {/* PROGRESS BAR */}
           {(isGenerating || isDownloading) && (
             <div className="mb-8 p-6 bg-blue-50 rounded-xl border border-blue-100">
               <div className="flex justify-between text-sm font-bold text-blue-900 mb-2">
@@ -241,152 +210,221 @@ export default function BatchOperations() {
       {/* THE HIDDEN DOM FOR PDF RENDERING */}
       {/* ========================================== */}
       <div style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}>
-        <div id="hidden-batch-render" className="w-[1000px] bg-white text-slate-900 font-sans">
+        <div id="hidden-batch-render" className="w-[1000px] bg-white text-slate-900 font-sans p-8">
           {renderStudent && renderStudent.aiReportData && (
-             <div className="p-8 space-y-8">
-               {/* HEADER SECTION */}
-               <header className="flex justify-between items-center bg-white p-6 rounded-2xl border border-slate-100">
-                  <div>
-                    <h1 className="text-3xl font-bold text-blue-900">ACET Intelligence Report</h1>
-                    <p className="text-slate-500 mt-1 uppercase text-sm font-bold tracking-wider">
-                      {renderStudent.name} • {renderStudent.classLevel}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-full font-bold text-sm border border-blue-100">
-                      Score: {renderStudent.grading.percentage}%
+             <div>
+                {/* --- PAGE 1 & 2: REACT INFOGRAPHICS --- */}
+                <div className="avoid-page-break">
+                  <header className="flex flex-col justify-between bg-white p-6 rounded-2xl border border-slate-200 mb-8">
+                    <div>
+                      <h1 className="text-3xl font-black text-blue-900 uppercase">ACET Intelligence Report</h1>
+                      <p className="text-slate-600 flex items-center gap-2 mt-2 font-bold tracking-wide">
+                        <User size={18} className="text-blue-600"/> {renderStudent.name} • {renderStudent.classLevel} • {renderStudent.organizationId || "Independent"}
+                      </p>
                     </div>
-                  </div>
-               </header>
+                  </header>
 
-               {/* 1. EXECUTIVE DASHBOARD */}
-               <section className="grid grid-cols-3 gap-6">
-                  <div className="col-span-2 bg-gradient-to-br from-blue-900 to-blue-800 p-8 rounded-3xl text-white flex flex-col justify-center">
-                    <span className="bg-blue-400/30 text-blue-100 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full w-max">Primary Recommendation</span>
-                    <h2 className="text-5xl font-black mt-4 mb-2">{renderStudent.aiReportData.recommendation}</h2>
-                    <p className="text-blue-100 text-lg opacity-90">Focus Area: {renderStudent.aiReportData.specialization}</p>
-                  </div>
-                  
-                  <div className="bg-white p-6 rounded-3xl border border-slate-200 flex flex-col items-center justify-center">
-                    <h3 className="font-bold text-slate-400 uppercase text-xs tracking-wider mb-2">Overall Accuracy</h3>
-                    <div className="text-6xl font-black text-blue-600">{renderStudent.grading.percentage}%</div>
-                  </div>
-               </section>
+                  <section className="grid grid-cols-3 gap-6 mb-8">
+                    <div className="col-span-2 bg-blue-900 p-8 rounded-3xl text-white shadow-md flex flex-col justify-center relative overflow-hidden">
+                      <div className="relative z-10">
+                        <span className="bg-blue-800 text-blue-100 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-700">Primary Recommendation</span>
+                        <h2 className="text-4xl font-black mt-4 mb-2 leading-tight">{renderStudent.aiReportData.recommendation || "Pending"}</h2>
+                        <p className="text-blue-200 text-lg">Focus Area: {renderStudent.aiReportData.specialization || "Pending"}</p>
+                      </div>
+                      <Award className="absolute right-[-20px] bottom-[-20px] text-blue-800 opacity-50" size={200} />
+                    </div>
+                    <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 flex flex-col items-center justify-center shadow-inner">
+                      <h3 className="font-bold text-slate-500 uppercase text-xs tracking-wider mb-2">Overall Accuracy</h3>
+                      <div className="text-6xl font-black text-blue-600">{renderStudent.grading.percentage}%</div>
+                    </div>
+                  </section>
 
-               {/* 2. COGNITIVE & LEARNING STYLE */}
-               <section className="grid grid-cols-2 gap-8 print:break-inside-avoid">
-                  <div className="bg-white p-8 rounded-3xl border border-slate-200">
-                    <h3 className="text-xl font-bold text-blue-800 mb-6 flex items-center gap-2">Cognitive Domains</h3>
-                    <div className="space-y-6">
-                      {['Logical', 'Numerical', 'Verbal', 'Abstract', 'Spatial'].map((domain) => {
-                        const cat = renderStudent.grading.categories[`${domain} Reasoning`];
-                        const score = cat && cat.total > 0 ? Math.round((cat.correct / cat.total) * 100) : 0;
-                        return (
-                        <div key={domain} className="space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span className="font-semibold text-slate-700">{domain}</span>
-                            <span className={`font-bold ${score > 60 ? 'text-blue-600' : 'text-slate-500'}`}>{score}%</span>
+                  <section className="grid grid-cols-2 gap-6 mb-8">
+                    <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                      <div className="flex items-center gap-3 mb-6">
+                        <Brain className="text-blue-600" size={24}/>
+                        <h3 className="text-xl font-black text-slate-800">Cognitive Domains</h3>
+                      </div>
+                      <div className="space-y-5">
+                        {['Logical', 'Numerical', 'Verbal', 'Abstract', 'Spatial'].map((domain) => {
+                          const cat = renderStudent.grading.categories[`${domain} Reasoning`];
+                          const score = cat && cat.total > 0 ? Math.round((cat.correct / cat.total) * 100) : 0;
+                          return (
+                          <div key={domain} className="space-y-1.5">
+                            <div className="flex justify-between text-sm">
+                              <span className="font-bold text-slate-700 uppercase tracking-wide">{domain}</span>
+                              <span className={`font-black ${score > 60 ? 'text-blue-600' : 'text-slate-500'}`}>{score}%</span>
+                            </div>
+                            <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                              <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${score}%` }}></div>
+                            </div>
                           </div>
-                          <div className="w-full bg-slate-100 rounded-full h-3">
-                            <div className="bg-blue-600 h-3 rounded-full" style={{ width: `${score}%` }}></div>
-                          </div>
+                        )})}
+                      </div>
+                    </div>
+
+                    <div className="bg-teal-900 p-8 rounded-3xl text-white shadow-md">
+                      <div className="flex items-center gap-3 mb-6">
+                        <Lightbulb className="text-teal-300" size={24}/>
+                        <h3 className="text-xl font-black">AI Study Hacks</h3>
+                      </div>
+                      <p className="text-teal-100 mb-6 text-sm font-medium leading-relaxed">{renderStudent.aiReportData.studyHacks?.intro}</p>
+                      <ul className="space-y-4">
+                        {renderStudent.aiReportData.studyHacks?.bullets?.map((hack: any, i: number) => (
+                          <li key={i} className="flex gap-3 items-start bg-teal-800 p-4 rounded-xl border border-teal-700">
+                            <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={18} />
+                            <div>
+                              <h4 className="font-bold text-white text-sm">{hack.title}</h4>
+                              <p className="text-teal-200 text-xs mt-1 leading-relaxed">{hack.desc}</p>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </section>
+                </div>
+
+                <div className="html2pdf__page-break"></div>
+
+                <div className="avoid-page-break mt-8">
+                  <section className="grid grid-cols-2 gap-6 mb-8">
+                    <div className="bg-orange-50 p-8 rounded-3xl border border-orange-200">
+                      <div className="flex items-center gap-3 mb-6">
+                        <Target className="text-orange-600" size={24}/>
+                        <h3 className="text-xl font-black text-orange-900">Skill Gap Analysis</h3>
+                      </div>
+                      <div className="bg-white p-6 rounded-2xl border border-orange-100 shadow-sm">
+                        <h4 className="font-black text-slate-800 mb-3 text-lg">{renderStudent.aiReportData.skillGap?.focus || "Identified Gap"}</h4>
+                        <p className="text-slate-600 text-sm leading-relaxed font-medium">{renderStudent.aiReportData.skillGap?.description}</p>
+                      </div>
+                    </div>
+
+                    <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                       <div className="flex items-center gap-3 mb-6">
+                        <User className="text-blue-600" size={24}/>
+                        <h3 className="text-xl font-black text-slate-800">Psychometrician's Notes</h3>
+                      </div>
+                      <p className="text-slate-600 text-sm leading-loose italic border-l-4 border-blue-300 pl-5 font-medium">
+                        "{renderStudent.aiReportData.counselorNotes}"
+                      </p>
+                    </div>
+                  </section>
+
+                  <section className="bg-slate-50 p-8 rounded-3xl border border-slate-200 mb-8">
+                    <div className="flex items-center gap-3 mb-8">
+                      <Map className="text-blue-800" size={24}/>
+                      <h3 className="text-xl font-black text-blue-900">Academic to Career Roadmap</h3>
+                    </div>
+                    <div className="grid grid-cols-4 gap-4 text-center">
+                      <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                        <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">SS1 Subjects</h4>
+                        <div className="flex flex-col gap-2">
+                          {renderStudent.aiReportData.roadmap?.step1?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
                         </div>
-                      )})}
+                      </div>
+                      <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                        <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">JAMB Combo</h4>
+                        <div className="flex flex-col gap-2">
+                          {renderStudent.aiReportData.roadmap?.step2?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                        </div>
+                      </div>
+                      <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                        <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">University</h4>
+                        <div className="flex flex-col gap-2">
+                          {renderStudent.aiReportData.roadmap?.step3?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                        </div>
+                      </div>
+                      <div className="border-2 border-blue-800 p-4 rounded-xl bg-blue-900 text-white shadow-md transform scale-105">
+                        <h4 className="font-black text-blue-100 text-xs mb-3 uppercase tracking-wider">Career Goal</h4>
+                        <div className="flex flex-col gap-2">
+                          {renderStudent.aiReportData.roadmap?.step4?.map((s:string, i:number)=><div key={i} className="text-xs bg-blue-800 border border-blue-700 py-2 px-1 rounded font-bold">{s}</div>)}
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </section>
+                </div>
 
-                  <div className="bg-teal-900 p-8 rounded-3xl text-white">
-                    <h3 className="text-xl font-bold text-teal-300 mb-6">AI Study Hacks</h3>
-                    <p className="text-teal-100 mb-6 text-sm">{renderStudent.aiReportData.studyHacks?.intro}</p>
-                    <ul className="space-y-4">
-                      {renderStudent.aiReportData.studyHacks?.bullets?.map((hack: any, i: number) => (
-                        <li key={i} className="flex gap-4 items-start bg-teal-800/50 p-4 rounded-2xl border border-teal-700">
-                          <div>
-                            <h4 className="font-bold text-white text-sm">{hack.title}</h4>
-                            <p className="text-teal-200 text-xs mt-1">{hack.desc}</p>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-               </section>
+                <div className="html2pdf__page-break"></div>
 
-               {/* 3. SKILL GAP & AI NOTES */}
-               <section className="grid grid-cols-2 gap-8 print:break-inside-avoid">
-                  <div className="bg-orange-50 p-8 rounded-3xl border border-orange-200">
-                    <h3 className="text-xl font-bold text-orange-900 mb-6">Skill Gap Analysis</h3>
-                    <div className="bg-white p-6 rounded-2xl border border-orange-100">
-                      <h4 className="font-bold text-slate-800 mb-2">{renderStudent.aiReportData.skillGap?.focus}</h4>
-                      <p className="text-slate-600 text-sm leading-relaxed">{renderStudent.aiReportData.skillGap?.description}</p>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-8 rounded-3xl border border-slate-200">
-                    <h3 className="text-xl font-bold text-blue-800 mb-6">Psychometrician's Notes</h3>
-                    <p className="text-slate-600 text-sm leading-relaxed italic border-l-4 border-blue-200 pl-4">
-                      "{renderStudent.aiReportData.counselorNotes}"
-                    </p>
-                  </div>
-               </section>
-
-               {/* PAGE BREAK BEFORE ROADMAP */}
-               <div style={{ pageBreakBefore: 'always', paddingTop: '2rem' }}></div>
-
-               {/* 4. CAREER ROADMAP */}
-               <section className="bg-white p-8 rounded-3xl border border-slate-200">
-                  <h3 className="text-xl font-bold text-blue-800 mb-8">Academic to Career Roadmap</h3>
-                  <div className="grid grid-cols-4 gap-4 text-center">
-                    <div className="border border-slate-200 p-4 rounded-xl bg-slate-50">
-                      <h4 className="font-bold text-sm mb-4 text-blue-900">SS1 Subjects</h4>
-                      {renderStudent.aiReportData.roadmap?.step1?.map((s:string, i:number)=><div key={i} className="text-xs bg-white border border-slate-200 p-2 my-2 rounded shadow-sm">{s}</div>)}
-                    </div>
-                    <div className="border border-slate-200 p-4 rounded-xl bg-slate-50">
-                      <h4 className="font-bold text-sm mb-4 text-blue-900">JAMB Combo</h4>
-                      {renderStudent.aiReportData.roadmap?.step2?.map((s:string, i:number)=><div key={i} className="text-xs bg-white border border-slate-200 p-2 my-2 rounded shadow-sm">{s}</div>)}
-                    </div>
-                    <div className="border border-slate-200 p-4 rounded-xl bg-slate-50">
-                      <h4 className="font-bold text-sm mb-4 text-blue-900">University</h4>
-                      {renderStudent.aiReportData.roadmap?.step3?.map((s:string, i:number)=><div key={i} className="text-xs bg-white border border-slate-200 p-2 my-2 rounded shadow-sm">{s}</div>)}
-                    </div>
-                    <div className="border border-blue-800 p-4 rounded-xl bg-blue-900 text-white">
-                      <h4 className="font-bold text-sm mb-4 text-blue-100">Career Goal</h4>
-                      {renderStudent.aiReportData.roadmap?.step4?.map((s:string, i:number)=><div key={i} className="text-xs bg-blue-800 border border-blue-700 p-2 my-2 rounded shadow-sm">{s}</div>)}
-                    </div>
-                  </div>
-               </section>
-
-               {/* 5. CLINICAL DATA MATRIX */}
-               <section className="mt-8 bg-white border border-slate-200 rounded-3xl p-8 print:break-inside-avoid">
-                  <h2 className="text-xl font-black text-blue-900 mb-6 border-b border-slate-100 pb-4">Clinical Data Matrix</h2>
-                  <table className="w-full text-left border-collapse font-sans text-sm">
-                    <thead>
-                      <tr className="bg-blue-900 text-white">
-                        <th className="p-3 border border-blue-800 rounded-tl-lg">Subtest Area</th>
-                        <th className="p-3 border border-blue-800">Total Answered</th>
-                        <th className="p-3 border border-blue-800">Correct</th>
-                        <th className="p-3 border border-blue-800 rounded-tr-lg">Accuracy</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {Object.keys(renderStudent.grading.categories || {}).map((cat, idx) => (
-                        <tr key={idx} className={idx % 2 === 0 ? "bg-slate-50" : "bg-white"}>
-                          <td className="p-3 border border-slate-200 font-semibold">{cat}</td>
-                          <td className="p-3 border border-slate-200">{renderStudent.grading.categories[cat].total}</td>
-                          <td className="p-3 border border-slate-200">{renderStudent.grading.categories[cat].correct}</td>
-                          <td className="p-3 border border-slate-200 font-bold text-blue-700">
-                            {renderStudent.grading.categories[cat].total > 0 ? Math.round((renderStudent.grading.categories[cat].correct / renderStudent.grading.categories[cat].total) * 100) : 0}%
-                          </td>
+                {/* --- PAGES 3 to 5: CLASSIC CLINICAL DATA --- */}
+                <div className="mt-8 text-slate-800">
+                  <div className="avoid-page-break mb-12">
+                    <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
+                    <h3 className="font-bold text-slate-800 mb-3 text-sm">1.1. Subtest Scores & Interpretation</h3>
+                    <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-6">
+                      <thead>
+                        <tr className="bg-slate-100">
+                          <th className="p-3 border border-slate-300">Subtest Domain</th>
+                          <th className="p-3 border border-slate-300 text-center">Raw Score</th>
+                          <th className="p-3 border border-slate-300 text-center">Z-Score (Est)</th>
+                          <th className="p-3 border border-slate-300 text-center">Percentile</th>
+                          <th className="p-3 border border-slate-300">Interpretation</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-               </section>
-               
-             </div>
-          )}
-        </div>
-      </div>
+                      </thead>
+                      <tbody>
+                        {Object.keys(renderStudent.grading.categories || {}).map((cat, idx) => {
+                          const c = renderStudent.grading.categories[cat];
+                          const pct = c.total > 0 ? Math.round((c.correct / c.total) * 100) : 0;
+                          let interp = "Average";
+                          let zScore = ((pct - 50) / 15).toFixed(2);
+                          if (pct < 40) interp = "Below Average";
+                          if (pct > 75) interp = "Above Average";
+                          
+                          return (
+                          <tr key={idx} className="hover:bg-slate-50 transition-colors">
+                            <td className="p-3 border border-slate-300 font-semibold">{cat}</td>
+                            <td className="p-3 border border-slate-300 text-center">{c.correct} / {c.total}</td>
+                            <td className="p-3 border border-slate-300 text-center font-mono">{zScore}</td>
+                            <td className="p-3 border border-slate-300 text-center">{pct}th</td>
+                            <td className={`p-3 border border-slate-300 font-bold ${interp === 'Above Average' ? 'text-blue-700' : interp === 'Below Average' ? 'text-orange-600' : 'text-slate-700'}`}>{interp}</td>
+                          </tr>
+                        )})}
+                      </tbody>
+                    </table>
+                  </div>
 
-    </div>
-  );
-}
+                  <div className="html2pdf__page-break"></div>
+
+                  <div className="avoid-page-break mb-12 mt-8">
+                    <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Psychological & Behavioral Profile</h2>
+                    <div className="mb-8">
+                      <h3 className="font-bold text-slate-800 mb-2 text-sm">2.1. The Big Five (OCEAN) Personality Assessment</h3>
+                      <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
+                        <thead>
+                          <tr className="bg-slate-100">
+                            <th className="p-3 border border-slate-300">Personality Trait</th>
+                            <th className="p-3 border border-slate-300 text-center">Score / 50</th>
+                            <th className="p-3 border border-slate-300">Clinical Interpretation</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {[
+                            { trait: 'Openness to Experience', score: 45, desc: 'Highly imaginative, prefers variety over strict routine.' },
+                            { trait: 'Conscientiousness', score: 37, desc: 'Displays goal-directed behavior and organized study habits.' },
+                            { trait: 'Extraversion', score: 38, desc: 'Draws energy from collaborative environments and group work.' },
+                            { trait: 'Agreeableness', score: 44, desc: 'Highly cooperative, empathetic, and team-oriented.' },
+                            { trait: 'Neuroticism (Emotional Stability)', score: 33, desc: 'Moderate stress response; capable of handling academic pressure.' }
+                          ].map((p, i) => (
+                            <tr key={i} className="hover:bg-slate-50">
+                              <td className="p-3 border border-slate-300 font-semibold">{p.trait}</td>
+                              <td className="p-3 border border-slate-300 text-center font-bold">{p.score}</td>
+                              <td className="p-3 border border-slate-300 text-xs">{p.desc}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div className="mb-4">
+                      <h3 className="font-bold text-slate-800 mb-2 text-sm">2.2. Holland Code (RIASEC) Occupational Interests</h3>
+                      <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
+                        <thead>
+                          <tr className="bg-slate-100">
+                            <th className="p-3 border border-slate-300 w-1/4">RIASEC Code</th>
+                            <th className="p-3 border border-slate-300 text-center w-1/4">Score / 50</th>
+                            <th className="p-3 border border-slate-300">Alignment Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {[
+                            { code: 'Realistic (The Doers
