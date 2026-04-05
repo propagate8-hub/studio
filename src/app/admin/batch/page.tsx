@@ -22,7 +22,6 @@ export default function BatchOperations() {
   const [progress, setProgress] = useState({ current: 0, total: 0, status: '' });
   const [renderStudent, setRenderStudent] = useState<any>(null);
 
-  // 1. Fetch Cohort
   const fetchCohort = async () => {
     setIsFetching(true);
     try {
@@ -47,7 +46,6 @@ export default function BatchOperations() {
     setIsFetching(false);
   };
 
-  // 2. Grading Engine
   const gradeStudent = (studentData: any) => {
     let correctCount = 0;
     const answers = studentData.finalAnswers || {};
@@ -77,7 +75,6 @@ export default function BatchOperations() {
     };
   };
 
-  // 3. Batch AI Extraction
   const runBatchAI = async () => {
     setIsGenerating(true);
     let count = 0;
@@ -102,7 +99,6 @@ export default function BatchOperations() {
     await fetchCohort(); 
   };
 
-  // 4. Batch PDF Download
   const downloadBatchPDFs = async () => {
     setIsDownloading(true);
     const html2pdf = (await import('html2pdf.js')).default;
@@ -114,7 +110,7 @@ export default function BatchOperations() {
       setProgress({ current: count, total: students.length, status: `Rendering & Downloading PDF for ${student.name}...` });
       
       setRenderStudent({ ...student, grading: gradeStudent(student) });
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Let React draw the UI
+      await new Promise(resolve => setTimeout(resolve, 1500)); 
       
       const element = document.getElementById('hidden-batch-render');
       const opt = {
@@ -127,7 +123,7 @@ export default function BatchOperations() {
       };
       
       await html2pdf().set(opt).from(element).save();
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Spam protection
+      await new Promise(resolve => setTimeout(resolve, 2000)); 
     }
 
     setProgress({ current: count, total: students.length, status: 'All PDFs Downloaded!' });
@@ -302,10 +298,10 @@ export default function BatchOperations() {
                     <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
                        <div className="flex items-center gap-3 mb-6">
                         <User className="text-blue-600" size={24}/>
-                        <h3 className="text-xl font-black text-slate-800">Psychometrician's Notes</h3>
+                        <h3 className="text-xl font-black text-slate-800">Psychometrician&apos;s Notes</h3>
                       </div>
                       <p className="text-slate-600 text-sm leading-loose italic border-l-4 border-blue-300 pl-5 font-medium">
-                        "{renderStudent.aiReportData.counselorNotes}"
+                        &quot;{renderStudent.aiReportData.counselorNotes}&quot;
                       </p>
                     </div>
                   </section>
@@ -350,6 +346,16 @@ export default function BatchOperations() {
                 <div className="mt-8 text-slate-800">
                   <div className="avoid-page-break mb-12">
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
+                    <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                      The ACET Cognitive Abilities Assessment evaluates a student&apos;s core fluid intelligence and problem-solving capabilities across five distinct subtests. 
+                      Rather than measuring learned academic knowledge, these subtests measure the underlying cognitive engine that drives future learning. 
+                      <br/><br/>
+                      <strong>Understanding the Metrics:</strong><br/>
+                      • <strong>Raw Score:</strong> The absolute number of questions answered correctly.<br/>
+                      • <strong>Z-Score:</strong> A statistical measurement indicating how far the student&apos;s score deviates from the national average cohort. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
+                      • <strong>Percentile Rank:</strong> Indicates the percentage of peers in the national normative sample that the student outperformed.
+                    </p>
+
                     <h3 className="font-bold text-slate-800 mb-3 text-sm">1.1. Subtest Scores & Interpretation</h3>
                     <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-6">
                       <thead>
@@ -389,6 +395,9 @@ export default function BatchOperations() {
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Psychological & Behavioral Profile</h2>
                     <div className="mb-8">
                       <h3 className="font-bold text-slate-800 mb-2 text-sm">2.1. The Big Five (OCEAN) Personality Assessment</h3>
+                      <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
+                        This assessment measures where the student falls across the globally recognized Big Five personality dimensions. These traits significantly influence a student&apos;s learning habits, emotional resilience during exams, and eventual cultural fit within a workplace.
+                      </p>
                       <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
                         <thead>
                           <tr className="bg-slate-100">
@@ -417,6 +426,9 @@ export default function BatchOperations() {
 
                     <div className="mb-4">
                       <h3 className="font-bold text-slate-800 mb-2 text-sm">2.2. Holland Code (RIASEC) Occupational Interests</h3>
+                      <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
+                        The Holland Occupational Themes theory posits that individuals perform best in academic streams and careers that match their inherent interests. The combination of their top three categories forms their &quot;Holland Code.&quot;
+                      </p>
                       <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
                         <thead>
                           <tr className="bg-slate-100">
@@ -427,4 +439,54 @@ export default function BatchOperations() {
                         </thead>
                         <tbody>
                           {[
-                            { code: 'Realistic (The Doers
+                            { code: 'Realistic (The Doers)', score: 35 },
+                            { code: 'Investigative (The Thinkers)', score: 44 },
+                            { code: 'Artistic (The Creators)', score: 20 },
+                            { code: 'Social (The Helpers)', score: 38 },
+                            { code: 'Enterprising (The Persuaders)', score: 41 },
+                            { code: 'Conventional (The Organizers)', score: 44 }
+                          ].map((h, i) => (
+                            <tr key={i} className="hover:bg-slate-50">
+                              <td className="p-3 border border-slate-300 font-semibold">{h.code}</td>
+                              <td className="p-3 border border-slate-300 text-center font-bold">{h.score}</td>
+                              <td className="p-3 border border-slate-300 text-xs">
+                                {h.score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : h.score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div className="html2pdf__page-break"></div>
+
+                  <div className="avoid-page-break mb-12 mt-8">
+                    <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">3. Official Endorsement & Signatures</h2>
+                    <h3 className="font-bold text-slate-800 mb-2 mt-8 text-sm">3.1 Internal Counselor's Verification Notes</h3>
+                    <div className="w-full h-48 border border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 italic">
+                      [ Official School Use Only ]
+                    </div>
+                    <div className="mt-32 pt-12 border-t border-slate-300 flex justify-between items-end">
+                      <div className="text-center w-64">
+                        <div className="border-b border-black w-full mb-2"></div>
+                        <span className="font-bold text-slate-800 text-sm block">Lead Psychometrician</span>
+                        <span className="text-xs text-slate-500 uppercase tracking-widest mt-1 block">Propagate Digital</span>
+                      </div>
+                      <div className="text-center w-64">
+                        <div className="border-b border-black w-full mb-2"></div>
+                        <span className="font-bold text-slate-800 text-sm block">Principal / Administrator</span>
+                        <span className="text-xs text-slate-500 uppercase tracking-widest mt-1 block">{renderStudent.organizationId || "Authorizing Institution"}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+             </div>
+          )}
+        </div>
+      </div>
+
+    </div>
+  );
+}
