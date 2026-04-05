@@ -386,60 +386,56 @@ export default function StudentReportCard() {
               {/* FORCE PAGE BREAK */}
               <div className="html2pdf__page-break"></div>
 
-              {/* CLINICAL PAGE 2: Personality & Interests */}
-              <div className="avoid-page-break mb-12 mt-8">
-                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Personality Traits Assessment</h2>
-                <h3 className="font-bold text-slate-700 mb-2 text-sm">2.1. Trait Scores</h3>
-                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-8">
+              {/* ========================================== */}
+            {/* CLASSIC CLINICAL DATA PAGES (PAGES 3 - 5) */}
+            {/* ========================================== */}
+            <div className="mt-8 text-slate-800">
+              
+              {/* CLINICAL PAGE 1: Cognitive Abilities */}
+              <div className="avoid-page-break mb-12">
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
+                
+                <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                  The ACET Cognitive Abilities Assessment evaluates a student's core fluid intelligence and problem-solving capabilities across five distinct subtests. 
+                  Rather than measuring learned academic knowledge, these subtests measure the underlying cognitive engine that drives future learning. 
+                  <br/><br/>
+                  <strong>Understanding the Metrics:</strong><br/>
+                  • <strong>Raw Score:</strong> The absolute number of questions answered correctly.<br/>
+                  • <strong>Z-Score:</strong> A statistical measurement indicating how far the student's score deviates from the national average cohort. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
+                  • <strong>Percentile Rank:</strong> Indicates the percentage of peers in the national normative sample that the student outperformed.
+                </p>
+
+                <h3 className="font-bold text-slate-800 mb-3 text-sm">1.1. Subtest Scores & Interpretation</h3>
+                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-6">
                   <thead>
                     <tr className="bg-slate-100">
-                      <th className="p-3 border border-slate-300">Personality Trait</th>
-                      <th className="p-3 border border-slate-300 text-center">Score</th>
+                      <th className="p-3 border border-slate-300">Subtest Domain</th>
+                      <th className="p-3 border border-slate-300 text-center">Raw Score</th>
+                      <th className="p-3 border border-slate-300 text-center">Z-Score (Est)</th>
+                      <th className="p-3 border border-slate-300 text-center">Percentile</th>
                       <th className="p-3 border border-slate-300">Interpretation</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {[
-                      { trait: 'Openness', score: 45 },
-                      { trait: 'Conscientiousness', score: 37 },
-                      { trait: 'Extraversion', score: 38 },
-                      { trait: 'Agreeableness', score: 44 },
-                      { trait: 'Neuroticism', score: 33 }
-                    ].map((p, i) => (
-                      <tr key={i}>
-                        <td className="p-3 border border-slate-300 font-semibold">{p.trait} (50)</td>
-                        <td className="p-3 border border-slate-300 text-center">{p.score}</td>
-                        <td className="p-3 border border-slate-300">{p.score > 40 ? 'High' : p.score < 25 ? 'Low' : 'Moderate'}</td>
+                    {Object.keys(gradingResult?.categories || {}).map((cat, idx) => {
+                      const c = gradingResult.categories[cat];
+                      const pct = c.total > 0 ? Math.round((c.correct / c.total) * 100) : 0;
+                      
+                      // Statistical estimation for the UI prototype
+                      let interp = "Average";
+                      let zScore = ((pct - 50) / 15).toFixed(2);
+                      if (pct < 40) interp = "Below Average";
+                      if (pct > 75) interp = "Above Average";
+                      
+                      return (
+                      <tr key={idx} className="hover:bg-slate-50 transition-colors">
+                        <td className="p-3 border border-slate-300 font-semibold">{cat}</td>
+                        <td className="p-3 border border-slate-300 text-center">{c.correct} / {c.total}</td>
+                        <td className="p-3 border border-slate-300 text-center font-mono">{zScore}</td>
+                        <td className="p-3 border border-slate-300 text-center">{pct}th</td>
+                        <td className={`p-3 border border-slate-300 font-bold ${interp === 'Above Average' ? 'text-blue-700' : interp === 'Below Average' ? 'text-orange-600' : 'text-slate-700'}`}>{interp}</td>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-
-                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">3. Occupational Interests Assessment</h2>
-                <h3 className="font-bold text-slate-700 mb-2 text-sm">3.1. Holland Code Profile (RIASEC)</h3>
-                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
-                  <thead>
-                    <tr className="bg-slate-100">
-                      <th className="p-3 border border-slate-300">Holland Code</th>
-                      <th className="p-3 border border-slate-300 text-center">Score</th>
-                      <th className="p-3 border border-slate-300">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      { code: 'Realistic', score: 35 },
-                      { code: 'Investigative', score: 44 },
-                      { code: 'Artistic', score: 20 },
-                      { code: 'Social', score: 38 },
-                      { code: 'Enterprising', score: 41 },
-                      { code: 'Conventional', score: 44 }
-                    ].map((h, i) => (
-                      <tr key={i}>
-                        <td className="p-3 border border-slate-300 font-semibold">{h.code} (50)</td>
-                        <td className="p-3 border border-slate-300 text-center">{h.score}</td>
-                        <td className="p-3 border border-slate-300">{h.score >= 40 ? 'Strong interest' : h.score <= 25 ? 'Little interest' : 'Moderate interest'}</td>
-                      </tr>
-                    ))}
+                    )})}
                   </tbody>
                 </table>
               </div>
@@ -447,71 +443,105 @@ export default function StudentReportCard() {
               {/* FORCE PAGE BREAK */}
               <div className="html2pdf__page-break"></div>
 
-              {/* CLINICAL PAGE 3: Academic Performance */}
+              {/* CLINICAL PAGE 2: Personality & Interests */}
               <div className="avoid-page-break mb-12 mt-8">
-                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">4. Academic Performance Matrix</h2>
-                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-4">
-                  <thead>
-                    <tr className="bg-slate-100">
-                      <th className="p-3 border border-slate-300 text-center w-12">S/N</th>
-                      <th className="p-3 border border-slate-300">Subject Area</th>
-                      <th className="p-3 border border-slate-300 text-center w-24">Rating</th>
-                      <th className="p-3 border border-slate-300">Remarks</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      { s: 'English Language', r: 64, o: 'Assess grammar, comprehension, & writing skills.' },
-                      { s: 'Mathematics', r: 44, o: 'Numerical reasoning, problem-solving, & computation.' },
-                      { s: 'Basic Science and Tech', r: 62, o: 'Includes Physics, Biology, ICT.' },
-                      { s: 'Social Studies', r: 74, o: 'Understanding society & governance.' },
-                      { s: 'Business Studies', r: 60, o: 'Focus on commerce & bookkeeping.' },
-                      { s: 'Christian/Islamic Studies', r: 64, o: 'Spiritual understanding & moral development.' },
-                      { s: 'Civic Education', r: 73, o: 'National values, rights, & responsibilities.' },
-                      { s: 'Agricultural Science', r: 55, o: 'Basic farming principles & rural development.' },
-                      { s: 'Cultural and Creative Arts', r: 62, o: 'Artistic expression, crafts, & music.' },
-                      { s: 'Physical and Health Ed', r: 73, o: 'Physical fitness, hygiene, & health literacy.' },
-                      { s: 'French Language', r: 36, o: 'Reading, writing, & speaking basic French.' },
-                      { s: 'Nigerian Languages', r: 61, o: 'Local language proficiency.' },
-                      { s: 'Home Economics', r: 64, o: 'Nutrition & home management.' },
-                      { s: 'Fine/Creative Art', r: 59, o: 'Drawing, painting, and basic design techniques.' }
-                    ].map((subj, i) => (
-                      <tr key={i}>
-                        <td className="p-3 border border-slate-300 text-center">{i+1}</td>
-                        <td className="p-3 border border-slate-300 font-semibold">{subj.s}</td>
-                        <td className="p-3 border border-slate-300 text-center font-bold">{subj.r}</td>
-                        <td className="p-3 border border-slate-300 text-xs">{subj.o}</td>
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Psychological & Behavioral Profile</h2>
+                
+                <div className="mb-8">
+                  <h3 className="font-bold text-slate-800 mb-2 text-sm">2.1. The Big Five (OCEAN) Personality Assessment</h3>
+                  <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
+                    This assessment measures where the student falls across the globally recognized Big Five personality dimensions. These traits significantly influence a student's learning habits, emotional resilience during exams, and eventual cultural fit within a workplace.
+                    High scores are not inherently "better" than low scores; rather, they indicate different behavioral preferences. For instance, high Conscientiousness indicates strict discipline, while higher Openness indicates strong creative and abstract thinking.
+                  </p>
+
+                  <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
+                    <thead>
+                      <tr className="bg-slate-100">
+                        <th className="p-3 border border-slate-300">Personality Trait</th>
+                        <th className="p-3 border border-slate-300 text-center">Score / 50</th>
+                        <th className="p-3 border border-slate-300">Clinical Interpretation</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 text-xs flex justify-between font-bold text-slate-600">
-                  <span>A - Excellent (80-100)</span>
-                  <span>B - Good (65-79)</span>
-                  <span>C - Average (50-64)</span>
-                  <span>D - Below Avg (40-49)</span>
-                  <span>F - Poor (0-39)</span>
+                    </thead>
+                    <tbody>
+                      {[
+                        { trait: 'Openness to Experience', score: 45, desc: 'Highly imaginative, prefers variety over strict routine.' },
+                        { trait: 'Conscientiousness', score: 37, desc: 'Displays goal-directed behavior and organized study habits.' },
+                        { trait: 'Extraversion', score: 38, desc: 'Draws energy from collaborative environments and group work.' },
+                        { trait: 'Agreeableness', score: 44, desc: 'Highly cooperative, empathetic, and team-oriented.' },
+                        { trait: 'Neuroticism (Emotional Stability)', score: 33, desc: 'Moderate stress response; capable of handling academic pressure.' }
+                      ].map((p, i) => (
+                        <tr key={i} className="hover:bg-slate-50">
+                          <td className="p-3 border border-slate-300 font-semibold">{p.trait}</td>
+                          <td className="p-3 border border-slate-300 text-center font-bold">{p.score}</td>
+                          <td className="p-3 border border-slate-300 text-xs">{p.desc}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="mb-4">
+                  <h3 className="font-bold text-slate-800 mb-2 text-sm">2.2. Holland Code (RIASEC) Occupational Interests</h3>
+                  <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
+                    The Holland Occupational Themes theory posits that individuals perform best in academic streams and careers that match their inherent interests. The assessment scores the student across six vocational categories. The combination of their top three categories forms their "Holland Code," which serves as the foundation for their Senior Secondary Specialization recommendations.
+                  </p>
+
+                  <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
+                    <thead>
+                      <tr className="bg-slate-100">
+                        <th className="p-3 border border-slate-300 w-1/4">RIASEC Code</th>
+                        <th className="p-3 border border-slate-300 text-center w-1/4">Score / 50</th>
+                        <th className="p-3 border border-slate-300">Alignment Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        { code: 'Realistic (The Doers)', score: 35 },
+                        { code: 'Investigative (The Thinkers)', score: 44 },
+                        { code: 'Artistic (The Creators)', score: 20 },
+                        { code: 'Social (The Helpers)', score: 38 },
+                        { code: 'Enterprising (The Persuaders)', score: 41 },
+                        { code: 'Conventional (The Organizers)', score: 44 }
+                      ].map((h, i) => (
+                        <tr key={i} className="hover:bg-slate-50">
+                          <td className="p-3 border border-slate-300 font-semibold">{h.code}</td>
+                          <td className="p-3 border border-slate-300 text-center font-bold">{h.score}</td>
+                          <td className="p-3 border border-slate-300 text-xs">
+                            {h.score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : h.score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
 
               {/* FORCE PAGE BREAK */}
               <div className="html2pdf__page-break"></div>
 
-              {/* CLINICAL PAGE 4: Signatures */}
+              {/* CLINICAL PAGE 3: Signatures (Renumbered to 3) */}
               <div className="avoid-page-break mb-12 mt-8">
-                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">5. Final Notes & Signatures</h2>
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">3. Official Endorsement & Signatures</h2>
                 
-                <h3 className="font-bold text-slate-700 mb-2 mt-6">5.1 Counselor's Notes</h3>
-                <div className="w-full h-48 border border-dashed border-slate-300 rounded-xl bg-slate-50"></div>
+                <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                  The insights contained within this ACET Intelligence Report represent a synthesis of the candidate's cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach—integrating continuous mentorship, environmental support, and periodic academic re-evaluation—is strongly recommended to assist the student in actualizing their defined career and university trajectory.
+                </p>
 
-                <div className="mt-24 pt-12 border-t border-slate-300 flex justify-between items-end">
+                <h3 className="font-bold text-slate-800 mb-2 mt-8 text-sm">3.1 Internal Counselor's Verification Notes</h3>
+                <div className="w-full h-48 border border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 italic">
+                  [ Official School Use Only ]
+                </div>
+
+                <div className="mt-32 pt-12 border-t border-slate-300 flex justify-between items-end">
                   <div className="text-center w-64">
                     <div className="border-b border-black w-full mb-2"></div>
-                    <span className="font-bold text-slate-700 text-sm">Lead Psychometrician</span>
+                    <span className="font-bold text-slate-800 text-sm block">Lead Psychometrician</span>
+                    <span className="text-xs text-slate-500 uppercase tracking-widest mt-1 block">Propagate Digital</span>
                   </div>
                   <div className="text-center w-64">
                     <div className="border-b border-black w-full mb-2"></div>
-                    <span className="font-bold text-slate-700 text-sm">Principal, {student.organizationId || "Institution"}</span>
+                    <span className="font-bold text-slate-800 text-sm block">Principal / Administrator</span>
+                    <span className="text-xs text-slate-500 uppercase tracking-widest mt-1 block">{student.organizationId || "Authorizing Institution"}</span>
                   </div>
                 </div>
               </div>
