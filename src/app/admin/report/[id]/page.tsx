@@ -24,7 +24,6 @@ export default function StudentReportCard() {
   const [student, setStudent] = useState<any>(null);
   const [gradingResult, setGradingResult] = useState<any>(null);
 
-  // 1. Fetch Data on Load
   useEffect(() => {
     fetchStudentData();
   }, [studentId]);
@@ -42,7 +41,6 @@ export default function StudentReportCard() {
       const studentData = studentSnap.data();
       setStudent(studentData);
 
-      // Fetch Answer Key
       const bankSnap = await getDocs(collection(db, 'Assessments_Bank'));
       const masterKey: Record<string, any> = {};
       bankSnap.docs.forEach(doc => { masterKey[doc.id] = doc.data(); });
@@ -50,8 +48,6 @@ export default function StudentReportCard() {
       let correctCount = 0;
       const answers = studentData.finalAnswers || {};
       const breakdownArray: any[] = [];
-
-      // Categorized Scores for the Infographics & Tables
       const categories: any = {};
 
       Object.keys(answers).forEach((questionId) => {
@@ -67,8 +63,6 @@ export default function StudentReportCard() {
           categories[cat].total += 1;
           if (isCorrect) categories[cat].correct += 1;
           
-          // For personality/RIASEC (where there is no "correct" answer, just a raw value)
-          // We map 'Strongly Agree' to 4, 'Agree' to 3, etc. for scoring.
           let scoreValue = 0;
           if (studentAnswer === 'Strongly Agree') scoreValue = 4;
           if (studentAnswer === 'Agree') scoreValue = 3;
@@ -105,7 +99,6 @@ export default function StudentReportCard() {
     }
   };
 
-  // 2. Trigger the JSON AI Backend
   const generateAIProfile = async () => {
     setIsGeneratingAI(true);
     setAiError('');
@@ -119,7 +112,7 @@ export default function StudentReportCard() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'Failed to connect to AI Engine.');
       
-      await fetchStudentData(); // Refresh UI with new JSON
+      await fetchStudentData(); 
       
     } catch (err: any) {
       setAiError(err.message);
@@ -128,17 +121,16 @@ export default function StudentReportCard() {
     }
   };
 
-  // 3. True PDF Downloader
   const downloadPDF = async () => {
     const html2pdf = (await import('html2pdf.js')).default;
     const element = document.getElementById('report-content');
     const opt = {
-      margin:       0.4, // Add a slight margin so text doesn't touch the very edge
+      margin:       0.4,
       filename:     `${student?.name.replace(/\s+/g, '_')}_ACET_Report.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true },
       jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
-      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.avoid-page-break'] } // Forces respect for our CSS
+      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.avoid-page-break'] }
     };
     html2pdf().set(opt).from(element).save();
   };
@@ -154,9 +146,8 @@ export default function StudentReportCard() {
 
   if (!student) return <div className="p-8 text-center text-red-500">Record not found.</div>;
 
-  const aiData = student.aiReportData; // This is now a clean JSON Object!
+  const aiData = student.aiReportData; 
 
-  // Safely extract dynamic category data or fallback to defaults if database mapping is missing
   const getScore = (catName: string) => {
     if (!gradingResult?.categories[catName]) return 0;
     const cat = gradingResult.categories[catName];
@@ -166,7 +157,6 @@ export default function StudentReportCard() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8 print:p-0 print:bg-white">
       
-      {/* CONTROL PANEL (Hidden on Print/PDF) */}
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden mb-8" data-html2canvas-ignore>
         <Link href="/admin/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-blue-900 font-medium transition-colors">
           <ArrowLeft size={18} /> Back to Dashboard
@@ -192,14 +182,13 @@ export default function StudentReportCard() {
         </div>
       )}
 
-      {/* ========================================== */}
-      {/* THE MASTER PDF WRAPPER */}
-      {/* ========================================== */}
+      {/* MASTER PDF WRAPPER */}
       <div id="report-content" className="max-w-4xl mx-auto bg-white print:shadow-none">
         
         {aiData ? (
           <div className="p-8 print:p-2">
-            {/* --- INFOGRAPHIC PAGE 1 --- */}
+            
+            {/* --- PAGE 1 & 2: REACT INFOGRAPHICS --- */}
             <div className="avoid-page-break">
               <header className="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-2xl border border-slate-200 mb-8">
                 <div>
@@ -275,10 +264,8 @@ export default function StudentReportCard() {
               </section>
             </div>
 
-            {/* FORCE PAGE BREAK */}
             <div className="html2pdf__page-break"></div>
 
-            {/* --- INFOGRAPHIC PAGE 2 --- */}
             <div className="avoid-page-break mt-8">
               <section className="grid grid-cols-2 gap-6 mb-8">
                 <div className="bg-orange-50 p-8 rounded-3xl border border-orange-200">
@@ -295,10 +282,10 @@ export default function StudentReportCard() {
                 <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
                    <div className="flex items-center gap-3 mb-6">
                     <User className="text-blue-600" size={24}/>
-                    <h3 className="text-xl font-black text-slate-800">Psychometrician's Notes</h3>
+                    <h3 className="text-xl font-black text-slate-800">Psychometrician&apos;s Notes</h3>
                   </div>
                   <p className="text-slate-600 text-sm leading-loose italic border-l-4 border-blue-300 pl-5 font-medium">
-                    "{aiData.counselorNotes}"
+                    &quot;{aiData.counselorNotes}&quot;
                   </p>
                 </div>
               </section>
@@ -341,67 +328,20 @@ export default function StudentReportCard() {
               </section>
             </div>
 
-            {/* FORCE PAGE BREAK BEFORE CLINICAL DATA */}
             <div className="html2pdf__page-break"></div>
 
-            {/* ========================================== */}
-            {/* CLASSIC CLINICAL DATA PAGES (PAGES 3 - 6) */}
-            {/* ========================================== */}
+            {/* --- PAGES 3 to 5: CLASSIC CLINICAL DATA --- */}
             <div className="mt-8 text-slate-800">
               
-              {/* CLINICAL PAGE 1: Cognitive Abilities */}
               <div className="avoid-page-break mb-12">
                 <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
-                <h3 className="font-bold text-slate-700 mb-2 text-sm">1.1. Subtest Scores</h3>
-                <p className="text-sm mb-4 text-slate-600">The ACET Cognitive Abilities Assessment evaluates a student's performance across five key subtests. The scores indicate how far a student's score deviates from the average.</p>
-                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-6">
-                  <thead>
-                    <tr className="bg-slate-100">
-                      <th className="p-3 border border-slate-300">Subtest</th>
-                      <th className="p-3 border border-slate-300 text-center">Raw Score</th>
-                      <th className="p-3 border border-slate-300 text-center">Total</th>
-                      <th className="p-3 border border-slate-300">Interpretation</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Object.keys(gradingResult?.categories || {}).map((cat, idx) => {
-                      const c = gradingResult.categories[cat];
-                      const pct = c.total > 0 ? Math.round((c.correct / c.total) * 100) : 0;
-                      let interp = "Average";
-                      if (pct < 40) interp = "Below Average";
-                      if (pct > 75) interp = "Above Average";
-                      
-                      return (
-                      <tr key={idx}>
-                        <td className="p-3 border border-slate-300 font-semibold">{cat}</td>
-                        <td className="p-3 border border-slate-300 text-center">{c.correct}</td>
-                        <td className="p-3 border border-slate-300 text-center">{c.total}</td>
-                        <td className="p-3 border border-slate-300 font-bold">{interp}</td>
-                      </tr>
-                    )})}
-                  </tbody>
-                </table>
-              </div>
-
-              {/* FORCE PAGE BREAK */}
-              <div className="html2pdf__page-break"></div>
-
-              {/* ========================================== */}
-            {/* CLASSIC CLINICAL DATA PAGES (PAGES 3 - 5) */}
-            {/* ========================================== */}
-            <div className="mt-8 text-slate-800">
-              
-              {/* CLINICAL PAGE 1: Cognitive Abilities */}
-              <div className="avoid-page-break mb-12">
-                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
-                
                 <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
-                  The ACET Cognitive Abilities Assessment evaluates a student's core fluid intelligence and problem-solving capabilities across five distinct subtests. 
+                  The ACET Cognitive Abilities Assessment evaluates a student&apos;s core fluid intelligence and problem-solving capabilities across five distinct subtests. 
                   Rather than measuring learned academic knowledge, these subtests measure the underlying cognitive engine that drives future learning. 
                   <br/><br/>
                   <strong>Understanding the Metrics:</strong><br/>
                   • <strong>Raw Score:</strong> The absolute number of questions answered correctly.<br/>
-                  • <strong>Z-Score:</strong> A statistical measurement indicating how far the student's score deviates from the national average cohort. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
+                  • <strong>Z-Score:</strong> A statistical measurement indicating how far the student&apos;s score deviates from the national average cohort. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
                   • <strong>Percentile Rank:</strong> Indicates the percentage of peers in the national normative sample that the student outperformed.
                 </p>
 
@@ -420,8 +360,6 @@ export default function StudentReportCard() {
                     {Object.keys(gradingResult?.categories || {}).map((cat, idx) => {
                       const c = gradingResult.categories[cat];
                       const pct = c.total > 0 ? Math.round((c.correct / c.total) * 100) : 0;
-                      
-                      // Statistical estimation for the UI prototype
                       let interp = "Average";
                       let zScore = ((pct - 50) / 15).toFixed(2);
                       if (pct < 40) interp = "Below Average";
@@ -440,20 +378,15 @@ export default function StudentReportCard() {
                 </table>
               </div>
 
-              {/* FORCE PAGE BREAK */}
               <div className="html2pdf__page-break"></div>
 
-              {/* CLINICAL PAGE 2: Personality & Interests */}
               <div className="avoid-page-break mb-12 mt-8">
                 <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Psychological & Behavioral Profile</h2>
-                
                 <div className="mb-8">
                   <h3 className="font-bold text-slate-800 mb-2 text-sm">2.1. The Big Five (OCEAN) Personality Assessment</h3>
                   <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
-                    This assessment measures where the student falls across the globally recognized Big Five personality dimensions. These traits significantly influence a student's learning habits, emotional resilience during exams, and eventual cultural fit within a workplace.
-                    High scores are not inherently "better" than low scores; rather, they indicate different behavioral preferences. For instance, high Conscientiousness indicates strict discipline, while higher Openness indicates strong creative and abstract thinking.
+                    This assessment measures where the student falls across the globally recognized Big Five personality dimensions. These traits significantly influence a student&apos;s learning habits, emotional resilience during exams, and eventual cultural fit within a workplace.
                   </p>
-
                   <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
                     <thead>
                       <tr className="bg-slate-100">
@@ -483,9 +416,8 @@ export default function StudentReportCard() {
                 <div className="mb-4">
                   <h3 className="font-bold text-slate-800 mb-2 text-sm">2.2. Holland Code (RIASEC) Occupational Interests</h3>
                   <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
-                    The Holland Occupational Themes theory posits that individuals perform best in academic streams and careers that match their inherent interests. The assessment scores the student across six vocational categories. The combination of their top three categories forms their "Holland Code," which serves as the foundation for their Senior Secondary Specialization recommendations.
+                    The Holland Occupational Themes theory posits that individuals perform best in academic streams and careers that match their inherent interests. The combination of their top three categories forms their &quot;Holland Code.&quot;
                   </p>
-
                   <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
                     <thead>
                       <tr className="bg-slate-100">
@@ -516,22 +448,61 @@ export default function StudentReportCard() {
                 </div>
               </div>
 
-              {/* FORCE PAGE BREAK */}
               <div className="html2pdf__page-break"></div>
 
-              {/* CLINICAL PAGE 3: Signatures (Renumbered to 3) */}
               <div className="avoid-page-break mb-12 mt-8">
-                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">3. Official Endorsement & Signatures</h2>
-                
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">3. Academic Performance & Curriculum Matrix</h2>
                 <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
-                  The insights contained within this ACET Intelligence Report represent a synthesis of the candidate's cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach—integrating continuous mentorship, environmental support, and periodic academic re-evaluation—is strongly recommended to assist the student in actualizing their defined career and university trajectory.
+                  The Academic Performance Matrix cross-references the student&apos;s raw cognitive potential with standard classroom subject areas. This diagnostic matrix helps identify latent potential.
                 </p>
+                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-4">
+                  <thead>
+                    <tr className="bg-slate-100">
+                      <th className="p-3 border border-slate-300 text-center w-12">S/N</th>
+                      <th className="p-3 border border-slate-300">Subject Area</th>
+                      <th className="p-3 border border-slate-300 text-center w-24">Est. Rating</th>
+                      <th className="p-3 border border-slate-300">Curriculum Focus / Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { s: 'English Language', r: 64, o: 'Assesses grammar, comprehension, vocabulary & writing skills.' },
+                      { s: 'Mathematics', r: 44, o: 'Numerical reasoning, abstract problem-solving, & computation.' },
+                      { s: 'Basic Science and Tech', r: 62, o: 'Includes Physics, Biology, ICT, & Tech-based learning methodologies.' },
+                      { s: 'Social Studies', r: 74, o: 'Understanding human society, governance, & civic frameworks.' },
+                      { s: 'Business Studies', r: 60, o: 'Focus on commerce, bookkeeping, & foundational entrepreneurship.' },
+                      { s: 'Christian/Islamic Studies', r: 64, o: 'Spiritual understanding, ethical grounding, & moral development.' },
+                      { s: 'Civic Education', r: 73, o: 'National values, constitutional rights, & societal responsibilities.' },
+                      { s: 'Agricultural Science', r: 55, o: 'Basic farming principles, agrotech tools, & rural development.' },
+                      { s: 'Cultural and Creative Arts', r: 62, o: 'Artistic expression, cultural history, music, & performing arts.' },
+                      { s: 'Physical and Health Ed', r: 73, o: 'Physical fitness, physiological hygiene, & biological health literacy.' },
+                      { s: 'French / Foreign Language', r: 36, o: 'Reading, writing, & speaking proficiency in a secondary language.' },
+                      { s: 'Nigerian Languages', r: 61, o: 'Local language syntax, vocabulary, and cultural proficiency.' },
+                      { s: 'Home Economics', r: 64, o: 'Understanding basic principles of nutrition & resource management.' },
+                      { s: 'Fine/Creative Art', r: 59, o: 'Exploring spatial creativity through drawing and design techniques.' }
+                    ].map((subj, i) => (
+                      <tr key={i} className="hover:bg-slate-50 transition-colors">
+                        <td className="p-2 border border-slate-300 text-center text-slate-500">{i+1}</td>
+                        <td className="p-2 border border-slate-300 font-semibold">{subj.s}</td>
+                        <td className={`p-2 border border-slate-300 text-center font-bold ${subj.r > 70 ? 'text-green-600' : subj.r < 50 ? 'text-orange-600' : 'text-slate-700'}`}>{subj.r}</td>
+                        <td className="p-2 border border-slate-300 text-xs text-slate-600 leading-tight">{subj.o}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-                <h3 className="font-bold text-slate-800 mb-2 mt-8 text-sm">3.1 Internal Counselor's Verification Notes</h3>
+              <div className="html2pdf__page-break"></div>
+
+              <div className="avoid-page-break mb-12 mt-8">
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">4. Official Endorsement & Signatures</h2>
+                <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                  The insights contained within this ACET Intelligence Report represent a synthesis of the candidate&apos;s cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach is strongly recommended.
+                </p>
+                <h3 className="font-bold text-slate-800 mb-2 mt-8 text-sm">4.1 Internal Counselor&apos;s Verification Notes</h3>
                 <div className="w-full h-48 border border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 italic">
                   [ Official School Use Only ]
                 </div>
-
                 <div className="mt-32 pt-12 border-t border-slate-300 flex justify-between items-end">
                   <div className="text-center w-64">
                     <div className="border-b border-black w-full mb-2"></div>
@@ -552,7 +523,7 @@ export default function StudentReportCard() {
         ) : (
           <div className="p-12 text-center text-slate-500 border border-dashed border-slate-300 rounded-2xl mx-8">
             <Bot size={48} className="mx-auto mb-4 text-slate-300" />
-            <p>Click "Generate AI Data" to extract intelligent insights and render the Master Report.</p>
+            <p>Click &quot;Generate AI Data&quot; to extract intelligent insights and render the Master Report.</p>
           </div>
         )}
       </div>
