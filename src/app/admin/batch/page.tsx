@@ -243,28 +243,145 @@ export default function BatchOperations() {
       <div style={{ position: 'absolute', top: '-9999px', left: '-9999px' }}>
         <div id="hidden-batch-render" className="w-[1000px] bg-white text-slate-900 font-sans">
           {renderStudent && renderStudent.aiReportData && (
-             <div className="p-8">
-               {/* HEADER */}
+             <div className="p-8 space-y-8">
+               {/* HEADER SECTION */}
                <header className="flex justify-between items-center bg-white p-6 rounded-2xl border border-slate-100">
                   <div>
                     <h1 className="text-3xl font-bold text-blue-900">ACET Intelligence Report</h1>
-                    <p className="text-slate-500 mt-1">{renderStudent.name} • {renderStudent.classLevel}</p>
+                    <p className="text-slate-500 mt-1 uppercase text-sm font-bold tracking-wider">
+                      {renderStudent.name} • {renderStudent.classLevel}
+                    </p>
                   </div>
-                  <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-full font-bold text-sm">
-                    Score: {renderStudent.grading.percentage}%
+                  <div className="text-right">
+                    <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded-full font-bold text-sm border border-blue-100">
+                      Score: {renderStudent.grading.percentage}%
+                    </div>
                   </div>
                </header>
+
+               {/* 1. EXECUTIVE DASHBOARD */}
+               <section className="grid grid-cols-3 gap-6">
+                  <div className="col-span-2 bg-gradient-to-br from-blue-900 to-blue-800 p-8 rounded-3xl text-white flex flex-col justify-center">
+                    <span className="bg-blue-400/30 text-blue-100 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full w-max">Primary Recommendation</span>
+                    <h2 className="text-5xl font-black mt-4 mb-2">{renderStudent.aiReportData.recommendation}</h2>
+                    <p className="text-blue-100 text-lg opacity-90">Focus Area: {renderStudent.aiReportData.specialization}</p>
+                  </div>
+                  
+                  <div className="bg-white p-6 rounded-3xl border border-slate-200 flex flex-col items-center justify-center">
+                    <h3 className="font-bold text-slate-400 uppercase text-xs tracking-wider mb-2">Overall Accuracy</h3>
+                    <div className="text-6xl font-black text-blue-600">{renderStudent.grading.percentage}%</div>
+                  </div>
+               </section>
+
+               {/* 2. COGNITIVE & LEARNING STYLE */}
+               <section className="grid grid-cols-2 gap-8 print:break-inside-avoid">
+                  <div className="bg-white p-8 rounded-3xl border border-slate-200">
+                    <h3 className="text-xl font-bold text-blue-800 mb-6 flex items-center gap-2">Cognitive Domains</h3>
+                    <div className="space-y-6">
+                      {['Logical', 'Numerical', 'Verbal', 'Abstract', 'Spatial'].map((domain) => {
+                        const cat = renderStudent.grading.categories[`${domain} Reasoning`];
+                        const score = cat && cat.total > 0 ? Math.round((cat.correct / cat.total) * 100) : 0;
+                        return (
+                        <div key={domain} className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span className="font-semibold text-slate-700">{domain}</span>
+                            <span className={`font-bold ${score > 60 ? 'text-blue-600' : 'text-slate-500'}`}>{score}%</span>
+                          </div>
+                          <div className="w-full bg-slate-100 rounded-full h-3">
+                            <div className="bg-blue-600 h-3 rounded-full" style={{ width: `${score}%` }}></div>
+                          </div>
+                        </div>
+                      )})}
+                    </div>
+                  </div>
+
+                  <div className="bg-teal-900 p-8 rounded-3xl text-white">
+                    <h3 className="text-xl font-bold text-teal-300 mb-6">AI Study Hacks</h3>
+                    <p className="text-teal-100 mb-6 text-sm">{renderStudent.aiReportData.studyHacks?.intro}</p>
+                    <ul className="space-y-4">
+                      {renderStudent.aiReportData.studyHacks?.bullets?.map((hack: any, i: number) => (
+                        <li key={i} className="flex gap-4 items-start bg-teal-800/50 p-4 rounded-2xl border border-teal-700">
+                          <div>
+                            <h4 className="font-bold text-white text-sm">{hack.title}</h4>
+                            <p className="text-teal-200 text-xs mt-1">{hack.desc}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+               </section>
+
+               {/* 3. SKILL GAP & AI NOTES */}
+               <section className="grid grid-cols-2 gap-8 print:break-inside-avoid">
+                  <div className="bg-orange-50 p-8 rounded-3xl border border-orange-200">
+                    <h3 className="text-xl font-bold text-orange-900 mb-6">Skill Gap Analysis</h3>
+                    <div className="bg-white p-6 rounded-2xl border border-orange-100">
+                      <h4 className="font-bold text-slate-800 mb-2">{renderStudent.aiReportData.skillGap?.focus}</h4>
+                      <p className="text-slate-600 text-sm leading-relaxed">{renderStudent.aiReportData.skillGap?.description}</p>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-8 rounded-3xl border border-slate-200">
+                    <h3 className="text-xl font-bold text-blue-800 mb-6">Psychometrician's Notes</h3>
+                    <p className="text-slate-600 text-sm leading-relaxed italic border-l-4 border-blue-200 pl-4">
+                      "{renderStudent.aiReportData.counselorNotes}"
+                    </p>
+                  </div>
+               </section>
+
+               {/* PAGE BREAK BEFORE ROADMAP */}
+               <div style={{ pageBreakBefore: 'always', paddingTop: '2rem' }}></div>
+
+               {/* 4. CAREER ROADMAP */}
+               <section className="bg-white p-8 rounded-3xl border border-slate-200">
+                  <h3 className="text-xl font-bold text-blue-800 mb-8">Academic to Career Roadmap</h3>
+                  <div className="grid grid-cols-4 gap-4 text-center">
+                    <div className="border border-slate-200 p-4 rounded-xl bg-slate-50">
+                      <h4 className="font-bold text-sm mb-4 text-blue-900">SS1 Subjects</h4>
+                      {renderStudent.aiReportData.roadmap?.step1?.map((s:string, i:number)=><div key={i} className="text-xs bg-white border border-slate-200 p-2 my-2 rounded shadow-sm">{s}</div>)}
+                    </div>
+                    <div className="border border-slate-200 p-4 rounded-xl bg-slate-50">
+                      <h4 className="font-bold text-sm mb-4 text-blue-900">JAMB Combo</h4>
+                      {renderStudent.aiReportData.roadmap?.step2?.map((s:string, i:number)=><div key={i} className="text-xs bg-white border border-slate-200 p-2 my-2 rounded shadow-sm">{s}</div>)}
+                    </div>
+                    <div className="border border-slate-200 p-4 rounded-xl bg-slate-50">
+                      <h4 className="font-bold text-sm mb-4 text-blue-900">University</h4>
+                      {renderStudent.aiReportData.roadmap?.step3?.map((s:string, i:number)=><div key={i} className="text-xs bg-white border border-slate-200 p-2 my-2 rounded shadow-sm">{s}</div>)}
+                    </div>
+                    <div className="border border-blue-800 p-4 rounded-xl bg-blue-900 text-white">
+                      <h4 className="font-bold text-sm mb-4 text-blue-100">Career Goal</h4>
+                      {renderStudent.aiReportData.roadmap?.step4?.map((s:string, i:number)=><div key={i} className="text-xs bg-blue-800 border border-blue-700 p-2 my-2 rounded shadow-sm">{s}</div>)}
+                    </div>
+                  </div>
+               </section>
+
+               {/* 5. CLINICAL DATA MATRIX */}
+               <section className="mt-8 bg-white border border-slate-200 rounded-3xl p-8 print:break-inside-avoid">
+                  <h2 className="text-xl font-black text-blue-900 mb-6 border-b border-slate-100 pb-4">Clinical Data Matrix</h2>
+                  <table className="w-full text-left border-collapse font-sans text-sm">
+                    <thead>
+                      <tr className="bg-blue-900 text-white">
+                        <th className="p-3 border border-blue-800 rounded-tl-lg">Subtest Area</th>
+                        <th className="p-3 border border-blue-800">Total Answered</th>
+                        <th className="p-3 border border-blue-800">Correct</th>
+                        <th className="p-3 border border-blue-800 rounded-tr-lg">Accuracy</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.keys(renderStudent.grading.categories || {}).map((cat, idx) => (
+                        <tr key={idx} className={idx % 2 === 0 ? "bg-slate-50" : "bg-white"}>
+                          <td className="p-3 border border-slate-200 font-semibold">{cat}</td>
+                          <td className="p-3 border border-slate-200">{renderStudent.grading.categories[cat].total}</td>
+                          <td className="p-3 border border-slate-200">{renderStudent.grading.categories[cat].correct}</td>
+                          <td className="p-3 border border-slate-200 font-bold text-blue-700">
+                            {renderStudent.grading.categories[cat].total > 0 ? Math.round((renderStudent.grading.categories[cat].correct / renderStudent.grading.categories[cat].total) * 100) : 0}%
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+               </section>
                
-               {/* AI DATA BINDING */}
-               <div className="mt-8 bg-blue-900 p-8 rounded-3xl text-white">
-                 <p className="text-blue-200 text-sm font-bold uppercase">Recommendation</p>
-                 <h2 className="text-4xl font-black mt-2">{renderStudent.aiReportData.recommendation}</h2>
-               </div>
-               
-               <div className="mt-8 p-6 bg-slate-50 rounded-2xl">
-                 <h3 className="font-bold text-lg mb-2">Psychometrician's Notes</h3>
-                 <p className="text-slate-700">{renderStudent.aiReportData.counselorNotes}</p>
-               </div>
              </div>
           )}
         </div>
