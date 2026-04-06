@@ -37,17 +37,52 @@ export default function SecureTestEngine() {
     }
   }, []);
 
-  // 2. FETCH THE EXAM
+  // 2. FETCH THE EXAM (Stratified Randomization Engine)
   const fetchAssessment = async () => {
     try {
       const qSnap = await getDocs(collection(db, 'Assessments_Bank'));
       const allDocs = qSnap.docs.map(d => ({ id: d.id, ...d.data() }));
       
-      // Shuffle and pick the exam length (e.g., 60 questions for the real test)
-      // For testing purposes right now, let's pull 10. You can change this later!
-      const shuffled = allDocs.sort(() => 0.5 - Math.random()).slice(0, 60);
-      
-      setQuestions(shuffled);
+      // A. Create our "Buckets" by grouping questions by Category
+      const groupedQuestions: Record<string, any[]> = {};
+      allDocs.forEach(q => {
+        // Fallback to 'General' if a question accidentally lacks a category
+        const cat = q.category || 'General'; 
+        if (!groupedQuestions[cat]) groupedQuestions[cat] = [];
+        groupedQuestions[cat].push(q);
+      });
+
+      // B. Define the Strict Psychometric Quotas
+      // Note: Adjust these exact string names to match how your categories are spelled in Firebase!
+      const quotas: Record<string, number> = {
+        'Verbal Reasoning': 15,
+        'Numerical Reasoning': 10,
+        'Spatial Reasoning': 10,
+        'Logical Reasoning': 10,
+        'Abstract Reasoning': 10,
+        'Personality Traits': 20, 
+        'Occupational Interests': 30 
+      };
+
+      let finalDeck: any[] = [];
+
+      // C. Pull the exact quota from each bucket
+      Object.keys(groupedQuestions).forEach(category => {
+        // Shuffle the specific bucket so they don't get the same 10 math questions every time
+        const bucket = groupedQuestions[category].sort(() => 0.5 - Math.random());
+        
+        // Find the quota for this category (Defaults to 5 if the category isn't in our list above)
+        const requiredAmount = quotas[category] || 5; 
+        
+        // Slice exactly that amount and add it to our final deck
+        finalDeck = [...finalDeck, ...bucket.slice(0, requiredAmount)];
+      });
+
+      // D. The Final Shuffle
+      // Mix all the categories together so the student doesn't get all Math questions in a row
+      finalDeck = finalDeck.sort(() => 0.5 - Math.random());
+
+      setQuestions(finalDeck);
       setStage('INSTRUCTIONS');
     } catch (error) {
       console.error("Failed to load exam:", error);
