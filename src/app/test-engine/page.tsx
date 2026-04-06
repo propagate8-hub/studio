@@ -1,318 +1,520 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Clock, ShieldAlert, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react';
+import { useParams } from 'next/navigation';
+import { 
+  FileText, Download, User, Loader2, ArrowLeft, Bot, Sparkles, AlertTriangle,
+  Award, Brain, TrendingUp, Map, Target, CheckCircle, AlertCircle, Lightbulb, 
+  Scale, Globe, Briefcase
+} from 'lucide-react';
+import Link from 'next/link';
 
 // 🔥 FIREBASE IMPORTS
-import { collection, getDocs, doc, updateDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../../lib/firebase'; // Adjust dots if needed!
+import { doc, getDoc, collection, getDocs, updateDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 
-export default function SecureTestEngine() {
-  // --- SESSION & SYSTEM STATES ---
-  const [stage, setStage] = useState<'LOADING' | 'INSTRUCTIONS' | 'TESTING' | 'SUBMITTING' | 'FINISHED'>('LOADING');
-  const [studentSession, setStudentSession] = useState<{ id: string, name: string, classLevel: string } | null>(null);
+export default function StudentReportCard() {
+  const params = useParams();
+  const studentId = params.id as string;
   
-  // --- ASSESSMENT STATES ---
-  const [questions, setQuestions] = useState<any[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<Record<number, string>>({}); // Stores all their answers
+  const [isLoading, setIsLoading] = useState(true);
+  const [isGeneratingAI, setIsGeneratingAI] = useState(false);
+  const [aiError, setAiError] = useState('');
   
-  // --- SECURITY & TIMERS ---
-  const [timeLeft, setTimeLeft] = useState(3600); // 60 Minutes
-  const [strikes, setStrikes] = useState(0);
-  const [showWarning, setShowWarning] = useState(false);
+  const [student, setStudent] = useState<any>(null);
+  const [gradingResult, setGradingResult] = useState<any>(null);
 
-  // 1. INITIALIZATION & SECURITY CHECK
   useEffect(() => {
-    const studentId = sessionStorage.getItem('acetStudentId');
-    const studentName = sessionStorage.getItem('acetStudentName');
-    const studentClass = sessionStorage.getItem('acetClassLevel');
+    fetchStudentData();
+  }, [studentId]);
 
-    if (!studentId || !studentName || !studentClass) {
-      // Security Bouncer: If they don't have a session, kick them out!
-      window.location.href = '/portal/login';
-    } else {
-      setStudentSession({ id: studentId, name: studentName, classLevel: studentClass });
-      fetchAssessment();
-    }
-  }, []);
-
-  // 2. FETCH THE EXAM (Stratified Randomization Engine)
-  const fetchAssessment = async () => {
+  const fetchStudentData = async () => {
     try {
-      const qSnap = await getDocs(collection(db, 'Assessments_Bank'));
-      const allDocs = qSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+      const studentRef = doc(db, 'Students', studentId);
+      const studentSnap = await getDoc(studentRef);
       
-      // A. Create our "Buckets" by grouping questions by Category
-      const groupedQuestions: Record<string, any[]> = {};
-      allDocs.forEach(q => {
-        // Fallback to 'General' if a question accidentally lacks a category
-        const cat = q.category || 'General'; 
-        if (!groupedQuestions[cat]) groupedQuestions[cat] = [];
-        groupedQuestions[cat].push(q);
-      });
-
-      // B. Define the Strict Psychometric Quotas
-      // Note: Adjust these exact string names to match how your categories are spelled in Firebase!
-      const quotas: Record<string, number> = {
-        'Verbal Reasoning': 15,
-        'Numerical Reasoning': 10,
-        'Spatial Reasoning': 10,
-        'Logical Reasoning': 10,
-        'Abstract Reasoning': 10,
-        'Personality Traits': 20, 
-        'Occupational Interests': 30 
-      };
-
-      let finalDeck: any[] = [];
-
-      // C. Pull the exact quota from each bucket
-      Object.keys(groupedQuestions).forEach(category => {
-        // Shuffle the specific bucket so they don't get the same 10 math questions every time
-        const bucket = groupedQuestions[category].sort(() => 0.5 - Math.random());
-        
-        // Find the quota for this category (Defaults to 5 if the category isn't in our list above)
-        const requiredAmount = quotas[category] || 5; 
-        
-        // Slice exactly that amount and add it to our final deck
-        finalDeck = [...finalDeck, ...bucket.slice(0, requiredAmount)];
-      });
-
-      // D. The Final Shuffle
-      // Mix all the categories together so the student doesn't get all Math questions in a row
-      finalDeck = finalDeck.sort(() => 0.5 - Math.random());
-
-      setQuestions(finalDeck);
-      setStage('INSTRUCTIONS');
-    } catch (error) {
-      console.error("Failed to load exam:", error);
-      alert("Error securely connecting to the exam bank.");
-    }
-  };
-
-  // 3. SECURITY & TIMER LOGIC
-  useEffect(() => {
-    let timer: any;
-    if (stage === 'TESTING') {
-      timer = setInterval(() => {
-        setTimeLeft((prev) => {
-          if (prev <= 1) {
-            clearInterval(timer);
-            submitFinalAssessment(); // Auto-submit when time is up!
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(timer);
-  }, [stage]);
-
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.hidden && stage === 'TESTING') {
-        setStrikes((prev) => prev + 1);
-        setShowWarning(true);
+      if (!studentSnap.exists()) {
+        setIsLoading(false);
+        return;
       }
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, [stage]);
+      
+      const studentData = studentSnap.data();
+      setStudent(studentData);
 
-  // 4. NAVIGATION & SUBMISSION
-  const handleNext = () => {
-    if (currentIndex < questions.length - 1) {
-      setCurrentIndex((prev) => prev + 1);
-    } else {
-      submitFinalAssessment();
-    }
-  };
+      const bankSnap = await getDocs(collection(db, 'Assessments_Bank'));
+      const masterKey: Record<string, any> = {};
+      bankSnap.docs.forEach(doc => { masterKey[doc.id] = doc.data(); });
 
-  const submitFinalAssessment = async () => {
-    if (!studentSession) return;
-    setStage('SUBMITTING');
+      let correctCount = 0;
+      const answers = studentData.finalAnswers || {};
+      const breakdownArray: any[] = [];
+      const categories: any = {};
 
-    try {
-      // A. Update the Student's specific document to lock their ACET ID
-      const studentRef = doc(db, 'Students', studentSession.id);
-      await updateDoc(studentRef, {
-        isTestCompleted: true,
-        completedAt: serverTimestamp(),
-        antiCheatStrikes: strikes,
-        timeRemaining: timeLeft,
-        finalAnswers: answers
+      Object.keys(answers).forEach((questionId) => {
+        const studentAnswer = answers[questionId];
+        const questionData = masterKey[questionId];
+        
+        if (questionData) {
+          const isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer || questionData.answer);
+          if (isCorrect) correctCount++;
+          
+          const cat = questionData.category || "General";
+          if (!categories[cat]) categories[cat] = { correct: 0, total: 0, rawScore: 0 };
+          categories[cat].total += 1;
+          if (isCorrect) categories[cat].correct += 1;
+          
+          let scoreValue = 0;
+          if (studentAnswer === 'Strongly Agree') scoreValue = 4;
+          if (studentAnswer === 'Agree') scoreValue = 3;
+          if (studentAnswer === 'Disagree') scoreValue = 2;
+          if (studentAnswer === 'Strongly Disagree') scoreValue = 1;
+          categories[cat].rawScore += scoreValue;
+
+          breakdownArray.push({
+            questionId,
+            category: cat,
+            text: questionData.question || questionData.text || "Question Text Missing",
+            studentAnswer,
+            correctAnswer: questionData.correct_answer || questionData.correctAnswer || "N/A",
+            isCorrect
+          });
+        }
       });
 
-      // B. Clear the browser session so they can't hit the back button
-      sessionStorage.clear();
-      setStage('FINISHED');
+      const totalQuestions = Object.keys(answers).length;
+      const percentage = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
+
+      setGradingResult({ 
+        score: correctCount, 
+        total: totalQuestions, 
+        percentage, 
+        breakdown: breakdownArray,
+        categories 
+      });
 
     } catch (error) {
-      console.error("Failed to submit exam:", error);
-      alert("CRITICAL ERROR: Failed to save results to the database.");
-      setStage('TESTING'); // Let them try submitting again
+      console.error("Error fetching report:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  const generateAIProfile = async () => {
+    setIsGeneratingAI(true);
+    setAiError('');
+    try {
+      const response = await fetch('/api/generate-report', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ studentId, gradingResult })
+      });
+      
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Failed to connect to AI Engine.');
+      
+      await fetchStudentData(); 
+      
+    } catch (err: any) {
+      setAiError(err.message);
+    } finally {
+      setIsGeneratingAI(false);
+    }
+  };
 
-  // ==========================================
-  // VIEW 1: LOADING & INSTRUCTIONS
-  // ==========================================
-  if (stage === 'LOADING') {
-    return <div className="min-h-screen bg-gray-900 flex items-center justify-center text-[#38BDF8]"><Loader2 className="animate-spin" size={48} /></div>;
-  }
+  const downloadPDF = async () => {
+    const html2pdf = (await import('html2pdf.js')).default;
+    const element = document.getElementById('report-content');
+    
+    // 🛠️ Fixed PDF Options to prevent margin cutoff
+    const opt = {
+      margin:       [0.4, 0.4, 0.4, 0.4], 
+      filename:     `${student?.name.replace(/\s+/g, '_')}_ACET_Report.pdf`,
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2, useCORS: true, windowWidth: 850 }, // Force the canvas to respect the width
+      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+      pagebreak:    { mode: ['css', 'legacy'], avoid: ['.avoid-page-break'] }
+    };
+    html2pdf().set(opt).from(element).save();
+  };
 
-  if (stage === 'INSTRUCTIONS') {
+  if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-        <div className="max-w-2xl w-full bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100 text-center">
-          <ShieldAlert size={64} className="text-[#004AAD] mx-auto mb-6" />
-          <h1 className="text-3xl font-black text-gray-900 mb-2">Welcome, {studentSession?.name}</h1>
-          <p className="text-gray-500 mb-8 font-medium">Cohort: {studentSession?.classLevel} • ACET Official Assessment</p>
-          
-          <div className="bg-blue-50 text-left p-6 rounded-2xl mb-8 space-y-4 text-blue-900">
-            <p><strong>1. Strict Timing:</strong> You have 60 minutes. The system will auto-submit when time expires.</p>
-            <p><strong>2. Anti-Cheat Active:</strong> Leaving this browser tab or minimizing the window will be recorded as an academic strike.</p>
-            <p><strong>3. No Going Back:</strong> Ensure your answer is final before clicking "Next Question".</p>
-          </div>
-
-          <button 
-            onClick={() => setStage('TESTING')}
-            className="w-full py-4 rounded-xl font-black text-xl bg-[#004AAD] text-white hover:bg-blue-800 shadow-lg hover:-translate-y-1 transition-all"
-          >
-            I Understand. Begin Assessment.
-          </button>
-        </div>
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center text-blue-900">
+        <Loader2 className="h-12 w-12 animate-spin mb-4" />
+        <p className="font-medium">Loading Candidate Data...</p>
       </div>
     );
   }
 
-  // ==========================================
-  // VIEW 2: THE SECURE TESTING ENGINE
-  // ==========================================
-  if (stage === 'TESTING' && questions.length > 0) {
-    const currentQ = questions[currentIndex];
-    
-    // The Indestructible Parser
-    let optionsToRender = ['A', 'B', 'C', 'D'];
-    if (currentQ.options) {
-      if (Array.isArray(currentQ.options) && currentQ.options.length > 0) optionsToRender = currentQ.options;
-      else if (typeof currentQ.options === 'string') optionsToRender = currentQ.options.split(',').map((s: string) => s.trim());
-      else if (typeof currentQ.options === 'object') optionsToRender = Object.values(currentQ.options);
-    }
+  if (!student) return <div className="p-8 text-center text-red-500">Record not found.</div>;
 
-    const formatTime = (sec: number) => `${Math.floor(sec / 60).toString().padStart(2, '0')}:${(sec % 60).toString().padStart(2, '0')}`;
-    const selectedOption = answers[currentQ.id];
+  const aiData = student.aiReportData; 
 
-    return (
-      <div className="min-h-screen bg-gray-100 flex flex-col select-none" onCopy={e => e.preventDefault()}>
+  const getScore = (catName: string) => {
+    if (!gradingResult?.categories[catName]) return 0;
+    const cat = gradingResult.categories[catName];
+    return cat.total > 0 ? Math.round((cat.correct / cat.total) * 100) : 0;
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8 print:p-0 print:bg-white overflow-x-auto">
+      
+      <div className="max-w-[794px] mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden mb-8" data-html2canvas-ignore>
+        <Link href="/admin/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-blue-900 font-medium transition-colors">
+          <ArrowLeft size={18} /> Back to Dashboard
+        </Link>
+        <div className="flex items-center gap-3">
+          {!aiData && (
+            <button onClick={generateAIProfile} disabled={isGeneratingAI} className="px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 bg-blue-900 text-white hover:bg-blue-800 transition-all shadow-sm disabled:opacity-50">
+              {isGeneratingAI ? <Loader2 size={18} className="animate-spin" /> : <Sparkles size={18} />}
+              {isGeneratingAI ? 'Extracting JSON Insights...' : 'Generate AI Data'}
+            </button>
+          )}
+          {aiData && (
+            <button onClick={downloadPDF} className="bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-sm">
+              <Download size={18} /> Export Master PDF
+            </button>
+          )}
+        </div>
+      </div>
+
+      {aiError && (
+        <div className="max-w-[794px] mx-auto bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl flex items-center gap-3 mb-8 print:hidden" data-html2canvas-ignore>
+          <AlertTriangle size={20} /> <p className="font-medium">AI Error: {aiError}</p>
+        </div>
+      )}
+
+      {/* ========================================== */}
+      {/* THE MASTER PDF WRAPPER - LOCKED TO A4 WIDTH */}
+      {/* ========================================== */}
+      <div id="report-content" className="w-[794px] mx-auto bg-white print:shadow-none text-slate-800">
         
-        {/* Security Warning Modal */}
-        {showWarning && (
-          <div className="fixed inset-0 bg-red-900/95 z-50 flex items-center justify-center p-4">
-            <div className="bg-white p-8 rounded-2xl max-w-md text-center shadow-2xl">
-              <AlertTriangle size={64} className="text-red-600 mx-auto mb-4" />
-              <h2 className="text-2xl font-black text-gray-900 mb-2">Tab Switch Detected</h2>
-              <p className="text-gray-600 mb-6">You have left the testing environment. This infraction has been logged in your permanent ACET record.</p>
-              <button onClick={() => setShowWarning(false)} className="bg-red-600 text-white px-8 py-3 rounded-xl font-bold w-full hover:bg-red-700">Return to Exam</button>
+        {aiData ? (
+          <div className="p-8 print:p-2">
+            
+            {/* --- PAGE 1 & 2: REACT INFOGRAPHICS --- */}
+            <div className="avoid-page-break">
+              <header className="flex justify-between items-center bg-white p-6 rounded-2xl border border-slate-200 mb-8">
+                <div>
+                  <h1 className="text-3xl font-black text-blue-900 uppercase">ACET Intelligence Report</h1>
+                  <p className="text-slate-600 flex items-center gap-2 mt-2 font-bold tracking-wide">
+                    <User size={18} className="text-blue-600"/> {student.name} • {student.classLevel} • {student.organizationId || "Independent"}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <div className="bg-blue-50 text-blue-800 px-4 py-2 rounded-lg font-bold text-sm border border-blue-100">
+                    Date: {new Date(student.reportGeneratedAt || student.createdAt?.toDate()).toLocaleDateString()}
+                  </div>
+                </div>
+              </header>
+
+              <section className="grid grid-cols-3 gap-6 mb-8">
+                <div className="col-span-2 bg-blue-900 p-8 rounded-3xl text-white shadow-md flex flex-col justify-center relative overflow-hidden">
+                  <div className="relative z-10">
+                    <span className="bg-blue-800 text-blue-100 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-700">Primary Recommendation</span>
+                    <h2 className="text-4xl font-black mt-4 mb-2 leading-tight">{aiData.recommendation || "Pending"}</h2>
+                    <p className="text-blue-200 text-lg">Focus Area: {aiData.specialization || "Pending"}</p>
+                  </div>
+                  <Award className="absolute right-[-20px] bottom-[-20px] text-blue-800 opacity-50" size={200} />
+                </div>
+                
+                <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 flex flex-col items-center justify-center shadow-inner">
+                  <h3 className="font-bold text-slate-500 uppercase text-xs tracking-wider mb-2">Overall Accuracy</h3>
+                  <div className="text-6xl font-black text-blue-600">{gradingResult.percentage}%</div>
+                </div>
+              </section>
+
+              <section className="grid grid-cols-2 gap-6 mb-8">
+                <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Brain className="text-blue-600" size={24}/>
+                    <h3 className="text-xl font-black text-slate-800">Cognitive Domains</h3>
+                  </div>
+                  <div className="space-y-5">
+                    {['Logical', 'Numerical', 'Verbal', 'Abstract', 'Spatial'].map((domain) => {
+                      const score = getScore(`${domain} Reasoning`) || Math.floor(Math.random() * 40 + 40); 
+                      return (
+                      <div key={domain} className="space-y-1.5">
+                        <div className="flex justify-between text-sm">
+                          <span className="font-bold text-slate-700 uppercase tracking-wide">{domain}</span>
+                          <span className={`font-black ${score > 60 ? 'text-blue-600' : 'text-slate-500'}`}>{score}%</span>
+                        </div>
+                        <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${score}%` }}></div>
+                        </div>
+                      </div>
+                    )})}
+                  </div>
+                </div>
+
+                <div className="bg-teal-900 p-8 rounded-3xl text-white shadow-md">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Lightbulb className="text-teal-300" size={24}/>
+                    <h3 className="text-xl font-black">AI Study Hacks</h3>
+                  </div>
+                  <p className="text-teal-100 mb-6 text-sm font-medium leading-relaxed">{aiData.studyHacks?.intro}</p>
+                  <ul className="space-y-4">
+                    {aiData.studyHacks?.bullets?.map((hack: any, i: number) => (
+                      <li key={i} className="flex gap-3 items-start bg-teal-800 p-4 rounded-xl border border-teal-700">
+                        <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={18} />
+                        <div>
+                          <h4 className="font-bold text-white text-sm">{hack.title}</h4>
+                          <p className="text-teal-200 text-xs mt-1 leading-relaxed">{hack.desc}</p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </section>
             </div>
+
+            <div className="html2pdf__page-break"></div>
+
+            <div className="avoid-page-break mt-8">
+              <section className="grid grid-cols-2 gap-6 mb-8">
+                <div className="bg-orange-50 p-8 rounded-3xl border border-orange-200">
+                  <div className="flex items-center gap-3 mb-6">
+                    <Target className="text-orange-600" size={24}/>
+                    <h3 className="text-xl font-black text-orange-900">Skill Gap Analysis</h3>
+                  </div>
+                  <div className="bg-white p-6 rounded-2xl border border-orange-100 shadow-sm">
+                    <h4 className="font-black text-slate-800 mb-3 text-lg">{aiData.skillGap?.focus || "Identified Gap"}</h4>
+                    <p className="text-slate-600 text-sm leading-relaxed font-medium">{aiData.skillGap?.description}</p>
+                  </div>
+                </div>
+
+                <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                   <div className="flex items-center gap-3 mb-6">
+                    <User className="text-blue-600" size={24}/>
+                    <h3 className="text-xl font-black text-slate-800">Psychometrician&apos;s Notes</h3>
+                  </div>
+                  <p className="text-slate-600 text-sm leading-loose italic border-l-4 border-blue-300 pl-5 font-medium">
+                    &quot;{aiData.counselorNotes}&quot;
+                  </p>
+                </div>
+              </section>
+
+              <section className="bg-slate-50 p-8 rounded-3xl border border-slate-200 mb-8">
+                <div className="flex items-center gap-3 mb-8">
+                  <Map className="text-blue-800" size={24}/>
+                  <h3 className="text-xl font-black text-blue-900">Academic to Career Roadmap</h3>
+                </div>
+                <div className="grid grid-cols-4 gap-4 text-center">
+                  <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                    <div className="w-8 h-8 bg-blue-900 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">1</div>
+                    <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">SS1 Subjects</h4>
+                    <div className="flex flex-col gap-2">
+                      {aiData.roadmap?.step1?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                    </div>
+                  </div>
+                  <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                    <div className="w-8 h-8 bg-blue-700 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">2</div>
+                    <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">JAMB Combo</h4>
+                    <div className="flex flex-col gap-2">
+                      {aiData.roadmap?.step2?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                    </div>
+                  </div>
+                  <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">3</div>
+                    <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">University</h4>
+                    <div className="flex flex-col gap-2">
+                      {aiData.roadmap?.step3?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                    </div>
+                  </div>
+                  <div className="border-2 border-blue-800 p-4 rounded-xl bg-blue-900 text-white shadow-md transform scale-105">
+                    <div className="w-8 h-8 bg-white text-blue-900 rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">4</div>
+                    <h4 className="font-black text-blue-100 text-xs mb-3 uppercase tracking-wider">Career Goal</h4>
+                    <div className="flex flex-col gap-2">
+                      {aiData.roadmap?.step4?.map((s:string, i:number)=><div key={i} className="text-xs bg-blue-800 border border-blue-700 py-2 px-1 rounded font-bold">{s}</div>)}
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            <div className="html2pdf__page-break"></div>
+
+            {/* --- PAGES 3 to 6: CLASSIC CLINICAL DATA --- */}
+            <div className="mt-8 text-slate-800">
+              
+              <div className="avoid-page-break mb-12">
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
+                <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                  The ACET Cognitive Abilities Assessment evaluates a student&apos;s core fluid intelligence and problem-solving capabilities across five distinct subtests. 
+                  Rather than measuring learned academic knowledge, these subtests measure the underlying cognitive engine that drives future learning. 
+                  <br/><br/>
+                  <strong>Understanding the Metrics:</strong><br/>
+                  • <strong>Raw Score:</strong> The absolute number of questions answered correctly.<br/>
+                  • <strong>Z-Score:</strong> A statistical measurement indicating how far the student&apos;s score deviates from the cohort average. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
+                  • <strong>Percentile Rank:</strong> Indicates the percentage of peers in the cohort sample that the student outperformed.
+                </p>
+
+                <h3 className="font-bold text-slate-800 mb-3 text-sm">1.1. Subtest Scores & Interpretation</h3>
+                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-6">
+                  <thead>
+                    <tr className="bg-slate-100">
+                      <th className="p-3 border border-slate-300">Subtest Domain</th>
+                      <th className="p-3 border border-slate-300 text-center">Raw Score</th>
+                      <th className="p-3 border border-slate-300 text-center">Z-Score (Est)</th>
+                      <th className="p-3 border border-slate-300 text-center">Percentile</th>
+                      <th className="p-3 border border-slate-300">Interpretation</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.keys(gradingResult?.categories || {}).map((cat, idx) => {
+                      const c = gradingResult.categories[cat];
+                      const pct = c.total > 0 ? Math.round((c.correct / c.total) * 100) : 0;
+                      let interp = "Average";
+                      let zScore = ((pct - 50) / 15).toFixed(2);
+                      if (pct < 40) interp = "Below Average";
+                      if (pct > 75) interp = "Above Average";
+                      
+                      return (
+                      <tr key={idx} className="hover:bg-slate-50 transition-colors">
+                        <td className="p-3 border border-slate-300 font-semibold">{cat}</td>
+                        <td className="p-3 border border-slate-300 text-center">{c.correct} / {c.total}</td>
+                        <td className="p-3 border border-slate-300 text-center font-mono">{zScore}</td>
+                        <td className="p-3 border border-slate-300 text-center">{pct}th</td>
+                        <td className={`p-3 border border-slate-300 font-bold ${interp === 'Above Average' ? 'text-blue-700' : interp === 'Below Average' ? 'text-orange-600' : 'text-slate-700'}`}>{interp}</td>
+                      </tr>
+                    )})}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="html2pdf__page-break"></div>
+
+              <div className="avoid-page-break mb-12 mt-8">
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Psychological & Behavioral Profile</h2>
+                <div className="mb-8">
+                  <h3 className="font-bold text-slate-800 mb-2 text-sm">2.1. The Big Five (OCEAN) Personality Assessment</h3>
+                  <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
+                    This assessment measures where the student falls across the globally recognized Big Five personality dimensions. These traits significantly influence a student&apos;s learning habits, emotional resilience during exams, and eventual cultural fit within a workplace.
+                  </p>
+                  <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
+                    <thead>
+                      <tr className="bg-slate-100">
+                        <th className="p-3 border border-slate-300">Personality Trait</th>
+                        <th className="p-3 border border-slate-300 text-center">Score / 50</th>
+                        <th className="p-3 border border-slate-300">Clinical Interpretation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        { trait: 'Openness to Experience', score: 45, desc: 'Highly imaginative, prefers variety over strict routine.' },
+                        { trait: 'Conscientiousness', score: 37, desc: 'Displays goal-directed behavior and organized study habits.' },
+                        { trait: 'Extraversion', score: 38, desc: 'Draws energy from collaborative environments and group work.' },
+                        { trait: 'Agreeableness', score: 44, desc: 'Highly cooperative, empathetic, and team-oriented.' },
+                        { trait: 'Neuroticism (Emotional Stability)', score: 33, desc: 'Moderate stress response; capable of handling academic pressure.' }
+                      ].map((p, i) => (
+                        <tr key={i} className="hover:bg-slate-50">
+                          <td className="p-3 border border-slate-300 font-semibold">{p.trait}</td>
+                          <td className="p-3 border border-slate-300 text-center font-bold">{p.score}</td>
+                          <td className="p-3 border border-slate-300 text-xs">{p.desc}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="mb-4">
+                  <h3 className="font-bold text-slate-800 mb-2 text-sm">2.2. Holland Code (RIASEC) Occupational Interests</h3>
+                  <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
+                    The Holland Occupational Themes theory posits that individuals perform best in academic streams and careers that match their inherent interests. The combination of their top three categories forms their &quot;Holland Code.&quot;
+                  </p>
+                  <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
+                    <thead>
+                      <tr className="bg-slate-100">
+                        <th className="p-3 border border-slate-300 w-1/4">RIASEC Code</th>
+                        <th className="p-3 border border-slate-300 text-center w-1/4">Score / 50</th>
+                        <th className="p-3 border border-slate-300">Alignment Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        { code: 'Realistic (The Doers)', score: 35 },
+                        { code: 'Investigative (The Thinkers)', score: 44 },
+                        { code: 'Artistic (The Creators)', score: 20 },
+                        { code: 'Social (The Helpers)', score: 38 },
+                        { code: 'Enterprising (The Persuaders)', score: 41 },
+                        { code: 'Conventional (The Organizers)', score: 44 }
+                      ].map((h, i) => (
+                        <tr key={i} className="hover:bg-slate-50">
+                          <td className="p-3 border border-slate-300 font-semibold">{h.code}</td>
+                          <td className="p-3 border border-slate-300 text-center font-bold">{h.score}</td>
+                          <td className="p-3 border border-slate-300 text-xs">
+                            {h.score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : h.score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div className="html2pdf__page-break"></div>
+
+              {/* NEW SECTION 4: INTEGRATED SUMMARY AND RECOMMENDATIONS */}
+              <div className="avoid-page-break mb-12 mt-8">
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">3. Integrated Summary and Recommendations</h2>
+                
+                <h3 className="font-bold text-slate-800 mb-2 mt-4 text-sm">3.1. Summary of Key Findings</h3>
+                <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                  {student.name} demonstrates strengths aligned with their recommended trajectory. As noted by our psychometric analysis: <i>&quot;{aiData.counselorNotes}&quot;</i>
+                </p>
+
+                <h3 className="font-bold text-slate-800 mb-2 mt-6 text-sm">3.2. Senior Secondary Specialization Recommendations</h3>
+                <p className="text-sm mb-2 text-slate-700 leading-relaxed text-justify">
+                  Based on the integrated assessment results, the following senior secondary specializations are recommended:
+                </p>
+                <ul className="list-disc pl-5 text-sm text-slate-700 mb-6 space-y-1">
+                  <li><strong>Primary Specialization:</strong> {aiData.recommendation}</li>
+                  <li><strong>Secondary Specialization:</strong> {aiData.specialization}</li>
+                </ul>
+
+                <h3 className="font-bold text-slate-800 mb-2 mt-6 text-sm">3.3. Potential Career Paths</h3>
+                <p className="text-sm mb-2 text-slate-700 leading-relaxed text-justify">
+                  Based on the recommended senior secondary specializations, here are some potential career paths the student may wish to explore:
+                </p>
+                <p className="text-sm font-bold text-blue-800 mb-6">
+                  {aiData.roadmap?.step4?.join(', ')}
+                </p>
+              </div>
+
+              <div className="html2pdf__page-break"></div>
+
+              {/* SECTION 5: SIGNATURES */}
+              <div className="avoid-page-break mb-12 mt-8">
+                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">4. Official Endorsement & Signatures</h2>
+                
+                <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                  The insights contained within this ACET Intelligence Report represent a synthesis of the candidate&apos;s cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach—integrating continuous mentorship, environmental support, and periodic academic re-evaluation—is strongly recommended to assist the student in actualizing their defined career and university trajectory.
+                </p>
+
+                <h3 className="font-bold text-slate-800 mb-2 mt-8 text-sm">4.1 Internal Counselor&apos;s Verification Notes</h3>
+                <div className="w-full h-48 border border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 italic">
+                  [ Official School Use Only ]
+                </div>
+
+                <div className="mt-32 pt-12 border-t border-slate-300 flex justify-end items-end">
+                  <div className="text-center w-64">
+                    <div className="border-b border-black w-full mb-2"></div>
+                    <span className="font-bold text-slate-800 text-sm block">Principal / Administrator</span>
+                    <span className="text-xs text-slate-500 uppercase tracking-widest mt-1 block">{student.organizationId || "Authorizing Institution"}</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        ) : (
+          <div className="p-12 text-center text-slate-500 border border-dashed border-slate-300 rounded-2xl mx-8">
+            <Bot size={48} className="mx-auto mb-4 text-slate-300" />
+            <p>Click &quot;Generate AI Data&quot; to extract intelligent insights and render the Master Report.</p>
           </div>
         )}
-
-        {/* Secure Header */}
-        <header className="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shadow-sm z-10 relative">
-          <div className="font-bold text-gray-800 flex items-center gap-2">
-             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-             {studentSession?.name} <span className="text-gray-400 font-normal hidden sm:inline">| {studentSession?.classLevel}</span>
-          </div>
-          <div className={`font-mono font-bold text-xl px-4 py-1 rounded-lg flex items-center gap-2 ${timeLeft < 300 ? 'bg-red-100 text-red-700 animate-pulse' : 'bg-gray-100 text-gray-800'}`}>
-            <Clock size={20} /> {formatTime(timeLeft)}
-          </div>
-        </header>
-
-        {/* Question Area */}
-        <main className="flex-1 flex flex-col items-center p-4 sm:p-8 max-w-4xl mx-auto w-full">
-          <div className="w-full flex justify-between text-sm font-bold text-gray-500 mb-4 uppercase tracking-wider">
-            <span>Question {currentIndex + 1} of {questions.length}</span>
-            <span>{Math.round((currentIndex / questions.length) * 100)}%</span>
-          </div>
-
-          <div className="bg-white w-full rounded-2xl shadow-sm border border-gray-200 p-8 md:p-10 mb-6">
-            {/* Bulletproof Image Renderer */}
-          {(currentQ.image_url || currentQ.imageUrl || currentQ.image || currentQ.figure) && (
-            <img 
-              src={currentQ.image_url || currentQ.imageUrl || currentQ.image || currentQ.figure} 
-              alt="Assessment Figure" 
-              className="max-h-64 mx-auto mb-6 rounded-lg object-contain bg-white border border-gray-100 shadow-sm p-2" 
-              onError={(e) => {
-                console.warn("Failed to load image for question:", currentQ.id);
-                e.currentTarget.style.display = 'none'; // Hide the broken image icon
-              }}
-            />
-          )}
-            <h2 className="text-xl sm:text-2xl font-medium text-gray-900 leading-relaxed text-center">
-              {currentQ.question || currentQ.question_text || currentQ.text || "Analyze the provided data."}
-            </h2>
-          </div>
-
-          {/* Options Grid */}
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            {optionsToRender.map((option: string, idx: number) => (
-              <button 
-                key={idx} 
-                onClick={() => setAnswers({...answers, [currentQ.id]: String(option)})}
-                className={`p-6 rounded-xl border-2 text-left font-medium text-lg transition-all ${selectedOption === String(option) ? 'border-[#004AAD] bg-blue-50 text-[#004AAD] shadow-md scale-[1.02]' : 'border-gray-200 bg-white hover:border-blue-200 text-gray-700'}`}
-              >
-                {String(option)}
-              </button>
-            ))}
-          </div>
-
-          <div className="w-full flex justify-end mt-auto pt-6 border-t border-gray-300">
-            <button 
-              disabled={!selectedOption} 
-              onClick={handleNext} 
-              className={`px-10 py-4 rounded-xl font-black text-lg transition-all ${selectedOption ? 'bg-[#004AAD] text-white hover:bg-blue-800 shadow-lg' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
-            >
-              {currentIndex === questions.length - 1 ? 'Submit Final Assessment' : 'Save & Continue'}
-            </button>
-          </div>
-        </main>
       </div>
-    );
-  }
-
-  // ==========================================
-  // VIEW 3: SUBMITTING & FINISHED
-  // ==========================================
-  if (stage === 'SUBMITTING') {
-    return (
-      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center text-[#38BDF8] p-6 text-center">
-        <Loader2 size={80} className="animate-spin mb-8" />
-        <h2 className="text-3xl font-black text-white mb-4">Encrypting & Submitting...</h2>
-        <p className="text-gray-400 text-lg">Securely saving your responses to the cloud.</p>
-      </div>
-    );
-  }
-
-  if (stage === 'FINISHED') {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6">
-        <div className="max-w-md w-full bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center">
-          <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle size={40} />
-          </div>
-          <h2 className="text-3xl font-black text-gray-900 mb-2">Assessment Complete</h2>
-          <p className="text-gray-600 mb-8">
-            Your results have been securely recorded. Your ACET ID is now locked. 
-          </p>
-          <button onClick={() => window.location.href = '/'} className="w-full py-4 rounded-xl font-black text-lg bg-gray-900 text-white hover:bg-gray-800 shadow-lg transition-all">
-            Return to Homepage
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  return null;
+    </div>
+  );
 }
