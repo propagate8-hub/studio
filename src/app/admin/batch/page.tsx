@@ -114,10 +114,10 @@ export default function BatchOperations() {
       
       const element = document.getElementById('hidden-batch-render');
       const opt = {
-        margin: 0.4,
+        margin: [0.4, 0.4, 0.4, 0.4],
         filename: `${student.name.replace(/\s+/g, '_')}_ACET_Report.pdf`,
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
+        html2canvas: { scale: 2, useCORS: true, windowWidth: 850 },
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['css', 'legacy'], avoid: ['.avoid-page-break'] }
       };
@@ -358,7 +358,6 @@ export default function BatchOperations() {
 
                 {/* --- PAGES 3 to 6: CLASSIC CLINICAL DATA --- */}
                 <div className="mt-8 text-slate-800">
-                  
                   <div className="avoid-page-break mb-12">
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
                     <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
@@ -532,3 +531,6 @@ export default function BatchOperations() {
           )}
         </div>
       </div>
+    </div>
+  );
+}
