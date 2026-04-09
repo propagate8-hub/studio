@@ -3,14 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import { 
-  FileText, Download, User, Loader2, ArrowLeft, Bot, Sparkles, AlertTriangle,
-  Award, Brain, TrendingUp, Map, Target, CheckCircle, AlertCircle, Lightbulb, 
-  Scale, Globe, Briefcase
+  Download, User, Loader2, ArrowLeft, Bot, Sparkles, AlertTriangle,
+  Award, Brain, Map, Target, CheckCircle, Lightbulb
 } from 'lucide-react';
 import Link from 'next/link';
 
 // 🔥 FIREBASE IMPORTS
-import { doc, getDoc, collection, getDocs, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 export default function StudentReportCard() {
@@ -124,11 +123,13 @@ export default function StudentReportCard() {
   const downloadPDF = async () => {
     const html2pdf = (await import('html2pdf.js')).default;
     const element = document.getElementById('report-content');
+    
+    // 🚨 STRICT PDF DIMENSIONS TO PREVENT CUTOFF
     const opt = {
-      margin:       0.4,
+      margin:       [0.4, 0.4, 0.4, 0.4], 
       filename:     `${student?.name.replace(/\s+/g, '_')}_ACET_Report.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true },
+      html2canvas:  { scale: 2, useCORS: true, windowWidth: 850 }, 
       jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
       pagebreak:    { mode: ['css', 'legacy'], avoid: ['.avoid-page-break'] }
     };
@@ -155,373 +156,365 @@ export default function StudentReportCard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans p-4 md:p-8 print:p-0 print:bg-white">
+    <div className="min-h-screen bg-slate-100 text-slate-900 font-sans p-4 md:p-8 print:p-0 print:bg-white overflow-x-auto flex justify-center">
       
-      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden mb-8" data-html2canvas-ignore>
-        <Link href="/admin/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-blue-900 font-medium transition-colors">
-          <ArrowLeft size={18} /> Back to Dashboard
-        </Link>
-        <div className="flex items-center gap-3">
-          {!aiData && (
-            <button onClick={generateAIProfile} disabled={isGeneratingAI} className="px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 bg-blue-900 text-white hover:bg-blue-800 transition-all shadow-sm disabled:opacity-50">
-              {isGeneratingAI ? <Loader2 size={18} className="animate-spin" /> : <Sparkles size={18} />}
-              {isGeneratingAI ? 'Extracting JSON Insights...' : 'Generate AI Data'}
-            </button>
-          )}
-          {aiData && (
-            <button onClick={downloadPDF} className="bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-sm">
-              <Download size={18} /> Export Master PDF
-            </button>
-          )}
-        </div>
-      </div>
-
-      {aiError && (
-        <div className="max-w-5xl mx-auto bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl flex items-center gap-3 mb-8 print:hidden" data-html2canvas-ignore>
-          <AlertTriangle size={20} /> <p className="font-medium">AI Error: {aiError}</p>
-        </div>
-      )}
-
-      {/* MASTER PDF WRAPPER */}
-      <div id="report-content" className="max-w-4xl mx-auto bg-white print:shadow-none">
+      <div className="w-full max-w-[794px] flex flex-col gap-4">
         
+        {/* CONTROL PANEL */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden mb-4" data-html2canvas-ignore>
+          <Link href="/admin/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-blue-900 font-medium transition-colors">
+            <ArrowLeft size={18} /> Back to Dashboard
+          </Link>
+          <div className="flex items-center gap-3">
+            {!aiData && (
+              <button onClick={generateAIProfile} disabled={isGeneratingAI} className="px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 bg-blue-900 text-white hover:bg-blue-800 transition-all shadow-sm disabled:opacity-50">
+                {isGeneratingAI ? <Loader2 size={18} className="animate-spin" /> : <Sparkles size={18} />}
+                {isGeneratingAI ? 'Extracting JSON Insights...' : 'Generate AI Data'}
+              </button>
+            )}
+            {aiData && (
+              <button onClick={downloadPDF} className="bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-sm">
+                <Download size={18} /> Export Master PDF
+              </button>
+            )}
+          </div>
+        </div>
+
+        {aiError && (
+          <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl flex items-center gap-3 mb-4 print:hidden" data-html2canvas-ignore>
+            <AlertTriangle size={20} /> <p className="font-medium">AI Error: {aiError}</p>
+          </div>
+        )}
+
+        {/* ========================================== */}
+        {/* THE MASTER PDF WRAPPER - HARDCODED TO 794px */}
+        {/* ========================================== */}
         {aiData ? (
-          <div className="p-8 print:p-2">
-            
-            {/* --- PAGE 1 & 2: REACT INFOGRAPHICS --- */}
-            <div className="avoid-page-break">
-              <header className="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-2xl border border-slate-200 mb-8">
-                <div>
-                  <h1 className="text-3xl font-black text-blue-900 uppercase">ACET Intelligence Report</h1>
-                  <p className="text-slate-600 flex items-center gap-2 mt-2 font-bold tracking-wide">
-                    <User size={18} className="text-blue-600"/> {student.name} • {student.classLevel} • {student.organizationId || "Independent"}
-                  </p>
-                </div>
-                <div className="text-right mt-4 md:mt-0">
-                  <div className="bg-blue-50 text-blue-800 px-4 py-2 rounded-lg font-bold text-sm border border-blue-100">
-                    Date: {new Date(student.reportGeneratedAt || student.createdAt?.toDate()).toLocaleDateString()}
-                  </div>
-                </div>
-              </header>
-
-              <section className="grid grid-cols-3 gap-6 mb-8">
-                <div className="col-span-2 bg-blue-900 p-8 rounded-3xl text-white shadow-md flex flex-col justify-center relative overflow-hidden">
-                  <div className="relative z-10">
-                    <span className="bg-blue-800 text-blue-100 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-700">Primary Recommendation</span>
-                    <h2 className="text-4xl font-black mt-4 mb-2 leading-tight">{aiData.recommendation || "Pending"}</h2>
-                    <p className="text-blue-200 text-lg">Focus Area: {aiData.specialization || "Pending"}</p>
-                  </div>
-                  <Award className="absolute right-[-20px] bottom-[-20px] text-blue-800 opacity-50" size={200} />
-                </div>
-                
-                <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 flex flex-col items-center justify-center shadow-inner">
-                  <h3 className="font-bold text-slate-500 uppercase text-xs tracking-wider mb-2">Overall Accuracy</h3>
-                  <div className="text-6xl font-black text-blue-600">{gradingResult.percentage}%</div>
-                </div>
-              </section>
-
-              <section className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                  <div className="flex items-center gap-3 mb-6">
-                    <Brain className="text-blue-600" size={24}/>
-                    <h3 className="text-xl font-black text-slate-800">Cognitive Domains</h3>
-                  </div>
-                  <div className="space-y-5">
-                    {['Logical', 'Numerical', 'Verbal', 'Abstract', 'Spatial'].map((domain) => {
-                      const score = getScore(`${domain} Reasoning`) || Math.floor(Math.random() * 40 + 40); 
-                      return (
-                      <div key={domain} className="space-y-1.5">
-                        <div className="flex justify-between text-sm">
-                          <span className="font-bold text-slate-700 uppercase tracking-wide">{domain}</span>
-                          <span className={`font-black ${score > 60 ? 'text-blue-600' : 'text-slate-500'}`}>{score}%</span>
-                        </div>
-                        <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-                          <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${score}%` }}></div>
-                        </div>
-                      </div>
-                    )})}
-                  </div>
-                </div>
-
-                <div className="bg-teal-900 p-8 rounded-3xl text-white shadow-md">
-                  <div className="flex items-center gap-3 mb-6">
-                    <Lightbulb className="text-teal-300" size={24}/>
-                    <h3 className="text-xl font-black">AI Study Hacks</h3>
-                  </div>
-                  <p className="text-teal-100 mb-6 text-sm font-medium leading-relaxed">{aiData.studyHacks?.intro}</p>
-                  <ul className="space-y-4">
-                    {aiData.studyHacks?.bullets?.map((hack: any, i: number) => (
-                      <li key={i} className="flex gap-3 items-start bg-teal-800 p-4 rounded-xl border border-teal-700">
-                        <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={18} />
-                        <div>
-                          <h4 className="font-bold text-white text-sm">{hack.title}</h4>
-                          <p className="text-teal-200 text-xs mt-1 leading-relaxed">{hack.desc}</p>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
-            </div>
-
-            <div className="html2pdf__page-break"></div>
-
-            <div className="avoid-page-break mt-8">
-              <section className="grid grid-cols-2 gap-6 mb-8">
-                <div className="bg-orange-50 p-8 rounded-3xl border border-orange-200">
-                  <div className="flex items-center gap-3 mb-6">
-                    <Target className="text-orange-600" size={24}/>
-                    <h3 className="text-xl font-black text-orange-900">Skill Gap Analysis</h3>
-                  </div>
-                  <div className="bg-white p-6 rounded-2xl border border-orange-100 shadow-sm">
-                    <h4 className="font-black text-slate-800 mb-3 text-lg">{aiData.skillGap?.focus || "Identified Gap"}</h4>
-                    <p className="text-slate-600 text-sm leading-relaxed font-medium">{aiData.skillGap?.description}</p>
-                  </div>
-                </div>
-
-                <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                   <div className="flex items-center gap-3 mb-6">
-                    <User className="text-blue-600" size={24}/>
-                    <h3 className="text-xl font-black text-slate-800">Psychometrician&apos;s Notes</h3>
-                  </div>
-                  <p className="text-slate-600 text-sm leading-loose italic border-l-4 border-blue-300 pl-5 font-medium">
-                    &quot;{aiData.counselorNotes}&quot;
-                  </p>
-                </div>
-              </section>
-
-              <section className="bg-slate-50 p-8 rounded-3xl border border-slate-200 mb-8">
-                <div className="flex items-center gap-3 mb-8">
-                  <Map className="text-blue-800" size={24}/>
-                  <h3 className="text-xl font-black text-blue-900">Academic to Career Roadmap</h3>
-                </div>
-                <div className="grid grid-cols-4 gap-4 text-center">
-                  <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
-                    <div className="w-8 h-8 bg-blue-900 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">1</div>
-                    <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">SS1 Subjects</h4>
-                    <div className="flex flex-col gap-2">
-                      {aiData.roadmap?.step1?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
-                    </div>
-                  </div>
-                  <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
-                    <div className="w-8 h-8 bg-blue-700 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">2</div>
-                    <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">JAMB Combo</h4>
-                    <div className="flex flex-col gap-2">
-                      {aiData.roadmap?.step2?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
-                    </div>
-                  </div>
-                  <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
-                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">3</div>
-                    <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">University</h4>
-                    <div className="flex flex-col gap-2">
-                      {aiData.roadmap?.step3?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
-                    </div>
-                  </div>
-                  <div className="border-2 border-blue-800 p-4 rounded-xl bg-blue-900 text-white shadow-md transform scale-105">
-                    <div className="w-8 h-8 bg-white text-blue-900 rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">4</div>
-                    <h4 className="font-black text-blue-100 text-xs mb-3 uppercase tracking-wider">Career Goal</h4>
-                    <div className="flex flex-col gap-2">
-                      {aiData.roadmap?.step4?.map((s:string, i:number)=><div key={i} className="text-xs bg-blue-800 border border-blue-700 py-2 px-1 rounded font-bold">{s}</div>)}
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </div>
-
-            <div className="html2pdf__page-break"></div>
-
-            {/* --- PAGES 3 to 5: CLASSIC CLINICAL DATA --- */}
-            <div className="mt-8 text-slate-800">
+          <div id="report-content" style={{ width: '794px', minWidth: '794px', maxWidth: '794px', margin: '0 auto', backgroundColor: '#ffffff', boxSizing: 'border-box' }} className="print:shadow-none text-slate-800">
+            <div className="p-8 print:p-2">
               
-              <div className="avoid-page-break mb-12">
-                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
-                <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
-                  The ACET Cognitive Abilities Assessment evaluates a student&apos;s core fluid intelligence and problem-solving capabilities across five distinct subtests. 
-                  Rather than measuring learned academic knowledge, these subtests measure the underlying cognitive engine that drives future learning. 
-                  <br/><br/>
-                  <strong>Understanding the Metrics:</strong><br/>
-                  • <strong>Raw Score:</strong> The absolute number of questions answered correctly.<br/>
-                  • <strong>Z-Score:</strong> A statistical measurement indicating how far the student&apos;s score deviates from the national average cohort. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
-                  • <strong>Percentile Rank:</strong> Indicates the percentage of peers in the national normative sample that the student outperformed.
-                </p>
+              {/* --- PAGE 1 & 2: REACT INFOGRAPHICS --- */}
+              <div className="avoid-page-break">
+                <header className="flex justify-between items-center bg-white p-6 rounded-2xl border border-slate-200 mb-8">
+                  <div>
+                    <h1 className="text-3xl font-black text-blue-900 uppercase">ACET Intelligence Report</h1>
+                    <p className="text-slate-600 flex items-center gap-2 mt-2 font-bold tracking-wide">
+                      <User size={18} className="text-blue-600"/> {student.name} • {student.classLevel} • {student.organizationId || "Independent"}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <div className="bg-blue-50 text-blue-800 px-4 py-2 rounded-lg font-bold text-sm border border-blue-100">
+                      Date: {new Date(student.reportGeneratedAt || student.createdAt?.toDate()).toLocaleDateString()}
+                    </div>
+                  </div>
+                </header>
 
-                <h3 className="font-bold text-slate-800 mb-3 text-sm">1.1. Subtest Scores & Interpretation</h3>
-                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-6">
-                  <thead>
-                    <tr className="bg-slate-100">
-                      <th className="p-3 border border-slate-300">Subtest Domain</th>
-                      <th className="p-3 border border-slate-300 text-center">Raw Score</th>
-                      <th className="p-3 border border-slate-300 text-center">Z-Score (Est)</th>
-                      <th className="p-3 border border-slate-300 text-center">Percentile</th>
-                      <th className="p-3 border border-slate-300">Interpretation</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Object.keys(gradingResult?.categories || {}).map((cat, idx) => {
-                      const c = gradingResult.categories[cat];
-                      const pct = c.total > 0 ? Math.round((c.correct / c.total) * 100) : 0;
-                      let interp = "Average";
-                      let zScore = ((pct - 50) / 15).toFixed(2);
-                      if (pct < 40) interp = "Below Average";
-                      if (pct > 75) interp = "Above Average";
-                      
-                      return (
-                      <tr key={idx} className="hover:bg-slate-50 transition-colors">
-                        <td className="p-3 border border-slate-300 font-semibold">{cat}</td>
-                        <td className="p-3 border border-slate-300 text-center">{c.correct} / {c.total}</td>
-                        <td className="p-3 border border-slate-300 text-center font-mono">{zScore}</td>
-                        <td className="p-3 border border-slate-300 text-center">{pct}th</td>
-                        <td className={`p-3 border border-slate-300 font-bold ${interp === 'Above Average' ? 'text-blue-700' : interp === 'Below Average' ? 'text-orange-600' : 'text-slate-700'}`}>{interp}</td>
-                      </tr>
-                    )})}
-                  </tbody>
-                </table>
+                <section className="grid grid-cols-3 gap-6 mb-8">
+                  <div className="col-span-2 bg-blue-900 p-8 rounded-3xl text-white shadow-md flex flex-col justify-center relative overflow-hidden">
+                    <div className="relative z-10">
+                      <span className="bg-blue-800 text-blue-100 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-700">Primary Recommendation</span>
+                      <h2 className="text-4xl font-black mt-4 mb-2 leading-tight">{aiData.recommendation || "Pending"}</h2>
+                      <p className="text-blue-200 text-lg">Focus Area: {aiData.specialization || "Pending"}</p>
+                    </div>
+                    <Award className="absolute right-[-20px] bottom-[-20px] text-blue-800 opacity-50" size={200} />
+                  </div>
+                  
+                  <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 flex flex-col items-center justify-center shadow-inner">
+                    <h3 className="font-bold text-slate-500 uppercase text-xs tracking-wider mb-2">Overall Accuracy</h3>
+                    <div className="text-6xl font-black text-blue-600">{gradingResult.percentage}%</div>
+                  </div>
+                </section>
+
+                <section className="grid grid-cols-2 gap-6 mb-8">
+                  <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <div className="flex items-center gap-3 mb-6">
+                      <Brain className="text-blue-600" size={24}/>
+                      <h3 className="text-xl font-black text-slate-800">Cognitive Domains</h3>
+                    </div>
+                    <div className="space-y-5">
+                      {/* 🚨 FILTERED COGNITIVE DOMAINS: ONLY SHOW > 0% */}
+                      {['Logical', 'Numerical', 'Verbal', 'Abstract', 'Spatial'].map((domain) => {
+                        const score = getScore(`${domain} Reasoning`); 
+                        if (score === 0) return null; // Hides 0% misrepresentations
+
+                        return (
+                        <div key={domain} className="space-y-1.5">
+                          <div className="flex justify-between text-sm">
+                            <span className="font-bold text-slate-700 uppercase tracking-wide">{domain}</span>
+                            <span className={`font-black ${score > 60 ? 'text-blue-600' : 'text-slate-500'}`}>{score}%</span>
+                          </div>
+                          <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                            <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${score}%` }}></div>
+                          </div>
+                        </div>
+                      )})}
+                    </div>
+                  </div>
+
+                  <div className="bg-teal-900 p-8 rounded-3xl text-white shadow-md">
+                    <div className="flex items-center gap-3 mb-6">
+                      <Lightbulb className="text-teal-300" size={24}/>
+                      <h3 className="text-xl font-black">AI Study Hacks</h3>
+                    </div>
+                    <p className="text-teal-100 mb-6 text-sm font-medium leading-relaxed">{aiData.studyHacks?.intro}</p>
+                    <ul className="space-y-4">
+                      {aiData.studyHacks?.bullets?.map((hack: any, i: number) => (
+                        <li key={i} className="flex gap-3 items-start bg-teal-800 p-4 rounded-xl border border-teal-700">
+                          <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={18} />
+                          <div>
+                            <h4 className="font-bold text-white text-sm">{hack.title}</h4>
+                            <p className="text-teal-200 text-xs mt-1 leading-relaxed">{hack.desc}</p>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </section>
               </div>
 
               <div className="html2pdf__page-break"></div>
 
-              <div className="avoid-page-break mb-12 mt-8">
-                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Psychological & Behavioral Profile</h2>
-                <div className="mb-8">
-                  <h3 className="font-bold text-slate-800 mb-2 text-sm">2.1. The Big Five (OCEAN) Personality Assessment</h3>
-                  <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
-                    This assessment measures where the student falls across the globally recognized Big Five personality dimensions. These traits significantly influence a student&apos;s learning habits, emotional resilience during exams, and eventual cultural fit within a workplace.
+              <div className="avoid-page-break mt-8">
+                <section className="grid grid-cols-2 gap-6 mb-8">
+                  <div className="bg-orange-50 p-8 rounded-3xl border border-orange-200">
+                    <div className="flex items-center gap-3 mb-6">
+                      <Target className="text-orange-600" size={24}/>
+                      <h3 className="text-xl font-black text-orange-900">Skill Gap Analysis</h3>
+                    </div>
+                    <div className="bg-white p-6 rounded-2xl border border-orange-100 shadow-sm">
+                      <h4 className="font-black text-slate-800 mb-3 text-lg">{aiData.skillGap?.focus || "Identified Gap"}</h4>
+                      <p className="text-slate-600 text-sm leading-relaxed font-medium">{aiData.skillGap?.description}</p>
+                    </div>
+                  </div>
+
+                  <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                     <div className="flex items-center gap-3 mb-6">
+                      <User className="text-blue-600" size={24}/>
+                      <h3 className="text-xl font-black text-slate-800">Psychometrician&apos;s Notes</h3>
+                    </div>
+                    <p className="text-slate-600 text-sm leading-loose italic border-l-4 border-blue-300 pl-5 font-medium">
+                      &quot;{aiData.counselorNotes}&quot;
+                    </p>
+                  </div>
+                </section>
+
+                <section className="bg-slate-50 p-8 rounded-3xl border border-slate-200 mb-8">
+                  <div className="flex items-center gap-3 mb-8">
+                    <Map className="text-blue-800" size={24}/>
+                    <h3 className="text-xl font-black text-blue-900">Academic to Career Roadmap</h3>
+                  </div>
+                  <div className="grid grid-cols-4 gap-4 text-center">
+                    <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                      <div className="w-8 h-8 bg-blue-900 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">1</div>
+                      <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">SS1 Subjects</h4>
+                      <div className="flex flex-col gap-2">
+                        {aiData.roadmap?.step1?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                      </div>
+                    </div>
+                    <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                      <div className="w-8 h-8 bg-blue-700 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">2</div>
+                      <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">JAMB Combo</h4>
+                      <div className="flex flex-col gap-2">
+                        {aiData.roadmap?.step2?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                      </div>
+                    </div>
+                    <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
+                      <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">3</div>
+                      <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">University</h4>
+                      <div className="flex flex-col gap-2">
+                        {aiData.roadmap?.step3?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                      </div>
+                    </div>
+                    <div className="border-2 border-blue-800 p-4 rounded-xl bg-blue-900 text-white shadow-md transform scale-105">
+                      <div className="w-8 h-8 bg-white text-blue-900 rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">4</div>
+                      <h4 className="font-black text-blue-100 text-xs mb-3 uppercase tracking-wider">Career Goal</h4>
+                      <div className="flex flex-col gap-2">
+                        {aiData.roadmap?.step4?.map((s:string, i:number)=><div key={i} className="text-xs bg-blue-800 border border-blue-700 py-2 px-1 rounded font-bold">{s}</div>)}
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div className="html2pdf__page-break"></div>
+
+              {/* --- PAGES 3 to 5: CLASSIC CLINICAL DATA --- */}
+              <div className="mt-8 text-slate-800">
+                
+                <div className="avoid-page-break mb-12">
+                  <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
+                  <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                    The ACET Cognitive Abilities Assessment evaluates a student&apos;s core fluid intelligence and problem-solving capabilities across five distinct subtests. 
+                    Rather than measuring learned academic knowledge, these subtests measure the underlying cognitive engine that drives future learning. 
+                    <br/><br/>
+                    <strong>Understanding the Metrics:</strong><br/>
+                    • <strong>Raw Score:</strong> The absolute number of questions answered correctly.<br/>
+                    • <strong>Z-Score:</strong> A statistical measurement indicating how far the student&apos;s score deviates from the <strong>Cohort Average</strong>. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
+                    • <strong>Percentile Rank:</strong> Indicates the percentage of peers in the cohort sample that the student outperformed.
                   </p>
-                  <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
+
+                  <h3 className="font-bold text-slate-800 mb-3 text-sm">1.1. Subtest Scores & Interpretation</h3>
+                  <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-6">
                     <thead>
                       <tr className="bg-slate-100">
-                        <th className="p-3 border border-slate-300">Personality Trait</th>
-                        <th className="p-3 border border-slate-300 text-center">Score / 50</th>
-                        <th className="p-3 border border-slate-300">Clinical Interpretation</th>
+                        <th className="p-3 border border-slate-300">Subtest Domain</th>
+                        <th className="p-3 border border-slate-300 text-center">Raw Score</th>
+                        <th className="p-3 border border-slate-300 text-center">Z-Score (Est)</th>
+                        <th className="p-3 border border-slate-300 text-center">Percentile</th>
+                        <th className="p-3 border border-slate-300">Interpretation</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {[
-                        { trait: 'Openness to Experience', score: 45, desc: 'Highly imaginative, prefers variety over strict routine.' },
-                        { trait: 'Conscientiousness', score: 37, desc: 'Displays goal-directed behavior and organized study habits.' },
-                        { trait: 'Extraversion', score: 38, desc: 'Draws energy from collaborative environments and group work.' },
-                        { trait: 'Agreeableness', score: 44, desc: 'Highly cooperative, empathetic, and team-oriented.' },
-                        { trait: 'Neuroticism (Emotional Stability)', score: 33, desc: 'Moderate stress response; capable of handling academic pressure.' }
-                      ].map((p, i) => (
-                        <tr key={i} className="hover:bg-slate-50">
-                          <td className="p-3 border border-slate-300 font-semibold">{p.trait}</td>
-                          <td className="p-3 border border-slate-300 text-center font-bold">{p.score}</td>
-                          <td className="p-3 border border-slate-300 text-xs">{p.desc}</td>
+                      {Object.keys(gradingResult?.categories || {}).map((cat, idx) => {
+                        const c = gradingResult.categories[cat];
+                        const pct = c.total > 0 ? Math.round((c.correct / c.total) * 100) : 0;
+                        let interp = "Average";
+                        let zScore = ((pct - 50) / 15).toFixed(2);
+                        if (pct < 40) interp = "Below Average";
+                        if (pct > 75) interp = "Above Average";
+                        
+                        return (
+                        <tr key={idx} className="hover:bg-slate-50 transition-colors">
+                          <td className="p-3 border border-slate-300 font-semibold">{cat}</td>
+                          <td className="p-3 border border-slate-300 text-center">{c.correct} / {c.total}</td>
+                          <td className="p-3 border border-slate-300 text-center font-mono">{zScore}</td>
+                          <td className="p-3 border border-slate-300 text-center">{pct}th</td>
+                          <td className={`p-3 border border-slate-300 font-bold ${interp === 'Above Average' ? 'text-blue-700' : interp === 'Below Average' ? 'text-orange-600' : 'text-slate-700'}`}>{interp}</td>
                         </tr>
-                      ))}
+                      )})}
                     </tbody>
                   </table>
                 </div>
 
-                <div className="mb-4">
-                  <h3 className="font-bold text-slate-800 mb-2 text-sm">2.2. Holland Code (RIASEC) Occupational Interests</h3>
-                  <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
-                    The Holland Occupational Themes theory posits that individuals perform best in academic streams and careers that match their inherent interests. The combination of their top three categories forms their &quot;Holland Code.&quot;
-                  </p>
-                  <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
-                    <thead>
-                      <tr className="bg-slate-100">
-                        <th className="p-3 border border-slate-300 w-1/4">RIASEC Code</th>
-                        <th className="p-3 border border-slate-300 text-center w-1/4">Score / 50</th>
-                        <th className="p-3 border border-slate-300">Alignment Description</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {[
-                        { code: 'Realistic (The Doers)', score: 35 },
-                        { code: 'Investigative (The Thinkers)', score: 44 },
-                        { code: 'Artistic (The Creators)', score: 20 },
-                        { code: 'Social (The Helpers)', score: 38 },
-                        { code: 'Enterprising (The Persuaders)', score: 41 },
-                        { code: 'Conventional (The Organizers)', score: 44 }
-                      ].map((h, i) => (
-                        <tr key={i} className="hover:bg-slate-50">
-                          <td className="p-3 border border-slate-300 font-semibold">{h.code}</td>
-                          <td className="p-3 border border-slate-300 text-center font-bold">{h.score}</td>
-                          <td className="p-3 border border-slate-300 text-xs">
-                            {h.score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : h.score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
-                          </td>
+                <div className="html2pdf__page-break"></div>
+
+                <div className="avoid-page-break mb-12 mt-8">
+                  <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Psychological & Behavioral Profile</h2>
+                  <div className="mb-8">
+                    <h3 className="font-bold text-slate-800 mb-2 text-sm">2.1. The Big Five (OCEAN) Personality Assessment</h3>
+                    <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
+                      This assessment measures where the student falls across the globally recognized Big Five personality dimensions. These traits significantly influence a student&apos;s learning habits, emotional resilience during exams, and eventual cultural fit within a workplace.
+                    </p>
+                    <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
+                      <thead>
+                        <tr className="bg-slate-100">
+                          <th className="p-3 border border-slate-300">Personality Trait</th>
+                          <th className="p-3 border border-slate-300 text-center">Score / 50</th>
+                          <th className="p-3 border border-slate-300">Clinical Interpretation</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <div className="html2pdf__page-break"></div>
-
-              <div className="avoid-page-break mb-12 mt-8">
-                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">3. Academic Performance & Curriculum Matrix</h2>
-                <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
-                  The Academic Performance Matrix cross-references the student&apos;s raw cognitive potential with standard classroom subject areas. This diagnostic matrix helps identify latent potential.
-                </p>
-                <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-4">
-                  <thead>
-                    <tr className="bg-slate-100">
-                      <th className="p-3 border border-slate-300 text-center w-12">S/N</th>
-                      <th className="p-3 border border-slate-300">Subject Area</th>
-                      <th className="p-3 border border-slate-300 text-center w-24">Est. Rating</th>
-                      <th className="p-3 border border-slate-300">Curriculum Focus / Remarks</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {[
-                      { s: 'English Language', r: 64, o: 'Assesses grammar, comprehension, vocabulary & writing skills.' },
-                      { s: 'Mathematics', r: 44, o: 'Numerical reasoning, abstract problem-solving, & computation.' },
-                      { s: 'Basic Science and Tech', r: 62, o: 'Includes Physics, Biology, ICT, & Tech-based learning methodologies.' },
-                      { s: 'Social Studies', r: 74, o: 'Understanding human society, governance, & civic frameworks.' },
-                      { s: 'Business Studies', r: 60, o: 'Focus on commerce, bookkeeping, & foundational entrepreneurship.' },
-                      { s: 'Christian/Islamic Studies', r: 64, o: 'Spiritual understanding, ethical grounding, & moral development.' },
-                      { s: 'Civic Education', r: 73, o: 'National values, constitutional rights, & societal responsibilities.' },
-                      { s: 'Agricultural Science', r: 55, o: 'Basic farming principles, agrotech tools, & rural development.' },
-                      { s: 'Cultural and Creative Arts', r: 62, o: 'Artistic expression, cultural history, music, & performing arts.' },
-                      { s: 'Physical and Health Ed', r: 73, o: 'Physical fitness, physiological hygiene, & biological health literacy.' },
-                      { s: 'French / Foreign Language', r: 36, o: 'Reading, writing, & speaking proficiency in a secondary language.' },
-                      { s: 'Nigerian Languages', r: 61, o: 'Local language syntax, vocabulary, and cultural proficiency.' },
-                      { s: 'Home Economics', r: 64, o: 'Understanding basic principles of nutrition & resource management.' },
-                      { s: 'Fine/Creative Art', r: 59, o: 'Exploring spatial creativity through drawing and design techniques.' }
-                    ].map((subj, i) => (
-                      <tr key={i} className="hover:bg-slate-50 transition-colors">
-                        <td className="p-2 border border-slate-300 text-center text-slate-500">{i+1}</td>
-                        <td className="p-2 border border-slate-300 font-semibold">{subj.s}</td>
-                        <td className={`p-2 border border-slate-300 text-center font-bold ${subj.r > 70 ? 'text-green-600' : subj.r < 50 ? 'text-orange-600' : 'text-slate-700'}`}>{subj.r}</td>
-                        <td className="p-2 border border-slate-300 text-xs text-slate-600 leading-tight">{subj.o}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="html2pdf__page-break"></div>
-
-              <div className="avoid-page-break mb-12 mt-8">
-                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">4. Official Endorsement & Signatures</h2>
-                <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
-                  The insights contained within this ACET Intelligence Report represent a synthesis of the candidate&apos;s cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach is strongly recommended.
-                </p>
-                <h3 className="font-bold text-slate-800 mb-2 mt-8 text-sm">4.1 Internal Counselor&apos;s Verification Notes</h3>
-                <div className="w-full h-48 border border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 italic">
-                  [ Official School Use Only ]
-                </div>
-                <div className="mt-32 pt-12 border-t border-slate-300 flex justify-between items-end">
-                  <div className="text-center w-64">
-                    <div className="border-b border-black w-full mb-2"></div>
-                    <span className="font-bold text-slate-800 text-sm block">Lead Psychometrician</span>
-                    <span className="text-xs text-slate-500 uppercase tracking-widest mt-1 block">Propagate Digital</span>
+                      </thead>
+                      <tbody>
+                        {[
+                          { trait: 'Openness to Experience', score: 45, desc: 'Highly imaginative, prefers variety over strict routine.' },
+                          { trait: 'Conscientiousness', score: 37, desc: 'Displays goal-directed behavior and organized study habits.' },
+                          { trait: 'Extraversion', score: 38, desc: 'Draws energy from collaborative environments and group work.' },
+                          { trait: 'Agreeableness', score: 44, desc: 'Highly cooperative, empathetic, and team-oriented.' },
+                          { trait: 'Neuroticism (Emotional Stability)', score: 33, desc: 'Moderate stress response; capable of handling academic pressure.' }
+                        ].map((p, i) => (
+                          <tr key={i} className="hover:bg-slate-50">
+                            <td className="p-3 border border-slate-300 font-semibold">{p.trait}</td>
+                            <td className="p-3 border border-slate-300 text-center font-bold">{p.score}</td>
+                            <td className="p-3 border border-slate-300 text-xs">{p.desc}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
-                  <div className="text-center w-64">
-                    <div className="border-b border-black w-full mb-2"></div>
-                    <span className="font-bold text-slate-800 text-sm block">Principal / Administrator</span>
-                    <span className="text-xs text-slate-500 uppercase tracking-widest mt-1 block">{student.organizationId || "Authorizing Institution"}</span>
+
+                  <div className="mb-4">
+                    <h3 className="font-bold text-slate-800 mb-2 text-sm">2.2. Holland Code (RIASEC) Occupational Interests</h3>
+                    <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
+                      The Holland Occupational Themes theory posits that individuals perform best in academic streams and careers that match their inherent interests. The combination of their top three categories forms their &quot;Holland Code.&quot;
+                    </p>
+                    <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
+                      <thead>
+                        <tr className="bg-slate-100">
+                          <th className="p-3 border border-slate-300 w-1/4">RIASEC Code</th>
+                          <th className="p-3 border border-slate-300 text-center w-1/4">Score / 50</th>
+                          <th className="p-3 border border-slate-300">Alignment Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {[
+                          { code: 'Realistic (The Doers)', score: 35 },
+                          { code: 'Investigative (The Thinkers)', score: 44 },
+                          { code: 'Artistic (The Creators)', score: 20 },
+                          { code: 'Social (The Helpers)', score: 38 },
+                          { code: 'Enterprising (The Persuaders)', score: 41 },
+                          { code: 'Conventional (The Organizers)', score: 44 }
+                        ].map((h, i) => (
+                          <tr key={i} className="hover:bg-slate-50">
+                            <td className="p-3 border border-slate-300 font-semibold">{h.code}</td>
+                            <td className="p-3 border border-slate-300 text-center font-bold">{h.score}</td>
+                            <td className="p-3 border border-slate-300 text-xs">
+                              {h.score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : h.score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
                 </div>
+
+                <div className="html2pdf__page-break"></div>
+
+                {/* 🚨 NEW SECTION 3: INTEGRATED SUMMARY AND RECOMMENDATIONS */}
+                <div className="avoid-page-break mb-12 mt-8">
+                  <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">3. Integrated Summary and Recommendations</h2>
+                  
+                  <h3 className="font-bold text-slate-800 mb-2 mt-4 text-sm">3.1. Summary of Key Findings</h3>
+                  <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                    {student.name} demonstrates strengths aligned with their recommended trajectory. As noted by our psychometric analysis: <i>&quot;{aiData.counselorNotes}&quot;</i>
+                  </p>
+
+                  <h3 className="font-bold text-slate-800 mb-2 mt-6 text-sm">3.2. Senior Secondary Specialization Recommendations</h3>
+                  <p className="text-sm mb-2 text-slate-700 leading-relaxed text-justify">
+                    Based on the integrated assessment results, the following senior secondary specializations are recommended:
+                  </p>
+                  <ul className="list-disc pl-5 text-sm text-slate-700 mb-6 space-y-1">
+                    <li><strong>Primary Specialization:</strong> {aiData.recommendation}</li>
+                    <li><strong>Secondary Specialization:</strong> {aiData.specialization}</li>
+                  </ul>
+
+                  <h3 className="font-bold text-slate-800 mb-2 mt-6 text-sm">3.3. Potential Career Paths</h3>
+                  <p className="text-sm mb-2 text-slate-700 leading-relaxed text-justify">
+                    Based on the recommended senior secondary specializations, here are some potential career paths the student may wish to explore:
+                  </p>
+                  <p className="text-sm font-bold text-blue-800 mb-6">
+                    {aiData.roadmap?.step4?.join(', ')}
+                  </p>
+                </div>
+
+                <div className="html2pdf__page-break"></div>
+
+                {/* 🚨 UPDATED SECTION 4: SIGNATURES (REMOVED LEAD PSYCHOMETRICIAN) */}
+                <div className="avoid-page-break mb-12 mt-8">
+                  <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">4. Official Endorsement & Signatures</h2>
+                  
+                  <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                    The insights contained within this ACET Intelligence Report represent a synthesis of the candidate&apos;s cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach—integrating continuous mentorship, environmental support, and periodic academic re-evaluation—is strongly recommended to assist the student in actualizing their defined career and university trajectory.
+                  </p>
+
+                  <h3 className="font-bold text-slate-800 mb-2 mt-8 text-sm">4.1 Internal Counselor&apos;s Verification Notes</h3>
+                  <div className="w-full h-48 border border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 italic">
+                    [ Official School Use Only ]
+                  </div>
+
+                  <div className="mt-32 pt-12 border-t border-slate-300 flex justify-end items-end">
+                    <div className="text-center w-64">
+                      <div className="border-b border-black w-full mb-2"></div>
+                      <span className="font-bold text-slate-800 text-sm block">Principal / Administrator</span>
+                      <span className="text-xs text-slate-500 uppercase tracking-widest mt-1 block">{student.organizationId || "Authorizing Institution"}</span>
+                    </div>
+                  </div>
+                </div>
+
               </div>
 
             </div>
-
           </div>
         ) : (
-          <div className="p-12 text-center text-slate-500 border border-dashed border-slate-300 rounded-2xl mx-8">
+          <div className="p-12 text-center text-slate-500 border border-dashed border-slate-300 rounded-2xl mx-auto w-[794px]">
             <Bot size={48} className="mx-auto mb-4 text-slate-300" />
             <p>Click &quot;Generate AI Data&quot; to extract intelligent insights and render the Master Report.</p>
           </div>
