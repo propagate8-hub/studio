@@ -114,12 +114,12 @@ export default function BatchOperations() {
       
       const element = document.getElementById('hidden-batch-render');
       
-      // 🚨 IRONCLAD PDF OPTIONS
+      // 🚨 IRONCLAD PDF OPTIONS: 715px locks perfectly to A4 printable area
       const opt = {
         margin: [0.4, 0.4, 0.4, 0.4],
         filename: `${student.name.replace(/\s+/g, '_')}_ACET_Report.pdf`,
         image: { type: 'jpeg', quality: 1 },
-        html2canvas: { scale: 2, useCORS: true, windowWidth: 800 }, 
+        html2canvas: { scale: 2, useCORS: true, windowWidth: 715 }, 
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['css', 'legacy'], avoid: ['.avoid-page-break'] }
       };
@@ -134,9 +134,6 @@ export default function BatchOperations() {
   };
 
   const aiReadyCount = students.filter(s => s.aiReportData).length;
-
-  // Define the strict cognitive keys to prevent data bleeding
-  const cognitiveKeys = ['Logical', 'Numerical', 'Verbal', 'Abstract', 'Spatial'];
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 p-6">
@@ -210,9 +207,9 @@ export default function BatchOperations() {
       {/* ========================================== */}
       {/* THE HIDDEN DOM FOR PDF RENDERING */}
       {/* ========================================== */}
-      {/* 🚨 IRONCLAD CSS LOCK: Absolute 800px wrapper ensures html2canvas cannot expand */}
-      <div style={{ position: 'absolute', top: '-9999px', left: '-9999px', width: '800px' }}>
-        <div id="hidden-batch-render" style={{ width: '800px', backgroundColor: '#ffffff', boxSizing: 'border-box' }} className="text-slate-800 font-sans p-8">
+      {/* 🚨 THE 715px CSS LOCK: Prevents rendering engine from stretching the layout */}
+      <div style={{ position: 'absolute', top: '-9999px', left: '-9999px', width: '715px' }}>
+        <div id="hidden-batch-render" style={{ width: '715px', minWidth: '715px', maxWidth: '715px', margin: '0 auto', backgroundColor: '#ffffff', boxSizing: 'border-box' }} className="text-slate-800 font-sans p-8">
           {renderStudent && renderStudent.aiReportData && (
              <div>
                 {/* --- PAGE 1 & 2: REACT INFOGRAPHICS --- */}
@@ -248,26 +245,27 @@ export default function BatchOperations() {
                   </section>
 
                   <section className="grid grid-cols-2 gap-6 mb-8">
-                    <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                      <div className="flex items-center gap-3 mb-6">
-                        <Brain className="text-blue-600" size={24}/>
-                        <h3 className="text-xl font-black text-slate-800">Cognitive Domains</h3>
+                    {/* 🚨 COMPACT INFOGRAPHIC FIX */}
+                    <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm h-full flex flex-col justify-start">
+                      <div className="flex items-center gap-3 mb-4">
+                        <Brain className="text-blue-600" size={20}/>
+                        <h3 className="text-lg font-black text-slate-800">Cognitive Domains</h3>
                       </div>
-                      <div className="space-y-5">
-                        {/* 🚨 ZERO-SCORE PURGE: Hide 0% logic */}
-                        {cognitiveKeys.map((domain) => {
+                      <div className="space-y-4">
+                        {/* 🚨 INFOGRAPHIC FILTER: Hide 0% */}
+                        {['Logical', 'Numerical', 'Verbal', 'Abstract', 'Spatial'].map((domain) => {
                           const cat = renderStudent.grading.categories[`${domain} Reasoning`];
                           const score = cat && cat.total > 0 ? Math.round((cat.correct / cat.total) * 100) : 0;
                           if (score === 0) return null; 
 
                           return (
-                          <div key={domain} className="space-y-1.5">
-                            <div className="flex justify-between text-sm">
+                          <div key={domain} className="space-y-1">
+                            <div className="flex justify-between text-xs">
                               <span className="font-bold text-slate-700 uppercase tracking-wide">{domain}</span>
                               <span className={`font-black ${score > 60 ? 'text-blue-600' : 'text-slate-500'}`}>{score}%</span>
                             </div>
-                            <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
-                              <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${score}%` }}></div>
+                            <div className="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+                              <div className="bg-blue-600 h-2 rounded-full" style={{ width: `${score}%` }}></div>
                             </div>
                           </div>
                         )})}
@@ -313,10 +311,10 @@ export default function BatchOperations() {
                     <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
                        <div className="flex items-center gap-3 mb-6">
                         <User className="text-blue-600" size={24}/>
-                        <h3 className="text-xl font-black text-slate-800">Psychometrician&apos;s Notes</h3>
+                        <h3 className="text-xl font-black text-slate-800">Psychometrician's Notes</h3>
                       </div>
                       <p className="text-slate-600 text-sm leading-loose italic border-l-4 border-blue-300 pl-5 font-medium">
-                        &quot;{renderStudent.aiReportData.counselorNotes}&quot;
+                        "{renderStudent.aiReportData.counselorNotes}"
                       </p>
                     </div>
                   </section>
@@ -366,12 +364,12 @@ export default function BatchOperations() {
                   <div className="avoid-page-break mb-12">
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
                     <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
-                      The ACET Cognitive Abilities Assessment evaluates a student&apos;s core fluid intelligence and problem-solving capabilities across five distinct subtests. 
+                      The ACET Cognitive Abilities Assessment evaluates a student's core fluid intelligence and problem-solving capabilities across five distinct subtests. 
                       Rather than measuring learned academic knowledge, these subtests measure the underlying cognitive engine that drives future learning. 
                       <br/><br/>
                       <strong>Understanding the Metrics:</strong><br/>
                       • <strong>Raw Score:</strong> The absolute number of questions answered correctly.<br/>
-                      • <strong>Z-Score:</strong> A statistical measurement indicating how far the student&apos;s score deviates from the <strong>Cohort Average</strong>. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
+                      • <strong>Z-Score:</strong> A statistical measurement indicating how far the student's score deviates from the <strong>Cohort Average</strong>. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
                       • <strong>Percentile Rank:</strong> Indicates the percentage of peers in the cohort sample that the student outperformed.
                     </p>
 
@@ -387,15 +385,14 @@ export default function BatchOperations() {
                         </tr>
                       </thead>
                       <tbody>
-                        {/* 🚨 COGNITIVE ISOLATION PROTOCOL & ZERO-SCORE PURGE */}
-                        {cognitiveKeys.map((domain, idx) => {
+                        {/* 🚨 CLINICAL TABLE: EXPLICITLY MAPS ALL 5 DOMAINS (NO DATA BLEEDING) */}
+                        {['Logical', 'Numerical', 'Verbal', 'Abstract', 'Spatial'].map((domain, idx) => {
                           const catName = `${domain} Reasoning`;
                           const c = renderStudent.grading.categories[catName];
-                          if (!c || c.total === 0) return null;
+                          const total = c?.total || 0;
+                          const correct = c?.correct || 0;
+                          const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
                           
-                          const pct = Math.round((c.correct / c.total) * 100);
-                          if (pct === 0) return null; 
-
                           let interp = "Average";
                           let zScore = ((pct - 50) / 15).toFixed(2);
                           if (pct < 40) interp = "Below Average";
@@ -404,7 +401,7 @@ export default function BatchOperations() {
                           return (
                           <tr key={idx} className="hover:bg-slate-50 transition-colors">
                             <td className="p-3 border border-slate-300 font-semibold">{catName}</td>
-                            <td className="p-3 border border-slate-300 text-center">{c.correct} / {c.total}</td>
+                            <td className="p-3 border border-slate-300 text-center">{correct} / {total}</td>
                             <td className="p-3 border border-slate-300 text-center font-mono">{zScore}</td>
                             <td className="p-3 border border-slate-300 text-center">{pct}th</td>
                             <td className={`p-3 border border-slate-300 font-bold ${interp === 'Above Average' ? 'text-blue-700' : interp === 'Below Average' ? 'text-orange-600' : 'text-slate-700'}`}>{interp}</td>
@@ -421,7 +418,7 @@ export default function BatchOperations() {
                     <div className="mb-8">
                       <h3 className="font-bold text-slate-800 mb-2 text-sm">2.1. The Big Five (OCEAN) Personality Assessment</h3>
                       <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
-                        This assessment measures where the student falls across the globally recognized Big Five personality dimensions. These traits significantly influence a student&apos;s learning habits, emotional resilience during exams, and eventual cultural fit within a workplace.
+                        This assessment measures where the student falls across the globally recognized Big Five personality dimensions. These traits significantly influence a student's learning habits, emotional resilience during exams, and eventual cultural fit within a workplace.
                       </p>
                       <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
                         <thead>
@@ -452,7 +449,7 @@ export default function BatchOperations() {
                     <div className="mb-4">
                       <h3 className="font-bold text-slate-800 mb-2 text-sm">2.2. Holland Code (RIASEC) Occupational Interests</h3>
                       <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
-                        The Holland Occupational Themes theory posits that individuals perform best in academic streams and careers that match their inherent interests. The combination of their top three categories forms their &quot;Holland Code.&quot;
+                        The Holland Occupational Themes theory posits that individuals perform best in academic streams and careers that match their inherent interests. The combination of their top three categories forms their "Holland Code."
                       </p>
                       <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
                         <thead>
@@ -491,7 +488,7 @@ export default function BatchOperations() {
                     
                     <h3 className="font-bold text-slate-800 mb-2 mt-4 text-sm">3.1. Summary of Key Findings</h3>
                     <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
-                      {renderStudent.name} demonstrates strengths aligned with their recommended trajectory. As noted by our psychometric analysis: <i>&quot;{renderStudent.aiReportData.counselorNotes}&quot;</i>
+                      {renderStudent.name} demonstrates strengths aligned with their recommended trajectory. As noted by our psychometric analysis: <i>"{renderStudent.aiReportData.counselorNotes}"</i>
                     </p>
 
                     <h3 className="font-bold text-slate-800 mb-2 mt-6 text-sm">3.2. Senior Secondary Specialization Recommendations</h3>
@@ -518,16 +515,17 @@ export default function BatchOperations() {
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">4. Official Endorsement & Signatures</h2>
                     
                     <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
-                      The insights contained within this ACET Intelligence Report represent a synthesis of the candidate&apos;s cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach—integrating continuous mentorship, environmental support, and periodic academic re-evaluation—is strongly recommended to assist the student in actualizing their defined career and university trajectory.
+                      The insights contained within this ACET Intelligence Report represent a synthesis of the candidate's cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach—integrating continuous mentorship, environmental support, and periodic academic re-evaluation—is strongly recommended to assist the student in actualizing their defined career and university trajectory.
                     </p>
 
-                    <h3 className="font-bold text-slate-800 mb-2 mt-8 text-sm">4.1 Internal Counselor&apos;s Verification Notes</h3>
+                    <h3 className="font-bold text-slate-800 mb-2 mt-8 text-sm">4.1 Internal Counselor's Verification Notes</h3>
                     <div className="w-full h-48 border border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 italic">
                       [ Official School Use Only ]
                     </div>
 
-                    <div className="mt-32 pt-12 border-t border-slate-300 flex justify-end items-end">
-                      <div className="text-center w-64">
+                    {/* 🚨 THE SIGNATURE FIX: Right-aligned Principal Block Only */}
+                    <div className="mt-24 pt-8 border-t border-slate-300 flex justify-end items-end">
+                      <div className="text-center w-72">
                         <div className="border-b border-black w-full mb-2"></div>
                         <span className="font-bold text-slate-800 text-sm block">Principal / Administrator</span>
                         <span className="text-xs text-slate-500 uppercase tracking-widest mt-1 block">{renderStudent.organizationId || "Authorizing Institution"}</span>
