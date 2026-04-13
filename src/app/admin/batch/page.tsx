@@ -10,7 +10,7 @@ import {
 import Link from 'next/link';
 
 export default function BatchOperations() {
-  const [schoolName, setSchoolName] = useState('Roseville Secondary School');
+  const [schoolName, setSchoolName] = useState('Partner Institution Portal');
   const [classLevel, setClassLevel] = useState<'JSS 3' | 'SSS 3'>('JSS 3');
   const [students, setStudents] = useState<any[]>([]);
   const [masterKey, setMasterKey] = useState<Record<string, any>>({});
