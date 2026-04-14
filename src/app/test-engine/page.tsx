@@ -102,7 +102,7 @@ export default function SecureTestEngine() {
         setTimeLeft((prev) => {
           if (prev <= 1) {
             clearInterval(timer);
-            submitFinalAssessment(); 
+           // submitFinalAssessment(); 
             return 0;
           }
           return prev - 1;
