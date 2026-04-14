@@ -49,25 +49,42 @@ export default function SecureTestEngine() {
         groupedQuestions[cat].push(q);
       });
 
-      // 🚨 Strict Psychometric Quotas
+      // 🚨 Strict Psychometric Quotas (Mapped to your exact DB Labels)
       const quotas: Record<string, number> = {
+        // Cognitive Domains (55 Questions)
         'Verbal Reasoning': 15,
         'Numerical Reasoning': 10,
-        'Spatial Reasoning': 10,
-        'Logical Reasoning': 10,
-        'Abstract Reasoning': 10,
-        'Personality Traits': 20, 
-        'Occupational Interests': 30 
+        'Spatial & Mechanical Reasoning': 10,
+        'Abstract/Logical Reasoning': 20,
+        
+        // Holland Code / RIASEC (30 Questions)
+        'Realistic': 5,
+        'Investigative': 5,
+        'Artistic': 5,
+        'Social': 5,
+        'Enterprising': 5,
+        'Conventional': 5,
+        
+        // Personality Traits / OCEAN (20 Questions)
+        'Openness to Experience': 5,
+        'Conscientiousness': 5,
+        'Agreeableness & Teamwork': 5,
+        'Resilience & Emotional Stability': 5
       };
 
       let finalDeck: any[] = [];
 
       Object.keys(groupedQuestions).forEach(category => {
         const bucket = groupedQuestions[category].sort(() => 0.5 - Math.random());
-        const requiredAmount = quotas[category] || 5; 
-        finalDeck = [...finalDeck, ...bucket.slice(0, requiredAmount)];
+        // If the category isn't in our quota list, we pull 0 to prevent rogue data
+        const requiredAmount = quotas[category] || 0; 
+        
+        if (requiredAmount > 0) {
+            finalDeck = [...finalDeck, ...bucket.slice(0, requiredAmount)];
+        }
       });
 
+      // Final shuffle to mix Math, English, and Personality questions
       finalDeck = finalDeck.sort(() => 0.5 - Math.random());
       setQuestions(finalDeck);
       setStage('INSTRUCTIONS');
@@ -181,6 +198,10 @@ export default function SecureTestEngine() {
       if (Array.isArray(currentQ.options) && currentQ.options.length > 0) optionsToRender = currentQ.options;
       else if (typeof currentQ.options === 'string') optionsToRender = currentQ.options.split(',').map((s: string) => s.trim());
       else if (typeof currentQ.options === 'object') optionsToRender = Object.values(currentQ.options);
+    }
+
+    if (!Array.isArray(optionsToRender) || optionsToRender.length === 0 || !optionsToRender[0]) {
+      optionsToRender = ['Strongly Agree', 'Agree', 'Disagree', 'Strongly Disagree'];
     }
 
     const formatTime = (sec: number) => `${Math.floor(sec / 60).toString().padStart(2, '0')}:${(sec % 60).toString().padStart(2, '0')}`;
