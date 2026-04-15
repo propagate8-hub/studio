@@ -2,22 +2,25 @@ import { NextResponse } from 'next/server';
 import admin from 'firebase-admin';
 import OpenAI from 'openai';
 
-// 1. Initialize Firebase Admin (Secure Server-Side Connection)
-if (!admin.apps.length) {
-  const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY as string);
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
-}
-const db = admin.firestore();
-
-// 2. Initialize OpenAI Client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export async function POST(req: Request) {
   try {
+    // 1. Initialize Firebase Admin INSIDE the route to prevent Vercel build crashes
+    if (!admin.apps.length) {
+      if (!process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
+        throw new Error("Missing FIREBASE_SERVICE_ACCOUNT_KEY environment variable.");
+      }
+      const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+      admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+      });
+    }
+    const db = admin.firestore();
+
+    // 2. Initialize OpenAI Client dynamically
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
     const body = await req.json();
     const { studentId, gradingResult } = body;
 
@@ -98,7 +101,7 @@ export async function POST(req: Request) {
 
     // 5. Call OpenAI Engine (Using GPT-4o-mini for speed and strict JSON formatting)
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // You can change this to "gpt-3.5-turbo" or "gpt-4o" based on your preference
+      model: "gpt-4o-mini",
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: "You are a data-formatting assistant designed to output strictly valid JSON." },
