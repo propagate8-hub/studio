@@ -44,7 +44,10 @@ export default function StudentReportCard() {
       const masterKey: Record<string, any> = {};
       bankSnap.docs.forEach(doc => { masterKey[doc.id] = doc.data(); });
 
+      // 🚨 THE DIVISOR TRAP FIX: Only count questions that have right/wrong answers
       let correctCount = 0;
+      let assessableQuestions = 0; 
+      
       const answers = studentData.finalAnswers || {};
       const breakdownArray: any[] = [];
       const categories: any = {};
@@ -54,8 +57,14 @@ export default function StudentReportCard() {
         const questionData = masterKey[questionId];
         
         if (questionData) {
-          const isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer || questionData.answer);
-          if (isCorrect) correctCount++;
+          let isCorrect = false;
+          
+          // Only grade if the question is meant to be graded (Cognitive)
+          if (questionData.correct_answer || questionData.correctAnswer) {
+            assessableQuestions++;
+            isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer);
+            if (isCorrect) correctCount++;
+          }
           
           const cat = questionData.category || "General";
           if (!categories[cat]) categories[cat] = { correct: 0, total: 0, rawScore: 0 };
@@ -81,12 +90,12 @@ export default function StudentReportCard() {
         }
       });
 
-      const totalQuestions = Object.keys(answers).length;
-      const percentage = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0;
+      // Calculate percentage using ONLY assessable questions (e.g., / 55 instead of / 105)
+      const percentage = assessableQuestions > 0 ? Math.round((correctCount / assessableQuestions) * 100) : 0;
 
       setGradingResult({ 
         score: correctCount, 
-        total: totalQuestions, 
+        total: assessableQuestions, 
         percentage, 
         breakdown: breakdownArray,
         categories 
@@ -230,7 +239,6 @@ export default function StudentReportCard() {
                       <h3 className="text-xl font-black text-slate-800">Cognitive Domains</h3>
                     </div>
                     <div className="space-y-5">
-                      {/* 🚨 UPDATED COGNITIVE DOMAINS MAPPING */}
                       {['Verbal Reasoning', 'Numerical Reasoning', 'Abstract/Logical Reasoning', 'Spatial & Mechanical Reasoning'].map((catName) => {
                         const score = getScore(catName); 
                         if (score === 0) return null; 
@@ -260,7 +268,8 @@ export default function StudentReportCard() {
                           <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={18} />
                           <div>
                             <h4 className="font-bold text-white text-sm">{hack.title}</h4>
-                            <p className="text-teal-200 text-xs mt-1 leading-relaxed">{hack.desc}</p>
+                            {/* 🚨 THE OVERFLOW FIX: line-clamp-2 automatically truncates runaway AI text */}
+                            <p className="text-teal-200 text-xs mt-1 leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">{hack.desc}</p>
                           </div>
                         </li>
                       ))}
@@ -362,7 +371,6 @@ export default function StudentReportCard() {
                       </tr>
                     </thead>
                     <tbody>
-                      {/* 🚨 UPDATED CLINICAL TABLE MAPPING */}
                       {['Verbal Reasoning', 'Numerical Reasoning', 'Abstract/Logical Reasoning', 'Spatial & Mechanical Reasoning'].map((catName, idx) => {
                         const c = gradingResult.categories[catName];
                         if (!c || c.total === 0) return null; 

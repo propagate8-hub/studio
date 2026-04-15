@@ -1,97 +1,118 @@
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import admin from 'firebase-admin';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-export const maxDuration = 120; 
+// 1. Initialize Firebase Admin (Secure Server-Side Connection)
+if (!admin.apps.length) {
+  const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY as string);
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+  });
+}
+const db = admin.firestore();
 
-export async function POST(req: Request) { const openai = new OpenAI();
+// 2. Initialize your AI Client (Assuming Google Gemini, but swap to OpenAI if needed)
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
+
+export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { studentId, gradingResult } = body;
 
     if (!studentId || !gradingResult) {
-      return NextResponse.json({ error: 'Missing student ID or grading data' }, { status: 400 });
+      return NextResponse.json({ error: 'Missing studentId or gradingResult' }, { status: 400 });
     }
 
-    // 1. Fetch Student Data
-    const studentRef = doc(db, 'Students', studentId);
-    const studentSnap = await getDoc(studentRef);
+    // 3. Fetch the Student's Full Profile from Firebase
+    const studentRef = db.collection('Students').doc(studentId);
+    const studentSnap = await studentRef.get();
 
-    if (!studentSnap.exists()) {
+    if (!studentSnap.exists) {
       return NextResponse.json({ error: 'Student not found in database' }, { status: 404 });
     }
 
     const studentData = studentSnap.data();
-    const schoolName = studentData.organizationId || 'Independent Assessment Candidate';
-
-    // 2. Package the Raw Data for the AI
-    const rawDataContext = `
-      Student Name: ${studentData.name}
-      Class/Cohort: ${studentData.classLevel}
-      School: ${schoolName}
-      Final Score: ${gradingResult.percentage}% (${gradingResult.score}/${gradingResult.total})
-      Detailed Item Analysis: ${JSON.stringify(gradingResult.breakdown)}
-    `;
-
-    const aiModel = 'gpt-4o-mini'; // Keep this on mini for testing!
-    const isJSS3 = studentData.classLevel === 'JSS 3';
-
-    // 3. THE STRICT JSON PROMPT
-    // We explicitly map the data structure to exactly match your new React Infographic component.
-    const systemPrompt = `You are an elite educational psychometrician in Nigeria analyzing student data for ${schoolName}.
-    You MUST respond with a valid JSON object. Do not include any markdown formatting, HTML, or conversational text.
     
-    Analyze the student's data and return a JSON object with EXACTLY this structure:
+    // ==========================================
+    // 🚨 THE DYNAMIC PRONOUN ENGINE
+    // ==========================================
+    const studentGender = studentData?.gender ? studentData.gender.toLowerCase() : 'unknown';
+    let pronounInstruction = "Use gender-neutral pronouns (they/them/theirs).";
+    
+    if (studentGender === 'female') {
+      pronounInstruction = "CRITICAL: The student is female. You MUST strictly use feminine pronouns (she/her/hers). Do not use he, him, his, or they.";
+    } else if (studentGender === 'male') {
+      pronounInstruction = "CRITICAL: The student is male. You MUST strictly use masculine pronouns (he/him/his). Do not use she, her, hers, or they.";
+    }
+
+    // 4. Construct the Master Prompt
+    const prompt = `
+    You are an expert educational psychometrician analyzing an ACET Intelligence Report.
+    
+    STUDENT PROFILE:
+    Name: ${studentData?.name}
+    Class Level: ${studentData?.classLevel}
+    Overall Accuracy: ${gradingResult.percentage}%
+    
+    ${pronounInstruction}
+
+    COGNITIVE BREAKDOWN:
+    ${Object.entries(gradingResult.categories).map(([cat, data]: any) => 
+      `- ${cat}: ${data.correct} / ${data.total}`
+    ).join('\n')}
+
+    YOUR TASK:
+    Generate a highly personalized JSON payload analyzing this student's cognitive performance.
+    
+    CRITICAL PDF FORMATTING RULES:
+    - Keep "Study Hacks" descriptions extremely concise (Maximum of 12 words per bullet point) to prevent PDF overflow.
+    - Write professional, clinical, yet encouraging counselor notes.
+
+    OUTPUT EXACTLY THIS JSON STRUCTURE AND NOTHING ELSE:
     {
-      "recommendation": "String. The primary stream (e.g., 'Science and Mathematics', 'Humanities', 'Vocational Education').",
-      "specialization": "String. The secondary focus (e.g., 'Technology', 'Creative & Cultural Arts').",
+      "recommendation": "String (e.g., Science & Technology, Vocational Education)",
+      "specialization": "String (e.g., Engineering, Creative & Cultural Arts)",
       "studyHacks": {
-        "intro": "String. A 2-sentence summary of their learning style based on their highest cognitive scores.",
+        "intro": "String (1 brief sentence)",
         "bullets": [
-          { "title": "String. Actionable hack 1", "desc": "String. 1-sentence explanation" },
-          { "title": "String. Actionable hack 2", "desc": "String. 1-sentence explanation" },
-          { "title": "String. Actionable hack 3", "desc": "String. 1-sentence explanation" }
+          { "title": "String", "desc": "String (MAX 12 WORDS)" },
+          { "title": "String", "desc": "String (MAX 12 WORDS)" },
+          { "title": "String", "desc": "String (MAX 12 WORDS)" }
         ]
       },
       "skillGap": {
-        "focus": "String. Catchy title for their weakest area (e.g., 'The Verbal-Legal Gap', 'The Abstract-Logic Gap').",
-        "description": "String. A clinical, 2-sentence explanation of what they need to improve."
+        "focus": "String (e.g., The Abstract-Logic Gap)",
+        "description": "String (2 brief sentences)"
       },
+      "counselorNotes": "String (1 paragraph clinical summary)",
       "roadmap": {
-        "step1": ["String", "String", "String"], // 3 Subjects for SS1
-        "step2": ["String", "String", "String", "String"], // 4 JAMB Subjects
-        "step3": ["String", "String", "String"], // 3 University Degrees
-        "step4": ["String", "String", "String"]  // 3 Specific Career Titles
-      },
-      "counselorNotes": "String. A highly professional, 4-sentence clinical summary of their cognitive and personality profile, similar to a doctor's chart notes."
-    }`;
+        "step1": ["Subject 1", "Subject 2", "Subject 3"],
+        "step2": ["JAMB 1", "JAMB 2", "JAMB 3", "JAMB 4"],
+        "step3": ["Degree 1", "Degree 2", "Degree 3"],
+        "step4": ["Career 1", "Career 2", "Career 3"]
+      }
+    }
+    `;
 
-    // 4. Call OpenAI (Forcing JSON Mode)
-    const response = await openai.chat.completions.create({
-      model: aiModel,
-      response_format: { type: 'json_object' },
-      messages: [
-        { role: 'system', content: systemPrompt }, 
-        { role: 'user', content: `Analyze this data and return the strict JSON object:\n\n${rawDataContext}` }
-      ]
+    // 5. Call the AI Engine (Ensure you are using a model that supports JSON output)
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const result = await model.generateContent(prompt);
+    const responseText = result.response.text();
+
+    // Clean the markdown formatting if the AI wrapped it in ```json
+    const cleanedJson = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
+    const aiReportData = JSON.parse(cleanedJson);
+
+    // 6. Save the AI Data back to the Student's Firebase Profile
+    await studentRef.update({
+      aiReportData,
+      reportGeneratedAt: admin.firestore.FieldValue.serverTimestamp()
     });
 
-    const rawJSONString = response.choices[0].message.content || '{}';
-    
-    // 5. Parse the JSON to ensure it is valid before saving
-    const parsedData = JSON.parse(rawJSONString);
-
-    // 6. Save the structured JSON object directly to Firestore
-    await updateDoc(studentRef, {
-      aiReportData: parsedData,
-      reportGeneratedAt: new Date().toISOString()
-    });
-
-    return NextResponse.json({ success: true, data: parsedData });
+    return NextResponse.json({ success: true, aiReportData });
 
   } catch (error: any) {
-    console.error("AI Generation Error:", error);
-    return NextResponse.json({ error: error.message || 'Failed to generate report' }, { status: 500 });
+    console.error('AI Generation Error:', error);
+    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
 }

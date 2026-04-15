@@ -47,7 +47,9 @@ export default function BatchOperations() {
   };
 
   const gradeStudent = (studentData: any) => {
+    // 🚨 THE DIVISOR TRAP FIX: Only count questions that have right/wrong answers
     let correctCount = 0;
+    let assessableQuestions = 0;
     const answers = studentData.finalAnswers || {};
     const categories: any = {};
 
@@ -56,21 +58,30 @@ export default function BatchOperations() {
       const questionData = masterKey[questionId];
       
       if (questionData) {
-        const isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer || questionData.answer);
-        if (isCorrect) correctCount++;
+        
+        // Only grade if the question is meant to be graded (Cognitive)
+        if (questionData.correct_answer || questionData.correctAnswer) {
+          assessableQuestions++;
+          const isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer);
+          if (isCorrect) correctCount++;
+        }
         
         const cat = questionData.category || "General";
         if (!categories[cat]) categories[cat] = { correct: 0, total: 0 };
         categories[cat].total += 1;
-        if (isCorrect) categories[cat].correct += 1;
+        
+        // Tally category correctness
+        if (questionData.correct_answer || questionData.correctAnswer) {
+           const isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer);
+           if (isCorrect) categories[cat].correct += 1;
+        }
       }
     });
 
-    const totalQuestions = Object.keys(answers).length;
     return {
       score: correctCount,
-      total: totalQuestions,
-      percentage: totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0,
+      total: assessableQuestions,
+      percentage: assessableQuestions > 0 ? Math.round((correctCount / assessableQuestions) * 100) : 0,
       categories
     };
   };
@@ -249,7 +260,6 @@ export default function BatchOperations() {
                         <h3 className="text-lg font-black text-slate-800">Cognitive Domains</h3>
                       </div>
                       <div className="space-y-4">
-                        {/* 🚨 UPDATED COGNITIVE DOMAINS MAPPING & FILTER */}
                         {['Verbal Reasoning', 'Numerical Reasoning', 'Abstract/Logical Reasoning', 'Spatial & Mechanical Reasoning'].map((catName) => {
                           const cat = renderStudent.grading.categories[catName];
                           const score = cat && cat.total > 0 ? Math.round((cat.correct / cat.total) * 100) : 0;
@@ -281,7 +291,8 @@ export default function BatchOperations() {
                             <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={18} />
                             <div>
                               <h4 className="font-bold text-white text-sm">{hack.title}</h4>
-                              <p className="text-teal-200 text-xs mt-1 leading-relaxed">{hack.desc}</p>
+                              {/* 🚨 THE OVERFLOW FIX: line-clamp-2 truncates UI text to fit perfectly */}
+                              <p className="text-teal-200 text-xs mt-1 leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">{hack.desc}</p>
                             </div>
                           </li>
                         ))}
@@ -382,7 +393,6 @@ export default function BatchOperations() {
                         </tr>
                       </thead>
                       <tbody>
-                        {/* 🚨 CLINICAL TABLE: EXPLICITLY MAPS ALL 4 DOMAINS (NO DATA BLEEDING) */}
                         {['Verbal Reasoning', 'Numerical Reasoning', 'Abstract/Logical Reasoning', 'Spatial & Mechanical Reasoning'].map((catName, idx) => {
                           const c = renderStudent.grading.categories[catName];
                           const total = c?.total || 0;
