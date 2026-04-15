@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import admin from 'firebase-admin';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import OpenAI from 'openai';
 
 // 1. Initialize Firebase Admin (Secure Server-Side Connection)
 if (!admin.apps.length) {
@@ -11,8 +11,10 @@ if (!admin.apps.length) {
 }
 const db = admin.firestore();
 
-// 2. Initialize your AI Client (Assuming Google Gemini, but swap to OpenAI if needed)
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
+// 2. Initialize OpenAI Client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 export async function POST(req: Request) {
   try {
@@ -94,14 +96,24 @@ export async function POST(req: Request) {
     }
     `;
 
-    // 5. Call the AI Engine (Ensure you are using a model that supports JSON output)
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    // 5. Call OpenAI Engine (Using GPT-4o-mini for speed and strict JSON formatting)
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini", // You can change this to "gpt-3.5-turbo" or "gpt-4o" based on your preference
+      response_format: { type: "json_object" },
+      messages: [
+        { role: "system", content: "You are a data-formatting assistant designed to output strictly valid JSON." },
+        { role: "user", content: prompt }
+      ],
+      temperature: 0.7,
+    });
 
-    // Clean the markdown formatting if the AI wrapped it in ```json
-    const cleanedJson = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
-    const aiReportData = JSON.parse(cleanedJson);
+    const responseText = response.choices[0].message.content;
+
+    if (!responseText) {
+      throw new Error("OpenAI returned an empty response.");
+    }
+
+    const aiReportData = JSON.parse(responseText);
 
     // 6. Save the AI Data back to the Student's Firebase Profile
     await studentRef.update({
