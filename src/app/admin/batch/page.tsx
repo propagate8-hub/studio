@@ -9,6 +9,16 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
+// 🛠️ THE DATE FIX
+const formatSafeDate = (timestamp: any) => {
+  if (!timestamp) return "Pending";
+  if (typeof timestamp.toDate === 'function') return timestamp.toDate().toLocaleDateString();
+  if (timestamp._seconds) return new Date(timestamp._seconds * 1000).toLocaleDateString();
+  if (timestamp.seconds) return new Date(timestamp.seconds * 1000).toLocaleDateString();
+  const d = new Date(timestamp);
+  return isNaN(d.getTime()) ? "Pending" : d.toLocaleDateString();
+};
+
 export default function BatchOperations() {
   const [schoolName, setSchoolName] = useState('Roseville Secondary School');
   const [classLevel, setClassLevel] = useState<'JSS 3' | 'SSS 3'>('JSS 3');
@@ -47,7 +57,6 @@ export default function BatchOperations() {
   };
 
   const gradeStudent = (studentData: any) => {
-    // 🚨 THE DIVISOR TRAP FIX: Only count questions that have right/wrong answers
     let correctCount = 0;
     let assessableQuestions = 0;
     const answers = studentData.finalAnswers || {};
@@ -59,7 +68,6 @@ export default function BatchOperations() {
       
       if (questionData) {
         
-        // Only grade if the question is meant to be graded (Cognitive)
         if (questionData.correct_answer || questionData.correctAnswer) {
           assessableQuestions++;
           const isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer);
@@ -70,7 +78,6 @@ export default function BatchOperations() {
         if (!categories[cat]) categories[cat] = { correct: 0, total: 0 };
         categories[cat].total += 1;
         
-        // Tally category correctness
         if (questionData.correct_answer || questionData.correctAnswer) {
            const isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer);
            if (isCorrect) categories[cat].correct += 1;
@@ -232,7 +239,7 @@ export default function BatchOperations() {
                     </div>
                     <div className="text-right">
                       <div className="bg-blue-50 text-blue-800 px-4 py-2 rounded-lg font-bold text-sm border border-blue-100">
-                        Date: {new Date(renderStudent.reportGeneratedAt || renderStudent.createdAt?.toDate()).toLocaleDateString()}
+                        Date: {formatSafeDate(renderStudent.reportGeneratedAt || renderStudent.createdAt)}
                       </div>
                     </div>
                   </header>
@@ -291,7 +298,6 @@ export default function BatchOperations() {
                             <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={18} />
                             <div>
                               <h4 className="font-bold text-white text-sm">{hack.title}</h4>
-                              {/* 🚨 THE OVERFLOW FIX: line-clamp-2 truncates UI text to fit perfectly */}
                               <p className="text-teal-200 text-xs mt-1 leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">{hack.desc}</p>
                             </div>
                           </li>
@@ -303,32 +309,32 @@ export default function BatchOperations() {
 
                 <div className="html2pdf__page-break"></div>
 
-                <div className="avoid-page-break mt-8">
-                  <section className="grid grid-cols-2 gap-6 mb-8">
-                    <div className="bg-orange-50 p-8 rounded-3xl border border-orange-200">
-                      <div className="flex items-center gap-3 mb-6">
+                <div className="avoid-page-break mt-6">
+                  <section className="grid grid-cols-2 gap-6 mb-6">
+                    <div className="bg-orange-50 p-6 rounded-3xl border border-orange-200">
+                      <div className="flex items-center gap-3 mb-4">
                         <Target className="text-orange-600" size={24}/>
                         <h3 className="text-xl font-black text-orange-900">Skill Gap Analysis</h3>
                       </div>
-                      <div className="bg-white p-6 rounded-2xl border border-orange-100 shadow-sm">
-                        <h4 className="font-black text-slate-800 mb-3 text-lg">{renderStudent.aiReportData.skillGap?.focus || "Identified Gap"}</h4>
+                      <div className="bg-white p-5 rounded-2xl border border-orange-100 shadow-sm">
+                        <h4 className="font-black text-slate-800 mb-2 text-lg">{renderStudent.aiReportData.skillGap?.focus || "Identified Gap"}</h4>
                         <p className="text-slate-600 text-sm leading-relaxed font-medium">{renderStudent.aiReportData.skillGap?.description}</p>
                       </div>
                     </div>
 
-                    <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                       <div className="flex items-center gap-3 mb-6">
+                    <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                       <div className="flex items-center gap-3 mb-4">
                         <User className="text-blue-600" size={24}/>
                         <h3 className="text-xl font-black text-slate-800">Psychometrician's Notes</h3>
                       </div>
-                      <p className="text-slate-600 text-sm leading-loose italic border-l-4 border-blue-300 pl-5 font-medium">
+                      <p className="text-slate-600 text-sm leading-loose italic border-l-4 border-blue-300 pl-4 font-medium">
                         "{renderStudent.aiReportData.counselorNotes}"
                       </p>
                     </div>
                   </section>
 
-                  <section className="bg-slate-50 p-8 rounded-3xl border border-slate-200 mb-8">
-                    <div className="flex items-center gap-3 mb-8">
+                  <section className="bg-slate-50 p-6 rounded-3xl border border-slate-200 mb-6">
+                    <div className="flex items-center gap-3 mb-6">
                       <Map className="text-blue-800" size={24}/>
                       <h3 className="text-xl font-black text-blue-900">Academic to Career Roadmap</h3>
                     </div>
@@ -368,10 +374,10 @@ export default function BatchOperations() {
                 <div className="html2pdf__page-break"></div>
 
                 {/* --- PAGES 3 to 6: CLASSIC CLINICAL DATA --- */}
-                <div className="mt-8 text-slate-800">
-                  <div className="avoid-page-break mb-12">
+                <div className="mt-6 text-slate-800">
+                  <div className="avoid-page-break mb-6">
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
-                    <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                    <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
                       The ACET Cognitive Abilities Assessment evaluates a student's core fluid intelligence and problem-solving capabilities across five distinct subtests. 
                       Rather than measuring learned academic knowledge, these subtests measure the underlying cognitive engine that drives future learning. 
                       <br/><br/>
@@ -382,14 +388,14 @@ export default function BatchOperations() {
                     </p>
 
                     <h3 className="font-bold text-slate-800 mb-3 text-sm">1.1. Subtest Scores & Interpretation</h3>
-                    <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-6">
+                    <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-4">
                       <thead>
                         <tr className="bg-slate-100">
-                          <th className="p-3 border border-slate-300">Subtest Domain</th>
-                          <th className="p-3 border border-slate-300 text-center">Raw Score</th>
-                          <th className="p-3 border border-slate-300 text-center">Z-Score (Est)</th>
-                          <th className="p-3 border border-slate-300 text-center">Percentile</th>
-                          <th className="p-3 border border-slate-300">Interpretation</th>
+                          <th className="py-2 px-3 border border-slate-300">Subtest Domain</th>
+                          <th className="py-2 px-3 border border-slate-300 text-center">Raw Score</th>
+                          <th className="py-2 px-3 border border-slate-300 text-center">Z-Score (Est)</th>
+                          <th className="py-2 px-3 border border-slate-300 text-center">Percentile</th>
+                          <th className="py-2 px-3 border border-slate-300">Interpretation</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -406,11 +412,11 @@ export default function BatchOperations() {
                           
                           return (
                           <tr key={idx} className="hover:bg-slate-50 transition-colors">
-                            <td className="p-3 border border-slate-300 font-semibold">{catName.replace(' Reasoning', '')}</td>
-                            <td className="p-3 border border-slate-300 text-center">{correct} / {total}</td>
-                            <td className="p-3 border border-slate-300 text-center font-mono">{zScore}</td>
-                            <td className="p-3 border border-slate-300 text-center">{pct}th</td>
-                            <td className={`p-3 border border-slate-300 font-bold ${interp === 'Above Average' ? 'text-blue-700' : interp === 'Below Average' ? 'text-orange-600' : 'text-slate-700'}`}>{interp}</td>
+                            <td className="py-2 px-3 border border-slate-300 font-semibold">{catName.replace(' Reasoning', '')}</td>
+                            <td className="py-2 px-3 border border-slate-300 text-center">{correct} / {total}</td>
+                            <td className="py-2 px-3 border border-slate-300 text-center font-mono">{zScore}</td>
+                            <td className="py-2 px-3 border border-slate-300 text-center">{pct}th</td>
+                            <td className={`py-2 px-3 border border-slate-300 font-bold ${interp === 'Above Average' ? 'text-blue-700' : interp === 'Below Average' ? 'text-orange-600' : 'text-slate-700'}`}>{interp}</td>
                           </tr>
                         )})}
                       </tbody>
@@ -419,19 +425,19 @@ export default function BatchOperations() {
 
                   <div className="html2pdf__page-break"></div>
 
-                  <div className="avoid-page-break mb-12 mt-8">
+                  <div className="avoid-page-break mb-6 mt-6">
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Psychological & Behavioral Profile</h2>
-                    <div className="mb-8">
+                    <div className="mb-6">
                       <h3 className="font-bold text-slate-800 mb-2 text-sm">2.1. The Big Five (OCEAN) Personality Assessment</h3>
-                      <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
+                      <p className="text-sm mb-3 text-slate-700 leading-relaxed text-justify">
                         This assessment measures where the student falls across the globally recognized Big Five personality dimensions. These traits significantly influence a student's learning habits, emotional resilience during exams, and eventual cultural fit within a workplace.
                       </p>
                       <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
                         <thead>
                           <tr className="bg-slate-100">
-                            <th className="p-3 border border-slate-300">Personality Trait</th>
-                            <th className="p-3 border border-slate-300 text-center">Score / 50</th>
-                            <th className="p-3 border border-slate-300">Clinical Interpretation</th>
+                            <th className="py-2 px-3 border border-slate-300">Personality Trait</th>
+                            <th className="py-2 px-3 border border-slate-300 text-center">Score / 50</th>
+                            <th className="py-2 px-3 border border-slate-300">Clinical Interpretation</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -443,9 +449,9 @@ export default function BatchOperations() {
                             { trait: 'Neuroticism (Emotional Stability)', score: 33, desc: 'Moderate stress response; capable of handling academic pressure.' }
                           ].map((p, i) => (
                             <tr key={i} className="hover:bg-slate-50">
-                              <td className="p-3 border border-slate-300 font-semibold">{p.trait}</td>
-                              <td className="p-3 border border-slate-300 text-center font-bold">{p.score}</td>
-                              <td className="p-3 border border-slate-300 text-xs">{p.desc}</td>
+                              <td className="py-2 px-3 border border-slate-300 font-semibold">{p.trait}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">{p.score}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-xs">{p.desc}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -454,15 +460,15 @@ export default function BatchOperations() {
 
                     <div className="mb-4">
                       <h3 className="font-bold text-slate-800 mb-2 text-sm">2.2. Holland Code (RIASEC) Occupational Interests</h3>
-                      <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
+                      <p className="text-sm mb-3 text-slate-700 leading-relaxed text-justify">
                         The Holland Occupational Themes theory posits that individuals perform best in academic streams and careers that match their inherent interests. The combination of their top three categories forms their "Holland Code."
                       </p>
                       <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
                         <thead>
                           <tr className="bg-slate-100">
-                            <th className="p-3 border border-slate-300 w-1/4">RIASEC Code</th>
-                            <th className="p-3 border border-slate-300 text-center w-1/4">Score / 50</th>
-                            <th className="p-3 border border-slate-300">Alignment Description</th>
+                            <th className="py-2 px-3 border border-slate-300 w-1/4">RIASEC Code</th>
+                            <th className="py-2 px-3 border border-slate-300 text-center w-1/4">Score / 50</th>
+                            <th className="py-2 px-3 border border-slate-300">Alignment Description</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -475,9 +481,9 @@ export default function BatchOperations() {
                             { code: 'Conventional (The Organizers)', score: 44 }
                           ].map((h, i) => (
                             <tr key={i} className="hover:bg-slate-50">
-                              <td className="p-3 border border-slate-300 font-semibold">{h.code}</td>
-                              <td className="p-3 border border-slate-300 text-center font-bold">{h.score}</td>
-                              <td className="p-3 border border-slate-300 text-xs">
+                              <td className="py-2 px-3 border border-slate-300 font-semibold">{h.code}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">{h.score}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-xs">
                                 {h.score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : h.score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
                               </td>
                             </tr>
@@ -489,47 +495,47 @@ export default function BatchOperations() {
 
                   <div className="html2pdf__page-break"></div>
 
-                  <div className="avoid-page-break mb-12 mt-8">
+                  <div className="avoid-page-break mb-6 mt-6">
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">3. Integrated Summary and Recommendations</h2>
                     
                     <h3 className="font-bold text-slate-800 mb-2 mt-4 text-sm">3.1. Summary of Key Findings</h3>
-                    <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
+                    <p className="text-sm mb-5 text-slate-700 leading-relaxed text-justify">
                       {renderStudent.name} demonstrates strengths aligned with their recommended trajectory. As noted by our psychometric analysis: <i>"{renderStudent.aiReportData.counselorNotes}"</i>
                     </p>
 
-                    <h3 className="font-bold text-slate-800 mb-2 mt-6 text-sm">3.2. Senior Secondary Specialization Recommendations</h3>
+                    <h3 className="font-bold text-slate-800 mb-2 mt-5 text-sm">3.2. Senior Secondary Specialization Recommendations</h3>
                     <p className="text-sm mb-2 text-slate-700 leading-relaxed text-justify">
                       Based on the integrated assessment results, the following senior secondary specializations are recommended:
                     </p>
-                    <ul className="list-disc pl-5 text-sm text-slate-700 mb-6 space-y-1">
+                    <ul className="list-disc pl-5 text-sm text-slate-700 mb-5 space-y-1">
                       <li><strong>Primary Specialization:</strong> {renderStudent.aiReportData.recommendation}</li>
                       <li><strong>Secondary Specialization:</strong> {renderStudent.aiReportData.specialization}</li>
                     </ul>
 
-                    <h3 className="font-bold text-slate-800 mb-2 mt-6 text-sm">3.3. Potential Career Paths</h3>
+                    <h3 className="font-bold text-slate-800 mb-2 mt-5 text-sm">3.3. Potential Career Paths</h3>
                     <p className="text-sm mb-2 text-slate-700 leading-relaxed text-justify">
                       Based on the recommended senior secondary specializations, here are some potential career paths the student may wish to explore:
                     </p>
-                    <p className="text-sm font-bold text-blue-800 mb-6">
+                    <p className="text-sm font-bold text-blue-800 mb-5">
                       {renderStudent.aiReportData.roadmap?.step4?.join(', ')}
                     </p>
                   </div>
 
                   <div className="html2pdf__page-break"></div>
 
-                  <div className="avoid-page-break mb-12 mt-8">
+                  <div className="avoid-page-break mb-6 mt-6">
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">4. Official Endorsement & Signatures</h2>
                     
                     <p className="text-sm mb-6 text-slate-700 leading-relaxed text-justify">
                       The insights contained within this ACET Intelligence Report represent a synthesis of the candidate's cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach—integrating continuous mentorship, environmental support, and periodic academic re-evaluation—is strongly recommended to assist the student in actualizing their defined career and university trajectory.
                     </p>
 
-                    <h3 className="font-bold text-slate-800 mb-2 mt-8 text-sm">4.1 Internal Counselor's Verification Notes</h3>
-                    <div className="w-full h-48 border border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 italic">
+                    <h3 className="font-bold text-slate-800 mb-2 mt-6 text-sm">4.1 Internal Counselor's Verification Notes</h3>
+                    <div className="w-full h-40 border border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 italic">
                       [ Official School Use Only ]
                     </div>
 
-                    <div className="mt-32 pt-12 border-t border-slate-300 flex justify-end items-end">
+                    <div className="mt-20 pt-8 border-t border-slate-300 flex justify-end items-end">
                       <div className="text-center w-64">
                         <div className="border-b border-black w-full mb-2"></div>
                         <span className="font-bold text-slate-800 text-sm block">Principal / Administrator</span>
