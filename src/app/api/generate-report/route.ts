@@ -77,40 +77,55 @@ export async function POST(req: Request) {
     - JAMB SUBJECT COMBINATION: Step 2 of the roadmap MUST be exactly 4 academic subjects for the Nigerian UTME/JAMB exam. "Use of English" is compulsory. The other three must match the specialization (e.g., Mathematics, Physics, Chemistry for Engineering; Literature, Government, CRK for Law). Do not write "JAMB 2024", "JAMB 2025", or "Mock Exams".
     
     DECISION MATRIX FOR RECOMMENDATIONS: 
-    You must select the "recommendation" and "specialization" strictly from the 7 tracks below, based on the student's specific cognitive scores and personality traits.
+    You must align the student to one of the 7 Futuristic Pathways below based on their cognitive scores. 
+    CRITICAL: The "recommendation" MUST be a standard Nigerian Senior Secondary School (SSS) Track. The "specialization" MUST be a High School Subject Focus. You will use the Futuristic Degrees/Careers ONLY for Step 3 and Step 4 of the roadmap.
 
-    TRACK 1: Bio-Health & Cognitive Sciences
-    - Profile Triggers: High Verbal + High Numerical. Investigative and Social traits.
-    - Allowed Specializations: "Bioinformatics & Genomic Medicine", "Neural Engineering & Cognitive Science", "Digital Health & Telemedicine", "Precision Medicine & Pharmacology".
+    PATHWAY 1: Bio-Health & Cognitive Sciences
+    - Profile Triggers: High Verbal + High Numerical.
+    - SSS Recommendation: "Science & Mathematics"
+    - SSS Specialization: "Biology, Chemistry & Pre-Medical Focus"
+    - Futuristic Careers (For Steps 3/4): Bioinformatics, Genomic Medicine, Neural Engineering, Telemedicine.
 
-    TRACK 2: Advanced Engineering & Smart Infrastructure
-    - Profile Triggers: High Numerical + High Spatial/Mechanical + High Abstract. Investigative and Realistic traits.
-    - Allowed Specializations: "Robotics & Autonomous Systems", "Smart City Architecture", "Sustainable Energy & Microgrid Engineering", "Quantum & Microelectronics Engineering", "Aerospace & Drone Technologies".
+    PATHWAY 2: Advanced Engineering & Smart Infrastructure
+    - Profile Triggers: High Numerical + High Spatial/Mechanical + High Abstract.
+    - SSS Recommendation: "Science & Mathematics"
+    - SSS Specialization: "Physics, Technical Drawing & Advanced Mathematics Focus"
+    - Futuristic Careers (For Steps 3/4): Robotics, Smart City Architecture, Sustainable Energy, Aerospace.
 
-    TRACK 3: AI, Computing & Cyber-Physical Systems
-    - Profile Triggers: High Abstract/Logical + High Numerical (Spatial can be average). Investigative and Conventional traits.
-    - Allowed Specializations: "Artificial Intelligence & Machine Learning", "Cybersecurity & Zero-Trust Architecture", "Cloud Computing & Edge IoT", "Spatial Computing & Immersive Tech (XR/VR)", "Blockchain & Cryptographic Systems".
+    PATHWAY 3: AI, Computing & Cyber-Physical Systems
+    - Profile Triggers: High Abstract/Logical + High Numerical.
+    - SSS Recommendation: "Science & Mathematics"
+    - SSS Specialization: "Computer Studies, Physics & Mathematics Focus"
+    - Futuristic Careers (For Steps 3/4): Artificial Intelligence, Cybersecurity, Cloud Computing, Blockchain.
 
-    TRACK 4: Next-Gen Business, Fintech & Analytics
-    - Profile Triggers: Balanced High Numerical and High Verbal. Enterprising and Conventional traits.
-    - Allowed Specializations: "Fintech & Decentralized Finance (DeFi)", "AI-Driven Market Intelligence", "ESG (Environmental & Social) Management", "Quantitative Economics & Data Analytics".
+    PATHWAY 4: Next-Gen Business, Fintech & Analytics
+    - Profile Triggers: Balanced High Numerical and High Verbal.
+    - SSS Recommendation: "Business & Commerce"
+    - SSS Specialization: "Accounting, Economics & Financial Studies Focus"
+    - Futuristic Careers (For Steps 3/4): Fintech, Decentralized Finance (DeFi), ESG Management, Quantitative Economics.
 
-    TRACK 5: Tech-Law, Policy & Digital Humanities
-    - Profile Triggers: High Verbal Reasoning, moderate/low Numerical. Enterprising, Social, or Investigative traits.
-    - Allowed Specializations: "Tech Law & AI Ethics", "Cyber Diplomacy & International Relations", "Digital Mass Communication", "Cognitive Linguistics & NLP Design".
+    PATHWAY 5: Tech-Law, Policy & Digital Humanities
+    - Profile Triggers: High Verbal Reasoning, moderate/low Numerical.
+    - SSS Recommendation: "Arts & Humanities"
+    - SSS Specialization: "Government, Literature & History Focus"
+    - Futuristic Careers (For Steps 3/4): Tech Law & AI Ethics, Cyber Diplomacy, Digital Mass Communication.
 
-    TRACK 6: Synthetic Media, Arts & Immersive Design
-    - Profile Triggers: High Verbal + High Spatial. Artistic traits.
-    - Allowed Specializations: "UI/UX & Spatial Interface Design", "Computational Arts & Generative Animation", "Synthetic Media & Prompt Architecture", "Digital Sound & Interactive Entertainment".
+    PATHWAY 6: Synthetic Media, Arts & Immersive Design
+    - Profile Triggers: High Verbal + High Spatial.
+    - SSS Recommendation: "Arts & Humanities"
+    - SSS Specialization: "Creative Arts, Literature & Media Studies Focus"
+    - Futuristic Careers (For Steps 3/4): UI/UX Design, Computational Arts, Generative Animation.
 
-    TRACK 7: Advanced Applied Technologies (Smart TVET)
-    - Profile Triggers: High Spatial/Mechanical with Realistic traits, or a practical hands-on profile needing abstract foundational support.
-    - Allowed Specializations: "Smart Home & IoT Servicing", "3D Printing & Additive Manufacturing", "Precision Agrotech & Hydroponics", "Renewable Energy Installation".
+    PATHWAY 7: Advanced Applied Technologies (Smart TVET)
+    - Profile Triggers: High Spatial/Mechanical with Realistic traits.
+    - SSS Recommendation: "Technical & Vocational Education"
+    - SSS Specialization: "Applied Sciences, Basic Technology & ICT Focus"
+    - Futuristic Careers (For Steps 3/4): Smart Home Servicing, 3D Printing, Precision Agrotech, Renewable Energy.
 
     OUTPUT EXACTLY THIS JSON STRUCTURE AND NOTHING ELSE:
     {
-      "recommendation": "String (Must be exactly one of the 7 Tracks listed above)",
-      "specialization": "String (Must be exactly one of the Allowed Specializations under the chosen Track)",
+      "recommendation": "String (Must be 'Science & Mathematics', 'Business & Commerce', 'Arts & Humanities', or 'Technical & Vocational')",
+      "specialization": "String (Must be the SSS Specialization Focus from the chosen Pathway)",
       "studyHacks": {
         "intro": "String (1 brief sentence)",
         "bullets": [
@@ -127,8 +142,8 @@ export async function POST(req: Request) {
       "roadmap": {
         "step1": ["Subject 1", "Subject 2", "Subject 3"],
         "step2": ["Use of English", "JAMB Subject 2", "JAMB Subject 3", "JAMB Subject 4"],
-        "step3": ["Degree 1", "Degree 2", "Degree 3"],
-        "step4": ["Career 1", "Career 2", "Career 3"]
+        "step3": ["Futuristic Degree 1", "Futuristic Degree 2", "Futuristic Degree 3"],
+        "step4": ["Futuristic Career 1", "Futuristic Career 2", "Futuristic Career 3"]
       }
     }
     `;
