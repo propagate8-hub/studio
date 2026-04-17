@@ -4,6 +4,7 @@ import OpenAI from 'openai';
 
 export async function POST(req: Request) {
   try {
+    // 1. Initialize Firebase Admin INSIDE the route to prevent Vercel build crashes
     if (!admin.apps.length) {
       if (!process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
         throw new Error("Missing FIREBASE_SERVICE_ACCOUNT_KEY environment variable.");
@@ -15,6 +16,7 @@ export async function POST(req: Request) {
     }
     const db = admin.firestore();
 
+    // 2. Initialize OpenAI Client dynamically
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
@@ -26,6 +28,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing studentId or gradingResult' }, { status: 400 });
     }
 
+    // 3. Fetch the Student's Full Profile from Firebase
     const studentRef = db.collection('Students').doc(studentId);
     const studentSnap = await studentRef.get();
 
@@ -36,7 +39,7 @@ export async function POST(req: Request) {
     const studentData = studentSnap.data();
     
     // ==========================================
-    // 🚨 DYNAMIC PRONOUN ENGINE
+    // 🚨 THE DYNAMIC PRONOUN ENGINE
     // ==========================================
     const studentGender = studentData?.gender ? studentData.gender.toLowerCase() : 'unknown';
     let pronounInstruction = "Use gender-neutral pronouns (they/them/theirs).";
@@ -48,7 +51,7 @@ export async function POST(req: Request) {
     }
 
     // ==========================================
-    // 🧠 THE EXPANDED DECISION MATRIX PROMPT
+    // 🧠 THE EXPANDED FUTURISTIC DECISION MATRIX
     // ==========================================
     const prompt = `
     You are an expert educational psychometrician analyzing an ACET Intelligence Report.
@@ -71,38 +74,38 @@ export async function POST(req: Request) {
     CRITICAL PDF FORMATTING RULES:
     - Keep "Study Hacks" descriptions extremely concise (Maximum of 12 words per bullet point) to prevent PDF overflow.
     - Write professional, clinical, yet encouraging counselor notes.
-    - JAMB SUBJECT COMBINATION: Step 2 of the roadmap MUST be exactly 4 academic subjects for the Nigerian UTME/JAMB exam. "Use of English" is compulsory. The other three must match the specialization (e.g., Mathematics, Physics, Chemistry for Engineering; Literature, Government, CRK for Law). Do not write "JAMB 2024" or "Mock Exams".
+    - JAMB SUBJECT COMBINATION: Step 2 of the roadmap MUST be exactly 4 academic subjects for the Nigerian UTME/JAMB exam. "Use of English" is compulsory. The other three must match the specialization (e.g., Mathematics, Physics, Chemistry for Engineering; Literature, Government, CRK for Law). Do not write "JAMB 2024", "JAMB 2025", or "Mock Exams".
     
     DECISION MATRIX FOR RECOMMENDATIONS: 
     You must select the "recommendation" and "specialization" strictly from the 7 tracks below, based on the student's specific cognitive scores and personality traits.
 
-    TRACK 1: Medical & Health Sciences
+    TRACK 1: Bio-Health & Cognitive Sciences
     - Profile Triggers: High Verbal + High Numerical. Investigative and Social traits.
-    - Allowed Specializations: "Medicine & Surgery", "Pharmacy & Pharmacology", "Nursing & Public Health", "Biomedical Sciences".
+    - Allowed Specializations: "Bioinformatics & Genomic Medicine", "Neural Engineering & Cognitive Science", "Digital Health & Telemedicine", "Precision Medicine & Pharmacology".
 
-    TRACK 2: Engineering & Architecture
+    TRACK 2: Advanced Engineering & Smart Infrastructure
     - Profile Triggers: High Numerical + High Spatial/Mechanical + High Abstract. Investigative and Realistic traits.
-    - Allowed Specializations: "Mechanical & Aerospace Engineering", "Civil Engineering & Architecture", "Electrical & Electronics", "Chemical & Petroleum Engineering".
+    - Allowed Specializations: "Robotics & Autonomous Systems", "Smart City Architecture", "Sustainable Energy & Microgrid Engineering", "Quantum & Microelectronics Engineering", "Aerospace & Drone Technologies".
 
-    TRACK 3: Computer Science & Technology
-    - Profile Triggers: High Abstract/Logical + High Numerical (Spatial can be average/low). Investigative and Conventional traits.
-    - Allowed Specializations: "Artificial Intelligence & Data Science", "Software Engineering", "Cybersecurity & Network Administration".
+    TRACK 3: AI, Computing & Cyber-Physical Systems
+    - Profile Triggers: High Abstract/Logical + High Numerical (Spatial can be average). Investigative and Conventional traits.
+    - Allowed Specializations: "Artificial Intelligence & Machine Learning", "Cybersecurity & Zero-Trust Architecture", "Cloud Computing & Edge IoT", "Spatial Computing & Immersive Tech (XR/VR)", "Blockchain & Cryptographic Systems".
 
-    TRACK 4: Business, Finance & Management
+    TRACK 4: Next-Gen Business, Fintech & Analytics
     - Profile Triggers: Balanced High Numerical and High Verbal. Enterprising and Conventional traits.
-    - Allowed Specializations: "Accounting & Corporate Finance", "Business Administration", "Economics & Market Analytics".
+    - Allowed Specializations: "Fintech & Decentralized Finance (DeFi)", "AI-Driven Market Intelligence", "ESG (Environmental & Social) Management", "Quantitative Economics & Data Analytics".
 
-    TRACK 5: Law, Public Policy & Humanities
+    TRACK 5: Tech-Law, Policy & Digital Humanities
     - Profile Triggers: High Verbal Reasoning, moderate/low Numerical. Enterprising, Social, or Investigative traits.
-    - Allowed Specializations: "Law & Jurisprudence", "International Relations & Diplomacy", "Mass Communication & Journalism".
+    - Allowed Specializations: "Tech Law & AI Ethics", "Cyber Diplomacy & International Relations", "Digital Mass Communication", "Cognitive Linguistics & NLP Design".
 
-    TRACK 6: Creative Arts, Media & Design
+    TRACK 6: Synthetic Media, Arts & Immersive Design
     - Profile Triggers: High Verbal + High Spatial. Artistic traits.
-    - Allowed Specializations: "UI/UX & Digital Design", "Fine Arts & Graphic Design", "Theatre & Media Production".
+    - Allowed Specializations: "UI/UX & Spatial Interface Design", "Computational Arts & Generative Animation", "Synthetic Media & Prompt Architecture", "Digital Sound & Interactive Entertainment".
 
-    TRACK 7: Applied Technologies & TVET
+    TRACK 7: Advanced Applied Technologies (Smart TVET)
     - Profile Triggers: High Spatial/Mechanical with Realistic traits, or a practical hands-on profile needing abstract foundational support.
-    - Allowed Specializations: "Renewable Energy & Solar Tech", "Agribusiness & Food Tech", "Digital Craft & Hardware Servicing".
+    - Allowed Specializations: "Smart Home & IoT Servicing", "3D Printing & Additive Manufacturing", "Precision Agrotech & Hydroponics", "Renewable Energy Installation".
 
     OUTPUT EXACTLY THIS JSON STRUCTURE AND NOTHING ELSE:
     {
@@ -130,6 +133,7 @@ export async function POST(req: Request) {
     }
     `;
 
+    // 5. Call OpenAI Engine
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       response_format: { type: "json_object" },
@@ -148,6 +152,7 @@ export async function POST(req: Request) {
 
     const aiReportData = JSON.parse(responseText);
 
+    // 6. Save the AI Data back to the Student's Firebase Profile
     await studentRef.update({
       aiReportData,
       reportGeneratedAt: admin.firestore.FieldValue.serverTimestamp()
