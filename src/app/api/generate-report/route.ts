@@ -50,7 +50,7 @@ export async function POST(req: Request) {
       pronounInstruction = "CRITICAL: The student is male. You MUST strictly use masculine pronouns (he/him/his). Do not use she, her, hers, or they.";
     }
 
-    // 4. Construct the Master Prompt with the DECISION MATRIX
+    // 4. Construct the Master Prompt with the DECISION MATRIX & JAMB RULE
     const prompt = `
     You are an expert educational psychometrician analyzing an ACET Intelligence Report.
     
@@ -72,6 +72,7 @@ export async function POST(req: Request) {
     CRITICAL PDF FORMATTING RULES:
     - Keep "Study Hacks" descriptions extremely concise (Maximum of 12 words per bullet point) to prevent PDF overflow.
     - Write professional, clinical, yet encouraging counselor notes.
+    - JAMB SUBJECT COMBINATION: Step 2 of the roadmap MUST be exactly 4 academic subjects for the Nigerian UTME/JAMB exam. "Use of English" is compulsory. The other three must match the student's specialization (e.g., Mathematics, Physics, Chemistry, Economics, Government, Literature, etc.). Do not write "JAMB 2024", "JAMB 2025", or "Mock Exams".
     - DECISION MATRIX FOR RECOMMENDATIONS: You must select the "recommendation" and "specialization" strictly from the globally competitive tracks below, basing your choice on the student's specific cognitive scores and personality traits.
 
     TRACK 1: Science & Technology (STEM)
@@ -109,7 +110,7 @@ export async function POST(req: Request) {
       "counselorNotes": "String (1 paragraph clinical summary)",
       "roadmap": {
         "step1": ["Subject 1", "Subject 2", "Subject 3"],
-        "step2": ["JAMB 1", "JAMB 2", "JAMB 3", "JAMB 4"],
+        "step2": ["Use of English", "JAMB Subject 2", "JAMB Subject 3", "JAMB Subject 4"],
         "step3": ["Degree 1", "Degree 2", "Degree 3"],
         "step4": ["Career 1", "Career 2", "Career 3"]
       }
