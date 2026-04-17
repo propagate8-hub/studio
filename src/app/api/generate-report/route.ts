@@ -77,17 +77,17 @@ export async function POST(req: Request) {
     - JAMB SUBJECT COMBINATION: Step 2 of the roadmap MUST be exactly 4 academic subjects for the Nigerian UTME/JAMB exam. "Use of English" is compulsory. The other three must match the specialization (e.g., Mathematics, Physics, Chemistry for Engineering; Literature, Government, CRK for Law). Do not write "JAMB 2024", "JAMB 2025", or "Mock Exams".
     
     DECISION MATRIX FOR RECOMMENDATIONS: 
-    You must align the student to one of the 7 Futuristic Pathways below based on their cognitive scores. 
-    CRITICAL: The "recommendation" MUST be a standard Nigerian Senior Secondary School (SSS) Track. The "specialization" MUST be a High School Subject Focus. You will use the Futuristic Degrees/Careers ONLY for Step 3 and Step 4 of the roadmap.
+    You must align the student to one of the 7 Futuristic Pathways below based on their cognitive scores AND personality traits. 
+    CRITICAL: The "recommendation" MUST be a standard Nigerian Senior Secondary School (SSS) Track (e.g., Science & Mathematics, Commercial & Business, Arts & Humanities, Technical & Vocational). The "specialization" MUST be a High School Subject Focus. You will use the Futuristic Degrees/Careers ONLY for Step 3 and Step 4 of the roadmap.
 
     PATHWAY 1: Bio-Health & Cognitive Sciences
-    - Profile Triggers: High Verbal + High Numerical.
+    - Profile Triggers: High Verbal + High Numerical. Investigative and Social traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Biology, Chemistry & Pre-Medical Focus"
     - Futuristic Careers (For Steps 3/4): Bioinformatics, Genomic Medicine, Neural Engineering, Telemedicine.
 
     PATHWAY 2: Advanced Engineering & Smart Infrastructure
-    - Profile Triggers: High Numerical + High Spatial/Mechanical + High Abstract.
+    - Profile Triggers: High Numerical + High Spatial/Mechanical. Realistic traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Physics, Technical Drawing & Advanced Mathematics Focus"
     - Futuristic Careers (For Steps 3/4): Robotics, Smart City Architecture, Sustainable Energy, Aerospace.
@@ -99,19 +99,19 @@ export async function POST(req: Request) {
     - Futuristic Careers (For Steps 3/4): Artificial Intelligence, Cybersecurity, Cloud Computing, Blockchain.
 
     PATHWAY 4: Next-Gen Business, Fintech & Analytics
-    - Profile Triggers: Balanced High Numerical and High Verbal.
-    - SSS Recommendation: "Business & Commerce"
-    - SSS Specialization: "Accounting, Economics & Financial Studies Focus"
-    - Futuristic Careers (For Steps 3/4): Fintech, Decentralized Finance (DeFi), ESG Management, Quantitative Economics.
+    - Profile Triggers: Moderate to High Numerical OR Moderate to High Verbal. CRITICAL OVERRIDE: If the student's highest Personality traits are "Enterprising" or "Conventional", you MUST strongly consider placing them in this track regardless of minor cognitive imbalances.
+    - SSS Recommendation: "Commercial & Business"
+    - SSS Specialization: "Accounting, Commerce & Financial Studies Focus"
+    - Futuristic Careers (For Steps 3/4): Fintech, Decentralized Finance (DeFi), ESG Management, Quantitative Economics, AI-Driven Market Intelligence.
 
     PATHWAY 5: Tech-Law, Policy & Digital Humanities
-    - Profile Triggers: High Verbal Reasoning, moderate/low Numerical.
+    - Profile Triggers: High Verbal Reasoning, moderate/low Numerical. Social or Investigative traits.
     - SSS Recommendation: "Arts & Humanities"
     - SSS Specialization: "Government, Literature & History Focus"
     - Futuristic Careers (For Steps 3/4): Tech Law & AI Ethics, Cyber Diplomacy, Digital Mass Communication.
 
     PATHWAY 6: Synthetic Media, Arts & Immersive Design
-    - Profile Triggers: High Verbal + High Spatial.
+    - Profile Triggers: High Verbal + High Spatial. Artistic traits.
     - SSS Recommendation: "Arts & Humanities"
     - SSS Specialization: "Creative Arts, Literature & Media Studies Focus"
     - Futuristic Careers (For Steps 3/4): UI/UX Design, Computational Arts, Generative Animation.
@@ -124,7 +124,7 @@ export async function POST(req: Request) {
 
     OUTPUT EXACTLY THIS JSON STRUCTURE AND NOTHING ELSE:
     {
-      "recommendation": "String (Must be 'Science & Mathematics', 'Business & Commerce', 'Arts & Humanities', or 'Technical & Vocational')",
+      "recommendation": "String (Must be 'Science & Mathematics', 'Commercial & Business', 'Arts & Humanities', or 'Technical & Vocational')",
       "specialization": "String (Must be the SSS Specialization Focus from the chosen Pathway)",
       "studyHacks": {
         "intro": "String (1 brief sentence)",
