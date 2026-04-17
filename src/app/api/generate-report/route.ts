@@ -50,7 +50,7 @@ export async function POST(req: Request) {
       pronounInstruction = "CRITICAL: The student is male. You MUST strictly use masculine pronouns (he/him/his). Do not use she, her, hers, or they.";
     }
 
-    // 4. Construct the Master Prompt
+    // 4. Construct the Master Prompt with the DECISION MATRIX
     const prompt = `
     You are an expert educational psychometrician analyzing an ACET Intelligence Report.
     
@@ -72,11 +72,28 @@ export async function POST(req: Request) {
     CRITICAL PDF FORMATTING RULES:
     - Keep "Study Hacks" descriptions extremely concise (Maximum of 12 words per bullet point) to prevent PDF overflow.
     - Write professional, clinical, yet encouraging counselor notes.
+    - DECISION MATRIX FOR RECOMMENDATIONS: You must select the "recommendation" and "specialization" strictly from the globally competitive tracks below, basing your choice on the student's specific cognitive scores and personality traits.
+
+    TRACK 1: Science & Technology (STEM)
+    - Profile Triggers: High Numerical, High Abstract/Logical, High Spatial. Investigative or Realistic personality traits.
+    - Allowed Specializations: "Engineering & Applied Sciences", "Medicine & Health Sciences", "Computer Science & Artificial Intelligence", "Agricultural Science & Technology".
+
+    TRACK 2: Business & Finance
+    - Profile Triggers: Balanced High Numerical and High Verbal. Enterprising or Conventional personality traits.
+    - Allowed Specializations: "Accounting & Financial Management", "Business Administration & Marketing", "Economics & Data Analytics".
+
+    TRACK 3: Arts & Humanities
+    - Profile Triggers: High Verbal Reasoning, moderate to low Numerical. Social, Artistic, or Enterprising personality traits.
+    - Allowed Specializations: "Law & Public Administration", "Mass Communication & Digital Media", "Creative & Cultural Arts", "International Relations & History".
+
+    TRACK 4: Vocational & Technical Education (TVET)
+    - Profile Triggers: High Spatial/Mechanical with Realistic traits, or students requiring foundational cognitive support who show highly practical/hands-on inclinations.
+    - Allowed Specializations: "Renewable Energy & Hardware Tech", "Fashion Design & Textile Arts", "Culinary Arts & Hospitality", "Digital Craft & ICT Servicing".
 
     OUTPUT EXACTLY THIS JSON STRUCTURE AND NOTHING ELSE:
     {
-      "recommendation": "String (e.g., Science & Technology, Vocational Education)",
-      "specialization": "String (e.g., Engineering, Creative & Cultural Arts)",
+      "recommendation": "String (Must be exactly one of the 4 Tracks listed above)",
+      "specialization": "String (Must be exactly one of the Allowed Specializations under the chosen Track)",
       "studyHacks": {
         "intro": "String (1 brief sentence)",
         "bullets": [
@@ -99,7 +116,7 @@ export async function POST(req: Request) {
     }
     `;
 
-    // 5. Call OpenAI Engine (Using GPT-4o-mini for speed and strict JSON formatting)
+    // 5. Call OpenAI Engine
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       response_format: { type: "json_object" },
