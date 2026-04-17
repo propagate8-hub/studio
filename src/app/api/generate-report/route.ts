@@ -4,7 +4,7 @@ import OpenAI from 'openai';
 
 export async function POST(req: Request) {
   try {
-    // 1. Initialize Firebase Admin INSIDE the route to prevent Vercel build crashes
+    // 1. Initialize Firebase Admin
     if (!admin.apps.length) {
       if (!process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
         throw new Error("Missing FIREBASE_SERVICE_ACCOUNT_KEY environment variable.");
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     }
     const db = admin.firestore();
 
-    // 2. Initialize OpenAI Client dynamically
+    // 2. Initialize OpenAI Client
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing studentId or gradingResult' }, { status: 400 });
     }
 
-    // 3. Fetch the Student's Full Profile from Firebase
+    // 3. Fetch the Student Profile
     const studentRef = db.collection('Students').doc(studentId);
     const studentSnap = await studentRef.get();
 
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     const studentData = studentSnap.data();
     
     // ==========================================
-    // 🚨 THE DYNAMIC PRONOUN ENGINE
+    // 🚨 DYNAMIC PRONOUN ENGINE
     // ==========================================
     const studentGender = studentData?.gender ? studentData.gender.toLowerCase() : 'unknown';
     let pronounInstruction = "Use gender-neutral pronouns (they/them/theirs).";
@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     }
 
     // ==========================================
-    // 🧠 THE EXPANDED FUTURISTIC DECISION MATRIX
+    // ⚖️ LOAD-BALANCED DECISION MATRIX
     // ==========================================
     const prompt = `
     You are an expert educational psychometrician analyzing an ACET Intelligence Report.
@@ -72,60 +72,52 @@ export async function POST(req: Request) {
     Generate a highly personalized JSON payload analyzing this student's cognitive performance.
     
     CRITICAL PDF FORMATTING RULES:
-    - Keep "Study Hacks" descriptions extremely concise (Maximum of 12 words per bullet point) to prevent PDF overflow.
+    - Keep "Study Hacks" descriptions extremely concise (Maximum of 12 words per bullet point).
     - Write professional, clinical, yet encouraging counselor notes.
-    - JAMB SUBJECT COMBINATION: Step 2 of the roadmap MUST be exactly 4 academic subjects for the Nigerian UTME/JAMB exam. "Use of English" is compulsory. The other three must match the specialization (e.g., Mathematics, Physics, Chemistry for Engineering; Literature, Government, CRK for Law). Do not write "JAMB 2024", "JAMB 2025", or "Mock Exams".
+    - JAMB SUBJECT COMBINATION: Step 2 of the roadmap MUST be exactly 4 academic subjects for the Nigerian UTME/JAMB exam. "Use of English" is compulsory. Do not write "JAMB 2024" or "Mock Exams".
     
-    DECISION MATRIX FOR RECOMMENDATIONS: 
-    You must align the student to one of the 7 Futuristic Pathways below based on their cognitive scores AND personality traits. 
-    CRITICAL: The "recommendation" MUST be a standard Nigerian Senior Secondary School (SSS) Track (e.g., Science & Mathematics, Commercial & Business, Arts & Humanities, Technical & Vocational). The "specialization" MUST be a High School Subject Focus. You will use the Futuristic Degrees/Careers ONLY for Step 3 and Step 4 of the roadmap.
-
-    PATHWAY 1: Bio-Health & Cognitive Sciences
-    - Profile Triggers: High Verbal + High Numerical. Investigative and Social traits.
-    - SSS Recommendation: "Science & Mathematics"
-    - SSS Specialization: "Biology, Chemistry & Pre-Medical Focus"
-    - Futuristic Careers (For Steps 3/4): Bioinformatics, Genomic Medicine, Neural Engineering, Telemedicine.
-
-    PATHWAY 2: Advanced Engineering & Smart Infrastructure
-    - Profile Triggers: High Numerical + High Spatial/Mechanical. Realistic traits.
-    - SSS Recommendation: "Science & Mathematics"
-    - SSS Specialization: "Physics, Technical Drawing & Advanced Mathematics Focus"
-    - Futuristic Careers (For Steps 3/4): Robotics, Smart City Architecture, Sustainable Energy, Aerospace.
-
-    PATHWAY 3: AI, Computing & Cyber-Physical Systems
-    - Profile Triggers: High Abstract/Logical + High Numerical.
-    - SSS Recommendation: "Science & Mathematics"
-    - SSS Specialization: "Computer Studies, Physics & Mathematics Focus"
-    - Futuristic Careers (For Steps 3/4): Artificial Intelligence, Cybersecurity, Cloud Computing, Blockchain.
-
-    PATHWAY 4: Next-Gen Business, Fintech & Analytics
-    - Profile Triggers: Moderate to High Numerical OR Moderate to High Verbal. CRITICAL OVERRIDE: If the student's highest Personality traits are "Enterprising" or "Conventional", you MUST strongly consider placing them in this track regardless of minor cognitive imbalances.
-    - SSS Recommendation: "Commercial & Business"
-    - SSS Specialization: "Accounting, Commerce & Financial Studies Focus"
-    - Futuristic Careers (For Steps 3/4): Fintech, Decentralized Finance (DeFi), ESG Management, Quantitative Economics, AI-Driven Market Intelligence.
-
-    PATHWAY 5: Tech-Law, Policy & Digital Humanities
-    - Profile Triggers: High Verbal Reasoning, moderate/low Numerical. Social or Investigative traits.
-    - SSS Recommendation: "Arts & Humanities"
-    - SSS Specialization: "Government, Literature & History Focus"
-    - Futuristic Careers (For Steps 3/4): Tech Law & AI Ethics, Cyber Diplomacy, Digital Mass Communication.
-
-    PATHWAY 6: Synthetic Media, Arts & Immersive Design
-    - Profile Triggers: High Verbal + High Spatial. Artistic traits.
-    - SSS Recommendation: "Arts & Humanities"
-    - SSS Specialization: "Creative Arts, Literature & Media Studies Focus"
-    - Futuristic Careers (For Steps 3/4): UI/UX Design, Computational Arts, Generative Animation.
-
-    PATHWAY 7: Advanced Applied Technologies (Smart TVET)
-    - Profile Triggers: High Spatial/Mechanical with Realistic traits.
+    EVALUATION HIERARCHY (YOU MUST EVALUATE IN THIS EXACT ORDER TO PREVENT BIAS):
+    
+    STEP 1: TVET / APPLIED TECHNOLOGIES CHECK
+    - Condition: If "Spatial & Mechanical" is their highest cognitive score, OR if Overall Accuracy is below 55% with high "Realistic" personality traits.
     - SSS Recommendation: "Technical & Vocational Education"
     - SSS Specialization: "Applied Sciences, Basic Technology & ICT Focus"
-    - Futuristic Careers (For Steps 3/4): Smart Home Servicing, 3D Printing, Precision Agrotech, Renewable Energy.
+    - Futuristic Careers: Smart Home Servicing, 3D Printing, Precision Agrotech, Renewable Energy.
+
+    STEP 2: BUSINESS & COMMERCE CHECK
+    - Condition: If "Enterprising" or "Conventional" are dominant personality traits, OR if Numerical and Verbal are roughly equal (balanced profile). 
+    - SSS Recommendation: "Commercial & Business"
+    - SSS Specialization: "Accounting, Commerce & Financial Studies Focus"
+    - Futuristic Careers: Fintech, DeFi, ESG Management, Quantitative Economics, Market Intelligence.
+
+    STEP 3: ARTS, LAW & MEDIA CHECK
+    - Condition: If "Verbal" is strictly higher than "Numerical", OR if "Social" or "Artistic" are dominant traits.
+    - SSS Recommendation: "Arts & Humanities"
+    - SSS Specialization: "Government, Literature & History Focus" OR "Creative Arts & Media Studies Focus"
+    - Futuristic Careers: Tech Law, Cyber Diplomacy, UI/UX Design, Synthetic Media, Digital Mass Communication.
+
+    STEP 4: COMPUTER SCIENCE & AI CHECK
+    - Condition: If "Abstract/Logical" is their absolute highest score, supported by good Numerical.
+    - SSS Recommendation: "Science & Mathematics"
+    - SSS Specialization: "Computer Studies, Physics & Mathematics Focus"
+    - Futuristic Careers: Artificial Intelligence, Cybersecurity, Cloud Computing, Blockchain.
+
+    STEP 5: ENGINEERING & ARCHITECTURE CHECK
+    - Condition: If they have High Numerical AND High Spatial/Mechanical.
+    - SSS Recommendation: "Science & Mathematics"
+    - SSS Specialization: "Physics, Technical Drawing & Advanced Mathematics Focus"
+    - Futuristic Careers: Robotics, Smart City Architecture, Sustainable Energy, Aerospace.
+
+    STEP 6: BIO-HEALTH & MEDICINE CHECK (ONLY IF NOT CAUGHT BY STEPS 1-5)
+    - Condition: High Verbal + High Numerical + High Abstract, with "Investigative" traits. Do not default to this track unless the profile is exceptionally balanced across sciences.
+    - SSS Recommendation: "Science & Mathematics"
+    - SSS Specialization: "Biology, Chemistry & Pre-Medical Focus"
+    - Futuristic Careers: Bioinformatics, Genomic Medicine, Neural Engineering, Telemedicine.
 
     OUTPUT EXACTLY THIS JSON STRUCTURE AND NOTHING ELSE:
     {
-      "recommendation": "String (Must be 'Science & Mathematics', 'Commercial & Business', 'Arts & Humanities', or 'Technical & Vocational')",
-      "specialization": "String (Must be the SSS Specialization Focus from the chosen Pathway)",
+      "recommendation": "String (Must be 'Science & Mathematics', 'Commercial & Business', 'Arts & Humanities', or 'Technical & Vocational Education')",
+      "specialization": "String (Must be the SSS Specialization Focus from the chosen Step)",
       "studyHacks": {
         "intro": "String (1 brief sentence)",
         "bullets": [
@@ -135,7 +127,7 @@ export async function POST(req: Request) {
         ]
       },
       "skillGap": {
-        "focus": "String (e.g., The Spatial-Mechanical Gap)",
+        "focus": "String",
         "description": "String (2 brief sentences)"
       },
       "counselorNotes": "String (1 paragraph clinical summary)",
@@ -153,7 +145,7 @@ export async function POST(req: Request) {
       model: "gpt-4o-mini",
       response_format: { type: "json_object" },
       messages: [
-        { role: "system", content: "You are a data-formatting assistant designed to output strictly valid JSON." },
+        { role: "system", content: "You are a highly analytical educational psychometrician. Follow the evaluation hierarchy strictly." },
         { role: "user", content: prompt }
       ],
       temperature: 0.7,
