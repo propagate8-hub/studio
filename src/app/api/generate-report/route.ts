@@ -4,7 +4,6 @@ import OpenAI from 'openai';
 
 export async function POST(req: Request) {
   try {
-    // 1. Initialize Firebase Admin INSIDE the route to prevent Vercel build crashes
     if (!admin.apps.length) {
       if (!process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
         throw new Error("Missing FIREBASE_SERVICE_ACCOUNT_KEY environment variable.");
@@ -16,7 +15,6 @@ export async function POST(req: Request) {
     }
     const db = admin.firestore();
 
-    // 2. Initialize OpenAI Client dynamically
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     });
@@ -28,7 +26,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Missing studentId or gradingResult' }, { status: 400 });
     }
 
-    // 3. Fetch the Student's Full Profile from Firebase
     const studentRef = db.collection('Students').doc(studentId);
     const studentSnap = await studentRef.get();
 
@@ -39,7 +36,7 @@ export async function POST(req: Request) {
     const studentData = studentSnap.data();
     
     // ==========================================
-    // 🚨 THE DYNAMIC PRONOUN ENGINE
+    // 🚨 DYNAMIC PRONOUN ENGINE
     // ==========================================
     const studentGender = studentData?.gender ? studentData.gender.toLowerCase() : 'unknown';
     let pronounInstruction = "Use gender-neutral pronouns (they/them/theirs).";
@@ -50,7 +47,9 @@ export async function POST(req: Request) {
       pronounInstruction = "CRITICAL: The student is male. You MUST strictly use masculine pronouns (he/him/his). Do not use she, her, hers, or they.";
     }
 
-    // 4. Construct the Master Prompt with the DECISION MATRIX & JAMB RULE
+    // ==========================================
+    // 🧠 THE EXPANDED DECISION MATRIX PROMPT
+    // ==========================================
     const prompt = `
     You are an expert educational psychometrician analyzing an ACET Intelligence Report.
     
@@ -72,28 +71,42 @@ export async function POST(req: Request) {
     CRITICAL PDF FORMATTING RULES:
     - Keep "Study Hacks" descriptions extremely concise (Maximum of 12 words per bullet point) to prevent PDF overflow.
     - Write professional, clinical, yet encouraging counselor notes.
-    - JAMB SUBJECT COMBINATION: Step 2 of the roadmap MUST be exactly 4 academic subjects for the Nigerian UTME/JAMB exam. "Use of English" is compulsory. The other three must match the student's specialization (e.g., Mathematics, Physics, Chemistry, Economics, Government, Literature, etc.). Do not write "JAMB 2024", "JAMB 2025", or "Mock Exams".
-    - DECISION MATRIX FOR RECOMMENDATIONS: You must select the "recommendation" and "specialization" strictly from the globally competitive tracks below, basing your choice on the student's specific cognitive scores and personality traits.
+    - JAMB SUBJECT COMBINATION: Step 2 of the roadmap MUST be exactly 4 academic subjects for the Nigerian UTME/JAMB exam. "Use of English" is compulsory. The other three must match the specialization (e.g., Mathematics, Physics, Chemistry for Engineering; Literature, Government, CRK for Law). Do not write "JAMB 2024" or "Mock Exams".
+    
+    DECISION MATRIX FOR RECOMMENDATIONS: 
+    You must select the "recommendation" and "specialization" strictly from the 7 tracks below, based on the student's specific cognitive scores and personality traits.
 
-    TRACK 1: Science & Technology (STEM)
-    - Profile Triggers: High Numerical, High Abstract/Logical, High Spatial. Investigative or Realistic personality traits.
-    - Allowed Specializations: "Engineering & Applied Sciences", "Medicine & Health Sciences", "Computer Science & Artificial Intelligence", "Agricultural Science & Technology".
+    TRACK 1: Medical & Health Sciences
+    - Profile Triggers: High Verbal + High Numerical. Investigative and Social traits.
+    - Allowed Specializations: "Medicine & Surgery", "Pharmacy & Pharmacology", "Nursing & Public Health", "Biomedical Sciences".
 
-    TRACK 2: Business & Finance
-    - Profile Triggers: Balanced High Numerical and High Verbal. Enterprising or Conventional personality traits.
-    - Allowed Specializations: "Accounting & Financial Management", "Business Administration & Marketing", "Economics & Data Analytics".
+    TRACK 2: Engineering & Architecture
+    - Profile Triggers: High Numerical + High Spatial/Mechanical + High Abstract. Investigative and Realistic traits.
+    - Allowed Specializations: "Mechanical & Aerospace Engineering", "Civil Engineering & Architecture", "Electrical & Electronics", "Chemical & Petroleum Engineering".
 
-    TRACK 3: Arts & Humanities
-    - Profile Triggers: High Verbal Reasoning, moderate to low Numerical. Social, Artistic, or Enterprising personality traits.
-    - Allowed Specializations: "Law & Public Administration", "Mass Communication & Digital Media", "Creative & Cultural Arts", "International Relations & History".
+    TRACK 3: Computer Science & Technology
+    - Profile Triggers: High Abstract/Logical + High Numerical (Spatial can be average/low). Investigative and Conventional traits.
+    - Allowed Specializations: "Artificial Intelligence & Data Science", "Software Engineering", "Cybersecurity & Network Administration".
 
-    TRACK 4: Vocational & Technical Education (TVET)
-    - Profile Triggers: High Spatial/Mechanical with Realistic traits, or students requiring foundational cognitive support who show highly practical/hands-on inclinations.
-    - Allowed Specializations: "Renewable Energy & Hardware Tech", "Fashion Design & Textile Arts", "Culinary Arts & Hospitality", "Digital Craft & ICT Servicing".
+    TRACK 4: Business, Finance & Management
+    - Profile Triggers: Balanced High Numerical and High Verbal. Enterprising and Conventional traits.
+    - Allowed Specializations: "Accounting & Corporate Finance", "Business Administration", "Economics & Market Analytics".
+
+    TRACK 5: Law, Public Policy & Humanities
+    - Profile Triggers: High Verbal Reasoning, moderate/low Numerical. Enterprising, Social, or Investigative traits.
+    - Allowed Specializations: "Law & Jurisprudence", "International Relations & Diplomacy", "Mass Communication & Journalism".
+
+    TRACK 6: Creative Arts, Media & Design
+    - Profile Triggers: High Verbal + High Spatial. Artistic traits.
+    - Allowed Specializations: "UI/UX & Digital Design", "Fine Arts & Graphic Design", "Theatre & Media Production".
+
+    TRACK 7: Applied Technologies & TVET
+    - Profile Triggers: High Spatial/Mechanical with Realistic traits, or a practical hands-on profile needing abstract foundational support.
+    - Allowed Specializations: "Renewable Energy & Solar Tech", "Agribusiness & Food Tech", "Digital Craft & Hardware Servicing".
 
     OUTPUT EXACTLY THIS JSON STRUCTURE AND NOTHING ELSE:
     {
-      "recommendation": "String (Must be exactly one of the 4 Tracks listed above)",
+      "recommendation": "String (Must be exactly one of the 7 Tracks listed above)",
       "specialization": "String (Must be exactly one of the Allowed Specializations under the chosen Track)",
       "studyHacks": {
         "intro": "String (1 brief sentence)",
@@ -104,7 +117,7 @@ export async function POST(req: Request) {
         ]
       },
       "skillGap": {
-        "focus": "String (e.g., The Abstract-Logic Gap)",
+        "focus": "String (e.g., The Spatial-Mechanical Gap)",
         "description": "String (2 brief sentences)"
       },
       "counselorNotes": "String (1 paragraph clinical summary)",
@@ -117,7 +130,6 @@ export async function POST(req: Request) {
     }
     `;
 
-    // 5. Call OpenAI Engine
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       response_format: { type: "json_object" },
@@ -136,7 +148,6 @@ export async function POST(req: Request) {
 
     const aiReportData = JSON.parse(responseText);
 
-    // 6. Save the AI Data back to the Student's Firebase Profile
     await studentRef.update({
       aiReportData,
       reportGeneratedAt: admin.firestore.FieldValue.serverTimestamp()

@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
-// 🛠️ THE DATE FIX: A safe parser for Firebase Timestamps
+// 🛠️ THE DATE FIX
 const formatSafeDate = (timestamp: any) => {
   if (!timestamp) return "Pending";
   if (typeof timestamp.toDate === 'function') return timestamp.toDate().toLocaleDateString();
@@ -196,20 +196,14 @@ export default function StudentReportCard() {
           </div>
         </div>
 
-        {aiError && (
-          <div className="max-w-[794px] mx-auto bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl flex items-center gap-3 mb-4 print:hidden" data-html2canvas-ignore>
-            <AlertTriangle size={20} /> <p className="font-medium">AI Error: {aiError}</p>
-          </div>
-        )}
-
         {/* THE MASTER PDF WRAPPER */}
         {aiData ? (
           <div id="report-content" style={{ width: '794px', minWidth: '794px', maxWidth: '794px', margin: '0 auto', backgroundColor: '#ffffff', boxSizing: 'border-box' }} className="print:shadow-none text-slate-800">
             <div className="p-8 print:p-2">
               
-              {/* --- PAGE 1 & 2: REACT INFOGRAPHICS --- */}
-              <div className="avoid-page-break">
-                <header className="flex justify-between items-center bg-white p-6 rounded-2xl border border-slate-200 mb-8">
+              {/* --- PAGE 1: REACT INFOGRAPHICS --- */}
+              <div>
+                <header className="flex justify-between items-center bg-white p-6 rounded-2xl border border-slate-200 mb-6">
                   <div>
                     <h1 className="text-3xl font-black text-blue-900 uppercase">ACET Intelligence Report</h1>
                     <p className="text-slate-600 flex items-center gap-2 mt-2 font-bold tracking-wide">
@@ -223,11 +217,11 @@ export default function StudentReportCard() {
                   </div>
                 </header>
 
-                <section className="grid grid-cols-3 gap-6 mb-8">
+                <section className="grid grid-cols-3 gap-6 mb-6">
                   <div className="col-span-2 bg-blue-900 p-8 rounded-3xl text-white shadow-md flex flex-col justify-center relative overflow-hidden">
                     <div className="relative z-10">
                       <span className="bg-blue-800 text-blue-100 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-700">Primary Recommendation</span>
-                      <h2 className="text-4xl font-black mt-4 mb-2 leading-tight">{aiData.recommendation || "Pending"}</h2>
+                      <h2 className="text-3xl font-black mt-4 mb-2 leading-tight">{aiData.recommendation || "Pending"}</h2>
                       <p className="text-blue-200 text-lg">Focus Area: {aiData.specialization || "Pending"}</p>
                     </div>
                     <Award className="absolute right-[-20px] bottom-[-20px] text-blue-800 opacity-50" size={200} />
@@ -239,13 +233,13 @@ export default function StudentReportCard() {
                   </div>
                 </section>
 
-                <section className="grid grid-cols-2 gap-6 mb-8">
-                  <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                <section className="grid grid-cols-2 gap-6 mb-6">
+                  <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm h-full">
                     <div className="flex items-center gap-3 mb-6">
                       <Brain className="text-blue-600" size={24}/>
                       <h3 className="text-xl font-black text-slate-800">Cognitive Domains</h3>
                     </div>
-                    <div className="space-y-5">
+                    <div className="space-y-4">
                       {['Verbal Reasoning', 'Numerical Reasoning', 'Abstract/Logical Reasoning', 'Spatial & Mechanical Reasoning'].map((catName) => {
                         const score = getScore(catName); 
                         if (score === 0) return null; 
@@ -263,16 +257,16 @@ export default function StudentReportCard() {
                     </div>
                   </div>
 
-                  <div className="bg-teal-900 p-8 rounded-3xl text-white shadow-md">
-                    <div className="flex items-center gap-3 mb-6">
+                  <div className="bg-teal-900 p-6 rounded-3xl text-white shadow-md h-full">
+                    <div className="flex items-center gap-3 mb-4">
                       <Lightbulb className="text-teal-300" size={24}/>
                       <h3 className="text-xl font-black">AI Study Hacks</h3>
                     </div>
-                    <p className="text-teal-100 mb-6 text-sm font-medium leading-relaxed">{aiData.studyHacks?.intro}</p>
-                    <ul className="space-y-4">
+                    <p className="text-teal-100 mb-4 text-sm font-medium leading-relaxed">{aiData.studyHacks?.intro}</p>
+                    <ul className="space-y-3">
                       {aiData.studyHacks?.bullets?.map((hack: any, i: number) => (
-                        <li key={i} className="flex gap-3 items-start bg-teal-800 p-4 rounded-xl border border-teal-700">
-                          <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={18} />
+                        <li key={i} className="flex gap-3 items-start bg-teal-800 p-3 rounded-xl border border-teal-700">
+                          <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={16} />
                           <div>
                             <h4 className="font-bold text-white text-sm">{hack.title}</h4>
                             <p className="text-teal-200 text-xs mt-1 leading-relaxed line-clamp-2 overflow-hidden text-ellipsis">{hack.desc}</p>
@@ -286,9 +280,10 @@ export default function StudentReportCard() {
 
               <div className="html2pdf__page-break"></div>
 
-              <div className="avoid-page-break mt-6">
+              {/* --- PAGE 2 --- */}
+              <div className="mt-4">
                 <section className="grid grid-cols-2 gap-6 mb-6">
-                  <div className="bg-orange-50 p-6 rounded-3xl border border-orange-200">
+                  <div className="bg-orange-50 p-6 rounded-3xl border border-orange-200 avoid-page-break">
                     <div className="flex items-center gap-3 mb-4">
                       <Target className="text-orange-600" size={24}/>
                       <h3 className="text-xl font-black text-orange-900">Skill Gap Analysis</h3>
@@ -299,7 +294,7 @@ export default function StudentReportCard() {
                     </div>
                   </div>
 
-                  <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                  <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm avoid-page-break">
                      <div className="flex items-center gap-3 mb-4">
                       <User className="text-blue-600" size={24}/>
                       <h3 className="text-xl font-black text-slate-800">Psychometrician's Notes</h3>
@@ -310,12 +305,13 @@ export default function StudentReportCard() {
                   </div>
                 </section>
 
-                <section className="bg-slate-50 p-6 rounded-3xl border border-slate-200 mb-6">
+                <section className="bg-slate-50 p-6 rounded-3xl border border-slate-200 mb-6 avoid-page-break">
                   <div className="flex items-center gap-3 mb-6">
                     <Map className="text-blue-800" size={24}/>
                     <h3 className="text-xl font-black text-blue-900">Academic to Career Roadmap</h3>
                   </div>
                   <div className="grid grid-cols-4 gap-4 text-center">
+                    {/* Roadmap Cards... */}
                     <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
                       <div className="w-8 h-8 bg-blue-900 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">1</div>
                       <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">SS1 Subjects</h4>
@@ -350,7 +346,7 @@ export default function StudentReportCard() {
 
               <div className="html2pdf__page-break"></div>
 
-              {/* --- PAGES 3 to 6: CLASSIC CLINICAL DATA --- */}
+              {/* --- CLASSIC CLINICAL DATA --- */}
               <div className="mt-6 text-slate-800">
                 
                 <div className="avoid-page-break mb-6">
@@ -361,6 +357,7 @@ export default function StudentReportCard() {
                     <br/><br/>
                     <strong>Understanding the Metrics:</strong><br/>
                     • <strong>Raw Score:</strong> The absolute number of questions answered correctly.<br/>
+                    {/* 🚨 THE TYPO FIX: Changed 'O' to '0' */}
                     • <strong>Z-Score:</strong> A statistical measurement indicating how far the student's score deviates from the <strong>Cohort Average</strong>. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
                     • <strong>Percentile Rank:</strong> Indicates the percentage of peers in the cohort sample that the student outperformed.
                   </p>
@@ -404,7 +401,7 @@ export default function StudentReportCard() {
 
                 <div className="html2pdf__page-break"></div>
 
-                <div className="avoid-page-break mb-6 mt-6">
+                <div className="avoid-page-break mb-6 mt-4">
                   <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Psychological & Behavioral Profile</h2>
                   <div className="mb-6">
                     <h3 className="font-bold text-slate-800 mb-2 text-sm">2.1. The Big Five (OCEAN) Personality Assessment</h3>
@@ -474,7 +471,7 @@ export default function StudentReportCard() {
 
                 <div className="html2pdf__page-break"></div>
 
-                <div className="avoid-page-break mb-6 mt-6">
+                <div className="avoid-page-break mb-6 mt-4">
                   <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">3. Integrated Summary and Recommendations</h2>
                   
                   <h3 className="font-bold text-slate-800 mb-2 mt-4 text-sm">3.1. Summary of Key Findings</h3>
@@ -482,7 +479,7 @@ export default function StudentReportCard() {
                     {student.name} demonstrates strengths aligned with their recommended trajectory. As noted by our psychometric analysis: <i>"{aiData.counselorNotes}"</i>
                   </p>
 
-                  <h3 className="font-bold text-slate-800 mb-2 mt-5 text-sm">3.2. Senior Secondary Specialization Recommendations</h3>
+                  <h3 className="font-bold text-slate-800 mb-2 mt-4 text-sm">3.2. Senior Secondary Specialization Recommendations</h3>
                   <p className="text-sm mb-2 text-slate-700 leading-relaxed text-justify">
                     Based on the integrated assessment results, the following senior secondary specializations are recommended:
                   </p>
@@ -491,7 +488,7 @@ export default function StudentReportCard() {
                     <li><strong>Secondary Specialization:</strong> {aiData.specialization}</li>
                   </ul>
 
-                  <h3 className="font-bold text-slate-800 mb-2 mt-5 text-sm">3.3. Potential Career Paths</h3>
+                  <h3 className="font-bold text-slate-800 mb-2 mt-4 text-sm">3.3. Potential Career Paths</h3>
                   <p className="text-sm mb-2 text-slate-700 leading-relaxed text-justify">
                     Based on the recommended senior secondary specializations, here are some potential career paths the student may wish to explore:
                   </p>
@@ -500,8 +497,6 @@ export default function StudentReportCard() {
                   </p>
                 </div>
 
-                <div className="html2pdf__page-break"></div>
-
                 <div className="avoid-page-break mb-6 mt-6">
                   <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">4. Official Endorsement & Signatures</h2>
                   
@@ -509,12 +504,12 @@ export default function StudentReportCard() {
                     The insights contained within this ACET Intelligence Report represent a synthesis of the candidate's cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach—integrating continuous mentorship, environmental support, and periodic academic re-evaluation—is strongly recommended to assist the student in actualizing their defined career and university trajectory.
                   </p>
 
-                  <h3 className="font-bold text-slate-800 mb-2 mt-6 text-sm">4.1 Internal Counselor's Verification Notes</h3>
-                  <div className="w-full h-40 border border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 italic">
+                  <h3 className="font-bold text-slate-800 mb-2 mt-4 text-sm">4.1 Internal Counselor's Verification Notes</h3>
+                  <div className="w-full h-32 border border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 italic">
                     [ Official School Use Only ]
                   </div>
 
-                  <div className="mt-20 pt-8 border-t border-slate-300 flex justify-end items-end">
+                  <div className="mt-16 pt-6 border-t border-slate-300 flex justify-end items-end">
                     <div className="text-center w-64">
                       <div className="border-b border-black w-full mb-2"></div>
                       <span className="font-bold text-slate-800 text-sm block">Principal / Administrator</span>
