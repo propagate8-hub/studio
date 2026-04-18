@@ -81,7 +81,7 @@ export async function POST(req: Request) {
 
     INTEGRATION RULE (COGNITIVE + PERSONALITY):
     Use Cognitive Scores to determine the student's raw capacity, but use their Holland Code (Interests) to dictate their destination. 
-    ANTI-MONOPOLY RULE: Do NOT dump every high-scoring student into Medicine. Allow students to flow into Computer Science, Business, and Arts based on their highest unique cognitive spikes and personality traits.
+    ANTI-MONOPOLY RULE: Do NOT dump every high-scoring student into Medicine or Computer Science. Allow students to flow into Business and Arts based on their highest unique personality traits.
 
     PATHWAY 1: Bio-Health & Cognitive Sciences
     - Cognitive Base: High Verbal AND High Numerical AND High Abstract.
@@ -98,15 +98,15 @@ export async function POST(req: Request) {
     - Futuristic Careers: Robotics, Smart City Architecture, Sustainable Energy, Aerospace.
 
     PATHWAY 3: AI, Computing & Cyber-Physical Systems
-    - Cognitive Base: High Abstract/Logical (Numerical can be average or high).
-    - Personality Match: Investigative or Conventional traits.
+    - Cognitive Base: High Abstract/Logical AND High Numerical.
+    - Personality Match: Investigative traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Computer Studies, Physics & Mathematics Focus"
     - Futuristic Careers: Artificial Intelligence, Cybersecurity, Cloud Computing, Blockchain.
 
     PATHWAY 4: Next-Gen Business, Fintech & Analytics
-    - Cognitive Base: Moderate to High Numerical OR Moderate to High Verbal (Does not need to be perfectly balanced).
-    - Personality Match: Heavily favor if the student shows Enterprising or Conventional traits.
+    - Cognitive Base: Any combination of Verbal and Numerical scores.
+    - Personality Match: CRITICAL OVERRIDE - If the student's highest Holland traits are "Enterprising" or "Conventional", you MUST route them here, bypassing all STEM tracks.
     - SSS Recommendation: "Commercial & Business"
     - SSS Specialization: "Accounting, Commerce & Financial Studies Focus"
     - Futuristic Careers: Fintech, DeFi, ESG Management, Quantitative Economics, Market Intelligence.
@@ -163,7 +163,7 @@ export async function POST(req: Request) {
       model: "gpt-4o-mini",
       response_format: { type: "json_object" },
       messages: [
-        { role: "system", content: "You are a highly analytical educational psychometrician. You must evaluate all 7 pathways simultaneously and rely heavily on the integration rules to find the absolute best holistic fit." },
+        { role: "system", content: "You are a highly analytical educational psychometrician. You must evaluate all 7 pathways simultaneously and rely heavily on the integration rules and trait overrides to find the absolute best holistic fit." },
         { role: "user", content: prompt }
       ],
       temperature: 0.7,
