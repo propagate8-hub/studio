@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     }
 
     // ==========================================
-    // ⚖️ HOLISTIC PATTERN MATCHING MATRIX
+    // ⚖️ HOLISTIC PATTERN MATCHING MATRIX (FINAL)
     // ==========================================
     const prompt = `
     You are an expert educational psychometrician analyzing an ACET Intelligence Report.
@@ -80,8 +80,8 @@ export async function POST(req: Request) {
     You must evaluate all 7 Pathways simultaneously to find the best holistic fit. 
 
     INTEGRATION RULE (COGNITIVE + PERSONALITY):
-    Use Cognitive Scores to determine the student's raw capacity, but use their Holland Code (Interests) and Big Five traits to dictate their destination. 
-    ANTI-MONOPOLY RULE: Do NOT dump every high-scoring student into Science/Computer Science. If a student has high cognitive scores BUT exhibits strong "Enterprising", "Artistic", or "Social" traits, you MUST actively route them into Business, Law, or Media tracks.
+    Use Cognitive Scores to determine the student's raw capacity, but use their Holland Code (Interests) to dictate their destination. 
+    ANTI-MONOPOLY RULE: Do NOT dump every high-scoring student into Medicine. Allow students to flow into Computer Science, Business, and Arts based on their highest unique cognitive spikes and personality traits.
 
     PATHWAY 1: Bio-Health & Cognitive Sciences
     - Cognitive Base: High Verbal AND High Numerical AND High Abstract.
@@ -98,14 +98,14 @@ export async function POST(req: Request) {
     - Futuristic Careers: Robotics, Smart City Architecture, Sustainable Energy, Aerospace.
 
     PATHWAY 3: AI, Computing & Cyber-Physical Systems
-    - Cognitive Base: High Abstract/Logical AND High Numerical.
+    - Cognitive Base: High Abstract/Logical (Numerical can be average or high).
     - Personality Match: Investigative or Conventional traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Computer Studies, Physics & Mathematics Focus"
     - Futuristic Careers: Artificial Intelligence, Cybersecurity, Cloud Computing, Blockchain.
 
     PATHWAY 4: Next-Gen Business, Fintech & Analytics
-    - Cognitive Base: Moderate to High Numerical AND Moderate to High Verbal (Balanced Profile).
+    - Cognitive Base: Moderate to High Numerical OR Moderate to High Verbal (Does not need to be perfectly balanced).
     - Personality Match: Heavily favor if the student shows Enterprising or Conventional traits.
     - SSS Recommendation: "Commercial & Business"
     - SSS Specialization: "Accounting, Commerce & Financial Studies Focus"
@@ -131,7 +131,7 @@ export async function POST(req: Request) {
     - SSS Recommendation: "Technical & Vocational Education"
     - SSS Specialization: "Applied Sciences, Basic Technology & ICT Focus"
     - Futuristic Careers: Smart Home Servicing, 3D Printing, Precision Agrotech, Renewable Energy.
-    
+
     OUTPUT EXACTLY THIS JSON STRUCTURE AND NOTHING ELSE:
     {
       "recommendation": "String (Must be 'Science & Mathematics', 'Commercial & Business', 'Arts & Humanities', or 'Technical & Vocational Education')",
@@ -163,7 +163,7 @@ export async function POST(req: Request) {
       model: "gpt-4o-mini",
       response_format: { type: "json_object" },
       messages: [
-        { role: "system", content: "You are a highly analytical educational psychometrician. You must evaluate all 7 pathways simultaneously and select the best holistic fit." },
+        { role: "system", content: "You are a highly analytical educational psychometrician. You must evaluate all 7 pathways simultaneously and rely heavily on the integration rules to find the absolute best holistic fit." },
         { role: "user", content: prompt }
       ],
       temperature: 0.7,
