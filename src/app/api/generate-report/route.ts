@@ -77,50 +77,61 @@ export async function POST(req: Request) {
     - JAMB SUBJECT COMBINATION: Step 2 of the roadmap MUST be exactly 4 academic subjects for the Nigerian UTME/JAMB exam. "Use of English" is compulsory. Do not write "JAMB 2024" or "Mock Exams".
     
     HOLISTIC PATTERN MATCHING ALGORITHM:
-    CRITICAL INSTRUCTION: You MUST evaluate the student against ALL 7 Pathways below simultaneously. Do NOT stop at the first partial match. You must weigh their Cognitive scores AND Holland Code (Personality) traits together to find the absolute best holistic fit.
+    You must evaluate all 7 Pathways simultaneously to find the best holistic fit. 
+
+    INTEGRATION RULE (COGNITIVE + PERSONALITY):
+    Use Cognitive Scores to determine the student's raw capacity, but use their Holland Code (Interests) and Big Five traits to dictate their destination. 
+    ANTI-MONOPOLY RULE: Do NOT dump every high-scoring student into Science/Computer Science. If a student has high cognitive scores BUT exhibits strong "Enterprising", "Artistic", or "Social" traits, you MUST actively route them into Business, Law, or Media tracks.
 
     PATHWAY 1: Bio-Health & Cognitive Sciences
-    - Profile: Exceptional balance of High Verbal, High Numerical, AND High Abstract. Holland: Investigative or Social.
+    - Cognitive Base: High Verbal AND High Numerical AND High Abstract.
+    - Personality Match: Investigative or Social traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Biology, Chemistry & Pre-Medical Focus"
     - Futuristic Careers: Bioinformatics, Genomic Medicine, Neural Engineering, Telemedicine.
 
     PATHWAY 2: Advanced Engineering & Smart Infrastructure
-    - Profile: High Numerical AND High Spatial/Mechanical. Holland: Realistic or Investigative.
+    - Cognitive Base: High Numerical AND High Spatial/Mechanical.
+    - Personality Match: Realistic or Investigative traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Physics, Technical Drawing & Advanced Mathematics Focus"
     - Futuristic Careers: Robotics, Smart City Architecture, Sustainable Energy, Aerospace.
 
     PATHWAY 3: AI, Computing & Cyber-Physical Systems
-    - Profile: High Abstract/Logical AND High Numerical (Spatial can be average/low). Holland: Investigative or Conventional.
+    - Cognitive Base: High Abstract/Logical AND High Numerical.
+    - Personality Match: Investigative or Conventional traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Computer Studies, Physics & Mathematics Focus"
     - Futuristic Careers: Artificial Intelligence, Cybersecurity, Cloud Computing, Blockchain.
 
     PATHWAY 4: Next-Gen Business, Fintech & Analytics
-    - Profile: Moderate to High Numerical AND Moderate to High Verbal. Holland: MUST have Enterprising or Conventional as dominant traits.
+    - Cognitive Base: Moderate to High Numerical AND Moderate to High Verbal (Balanced Profile).
+    - Personality Match: Heavily favor if the student shows Enterprising or Conventional traits.
     - SSS Recommendation: "Commercial & Business"
     - SSS Specialization: "Accounting, Commerce & Financial Studies Focus"
     - Futuristic Careers: Fintech, DeFi, ESG Management, Quantitative Economics, Market Intelligence.
 
     PATHWAY 5: Tech-Law, Policy & Digital Humanities
-    - Profile: High Verbal, Moderate/Low Numerical. Holland: Social, Enterprising, or Investigative.
+    - Cognitive Base: High Verbal Reasoning (Numerical can be moderate or low).
+    - Personality Match: Heavily favor if the student shows Social, Enterprising, or Investigative traits.
     - SSS Recommendation: "Arts & Humanities"
     - SSS Specialization: "Government, Literature & History Focus"
     - Futuristic Careers: Tech Law, Cyber Diplomacy, UI/UX Design, Synthetic Media, Digital Mass Communication.
 
     PATHWAY 6: Synthetic Media, Arts & Immersive Design
-    - Profile: High Verbal AND High Spatial. Holland: Artistic.
+    - Cognitive Base: High Verbal AND High Spatial.
+    - Personality Match: Heavily favor if the student shows Artistic traits.
     - SSS Recommendation: "Arts & Humanities"
     - SSS Specialization: "Creative Arts, Literature & Media Studies Focus"
     - Futuristic Careers: UI/UX Design, Computational Arts, Generative Animation.
 
     PATHWAY 7: Advanced Applied Technologies (Smart TVET)
-    - Profile: High Spatial/Mechanical with Realistic traits, OR overall accuracy below 55% with strong practical/hands-on inclinations.
+    - Cognitive Base: High Spatial/Mechanical, OR an overall accuracy below 55% needing foundational support.
+    - Personality Match: Realistic (hands-on) traits.
     - SSS Recommendation: "Technical & Vocational Education"
     - SSS Specialization: "Applied Sciences, Basic Technology & ICT Focus"
     - Futuristic Careers: Smart Home Servicing, 3D Printing, Precision Agrotech, Renewable Energy.
-
+    
     OUTPUT EXACTLY THIS JSON STRUCTURE AND NOTHING ELSE:
     {
       "recommendation": "String (Must be 'Science & Mathematics', 'Commercial & Business', 'Arts & Humanities', or 'Technical & Vocational Education')",
