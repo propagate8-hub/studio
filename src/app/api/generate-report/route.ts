@@ -51,7 +51,28 @@ export async function POST(req: Request) {
     }
 
     // ==========================================
-    // ⚖️ HOLISTIC PATTERN MATCHING MATRIX (FINAL)
+    // 🛡️ THE VARIABLE SAMPLE SIZE DETECTOR (ROSEVILLE FIX)
+    // ==========================================
+    const categories = gradingResult.categories || {};
+    
+    // Check if Abstract or Spatial have fewer than 10 questions. If they do, it's a randomized/legacy test.
+    const absTotal = categories['Abstract/Logical Reasoning']?.total || 0;
+    const spaTotal = categories['Spatial & Mechanical Reasoning']?.total || 0;
+    
+    const isRandomizedTest = absTotal < 10 || spaTotal < 5;
+
+    let testContextInstruction = "";
+    if (isRandomizedTest) {
+      testContextInstruction = `
+      CRITICAL DATA CONTEXT (RANDOMIZED ASSESSMENT): 
+      This student took a randomized version of the assessment. Because the sample sizes for "Abstract/Logical" and "Spatial & Mechanical" are statistically small, those two scores will be HIDDEN from the final PDF report.
+      - DO NOT explicitly mention the words "Abstract", "Logical", "Spatial", or "Mechanical" in your counselor notes or study hacks, as it will confuse the reader.
+      - To place this student in pathways that normally require those hidden scores (like Engineering, CS, or TVET), you MUST substitute the cognitive requirement by heavily weighing their Numerical Score and Holland Personality traits (e.g., High Numerical + Investigative = CS; Average Numerical + Realistic = TVET).
+      `;
+    }
+
+    // ==========================================
+    // ⚖️ HOLISTIC PATTERN MATCHING MATRIX
     // ==========================================
     const prompt = `
     You are an expert educational psychometrician analyzing an ACET Intelligence Report.
@@ -62,8 +83,9 @@ export async function POST(req: Request) {
     Overall Accuracy: ${gradingResult.percentage}%
     
     ${pronounInstruction}
+    ${testContextInstruction}
 
-    COGNITIVE BREAKDOWN:
+    COGNITIVE BREAKDOWN (Format is Correct / Total Asked):
     ${Object.entries(gradingResult.categories).map(([cat, data]: any) => 
       `- ${cat}: ${data.correct} / ${data.total}`
     ).join('\n')}
