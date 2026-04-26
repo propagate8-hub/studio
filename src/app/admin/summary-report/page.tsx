@@ -177,10 +177,19 @@ export default function StudentReportCard() {
       <div className="w-full max-w-[794px] flex flex-col gap-4">
         
         {/* CONTROL PANEL */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden mb-4" data-html2canvas-ignore>
-          <Link href="/admin/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-blue-900 font-medium transition-colors">
-            <ArrowLeft size={18} /> Back to Dashboard
-          </Link>
+        <div className="flex items-center justify-between w-full mb-6">
+  
+  {/* Your existing link (with the hover color fixed!) */}
+  <Link href="/admin/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium transition-colors">
+    ← Back to Dashboard
+  </Link>
+
+  {/* The NEW Visual Report Button */}
+  <Link href="/admin/visual-report" className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors shadow-sm">
+    Open Visual Report Generator
+  </Link>
+  
+</div>
           <div className="flex items-center gap-3">
             {!aiData && (
               <button onClick={generateAIProfile} disabled={isGeneratingAI} className="px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 bg-blue-900 text-white hover:bg-blue-800 transition-all shadow-sm disabled:opacity-50">
