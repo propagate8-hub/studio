@@ -537,6 +537,5 @@ export default function StudentReportCard() {
           </div>
         )}
       </div>
-    </div>
-  );
+      );
 }
