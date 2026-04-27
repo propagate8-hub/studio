@@ -10,11 +10,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   // Define your navigation links here
   const navItems = [
-    { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
-    { name: 'Batch Operations', href: '/admin/summary-report', icon: Users },
+    { name: 'Batch Operations', href: '/admin/dashboard', icon: LayoutDashboard },
     { name: 'Visual Reports', href: '/admin/visual-report', icon: BarChart2 },
   ];
-
   return (
     <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar */}
