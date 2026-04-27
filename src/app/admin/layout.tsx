@@ -10,7 +10,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   // Define your navigation links here
   const navItems = [
-    { name: 'Batch Operations', href: '/admin/dashboard', icon: LayoutDashboard },
+    { name: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard },
+    { name: 'Batch Operations', href: '/admin/batch', icon: Users }, 
     { name: 'Visual Reports', href: '/admin/visual-report', icon: BarChart2 },
   ];
   return (
