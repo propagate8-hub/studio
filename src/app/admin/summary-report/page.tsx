@@ -177,19 +177,10 @@ export default function StudentReportCard() {
       <div className="w-full max-w-[794px] flex flex-col gap-4">
         
         {/* CONTROL PANEL */}
-        <div className="flex items-center justify-between w-full mb-6">
-  
-  {/* Your existing link (with the hover color fixed!) */}
-  <Link href="/admin/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium transition-colors">
-    ← Back to Dashboard
-  </Link>
-
-  {/* The NEW Visual Report Button */}
-  <Link href="/admin/visual-report" className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors shadow-sm">
-    Open Visual Report Generator
-  </Link>
-  
-</div>
+        <div className="flex items-center justify-between w-full mb-6 print:hidden">
+          <Link href="/admin/dashboard" className="flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium transition-colors">
+            ← Back to Dashboard
+          </Link>
           <div className="flex items-center gap-3">
             {!aiData && (
               <button onClick={generateAIProfile} disabled={isGeneratingAI} className="px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 bg-blue-900 text-white hover:bg-blue-800 transition-all shadow-sm disabled:opacity-50">
@@ -198,9 +189,14 @@ export default function StudentReportCard() {
               </button>
             )}
             {aiData && (
-              <button onClick={downloadPDF} className="bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-sm">
-                <Download size={18} /> Export Master PDF
-              </button>
+              <>
+                <Link href="/admin/visual-report" className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors shadow-sm">
+                  Open Visual Report
+                </Link>
+                <button onClick={downloadPDF} className="bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 px-5 py-2.5 rounded-lg font-bold flex items-center gap-2 transition-colors shadow-sm">
+                  <Download size={18} /> Export Master PDF
+                </button>
+              </>
             )}
           </div>
         </div>
@@ -319,35 +315,81 @@ export default function StudentReportCard() {
                     <Map className="text-blue-800" size={24}/>
                     <h3 className="text-xl font-black text-blue-900">Academic to Career Roadmap</h3>
                   </div>
-                  <div className="grid grid-cols-4 gap-4 text-center">
-                    {/* Roadmap Cards... */}
-                    <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
-                      <div className="w-8 h-8 bg-blue-900 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">1</div>
-                      <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">SS1 Subjects</h4>
-                      <div className="flex flex-col gap-2">
-                        {aiData.roadmap?.step1?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                  
+                  {/* COMPLIANCE LAYER: SS1 & JAMB */}
+                  <div className="grid grid-cols-2 gap-8 text-center mb-8">
+                    <div className="border-2 border-slate-200 p-5 rounded-xl bg-white shadow-sm relative">
+                      <div className="w-10 h-10 bg-blue-900 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-10 mb-3 border-4 border-slate-50 text-lg">1</div>
+                      <h4 className="font-black text-slate-700 text-sm mb-4 uppercase tracking-wider">SS1 Subjects (NERDC)</h4>
+                      <div className="grid grid-cols-1 gap-2">
+                        {aiData.roadmap?.step1?.map((s:string, i:number)=><div key={i} className="text-sm bg-slate-50 border border-slate-200 py-2.5 px-2 rounded-lg font-bold text-slate-600">{s}</div>)}
                       </div>
                     </div>
-                    <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
-                      <div className="w-8 h-8 bg-blue-700 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">2</div>
-                      <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">JAMB Combo</h4>
-                      <div className="flex flex-col gap-2">
-                        {aiData.roadmap?.step2?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
+                    <div className="border-2 border-slate-200 p-5 rounded-xl bg-white shadow-sm relative">
+                      <div className="w-10 h-10 bg-blue-700 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-10 mb-3 border-4 border-slate-50 text-lg">2</div>
+                      <h4 className="font-black text-slate-700 text-sm mb-4 uppercase tracking-wider">JAMB Combination</h4>
+                      <div className="grid grid-cols-1 gap-2">
+                        {aiData.roadmap?.step2?.map((s:string, i:number)=><div key={i} className="text-sm bg-slate-50 border border-slate-200 py-2.5 px-2 rounded-lg font-bold text-slate-600">{s}</div>)}
                       </div>
                     </div>
-                    <div className="border-2 border-slate-200 p-4 rounded-xl bg-white shadow-sm">
-                      <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">3</div>
-                      <h4 className="font-black text-slate-700 text-xs mb-3 uppercase tracking-wider">University</h4>
-                      <div className="flex flex-col gap-2">
-                        {aiData.roadmap?.step3?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-200 py-2 px-1 rounded font-bold text-slate-600">{s}</div>)}
-                      </div>
+                  </div>
+
+                  {/* CAREER BRIDGE LAYER: TRADITIONAL TO FUTURISTIC */}
+                  <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm mt-4">
+                    <div className="mb-5 border-b border-slate-100 pb-4">
+                      <h3 className="text-lg font-black text-slate-900 flex items-center gap-2">
+                        <Award size={20} className="text-indigo-600"/> University & Career Pathway Bridge
+                      </h3>
+                      <p className="text-xs text-slate-500 mt-1 font-medium">
+                        Mapping approved Nigerian university degrees directly to futuristic global specializations.
+                      </p>
                     </div>
-                    <div className="border-2 border-blue-800 p-4 rounded-xl bg-blue-900 text-white shadow-md transform scale-105">
-                      <div className="w-8 h-8 bg-white text-blue-900 rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-slate-50">4</div>
-                      <h4 className="font-black text-blue-100 text-xs mb-3 uppercase tracking-wider">Career Goal</h4>
-                      <div className="flex flex-col gap-2">
-                        {aiData.roadmap?.step4?.map((s:string, i:number)=><div key={i} className="text-xs bg-blue-800 border border-blue-700 py-2 px-1 rounded font-bold">{s}</div>)}
-                      </div>
+
+                    <div className="space-y-4">
+                      {aiData.careerBridge?.map((bridge: any, index: number) => (
+                        <div 
+                          key={index} 
+                          className="flex flex-row gap-4 bg-slate-50 p-4 rounded-xl border border-slate-100 items-center relative overflow-hidden"
+                        >
+                          {/* Left: Traditional Degree */}
+                          <div className="flex-1 w-full relative z-10">
+                            <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider bg-indigo-50 px-2 py-1 rounded-md">
+                              JAMB / Degree Path
+                            </span>
+                            <p className="text-slate-800 font-bold mt-2 text-sm">
+                              {bridge.traditionalDegree}
+                            </p>
+                          </div>
+
+                          {/* Middle: Arrow/Connector */}
+                          <div className="flex-none items-center justify-center text-slate-300 px-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M5 12h14"></path>
+                              <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+                          </div>
+
+                          {/* Right: Futuristic Role */}
+                          <div className="flex-1 w-full relative z-10">
+                            <span className="text-[10px] font-bold text-purple-600 uppercase tracking-wider bg-purple-50 px-2 py-1 rounded-md">
+                              Future Specialization
+                            </span>
+                            <p className="text-slate-800 font-bold mt-2 text-sm">
+                              {bridge.futuristicRole}
+                            </p>
+                          </div>
+
+                          {/* Side: The "Why" Explanation */}
+                          <div className="flex-[1.5] w-full border-l-2 border-slate-200 pl-4 relative z-10">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                              Strategic Alignment
+                            </span>
+                            <p className="text-slate-600 text-xs mt-1 leading-relaxed font-medium">
+                              {bridge.bridgeExplanation}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </section>
@@ -366,7 +408,6 @@ export default function StudentReportCard() {
                     <br/><br/>
                     <strong>Understanding the Metrics:</strong><br/>
                     • <strong>Raw Score:</strong> The absolute number of questions answered correctly.<br/>
-                    {/* 🚨 THE TYPO FIX: Changed 'O' to '0' */}
                     • <strong>Z-Score:</strong> A statistical measurement indicating how far the student's score deviates from the <strong>Cohort Average</strong>. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
                     • <strong>Percentile Rank:</strong> Indicates the percentage of peers in the cohort sample that the student outperformed.
                   </p>
@@ -499,10 +540,11 @@ export default function StudentReportCard() {
 
                   <h3 className="font-bold text-slate-800 mb-2 mt-4 text-sm">3.3. Potential Career Paths</h3>
                   <p className="text-sm mb-2 text-slate-700 leading-relaxed text-justify">
-                    Based on the recommended senior secondary specializations, here are some potential career paths the student may wish to explore:
+                    Based on the recommended senior secondary specializations and career mapping, here are some potential future paths the student may wish to explore:
                   </p>
                   <p className="text-sm font-bold text-blue-800 mb-5">
-                    {aiData.roadmap?.step4?.join(', ')}
+                    {/* This dynamically maps the futuristic roles out of the new bridge array */}
+                    {aiData.careerBridge?.map((b: any) => b.futuristicRole).join(', ') || "Awaiting Data"}
                   </p>
                 </div>
 
@@ -537,5 +579,6 @@ export default function StudentReportCard() {
           </div>
         )}
       </div>
-      );
+    </div>
+  );
 }
