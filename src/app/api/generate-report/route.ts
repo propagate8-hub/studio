@@ -75,7 +75,7 @@ export async function POST(req: Request) {
     // ⚖️ HOLISTIC PATTERN MATCHING MATRIX
     // ==========================================
     const prompt = `
-    You are an expert educational psychometrician analyzing an ACET Intelligence Report.
+    You are an expert educational psychometrician analyzing an ACET Intelligence Report for a Nigerian secondary school student.
     
     STUDENT PROFILE:
     Name: ${studentData?.name}
@@ -93,10 +93,11 @@ export async function POST(req: Request) {
     YOUR TASK:
     Generate a highly personalized JSON payload analyzing this student's cognitive performance.
     
-    CRITICAL PDF FORMATTING RULES:
+    CRITICAL NIGERIAN CURRICULUM & PDF FORMATTING RULES:
     - Keep "Study Hacks" descriptions extremely concise (Maximum of 12 words per bullet point).
     - Write professional, clinical, yet encouraging counselor notes.
-    - JAMB SUBJECT COMBINATION: Step 2 of the roadmap MUST be exactly 4 academic subjects for the Nigerian UTME/JAMB exam. "Use of English" is compulsory. Do not write "JAMB 2024" or "Mock Exams".
+    - SSS SUBJECT COMPLIANCE: Step 1 of the roadmap MUST align with the newly approved Nigerian NERDC curriculum groupings (Core, Humanities, Science/Math, Business, Trade/Vocational). Recommend relevant, modern SSS1 subjects.
+    - JAMB SUBJECT ALLOWLIST: Step 2 of the roadmap MUST be exactly 4 subjects for the Nigerian UTME/JAMB exam. 'Use of English' is compulsory. The remaining 3 subjects MUST be strictly chosen from this list: Mathematics, Physics, Chemistry, Biology, Agricultural Science, Economics, Geography, Government, Literature-in-English, CRS, IRS, Commerce, Financial Accounting, History, French, or Visual Arts. DO NOT invent subjects like 'Robotics' or 'Technical Drawing' for JAMB.
     
     HOLISTIC PATTERN MATCHING ALGORITHM:
     You must evaluate all 7 Pathways simultaneously to find the best holistic fit. 
@@ -172,11 +173,26 @@ export async function POST(req: Request) {
       },
       "counselorNotes": "String (1 paragraph clinical summary)",
       "roadmap": {
-        "step1": ["Subject 1", "Subject 2", "Subject 3"],
-        "step2": ["Use of English", "JAMB Subject 2", "JAMB Subject 3", "JAMB Subject 4"],
-        "step3": ["Futuristic Degree 1", "Futuristic Degree 2", "Futuristic Degree 3"],
-        "step4": ["Futuristic Career 1", "Futuristic Career 2", "Futuristic Career 3"]
-      }
+        "step1": ["SSS Subject 1", "SSS Subject 2", "SSS Subject 3"],
+        "step2": ["Use of English", "Strict JAMB Subject 2", "Strict JAMB Subject 3", "Strict JAMB Subject 4"]
+      },
+      "careerBridge": [
+        {
+          "traditionalDegree": "String (e.g., Electrical/Electronic Engineering)",
+          "futuristicRole": "String (e.g., Smart Home Servicing)",
+          "bridgeExplanation": "String (1 sentence explaining why this traditional Nigerian degree leads to this futuristic role)"
+        },
+        {
+          "traditionalDegree": "String (e.g., Computer Science)",
+          "futuristicRole": "String (e.g., AI Prompt Engineer)",
+          "bridgeExplanation": "String"
+        },
+        {
+          "traditionalDegree": "String",
+          "futuristicRole": "String",
+          "bridgeExplanation": "String"
+        }
+      ]
     }
     `;
 
@@ -185,7 +201,7 @@ export async function POST(req: Request) {
       model: "gpt-4o-mini",
       response_format: { type: "json_object" },
       messages: [
-        { role: "system", content: "You are a highly analytical educational psychometrician. You must evaluate all 7 pathways simultaneously and rely heavily on the integration rules and trait overrides to find the absolute best holistic fit." },
+        { role: "system", content: "You are a highly analytical educational psychometrician. You must evaluate all pathways simultaneously, enforce the strict JAMB subject allowlist, and effectively map traditional Nigerian university degrees to futuristic roles in your careerBridge output." },
         { role: "user", content: prompt }
       ],
       temperature: 0.7,
