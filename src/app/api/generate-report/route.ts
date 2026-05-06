@@ -104,7 +104,7 @@ export async function POST(req: Request) {
 
     INTEGRATION RULE (COGNITIVE + PERSONALITY):
     Use Cognitive Scores to determine the student's raw capacity, but use their Holland Code (Interests) to dictate their destination. 
-    ANTI-MONOPOLY RULE: Do NOT dump every high-scoring student into Medicine or Computer Science. Allow students to flow into Business and Arts based on their highest unique personality traits.
+    ABSOLUTE STRICT OVERRIDE: If a student's highest (or tied for highest) Holland trait is "Conventional" or "Enterprising", you MUST route them to "Commercial & Business" (Pathway 4) regardless of how high their Verbal or STEM cognitive scores are. DO NOT put high-Conventional students in Arts or Science.
 
     PATHWAY 1: Bio-Health & Cognitive Sciences
     - Cognitive Base: High Verbal AND High Numerical AND High Abstract.
@@ -129,11 +129,11 @@ export async function POST(req: Request) {
 
     PATHWAY 4: Next-Gen Business, Fintech & Analytics
     - Cognitive Base: Any combination of Verbal and Numerical scores.
-    - Personality Match: CRITICAL OVERRIDE - If the student's highest Holland traits are "Enterprising" or "Conventional", you MUST route them here, bypassing all STEM tracks.
+    - Personality Match: STRICT MANDATORY OVERRIDE - If "Enterprising" or "Conventional" are among their highest scores, they belong here. 
     - SSS Recommendation: "Commercial & Business"
     - SSS Specialization: "Accounting, Commerce & Financial Studies Focus"
     - Futuristic Careers: Fintech, DeFi, ESG Management, Quantitative Economics, Market Intelligence.
-
+    
     PATHWAY 5: Tech-Law, Policy & Digital Humanities
     - Cognitive Base: High Verbal Reasoning (Numerical can be moderate or low).
     - Personality Match: Heavily favor if the student shows Social, Enterprising, or Investigative traits.
