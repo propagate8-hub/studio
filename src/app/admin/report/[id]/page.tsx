@@ -141,7 +141,7 @@ export default function StudentReportCard() {
     const element = document.getElementById('report-content');
     
     const opt = {
-      margin:       [0.4, 0.4, 0.4, 0.4], 
+      margin:        0.4,  
       filename:     `${student?.name.replace(/\s+/g, '_')}_ACET_Report.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2, useCORS: true, windowWidth: 850 }, 
