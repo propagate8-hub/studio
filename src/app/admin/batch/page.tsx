@@ -59,13 +59,34 @@ export default function BatchOperations() {
   const gradeStudent = (studentData: any) => {
     let correctCount = 0;
     let assessableQuestions = 0;
-    const answers = studentData.finalAnswers || {};
+    
+    // Scan both finalAnswers AND the root profile to catch those raw PER_ and INT_ fields
+    const answers = studentData.finalAnswers || studentData; 
     const categories: any = {};
+
+    // THE NEW PSYCHOMETRIC CALCULATOR
+    const oceanScores: Record<string, any> = {
+      OPE: { trait: 'Openness to Experience', score: 0 },
+      CON: { trait: 'Conscientiousness', score: 0 },
+      EXT: { trait: 'Extraversion', score: 0 },
+      AGR: { trait: 'Agreeableness', score: 0 },
+      NEU: { trait: 'Neuroticism (Emotional Stability)', score: 0 }
+    };
+
+    const riasecScores: Record<string, any> = {
+      REA: { code: 'Realistic (The Doers)', score: 0 },
+      INV: { code: 'Investigative (The Thinkers)', score: 0 },
+      ART: { code: 'Artistic (The Creators)', score: 0 },
+      SOC: { code: 'Social (The Helpers)', score: 0 },
+      ENT: { code: 'Enterprising (The Persuaders)', score: 0 },
+      CON: { code: 'Conventional (The Organizers)', score: 0 }
+    };
 
     Object.keys(answers).forEach((questionId) => {
       const studentAnswer = answers[questionId];
       const questionData = masterKey[questionId];
       
+      // 1. GRADE COGNITIVE QUESTIONS
       if (questionData) {
         if (questionData.correct_answer || questionData.correctAnswer) {
           assessableQuestions++;
@@ -82,13 +103,32 @@ export default function BatchOperations() {
            if (isCorrect) categories[cat].correct += 1;
         }
       }
+
+      // 2. TALLY PSYCHOLOGICAL RAW SCORES
+      const numValue = parseInt(studentAnswer as string) || 0;
+      if (questionId.startsWith('PER_')) {
+        const traitCode = questionId.substring(4, 7);
+        if (oceanScores[traitCode]) oceanScores[traitCode].score += numValue;
+      } else if (questionId.startsWith('INT_')) {
+        const traitCode = questionId.substring(4, 7);
+        if (riasecScores[traitCode]) riasecScores[traitCode].score += numValue;
+      }
+    });
+
+    // Add Dynamic Interpretations
+    Object.values(oceanScores).forEach(t => {
+       if (t.score >= 35) t.interpretation = "Strongly expressed trait; drives key learning behaviors.";
+       else if (t.score <= 25) t.interpretation = "Lower expression; typically acts contextually.";
+       else t.interpretation = "Moderate expression; adaptable depending on environment.";
     });
 
     return {
       score: correctCount,
       total: assessableQuestions,
       percentage: assessableQuestions > 0 ? Math.round((correctCount / assessableQuestions) * 100) : 0,
-      categories
+      categories,
+      ocean: Object.values(oceanScores),   // Injected perfectly into the grading object!
+      holland: Object.values(riasecScores) // Injected perfectly into the grading object!
     };
   };
 
@@ -512,11 +552,11 @@ export default function BatchOperations() {
                           </tr>
                         </thead>
                         <tbody>
-                          {Array.isArray(renderStudent.aiReportData.ocean) && renderStudent.aiReportData.ocean.map((p: any, i: number) => (
+                          {renderStudent.grading?.ocean?.map((p: any, i: number) => (
                             <tr key={i} className="hover:bg-slate-50">
-                              <td className="py-2 px-3 border border-slate-300 font-semibold">{p?.trait || 'Trait'}</td>
-                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">{p?.score || 0}</td>
-                              <td className="py-2 px-3 border border-slate-300 text-xs">{p?.interpretation || p?.desc || 'Normal limits'}</td>
+                              <td className="py-2 px-3 border border-slate-300 font-semibold">{p.trait}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">{p.score}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-xs">{p.interpretation}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -534,31 +574,15 @@ export default function BatchOperations() {
                           </tr>
                         </thead>
                         <tbody>
-                          {(() => {
-                            // 1. Find the data wherever it is hiding
-                            const rawHolland = renderStudent.aiReportData?.holland || renderStudent.holland || renderStudent.grading?.holland || renderStudent.gradingResult?.holland;
-                            if (!rawHolland) return null;
-                            
-                            // 2. Force it into an array
-                            const hollandArray = Array.isArray(rawHolland) ? rawHolland : Object.entries(rawHolland).map(([k, v]: any) => ({
-                              trait: k,
-                              score: typeof v === 'number' ? v : v?.score || 0
-                            }));
-
-                            // 3. Render the rows safely
-                            return hollandArray.map((h: any, i: number) => {
-                              const score = h?.score || 0;
-                              return (
-                                <tr key={i} className="hover:bg-slate-50">
-                                  <td className="py-2 px-3 border border-slate-300 font-semibold">{h?.trait || h?.code || 'Theme'}</td>
-                                  <td className="py-2 px-3 border border-slate-300 text-center font-bold">{score}</td>
-                                  <td className="py-2 px-3 border border-slate-300 text-xs">
-                                    {score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
-                                  </td>
-                                </tr>
-                              );
-                            });
-                          })()}
+                          {renderStudent.grading?.holland?.map((h: any, i: number) => (
+                            <tr key={i} className="hover:bg-slate-50">
+                              <td className="py-2 px-3 border border-slate-300 font-semibold">{h.code}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">{h.score}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-xs">
+                                {h.score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : h.score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
