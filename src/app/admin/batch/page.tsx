@@ -534,18 +534,31 @@ export default function BatchOperations() {
                           </tr>
                         </thead>
                         <tbody>
-                          {Array.isArray(renderStudent.aiReportData.holland) && renderStudent.aiReportData.holland.map((h: any, i: number) => {
-                            const score = h?.score || 0;
-                            return (
-                              <tr key={i} className="hover:bg-slate-50">
-                                <td className="py-2 px-3 border border-slate-300 font-semibold">{h?.trait || h?.code || 'Theme'}</td>
-                                <td className="py-2 px-3 border border-slate-300 text-center font-bold">{score}</td>
-                                <td className="py-2 px-3 border border-slate-300 text-xs">
-                                  {score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
-                                </td>
-                              </tr>
-                            );
-                          })}
+                          {(() => {
+                            // 1. Find the data wherever it is hiding
+                            const rawHolland = renderStudent.aiReportData?.holland || renderStudent.holland || renderStudent.grading?.holland || renderStudent.gradingResult?.holland;
+                            if (!rawHolland) return null;
+                            
+                            // 2. Force it into an array
+                            const hollandArray = Array.isArray(rawHolland) ? rawHolland : Object.entries(rawHolland).map(([k, v]: any) => ({
+                              trait: k,
+                              score: typeof v === 'number' ? v : v?.score || 0
+                            }));
+
+                            // 3. Render the rows safely
+                            return hollandArray.map((h: any, i: number) => {
+                              const score = h?.score || 0;
+                              return (
+                                <tr key={i} className="hover:bg-slate-50">
+                                  <td className="py-2 px-3 border border-slate-300 font-semibold">{h?.trait || h?.code || 'Theme'}</td>
+                                  <td className="py-2 px-3 border border-slate-300 text-center font-bold">{score}</td>
+                                  <td className="py-2 px-3 border border-slate-300 text-xs">
+                                    {score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
+                                  </td>
+                                </tr>
+                              );
+                            });
+                          })()}
                         </tbody>
                       </table>
                     </div>
