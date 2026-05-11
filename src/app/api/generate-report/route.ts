@@ -51,11 +51,10 @@ export async function POST(req: Request) {
     }
 
     // ==========================================
-    // 🛡️ THE VARIABLE SAMPLE SIZE DETECTOR (ROSEVILLE FIX)
+    // 🛡️ THE VARIABLE SAMPLE SIZE DETECTOR
     // ==========================================
     const categories = gradingResult.categories || {};
     
-    // Check if Abstract or Spatial have fewer than 10 questions. If they do, it's a randomized/legacy test.
     const absTotal = categories['Abstract/Logical Reasoning']?.total || 0;
     const spaTotal = categories['Spatial & Mechanical Reasoning']?.total || 0;
     
@@ -174,23 +173,25 @@ export async function POST(req: Request) {
       "counselorNotes": "String (1 paragraph clinical summary)",
       "roadmap": {
         "step1": ["SSS Subject 1", "SSS Subject 2", "SSS Subject 3"],
-        "step2": ["Use of English", "Strict JAMB Subject 2", "Strict JAMB Subject 3", "Strict JAMB Subject 4"]
+        "step2": ["Use of English", "Strict JAMB Subject 2", "Strict JAMB Subject 3", "Strict JAMB Subject 4"],
+        "step3": ["University Degree 1", "University Degree 2"],
+        "step4": ["Futuristic Career 1", "Futuristic Career 2", "Futuristic Career 3"]
       },
       "careerBridge": [
         {
-          "traditionalDegree": "String (e.g., Electrical/Electronic Engineering)",
-          "futuristicRole": "String (e.g., Smart Home Servicing)",
-          "bridgeExplanation": "String (1 sentence explaining why this traditional Nigerian degree leads to this futuristic role)"
-        },
-        {
-          "traditionalDegree": "String (e.g., Computer Science)",
-          "futuristicRole": "String (e.g., AI Prompt Engineer)",
-          "bridgeExplanation": "String"
+          "traditionalDegree": "String (e.g., Electrical Engineering)",
+          "futuristicCareer": "String (e.g., Smart Home Servicing)",
+          "alignmentReason": "String (1 sentence explaining why this degree leads to this role)"
         },
         {
           "traditionalDegree": "String",
-          "futuristicRole": "String",
-          "bridgeExplanation": "String"
+          "futuristicCareer": "String",
+          "alignmentReason": "String"
+        },
+        {
+          "traditionalDegree": "String",
+          "futuristicCareer": "String",
+          "alignmentReason": "String"
         }
       ]
     }
@@ -213,9 +214,17 @@ export async function POST(req: Request) {
       throw new Error("OpenAI returned an empty response.");
     }
 
-    const aiReportData = JSON.parse(responseText);
+    const generatedData = JSON.parse(responseText);
 
-    // 6. Save the AI Data back to the Student's Firebase Profile
+    // 6. MERGE THE DATA (Crucial fix to stop the tables from disappearing)
+    const existingAiData = studentData?.aiReportData || {};
+    
+    const aiReportData = {
+      ...existingAiData, // Keeps the original OCEAN and RIASEC tables safely intact!
+      ...generatedData    // Adds the brand new AI insights on top
+    };
+
+    // 7. Save the merged AI Data back to the Student's Firebase Profile
     await studentRef.update({
       aiReportData,
       reportGeneratedAt: admin.firestore.FieldValue.serverTimestamp()
