@@ -60,11 +60,11 @@ export default function BatchOperations() {
     let correctCount = 0;
     let assessableQuestions = 0;
     
-    // Scan both finalAnswers AND the root profile to catch those raw PER_ and INT_ fields
-    const answers = studentData.finalAnswers || studentData; 
+    // 🛠️ THE FIX: Combine BOTH the root profile and finalAnswers so no data is skipped!
+    const answers = { ...studentData, ...(studentData.finalAnswers || {}) }; 
     const categories: any = {};
 
-    // THE NEW PSYCHOMETRIC CALCULATOR
+    // THE PSYCHOMETRIC CALCULATOR
     const oceanScores: Record<string, any> = {
       OPE: { trait: 'Openness to Experience', score: 0 },
       CON: { trait: 'Conscientiousness', score: 0 },
@@ -127,8 +127,8 @@ export default function BatchOperations() {
       total: assessableQuestions,
       percentage: assessableQuestions > 0 ? Math.round((correctCount / assessableQuestions) * 100) : 0,
       categories,
-      ocean: Object.values(oceanScores),   // Injected perfectly into the grading object!
-      holland: Object.values(riasecScores) // Injected perfectly into the grading object!
+      ocean: Object.values(oceanScores),   
+      holland: Object.values(riasecScores) 
     };
   };
 
