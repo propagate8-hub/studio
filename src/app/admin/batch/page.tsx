@@ -60,11 +60,33 @@ export default function BatchOperations() {
     let correctCount = 0;
     let assessableQuestions = 0;
     
-    // 🛠️ THE FIX: Combine BOTH the root profile and finalAnswers so no data is skipped!
-    const answers = { ...studentData, ...(studentData.finalAnswers || {}) }; 
+    const answers = studentData.finalAnswers || {};
     const categories: any = {};
 
-    // THE PSYCHOMETRIC CALCULATOR
+    // 1. GRADE COGNITIVE QUESTIONS
+    Object.keys(answers).forEach((questionId) => {
+      const studentAnswer = answers[questionId];
+      const questionData = masterKey[questionId];
+      
+      if (questionData) {
+        if (questionData.correct_answer || questionData.correctAnswer) {
+          assessableQuestions++;
+          const isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer);
+          if (isCorrect) correctCount++;
+        }
+        
+        const cat = questionData.category || "General";
+        if (!categories[cat]) categories[cat] = { correct: 0, total: 0 };
+        categories[cat].total += 1;
+        
+        if (questionData.correct_answer || questionData.correctAnswer) {
+           const isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer);
+           if (isCorrect) categories[cat].correct += 1;
+        }
+      }
+    });
+
+    // 2. TEXT-TO-NUMBER PSYCHOMETRIC CALCULATOR
     const oceanScores: Record<string, any> = {
       OPE: { trait: 'Openness to Experience', score: 0 },
       CON: { trait: 'Conscientiousness', score: 0 },
@@ -82,38 +104,52 @@ export default function BatchOperations() {
       CON: { code: 'Conventional (The Organizers)', score: 0 }
     };
 
-    Object.keys(answers).forEach((questionId) => {
-      const studentAnswer = answers[questionId];
-      const questionData = masterKey[questionId];
+    const traverseDeepSearch = (obj: any) => {
+      if (!obj || typeof obj !== 'object') return;
       
-      // 1. GRADE COGNITIVE QUESTIONS
-      if (questionData) {
-        if (questionData.correct_answer || questionData.correctAnswer) {
-          assessableQuestions++;
-          const isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer);
-          if (isCorrect) correctCount++;
-        }
+      Object.keys(obj).forEach(key => {
+        const upperKey = key.toUpperCase();
+        const val = obj[key];
         
-        const cat = questionData.category || "General";
-        if (!categories[cat]) categories[cat] = { correct: 0, total: 0 };
-        categories[cat].total += 1;
-        
-        if (questionData.correct_answer || questionData.correctAnswer) {
-           const isCorrect = studentAnswer === (questionData.correct_answer || questionData.correctAnswer);
-           if (isCorrect) categories[cat].correct += 1;
-        }
-      }
+        // Convert text answers to Likert numbers just in case!
+        let num = 0;
+        const parseValue = (v: any) => {
+          if (typeof v === 'number') return v;
+          if (typeof v === 'string') {
+            const lower = v.toLowerCase().trim();
+            if (lower === 'strongly agree') return 5;
+            if (lower === 'agree') return 4;
+            if (lower === 'neutral' || lower === 'not sure') return 3;
+            if (lower === 'disagree') return 2;
+            if (lower === 'strongly disagree') return 1;
+            return parseInt(v, 10) || 0;
+          }
+          return 0;
+        };
 
-      // 2. TALLY PSYCHOLOGICAL RAW SCORES
-      const numValue = parseInt(studentAnswer as string) || 0;
-      if (questionId.startsWith('PER_')) {
-        const traitCode = questionId.substring(4, 7);
-        if (oceanScores[traitCode]) oceanScores[traitCode].score += numValue;
-      } else if (questionId.startsWith('INT_')) {
-        const traitCode = questionId.substring(4, 7);
-        if (riasecScores[traitCode]) riasecScores[traitCode].score += numValue;
-      }
-    });
+        if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
+          num = parseValue(val.answer || val.value || val.score || val.selectedOption);
+        } else {
+          num = parseValue(val);
+        }
+
+        // Tally the scores
+        if (upperKey.startsWith('PER_') && upperKey.length >= 7) {
+          const trait = upperKey.substring(4, 7);
+          if (oceanScores[trait]) oceanScores[trait].score += num;
+        } else if (upperKey.startsWith('INT_') && upperKey.length >= 7) {
+           const trait = upperKey.substring(4, 7);
+           if (riasecScores[trait]) riasecScores[trait].score += num;
+        } 
+        
+        if (typeof val === 'object' && val !== null) {
+           traverseDeepSearch(val);
+        }
+      });
+    };
+
+    // Run the search
+    traverseDeepSearch(studentData);
 
     // Add Dynamic Interpretations
     Object.values(oceanScores).forEach(t => {
@@ -624,20 +660,31 @@ export default function BatchOperations() {
                     </div>
 
                     <h2 className="text-xl font-bold text-blue-900 border-b-2 border-blue-900 pb-2 mb-6">4. Official Endorsement & Signatures</h2>
-                    <p className="text-slate-600 text-sm mb-12 leading-relaxed">
+                    <p className="text-slate-600 text-sm mb-8 leading-relaxed">
                       The insights contained within this ACET Intelligence Report represent a synthesis of the candidate's cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach—integrating continuous mentorship, environmental support, and periodic academic re-evaluation—is strongly recommended to assist the student in actualizing their defined career and university trajectory.
                     </p>
 
-                    <div className="grid grid-cols-2 gap-12 mt-16">
-                      <div className="border-t-2 border-slate-300 pt-3">
-                        <p className="font-bold text-slate-800 text-center text-sm">4.1 Internal Counselor's Verification Notes</p>
-                        <p className="text-slate-400 text-center text-[10px] mt-1 uppercase tracking-widest">[Official School Use Only]</p>
+                    {/* REDESIGNED SIGNATURES & VERIFICATION SECTION */}
+                    <div className="space-y-8 avoid-page-break">
+                      <div>
+                        <p className="font-bold text-slate-800 text-sm mb-2">4.1 Internal Counselor's Verification Notes</p>
+                        <div className="w-full h-24 border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center">
+                          <p className="text-slate-400 text-xs uppercase tracking-widest font-semibold">[Official School Use Only - Counselor Remarks]</p>
+                        </div>
                       </div>
-                      <div className="border-t-2 border-slate-300 pt-3">
-                        <p className="font-bold text-slate-800 text-center text-sm">Principal / Administrator</p>
-                        <p className="text-slate-500 text-center text-xs mt-1 uppercase tracking-wide font-semibold">{renderStudent.organizationId || "ROSEVILLE SECONDARY SCHOOL"}</p>
+
+                      <div className="grid grid-cols-2 gap-12 pt-12">
+                        <div className="border-t-2 border-slate-400 pt-2">
+                          <p className="font-bold text-slate-800 text-center text-sm">Head of Counseling / Psychometrician</p>
+                          <p className="text-slate-400 text-center text-[10px] mt-1 uppercase tracking-widest">Signature & Date</p>
+                        </div>
+                        <div className="border-t-2 border-slate-400 pt-2">
+                          <p className="font-bold text-slate-800 text-center text-sm">Principal / Administrator</p>
+                          <p className="text-slate-500 text-center text-xs mt-1 uppercase tracking-wide font-semibold">{renderStudent.organizationId || "ROSEVILLE SECONDARY SCHOOL"}</p>
+                        </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
              </div>
