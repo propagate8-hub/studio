@@ -329,19 +329,39 @@ export default function BatchOperations() {
                         <Lightbulb className="text-teal-300" size={24}/>
                         <h3 className="text-xl font-black">AI Study Hacks</h3>
                       </div>
+                      
+                      {/* SAFEGUARD: Renders the intro if it exists in older data */}
+                      {renderStudent.aiReportData.studyHacks?.intro && (
+                        <p className="text-teal-100 mb-4 text-sm font-medium leading-relaxed">
+                          {renderStudent.aiReportData.studyHacks.intro}
+                        </p>
+                      )}
+
                       <ul className="space-y-3">
-                        {renderStudent.aiReportData.studyHacks?.map((hack: string, i: number) => {
-                          const [title, ...descArr] = hack.split(':');
-                          return (
-                            <li key={i} className="flex gap-3 items-start bg-teal-800 p-3 rounded-xl border border-teal-700">
-                              <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={16} />
-                              <div>
-                                <h4 className="font-bold text-white text-sm">{title.replace(/^- /, '')}</h4>
-                                <p className="text-teal-200 text-xs mt-1 leading-relaxed line-clamp-2">{descArr.join(':').trim()}</p>
-                              </div>
-                            </li>
-                          );
-                        })}
+                        {/* SAFEGUARD: Checks if it's an array (new format) or object with bullets (old format) */}
+                        {Array.isArray(renderStudent.aiReportData.studyHacks) 
+                          ? renderStudent.aiReportData.studyHacks.map((hack: string, i: number) => {
+                              const [title, ...descArr] = hack.split(':');
+                              return (
+                                <li key={i} className="flex gap-3 items-start bg-teal-800 p-3 rounded-xl border border-teal-700">
+                                  <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={16} />
+                                  <div>
+                                    <h4 className="font-bold text-white text-sm">{title.replace(/^- /, '')}</h4>
+                                    <p className="text-teal-200 text-xs mt-1 leading-relaxed line-clamp-2">{descArr.join(':').trim()}</p>
+                                  </div>
+                                </li>
+                              );
+                            })
+                          : renderStudent.aiReportData.studyHacks?.bullets?.map((hack: any, i: number) => (
+                              <li key={i} className="flex gap-3 items-start bg-teal-800 p-3 rounded-xl border border-teal-700">
+                                <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={16} />
+                                <div>
+                                  <h4 className="font-bold text-white text-sm">{hack.title}</h4>
+                                  <p className="text-teal-200 text-xs mt-1 leading-relaxed line-clamp-2">{hack.desc}</p>
+                                </div>
+                              </li>
+                            ))
+                        }
                       </ul>
                     </div>
                   </section>
