@@ -130,7 +130,6 @@ export default function BatchOperations() {
         
         setRenderStudent({ ...student, grading: gradeStudent(student) });
         
-        // Wait for React to mount the hidden DOM safely
         await new Promise(resolve => setTimeout(resolve, 1500)); 
         
         const element = document.getElementById('hidden-batch-render');
@@ -336,7 +335,6 @@ export default function BatchOperations() {
                       </div>
                       
                       <ul className="space-y-3">
-                        {/* THE FAIL-SAFE HACKS PARSER */}
                         {(Array.isArray(renderStudent.aiReportData.studyHacks) 
                           ? renderStudent.aiReportData.studyHacks 
                           : Array.isArray(renderStudent.aiReportData.studyHacks?.bullets) 
@@ -366,9 +364,14 @@ export default function BatchOperations() {
                       </ul>
                     </div>
                   </section>
-                  
-                  <section className="grid grid-cols-2 gap-6 mb-6">
-                    <div className="bg-orange-50 p-6 rounded-3xl border border-orange-200 avoid-page-break">
+                </div>
+
+                <div className="html2pdf__page-break"></div>
+
+                {/* --- PAGE 2: SKILL GAP & CAREER BRIDGE --- */}
+                <div className="mt-4">
+                  <section className="grid grid-cols-2 gap-6 mb-6 avoid-page-break">
+                    <div className="bg-orange-50 p-6 rounded-3xl border border-orange-200">
                       <div className="flex items-center gap-3 mb-4">
                         <Target className="text-orange-600" size={24}/>
                         <h3 className="text-xl font-black text-orange-900">Skill Gap Analysis</h3>
@@ -380,7 +383,7 @@ export default function BatchOperations() {
                       </div>
                     </div>
 
-                    <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm avoid-page-break">
+                    <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
                        <div className="flex items-center gap-3 mb-4">
                         <User className="text-blue-600" size={24}/>
                         <h3 className="text-xl font-black text-slate-800">Psychometrician's Notes</h3>
@@ -390,12 +393,7 @@ export default function BatchOperations() {
                       </p>
                     </div>
                   </section>
-                </div>
 
-                <div className="html2pdf__page-break"></div>
-
-                {/* --- PAGE 2: CAREER BRIDGE --- */}
-                <div className="mt-4">
                   <section className="bg-slate-50 p-6 rounded-3xl border border-slate-200 mb-6 avoid-page-break">
                     <div className="flex items-center gap-3 mb-6">
                       <Map className="text-blue-800" size={24}/>
@@ -452,7 +450,7 @@ export default function BatchOperations() {
 
                 <div className="html2pdf__page-break"></div>
 
-                {/* --- CLASSIC CLINICAL DATA --- */}
+                {/* --- PAGE 3: COGNITIVE DATA --- */}
                 <div className="mt-6 text-slate-800">
                   <div className="avoid-page-break mb-6">
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">1. Cognitive Abilities Assessment</h2>
@@ -500,6 +498,7 @@ export default function BatchOperations() {
 
                   <div className="html2pdf__page-break"></div>
 
+                  {/* --- PAGE 4: PSYCHOLOGICAL DATA --- */}
                   <div className="avoid-page-break mb-6 mt-4">
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Psychological & Behavioral Profile</h2>
                     <div className="mb-6">
@@ -549,6 +548,58 @@ export default function BatchOperations() {
                           })}
                         </tbody>
                       </table>
+                    </div>
+                  </div>
+
+                  <div className="html2pdf__page-break"></div>
+
+                  {/* --- PAGE 5: SUMMARY & SIGNATURES --- */}
+                  <div className="mt-6 text-slate-800 avoid-page-break">
+                    <h2 className="text-xl font-bold text-blue-900 border-b-2 border-blue-900 pb-2 mb-6">3. Integrated Summary and Recommendations</h2>
+                    
+                    <div className="space-y-6 mb-12">
+                      <div>
+                        <h3 className="font-bold text-slate-800 mb-2 text-sm">3.1. Summary of Key Findings</h3>
+                        <p className="text-slate-600 text-sm bg-slate-50 p-4 rounded-lg border border-slate-100">
+                          <strong className="text-slate-800 uppercase">{renderStudent.name || 'Student'}</strong> demonstrates strengths aligned with their recommended trajectory. As noted by our psychometric analysis: <em>"{renderStudent.aiReportData.psychometricianNote || renderStudent.aiReportData.counselorNotes || 'Continued observation recommended.'}"</em>
+                        </p>
+                      </div>
+
+                      <div>
+                        <h3 className="font-bold text-slate-800 mb-2 text-sm">3.2. Senior Secondary Specialization Recommendations</h3>
+                        <div className="bg-blue-50/50 p-4 rounded-lg border border-blue-100 space-y-1 text-sm">
+                          <p><strong className="text-blue-900">Primary Specialization:</strong> <span className="text-blue-800">{renderStudent.aiReportData.recommendation || renderStudent.aiReportData.recommendations?.primary || "Pending"}</span></p>
+                          <p><strong className="text-blue-900">Secondary Specialization:</strong> <span className="text-blue-800">{renderStudent.aiReportData.specialization || renderStudent.aiReportData.recommendations?.secondary || "Pending"}</span></p>
+                        </div>
+                      </div>
+
+                      <div>
+                        <h3 className="font-bold text-slate-800 mb-2 text-sm">3.3. Potential Career Paths</h3>
+                        <p className="text-slate-600 text-sm mb-3">Based on the recommended senior secondary specializations and career mapping, here are some potential future paths the student may wish to explore:</p>
+                        <div className="flex flex-wrap gap-2">
+                          {Array.isArray(renderStudent.aiReportData.roadmap?.step4) ? renderStudent.aiReportData.roadmap.step4.map((career: string, i: number) => (
+                            <span key={i} className="bg-slate-100 text-slate-700 px-3 py-1.5 rounded-md font-semibold text-xs border border-slate-200">
+                              {career}
+                            </span>
+                          )) : <span className="text-sm text-slate-500">To be discussed during counseling.</span>}
+                        </div>
+                      </div>
+                    </div>
+
+                    <h2 className="text-xl font-bold text-blue-900 border-b-2 border-blue-900 pb-2 mb-6">4. Official Endorsement & Signatures</h2>
+                    <p className="text-slate-600 text-sm mb-12 leading-relaxed">
+                      The insights contained within this ACET Intelligence Report represent a synthesis of the candidate's cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach—integrating continuous mentorship, environmental support, and periodic academic re-evaluation—is strongly recommended to assist the student in actualizing their defined career and university trajectory.
+                    </p>
+
+                    <div className="grid grid-cols-2 gap-12 mt-16">
+                      <div className="border-t-2 border-slate-300 pt-3">
+                        <p className="font-bold text-slate-800 text-center text-sm">4.1 Internal Counselor's Verification Notes</p>
+                        <p className="text-slate-400 text-center text-[10px] mt-1 uppercase tracking-widest">[Official School Use Only]</p>
+                      </div>
+                      <div className="border-t-2 border-slate-300 pt-3">
+                        <p className="font-bold text-slate-800 text-center text-sm">Principal / Administrator</p>
+                        <p className="text-slate-500 text-center text-xs mt-1 uppercase tracking-wide font-semibold">{renderStudent.organizationId || "ROSEVILLE SECONDARY SCHOOL"}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
