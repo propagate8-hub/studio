@@ -216,12 +216,18 @@ export async function POST(req: Request) {
 
     const generatedData = JSON.parse(responseText);
 
-    // 6. MERGE THE DATA (Crucial fix to stop the tables from disappearing)
+    // 6. MERGE AND RESCUE THE DATA 
     const existingAiData = studentData?.aiReportData || {};
     
+    // Rescue the personality scores from the root database level if the wipe script deleted them
+    const rescuedOcean = studentData?.ocean || existingAiData.ocean || [];
+    const rescuedHolland = studentData?.holland || existingAiData.holland || [];
+    
     const aiReportData = {
-      ...existingAiData, // Keeps the original OCEAN and RIASEC tables safely intact!
-      ...generatedData    // Adds the brand new AI insights on top
+      ...existingAiData, 
+      ...generatedData,    
+      ocean: rescuedOcean,
+      holland: rescuedHolland
     };
 
     // 7. Save the merged AI Data back to the Student's Firebase Profile
