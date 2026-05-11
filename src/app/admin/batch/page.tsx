@@ -118,35 +118,44 @@ export default function BatchOperations() {
 
   const downloadBatchPDFs = async () => {
     setIsDownloading(true);
-    const html2pdf = (await import('html2pdf.js')).default;
     let count = 0;
 
-    for (const student of students) {
-      if (!student.aiReportData) continue;
-      count++;
-      setProgress({ current: count, total: students.length, status: `Rendering PDF for ${student.name}...` });
+    try {
+      const html2pdf = (await import('html2pdf.js')).default;
       
-      setRenderStudent({ ...student, grading: gradeStudent(student) });
-      await new Promise(resolve => setTimeout(resolve, 1500)); 
-      
-      const element = document.getElementById('hidden-batch-render');
-      if (!element) continue;
-      
-      // TYPESCRIPT FIXES APPLIED HERE
-      const opt = {
-        margin: 0.4,
-        filename: `${student.name.replace(/\s+/g, '_')}_ACET_Report.pdf`,
-        image: { type: 'jpeg' as const, quality: 1 },
-        html2canvas: { scale: 2, useCORS: true, windowWidth: 715 }, 
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' as const },
-        pagebreak: { mode: ['css', 'legacy'], avoid: ['.avoid-page-break'] }
-      };
-      
-      await html2pdf().set(opt).from(element).save();
-      await new Promise(resolve => setTimeout(resolve, 2000)); 
+      for (const student of students) {
+        if (!student.aiReportData) continue;
+        count++;
+        setProgress({ current: count, total: students.length, status: `Rendering PDF for ${student.name || 'Student'}...` });
+        
+        setRenderStudent({ ...student, grading: gradeStudent(student) });
+        
+        // Wait for React to mount the hidden DOM safely
+        await new Promise(resolve => setTimeout(resolve, 1500)); 
+        
+        const element = document.getElementById('hidden-batch-render');
+        if (!element) continue;
+        
+        const safeName = student.name ? student.name.replace(/\s+/g, '_') : 'Student';
+        
+        const opt = {
+          margin: 0.4,
+          filename: `${safeName}_ACET_Report.pdf`,
+          image: { type: 'jpeg' as const, quality: 1 },
+          html2canvas: { scale: 2, useCORS: true, windowWidth: 715 }, 
+          jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' as const },
+          pagebreak: { mode: ['css', 'legacy'], avoid: ['.avoid-page-break'] }
+        };
+        
+        await html2pdf().set(opt).from(element).save();
+        await new Promise(resolve => setTimeout(resolve, 2000)); 
+      }
+      setProgress({ current: count, total: students.length, status: 'All PDFs Downloaded!' });
+    } catch (error) {
+      console.error("PDF generation crashed:", error);
+      setProgress({ current: count, total: students.length, status: 'Error generating PDFs!' });
     }
 
-    setProgress({ current: count, total: students.length, status: 'All PDFs Downloaded!' });
     setIsDownloading(false);
     setRenderStudent(null); 
   };
@@ -156,11 +165,11 @@ export default function BatchOperations() {
     students.forEach(student => {
       if (student.aiReportData) {
         const grading = gradeStudent(student); 
-        const name = `"${student.name}"`;
-        const classLevel = `"${student.classLevel}"`;
+        const name = `"${student.name || 'Unknown'}"`;
+        const classLevel = `"${student.classLevel || 'Unknown'}"`;
         const accuracy = grading.percentage;
-        const rec = `"${student.aiReportData.recommendation || 'Pending'}"`;
-        const spec = `"${student.aiReportData.specialization || 'Pending'}"`;
+        const rec = `"${student.aiReportData.recommendation || student.aiReportData.recommendations?.primary || 'Pending'}"`;
+        const spec = `"${student.aiReportData.specialization || student.aiReportData.recommendations?.secondary || 'Pending'}"`;
         csvContent += `${name},${classLevel},${accuracy},${rec},${spec}\n`;
       }
     });
@@ -257,11 +266,11 @@ export default function BatchOperations() {
       )}
 
       {/* ========================================== */}
-      {/* THE HIDDEN DOM FOR PDF RENDERING */}
+      {/* BULLETPROOF HIDDEN DOM FOR PDF RENDERING   */}
       {/* ========================================== */}
       <div style={{ position: 'absolute', top: '-9999px', left: '-9999px', width: '715px' }}>
-        <div id="hidden-batch-render" style={{ width: '715px', minWidth: '715px', maxWidth: '715px', margin: '0 auto', backgroundColor: '#ffffff', boxSizing: 'border-box' }} className="text-slate-800 font-sans p-8">
-          {renderStudent && renderStudent.aiReportData && (
+        {renderStudent && renderStudent.aiReportData && (
+          <div id="hidden-batch-render" style={{ width: '715px', minWidth: '715px', maxWidth: '715px', margin: '0 auto', backgroundColor: '#ffffff', boxSizing: 'border-box' }} className="text-slate-800 font-sans p-8">
              <div>
                 {/* --- PAGE 1: REACT INFOGRAPHICS --- */}
                 <div>
@@ -269,7 +278,7 @@ export default function BatchOperations() {
                     <div>
                       <h1 className="text-3xl font-black text-blue-900 uppercase">ACET Intelligence Report</h1>
                       <p className="text-slate-600 flex items-center gap-2 mt-2 font-bold tracking-wide">
-                        <User size={18} className="text-blue-600"/> {renderStudent.name} • {renderStudent.classLevel} • {renderStudent.organizationId || "Independent"}
+                        <User size={18} className="text-blue-600"/> {renderStudent.name || "Student"} • {renderStudent.classLevel || "JSS 3"} • {renderStudent.organizationId || "Independent"}
                       </p>
                     </div>
                     <div className="text-right">
@@ -291,7 +300,7 @@ export default function BatchOperations() {
                     
                     <div className="bg-slate-50 p-6 rounded-3xl border border-slate-200 flex flex-col items-center justify-center shadow-inner">
                       <h3 className="font-bold text-slate-500 uppercase text-xs tracking-wider mb-2">Overall Accuracy</h3>
-                      <div className="text-6xl font-black text-blue-600">{renderStudent.grading.percentage}%</div>
+                      <div className="text-6xl font-black text-blue-600">{renderStudent.grading?.percentage || 0}%</div>
                     </div>
                   </section>
 
@@ -303,13 +312,9 @@ export default function BatchOperations() {
                       </div>
                       <div className="space-y-4">
                         {['Verbal Reasoning', 'Numerical Reasoning', 'Abstract/Logical Reasoning', 'Spatial & Mechanical Reasoning'].map((catName) => {
-                          const cat = renderStudent.grading.categories[catName];
-                          
-                          // ADAPTIVE FIX: Hide if skipping this category
+                          const cat = renderStudent.grading?.categories?.[catName];
                           if (!cat || cat.total === 0) return null; 
-                          
                           const score = Math.round((cat.correct / cat.total) * 100);
-
                           return (
                           <div key={catName} className="space-y-1">
                             <div className="flex justify-between text-xs">
@@ -330,43 +335,38 @@ export default function BatchOperations() {
                         <h3 className="text-xl font-black">AI Study Hacks</h3>
                       </div>
                       
-                      {/* SAFEGUARD: Renders the intro if it exists in older data */}
-                      {renderStudent.aiReportData.studyHacks?.intro && (
-                        <p className="text-teal-100 mb-4 text-sm font-medium leading-relaxed">
-                          {renderStudent.aiReportData.studyHacks.intro}
-                        </p>
-                      )}
-
                       <ul className="space-y-3">
-                        {/* SAFEGUARD: Checks if it's an array (new format) or object with bullets (old format) */}
-                        {Array.isArray(renderStudent.aiReportData.studyHacks) 
-                          ? renderStudent.aiReportData.studyHacks.map((hack: string, i: number) => {
-                              const [title, ...descArr] = hack.split(':');
-                              return (
-                                <li key={i} className="flex gap-3 items-start bg-teal-800 p-3 rounded-xl border border-teal-700">
-                                  <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={16} />
-                                  <div>
-                                    <h4 className="font-bold text-white text-sm">{title.replace(/^- /, '')}</h4>
-                                    <p className="text-teal-200 text-xs mt-1 leading-relaxed line-clamp-2">{descArr.join(':').trim()}</p>
-                                  </div>
-                                </li>
-                              );
-                            })
-                          : renderStudent.aiReportData.studyHacks?.bullets?.map((hack: any, i: number) => (
-                              <li key={i} className="flex gap-3 items-start bg-teal-800 p-3 rounded-xl border border-teal-700">
-                                <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={16} />
-                                <div>
-                                  <h4 className="font-bold text-white text-sm">{hack.title}</h4>
-                                  <p className="text-teal-200 text-xs mt-1 leading-relaxed line-clamp-2">{hack.desc}</p>
-                                </div>
-                              </li>
-                            ))
-                        }
+                        {/* THE FAIL-SAFE HACKS PARSER */}
+                        {(Array.isArray(renderStudent.aiReportData.studyHacks) 
+                          ? renderStudent.aiReportData.studyHacks 
+                          : Array.isArray(renderStudent.aiReportData.studyHacks?.bullets) 
+                            ? renderStudent.aiReportData.studyHacks.bullets 
+                            : []
+                        ).map((hack: any, i: number) => {
+                          let title = "Tip";
+                          let desc = "Keep studying consistently.";
+                          if (typeof hack === 'string') {
+                            const parts = hack.split(':');
+                            title = parts[0]?.replace(/^- /, '') || title;
+                            desc = parts.slice(1).join(':').trim() || title;
+                          } else if (typeof hack === 'object' && hack !== null) {
+                            title = hack.title || title;
+                            desc = hack.desc || hack.description || desc;
+                          }
+                          return (
+                            <li key={i} className="flex gap-3 items-start bg-teal-800 p-3 rounded-xl border border-teal-700">
+                              <CheckCircle className="text-teal-300 shrink-0 mt-0.5" size={16} />
+                              <div>
+                                <h4 className="font-bold text-white text-sm">{title}</h4>
+                                <p className="text-teal-200 text-xs mt-1 leading-relaxed line-clamp-2">{desc}</p>
+                              </div>
+                            </li>
+                          );
+                        })}
                       </ul>
                     </div>
                   </section>
                   
-                  {/* PULLED SKILL GAP AND PSYCH NOTES UP TO PAGE 1 */}
                   <section className="grid grid-cols-2 gap-6 mb-6">
                     <div className="bg-orange-50 p-6 rounded-3xl border border-orange-200 avoid-page-break">
                       <div className="flex items-center gap-3 mb-4">
@@ -374,7 +374,9 @@ export default function BatchOperations() {
                         <h3 className="text-xl font-black text-orange-900">Skill Gap Analysis</h3>
                       </div>
                       <div className="bg-white p-5 rounded-2xl border border-orange-100 shadow-sm">
-                        <p className="text-slate-600 text-sm leading-relaxed font-medium">"{renderStudent.aiReportData.skillGap}"</p>
+                        <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                          "{typeof renderStudent.aiReportData.skillGap === 'object' ? renderStudent.aiReportData.skillGap?.description || renderStudent.aiReportData.skillGap?.focus : renderStudent.aiReportData.skillGap || 'Requires further evaluation.'}"
+                        </p>
                       </div>
                     </div>
 
@@ -384,7 +386,7 @@ export default function BatchOperations() {
                         <h3 className="text-xl font-black text-slate-800">Psychometrician's Notes</h3>
                       </div>
                       <p className="text-slate-600 text-sm leading-loose italic border-l-4 border-blue-300 pl-4 font-medium">
-                        "{renderStudent.aiReportData.psychometricianNote || renderStudent.aiReportData.counselorNotes}"
+                        "{renderStudent.aiReportData.psychometricianNote || renderStudent.aiReportData.counselorNotes || 'Continued observation recommended.'}"
                       </p>
                     </div>
                   </section>
@@ -405,19 +407,19 @@ export default function BatchOperations() {
                         <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-white">1</div>
                         <h4 className="font-bold text-slate-800 text-xs mb-3 uppercase tracking-wider">SS1 Subjects</h4>
                         <div className="flex flex-col gap-2">
-                          {renderStudent.aiReportData.roadmap?.step1?.map((s:string, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-100 py-2 px-1 rounded font-semibold text-slate-700">{s}</div>)}
+                          {Array.isArray(renderStudent.aiReportData.roadmap?.step1) && renderStudent.aiReportData.roadmap.step1.map((s:any, i:number)=><div key={i} className="text-xs bg-slate-50 border border-slate-100 py-2 px-1 rounded font-semibold text-slate-700">{String(s)}</div>)}
                         </div>
                       </div>
                       <div className="border border-slate-200 p-4 rounded-xl bg-white shadow-sm">
                         <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold mx-auto -mt-8 mb-3 border-4 border-white">2</div>
                         <h4 className="font-bold text-slate-800 text-xs mb-3 uppercase tracking-wider">JAMB Combo</h4>
                         <div className="flex flex-col gap-2">
-                          {renderStudent.aiReportData.roadmap?.step2?.map((s:string, i:number)=><div key={i} className="text-xs bg-blue-50 border border-blue-100 py-2 px-1 rounded font-bold text-blue-800">{s}</div>)}
+                          {Array.isArray(renderStudent.aiReportData.roadmap?.step2) && renderStudent.aiReportData.roadmap.step2.map((s:any, i:number)=><div key={i} className="text-xs bg-blue-50 border border-blue-100 py-2 px-1 rounded font-bold text-blue-800">{String(s)}</div>)}
                         </div>
                       </div>
                     </div>
 
-                    {renderStudent.aiReportData.careerBridge && (
+                    {Array.isArray(renderStudent.aiReportData.careerBridge) && (
                       <div className="mt-8">
                         <div className="flex items-center justify-center gap-2 mb-4 opacity-80">
                           <div className="h-px bg-slate-300 flex-1"></div>
@@ -430,15 +432,15 @@ export default function BatchOperations() {
                               <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500"></div>
                               <div className="w-1/3 pr-2 border-r border-slate-100 flex flex-col justify-center">
                                 <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">JAMB/Degree Path</p>
-                                <p className="font-bold text-slate-800 text-xs">{pathway.traditionalDegree}</p>
+                                <p className="font-bold text-slate-800 text-xs">{pathway?.traditionalDegree || "Standard Degree"}</p>
                               </div>
                               <div className="w-1/3 pr-2 border-r border-slate-100 flex flex-col justify-center">
                                 <p className="text-[9px] font-bold text-indigo-400 uppercase tracking-widest mb-1">Future Specialization</p>
-                                <p className="font-black text-indigo-700 bg-indigo-50 inline-block px-2 py-1 rounded text-xs">{pathway.futuristicCareer}</p>
+                                <p className="font-black text-indigo-700 bg-indigo-50 inline-block px-2 py-1 rounded text-xs">{pathway?.futuristicCareer || "Modern Pathway"}</p>
                               </div>
                               <div className="w-1/3 flex flex-col justify-center">
                                 <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Strategic Alignment</p>
-                                <p className="text-[10px] text-slate-600 leading-relaxed">{pathway.alignmentReason}</p>
+                                <p className="text-[10px] text-slate-600 leading-relaxed">{pathway?.alignmentReason || "Provides solid foundational learning."}</p>
                               </div>
                             </div>
                           ))}
@@ -457,11 +459,6 @@ export default function BatchOperations() {
                     <p className="text-sm mb-4 text-slate-700 leading-relaxed text-justify">
                       The ACET Cognitive Abilities Assessment evaluates a student's core fluid intelligence and problem-solving capabilities across five distinct subtests. 
                       Rather than measuring learned academic knowledge, these subtests measure the underlying cognitive engine that drives future learning. 
-                      <br/><br/>
-                      <strong>Understanding the Metrics:</strong><br/>
-                      • <strong>Raw Score:</strong> The absolute number of questions answered correctly.<br/>
-                      • <strong>Z-Score:</strong> A statistical measurement indicating how far the student's score deviates from the <strong>Cohort Average</strong>. A Z-score of 0 is exactly average, positive scores are above average, and negative scores indicate areas requiring foundational support.<br/>
-                      • <strong>Percentile Rank:</strong> Indicates the percentage of peers in the cohort sample that the student outperformed.
                     </p>
                     <h3 className="font-bold text-slate-800 mb-3 text-sm">1.1. Subtest Scores & Interpretation</h3>
                     <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-4">
@@ -476,9 +473,7 @@ export default function BatchOperations() {
                       </thead>
                       <tbody>
                         {['Verbal Reasoning', 'Numerical Reasoning', 'Abstract/Logical Reasoning', 'Spatial & Mechanical Reasoning'].map((catName, idx) => {
-                          const c = renderStudent.grading.categories[catName];
-                          
-                          // ADAPTIVE FIX: Hide the row if the test skipped this category
+                          const c = renderStudent.grading?.categories?.[catName];
                           if (!c || c.total === 0) return null; 
                           
                           const total = c.total;
@@ -509,9 +504,6 @@ export default function BatchOperations() {
                     <h2 className="text-xl font-bold text-blue-900 mb-4 border-b-2 border-blue-900 pb-2">2. Psychological & Behavioral Profile</h2>
                     <div className="mb-6">
                       <h3 className="font-bold text-slate-800 mb-2 text-sm">2.1. The Big Five (OCEAN) Personality Assessment</h3>
-                      <p className="text-sm mb-3 text-slate-700 leading-relaxed text-justify">
-                        This assessment measures where the student falls across the globally recognized Big Five personality dimensions. These traits significantly influence a student's learning habits, emotional resilience during exams, and eventual cultural fit within a workplace.
-                      </p>
                       <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
                         <thead>
                           <tr className="bg-slate-100">
@@ -521,11 +513,11 @@ export default function BatchOperations() {
                           </tr>
                         </thead>
                         <tbody>
-                          {renderStudent.aiReportData.ocean?.map((p: any, i: number) => (
+                          {Array.isArray(renderStudent.aiReportData.ocean) && renderStudent.aiReportData.ocean.map((p: any, i: number) => (
                             <tr key={i} className="hover:bg-slate-50">
-                              <td className="py-2 px-3 border border-slate-300 font-semibold">{p.trait}</td>
-                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">{p.score}</td>
-                              <td className="py-2 px-3 border border-slate-300 text-xs">{p.interpretation || p.desc}</td>
+                              <td className="py-2 px-3 border border-slate-300 font-semibold">{p?.trait || 'Trait'}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">{p?.score || 0}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-xs">{p?.interpretation || p?.desc || 'Normal limits'}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -534,9 +526,6 @@ export default function BatchOperations() {
 
                     <div className="mb-4">
                       <h3 className="font-bold text-slate-800 mb-2 text-sm">2.2. Holland Code (RIASEC) Occupational Interests</h3>
-                      <p className="text-sm mb-3 text-slate-700 leading-relaxed text-justify">
-                        The Holland Occupational Themes theory posits that individuals perform best in academic streams and careers that match their inherent interests. The combination of their top three categories forms their "Holland Code."
-                      </p>
                       <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300">
                         <thead>
                           <tr className="bg-slate-100">
@@ -546,23 +535,26 @@ export default function BatchOperations() {
                           </tr>
                         </thead>
                         <tbody>
-                          {renderStudent.aiReportData.holland?.map((h: any, i: number) => (
-                            <tr key={i} className="hover:bg-slate-50">
-                              <td className="py-2 px-3 border border-slate-300 font-semibold">{h.trait || h.code}</td>
-                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">{h.score}</td>
-                              <td className="py-2 px-3 border border-slate-300 text-xs">
-                                {h.score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : h.score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
-                              </td>
-                            </tr>
-                          ))}
+                          {Array.isArray(renderStudent.aiReportData.holland) && renderStudent.aiReportData.holland.map((h: any, i: number) => {
+                            const score = h?.score || 0;
+                            return (
+                              <tr key={i} className="hover:bg-slate-50">
+                                <td className="py-2 px-3 border border-slate-300 font-semibold">{h?.trait || h?.code || 'Theme'}</td>
+                                <td className="py-2 px-3 border border-slate-300 text-center font-bold">{score}</td>
+                                <td className="py-2 px-3 border border-slate-300 text-xs">
+                                  {score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
+                                </td>
+                              </tr>
+                            );
+                          })}
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
              </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );
