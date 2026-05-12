@@ -71,6 +71,12 @@ export async function POST(req: Request) {
     }
 
     // ==========================================
+    // 🧠 INJECTING PSYCHOMETRIC DATA FOR AI
+    // ==========================================
+    const oceanContext = gradingResult.ocean ? gradingResult.ocean.map((o: any) => `- ${o.trait}: ${o.displayScore}/50`).join('\n') : "No personality data available.";
+    const hollandContext = gradingResult.holland ? gradingResult.holland.map((h: any) => `- ${h.code || h.trait}: ${h.displayScore}/50`).join('\n') : "No interest data available.";
+
+    // ==========================================
     // ⚖️ HOLISTIC PATTERN MATCHING MATRIX
     // ==========================================
     const prompt = `
@@ -89,70 +95,71 @@ export async function POST(req: Request) {
       `- ${cat}: ${data.correct} / ${data.total}`
     ).join('\n')}
 
+    PSYCHOLOGICAL & BEHAVIORAL PROFILE (OCEAN):
+    ${oceanContext}
+
+    OCCUPATIONAL INTERESTS (RIASEC):
+    ${hollandContext}
+
+    CRITICAL ADAPTIVE TESTING RULES (DO NOT HALLUCINATE):
+    1. If any personality or interest score says "N/A" or "Not Assessed", it means the adaptive testing engine SKIPPED those questions to save time. It DOES NOT mean the student is weak or lacks interest in them. 
+    2. DO NOT state that the student "lacks engagement" or "struggles" with a trait just because it says N/A. Simply ignore the N/A traits and focus your evaluation strictly on the traits that were actually scored.
+    3. Look directly at the data provided above. If a student scored high in Conscientiousness or Verbal Reasoning, you MUST explicitly acknowledge and praise those specific high scores in your notes.
+
     YOUR TASK:
-    Generate a highly personalized JSON payload analyzing this student's cognitive performance.
+    Generate a highly personalized JSON payload analyzing this student's cognitive and psychological performance.
     
     CRITICAL NIGERIAN CURRICULUM & PDF FORMATTING RULES:
     - Keep "Study Hacks" descriptions extremely concise (Maximum of 12 words per bullet point).
-    - Write professional, clinical, yet encouraging counselor notes.
+    - Write professional, clinical, yet encouraging counselor notes based ONLY on the data provided.
     - SSS SUBJECT COMPLIANCE: Step 1 of the roadmap MUST align with the newly approved Nigerian NERDC curriculum groupings (Core, Humanities, Science/Math, Business, Trade/Vocational). Recommend relevant, modern SSS1 subjects.
     - JAMB SUBJECT ALLOWLIST: Step 2 of the roadmap MUST be exactly 4 subjects for the Nigerian UTME/JAMB exam. 'Use of English' is compulsory. The remaining 3 subjects MUST be strictly chosen from this list: Mathematics, Physics, Chemistry, Biology, Agricultural Science, Economics, Geography, Government, Literature-in-English, CRS, IRS, Commerce, Financial Accounting, History, French, or Visual Arts. DO NOT invent subjects like 'Robotics' or 'Technical Drawing' for JAMB.
     
     HOLISTIC PATTERN MATCHING ALGORITHM:
-    You must evaluate all 7 Pathways simultaneously to find the best holistic fit. 
-
-    INTEGRATION RULE (COGNITIVE + PERSONALITY):
-    Use Cognitive Scores to determine the student's raw capacity, but use their Holland Code (Interests) to dictate their destination. 
-    ABSOLUTE STRICT OVERRIDE: If a student's highest (or tied for highest) Holland trait is "Conventional" or "Enterprising", you MUST route them to "Commercial & Business" (Pathway 4) regardless of how high their Verbal or STEM cognitive scores are. DO NOT put high-Conventional students in Arts or Science.
+    You must evaluate all 7 Pathways simultaneously to find the best holistic fit. Use Cognitive Scores to determine the student's raw capacity, but use their Holland Code (Interests) to dictate their destination. 
+    ABSOLUTE STRICT OVERRIDE: If a student's highest (or tied for highest) Holland trait is "Conventional" or "Enterprising", you MUST route them to "Commercial & Business" (Pathway 4). DO NOT put high-Conventional students in Arts or Science.
 
     PATHWAY 1: Bio-Health & Cognitive Sciences
     - Cognitive Base: High Verbal AND High Numerical AND High Abstract.
     - Personality Match: Investigative or Social traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Biology, Chemistry & Pre-Medical Focus"
-    - Futuristic Careers: Bioinformatics, Genomic Medicine, Neural Engineering, Telemedicine.
 
     PATHWAY 2: Advanced Engineering & Smart Infrastructure
     - Cognitive Base: High Numerical AND High Spatial/Mechanical.
     - Personality Match: Realistic or Investigative traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Physics, Technical Drawing & Advanced Mathematics Focus"
-    - Futuristic Careers: Robotics, Smart City Architecture, Sustainable Energy, Aerospace.
 
     PATHWAY 3: AI, Computing & Cyber-Physical Systems
     - Cognitive Base: High Abstract/Logical AND High Numerical.
     - Personality Match: Investigative traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Computer Studies, Physics & Mathematics Focus"
-    - Futuristic Careers: Artificial Intelligence, Cybersecurity, Cloud Computing, Blockchain.
 
     PATHWAY 4: Next-Gen Business, Fintech & Analytics
     - Cognitive Base: Any combination of Verbal and Numerical scores.
-    - Personality Match: STRICT MANDATORY OVERRIDE - If "Enterprising" or "Conventional" are among their highest scores, they belong here. 
+    - Personality Match: STRICT MANDATORY OVERRIDE - If "Enterprising" or "Conventional" are highest, they belong here. 
     - SSS Recommendation: "Commercial & Business"
     - SSS Specialization: "Accounting, Commerce & Financial Studies Focus"
-    - Futuristic Careers: Fintech, DeFi, ESG Management, Quantitative Economics, Market Intelligence.
     
     PATHWAY 5: Tech-Law, Policy & Digital Humanities
-    - Cognitive Base: High Verbal Reasoning (Numerical can be moderate or low).
+    - Cognitive Base: High Verbal Reasoning.
     - Personality Match: Heavily favor if the student shows Social, Enterprising, or Investigative traits.
     - SSS Recommendation: "Arts & Humanities"
     - SSS Specialization: "Government, Literature & History Focus"
-    - Futuristic Careers: Tech Law, Cyber Diplomacy, UI/UX Design, Synthetic Media, Digital Mass Communication.
 
     PATHWAY 6: Synthetic Media, Arts & Immersive Design
     - Cognitive Base: High Verbal AND High Spatial.
     - Personality Match: Heavily favor if the student shows Artistic traits.
     - SSS Recommendation: "Arts & Humanities"
     - SSS Specialization: "Creative Arts, Literature & Media Studies Focus"
-    - Futuristic Careers: UI/UX Design, Computational Arts, Generative Animation.
 
     PATHWAY 7: Advanced Applied Technologies (Smart TVET)
     - Cognitive Base: High Spatial/Mechanical, OR an overall accuracy below 55% needing foundational support.
     - Personality Match: Realistic (hands-on) traits.
     - SSS Recommendation: "Technical & Vocational Education"
     - SSS Specialization: "Applied Sciences, Basic Technology & ICT Focus"
-    - Futuristic Careers: Smart Home Servicing, 3D Printing, Precision Agrotech, Renewable Energy.
 
     OUTPUT EXACTLY THIS JSON STRUCTURE AND NOTHING ELSE:
     {
@@ -179,9 +186,9 @@ export async function POST(req: Request) {
       },
       "careerBridge": [
         {
-          "traditionalDegree": "String (e.g., Electrical Engineering)",
-          "futuristicCareer": "String (e.g., Smart Home Servicing)",
-          "alignmentReason": "String (1 sentence explaining why this degree leads to this role)"
+          "traditionalDegree": "String",
+          "futuristicCareer": "String",
+          "alignmentReason": "String"
         },
         {
           "traditionalDegree": "String",
@@ -219,7 +226,6 @@ export async function POST(req: Request) {
     // 6. MERGE AND RESCUE THE DATA 
     const existingAiData = studentData?.aiReportData || {};
     
-    // Rescue the personality scores from the root database level if the wipe script deleted them
     const rescuedOcean = studentData?.ocean || existingAiData.ocean || [];
     const rescuedHolland = studentData?.holland || existingAiData.holland || [];
     
