@@ -111,28 +111,25 @@ export default function BatchOperations() {
         const upperKey = key.toUpperCase();
         const val = obj[key];
         
-        // 🛠️ THE NEW LETTER PARSER
+        // 🛠️ THE LETTER PARSER
         let num = 0;
         const parseValue = (v: any) => {
           if (typeof v === 'number') return v;
           if (typeof v === 'string') {
             const lower = v.toLowerCase().trim();
             
-            // Catch Multiple Choice Letters!
             if (lower === 'a') return 5;
             if (lower === 'b') return 4;
             if (lower === 'c') return 3;
             if (lower === 'd') return 2;
             if (lower === 'e') return 1;
 
-            // Catch explicitly written numbers
             if (lower === '5') return 5;
             if (lower === '4') return 4;
             if (lower === '3') return 3;
             if (lower === '2') return 2;
             if (lower === '1') return 1;
 
-            // Catch written phrases just in case
             if (lower.includes('strongly agree') || lower.includes('very interested')) return 5;
             if (lower.includes('strongly disagree') || lower.includes('not at all')) return 1;
             if (lower.includes('agree') || lower.includes('interested')) return 4;
@@ -150,13 +147,20 @@ export default function BatchOperations() {
           num = parseValue(val);
         }
 
-        // Tally the scores
-        if (upperKey.startsWith('PER_') && upperKey.length >= 7) {
-          const trait = upperKey.substring(4, 7);
-          if (oceanScores[trait]) oceanScores[trait].score += num;
-        } else if (upperKey.startsWith('INT_') && upperKey.length >= 7) {
-           const trait = upperKey.substring(4, 7);
-           if (riasecScores[trait]) riasecScores[trait].score += num;
+        // 🛠️ THE FUZZY ID MATCHER
+        if (upperKey.startsWith('PER_')) {
+          if (upperKey.includes('OPE')) oceanScores['OPE'].score += num;
+          else if (upperKey.includes('CON')) oceanScores['CON'].score += num;
+          else if (upperKey.includes('EXT') || upperKey.includes('EXV')) oceanScores['EXT'].score += num;
+          else if (upperKey.includes('AGR')) oceanScores['AGR'].score += num;
+          else if (upperKey.includes('NEU') || upperKey.includes('EMO')) oceanScores['NEU'].score += num;
+        } else if (upperKey.startsWith('INT_')) {
+          if (upperKey.includes('REA')) riasecScores['REA'].score += num;
+          else if (upperKey.includes('INV')) riasecScores['INV'].score += num;
+          else if (upperKey.includes('ART')) riasecScores['ART'].score += num;
+          else if (upperKey.includes('SOC')) riasecScores['SOC'].score += num;
+          else if (upperKey.includes('ENT')) riasecScores['ENT'].score += num;
+          else if (upperKey.includes('CON') && !upperKey.includes('PER_')) riasecScores['CON'].score += num; 
         } 
         
         if (typeof val === 'object' && val !== null) {
@@ -165,10 +169,8 @@ export default function BatchOperations() {
       });
     };
 
-    // Run the search
     traverseDeepSearch({ ...studentData, ...(studentData.finalAnswers || {}) });
 
-    // Add Dynamic Interpretations
     Object.values(oceanScores).forEach(t => {
        if (t.score >= 35) t.interpretation = "Strongly expressed trait; drives key learning behaviors.";
        else if (t.score <= 25) t.interpretation = "Lower expression; typically acts contextually.";
