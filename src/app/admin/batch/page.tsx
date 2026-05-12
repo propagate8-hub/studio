@@ -86,22 +86,23 @@ export default function BatchOperations() {
       }
     });
 
-    // 2. THE MULTIPLE-CHOICE LETTER PARSER
+    // 2. THE ADAPTIVE PSYCHOMETRIC CALCULATOR
+    // We now track the 'count' of how many questions were actually served!
     const oceanScores: Record<string, any> = {
-      OPE: { trait: 'Openness to Experience', score: 0 },
-      CON: { trait: 'Conscientiousness', score: 0 },
-      EXT: { trait: 'Extraversion', score: 0 },
-      AGR: { trait: 'Agreeableness', score: 0 },
-      NEU: { trait: 'Neuroticism (Emotional Stability)', score: 0 }
+      OPE: { trait: 'Openness to Experience', score: 0, count: 0 },
+      CON: { trait: 'Conscientiousness', score: 0, count: 0 },
+      EXT: { trait: 'Extraversion', score: 0, count: 0 },
+      AGR: { trait: 'Agreeableness', score: 0, count: 0 },
+      NEU: { trait: 'Neuroticism (Emotional Stability)', score: 0, count: 0 }
     };
 
     const riasecScores: Record<string, any> = {
-      REA: { code: 'Realistic (The Doers)', score: 0 },
-      INV: { code: 'Investigative (The Thinkers)', score: 0 },
-      ART: { code: 'Artistic (The Creators)', score: 0 },
-      SOC: { code: 'Social (The Helpers)', score: 0 },
-      ENT: { code: 'Enterprising (The Persuaders)', score: 0 },
-      CON: { code: 'Conventional (The Organizers)', score: 0 }
+      REA: { code: 'Realistic (The Doers)', score: 0, count: 0 },
+      INV: { code: 'Investigative (The Thinkers)', score: 0, count: 0 },
+      ART: { code: 'Artistic (The Creators)', score: 0, count: 0 },
+      SOC: { code: 'Social (The Helpers)', score: 0, count: 0 },
+      ENT: { code: 'Enterprising (The Persuaders)', score: 0, count: 0 },
+      CON: { code: 'Conventional (The Organizers)', score: 0, count: 0 }
     };
 
     const traverseDeepSearch = (obj: any) => {
@@ -111,31 +112,26 @@ export default function BatchOperations() {
         const upperKey = key.toUpperCase();
         const val = obj[key];
         
-        // 🛠️ THE LETTER PARSER
         let num = 0;
         const parseValue = (v: any) => {
           if (typeof v === 'number') return v;
           if (typeof v === 'string') {
             const lower = v.toLowerCase().trim();
-            
             if (lower === 'a') return 5;
             if (lower === 'b') return 4;
             if (lower === 'c') return 3;
             if (lower === 'd') return 2;
             if (lower === 'e') return 1;
-
             if (lower === '5') return 5;
             if (lower === '4') return 4;
             if (lower === '3') return 3;
             if (lower === '2') return 2;
             if (lower === '1') return 1;
-
             if (lower.includes('strongly agree') || lower.includes('very interested')) return 5;
             if (lower.includes('strongly disagree') || lower.includes('not at all')) return 1;
             if (lower.includes('agree') || lower.includes('interested')) return 4;
             if (lower.includes('disagree')) return 2;
             if (lower.includes('neutral') || lower.includes('not sure')) return 3;
-
             return parseInt(lower, 10) || 0;
           }
           return 0;
@@ -147,20 +143,20 @@ export default function BatchOperations() {
           num = parseValue(val);
         }
 
-        // 🛠️ THE FUZZY ID MATCHER
+        // Tally scores AND increment the count of questions served
         if (upperKey.startsWith('PER_')) {
-          if (upperKey.includes('OPE')) oceanScores['OPE'].score += num;
-          else if (upperKey.includes('CON')) oceanScores['CON'].score += num;
-          else if (upperKey.includes('EXT') || upperKey.includes('EXV')) oceanScores['EXT'].score += num;
-          else if (upperKey.includes('AGR')) oceanScores['AGR'].score += num;
-          else if (upperKey.includes('NEU') || upperKey.includes('EMO')) oceanScores['NEU'].score += num;
+          if (upperKey.includes('OPE')) { oceanScores['OPE'].score += num; oceanScores['OPE'].count++; }
+          else if (upperKey.includes('CON')) { oceanScores['CON'].score += num; oceanScores['CON'].count++; }
+          else if (upperKey.includes('EXT') || upperKey.includes('EXV')) { oceanScores['EXT'].score += num; oceanScores['EXT'].count++; }
+          else if (upperKey.includes('AGR')) { oceanScores['AGR'].score += num; oceanScores['AGR'].count++; }
+          else if (upperKey.includes('NEU') || upperKey.includes('EMO')) { oceanScores['NEU'].score += num; oceanScores['NEU'].count++; }
         } else if (upperKey.startsWith('INT_')) {
-          if (upperKey.includes('REA')) riasecScores['REA'].score += num;
-          else if (upperKey.includes('INV')) riasecScores['INV'].score += num;
-          else if (upperKey.includes('ART')) riasecScores['ART'].score += num;
-          else if (upperKey.includes('SOC')) riasecScores['SOC'].score += num;
-          else if (upperKey.includes('ENT')) riasecScores['ENT'].score += num;
-          else if (upperKey.includes('CON') && !upperKey.includes('PER_')) riasecScores['CON'].score += num; 
+          if (upperKey.includes('REA')) { riasecScores['REA'].score += num; riasecScores['REA'].count++; }
+          else if (upperKey.includes('INV')) { riasecScores['INV'].score += num; riasecScores['INV'].count++; }
+          else if (upperKey.includes('ART')) { riasecScores['ART'].score += num; riasecScores['ART'].count++; }
+          else if (upperKey.includes('SOC')) { riasecScores['SOC'].score += num; riasecScores['SOC'].count++; }
+          else if (upperKey.includes('ENT')) { riasecScores['ENT'].score += num; riasecScores['ENT'].count++; }
+          else if (upperKey.includes('CON') && !upperKey.includes('PER_')) { riasecScores['CON'].score += num; riasecScores['CON'].count++; }
         } 
         
         if (typeof val === 'object' && val !== null) {
@@ -171,10 +167,33 @@ export default function BatchOperations() {
 
     traverseDeepSearch({ ...studentData, ...(studentData.finalAnswers || {}) });
 
+    // ADAPTIVE SCALING MATH FOR OCEAN
     Object.values(oceanScores).forEach(t => {
-       if (t.score >= 35) t.interpretation = "Strongly expressed trait; drives key learning behaviors.";
-       else if (t.score <= 25) t.interpretation = "Lower expression; typically acts contextually.";
+       if (t.count === 0) {
+         t.displayScore = "N/A";
+         t.interpretation = "Not Assessed (Adaptive Skip)";
+         return;
+       }
+       // Scale raw score up to a base of 50
+       const maxPossible = t.count * 5;
+       const scaledScore = Math.round((t.score / maxPossible) * 50);
+       t.displayScore = scaledScore;
+
+       if (scaledScore >= 35) t.interpretation = "Strongly expressed trait; drives key learning behaviors.";
+       else if (scaledScore <= 25) t.interpretation = "Lower expression; typically acts contextually.";
        else t.interpretation = "Moderate expression; adaptable depending on environment.";
+    });
+
+    // ADAPTIVE SCALING MATH FOR RIASEC
+    Object.values(riasecScores).forEach(h => {
+       if (h.count === 0) {
+         h.displayScore = "N/A";
+         h.interpretation = "Not Assessed (Adaptive Skip)";
+         return;
+       }
+       const maxPossible = h.count * 5;
+       const scaledScore = Math.round((h.score / maxPossible) * 50);
+       h.displayScore = scaledScore;
     });
 
     return {
@@ -610,8 +629,12 @@ export default function BatchOperations() {
                           {renderStudent.grading?.ocean?.map((p: any, i: number) => (
                             <tr key={i} className="hover:bg-slate-50">
                               <td className="py-2 px-3 border border-slate-300 font-semibold">{p.trait}</td>
-                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">{p.score}</td>
-                              <td className="py-2 px-3 border border-slate-300 text-xs">{p.interpretation}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">
+                                {p.displayScore === "N/A" ? <span className="text-slate-400">N/A</span> : p.displayScore}
+                              </td>
+                              <td className="py-2 px-3 border border-slate-300 text-xs">
+                                {p.displayScore === "N/A" ? <span className="text-slate-400 italic">{p.interpretation}</span> : p.interpretation}
+                              </td>
                             </tr>
                           ))}
                         </tbody>
@@ -632,9 +655,13 @@ export default function BatchOperations() {
                           {renderStudent.grading?.holland?.map((h: any, i: number) => (
                             <tr key={i} className="hover:bg-slate-50">
                               <td className="py-2 px-3 border border-slate-300 font-semibold">{h.code}</td>
-                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">{h.score}</td>
+                              <td className="py-2 px-3 border border-slate-300 text-center font-bold">
+                                {h.displayScore === "N/A" ? <span className="text-slate-400">N/A</span> : h.displayScore}
+                              </td>
                               <td className="py-2 px-3 border border-slate-300 text-xs">
-                                {h.score >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : h.score <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
+                                {h.displayScore === "N/A" ? <span className="text-slate-400 italic">{h.interpretation}</span> : 
+                                 h.displayScore >= 40 ? <span className="text-blue-700 font-bold">Strong Alignment</span> : 
+                                 h.displayScore <= 25 ? <span className="text-slate-500">Low Alignment</span> : 'Moderate Alignment'}
                               </td>
                             </tr>
                           ))}
@@ -712,4 +739,4 @@ export default function BatchOperations() {
       </div>
     </div>
   );
-} 
+}
