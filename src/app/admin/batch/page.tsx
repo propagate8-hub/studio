@@ -86,7 +86,7 @@ export default function BatchOperations() {
       }
     });
 
-    // 2. TEXT-TO-NUMBER PSYCHOMETRIC CALCULATOR
+    // 2. THE ULTIMATE TEXT-TO-NUMBER PSYCHOMETRIC CALCULATOR
     const oceanScores: Record<string, any> = {
       OPE: { trait: 'Openness to Experience', score: 0 },
       CON: { trait: 'Conscientiousness', score: 0 },
@@ -111,24 +111,47 @@ export default function BatchOperations() {
         const upperKey = key.toUpperCase();
         const val = obj[key];
         
-        // Convert text answers to Likert numbers just in case!
+        // The Aggressive Likert Parser
         let num = 0;
         const parseValue = (v: any) => {
           if (typeof v === 'number') return v;
           if (typeof v === 'string') {
             const lower = v.toLowerCase().trim();
-            if (lower === 'strongly agree') return 5;
-            if (lower === 'agree') return 4;
-            if (lower === 'neutral' || lower === 'not sure') return 3;
-            if (lower === 'disagree') return 2;
-            if (lower === 'strongly disagree') return 1;
-            return parseInt(v, 10) || 0;
+            
+            // Check explicit single numbers
+            if (lower === '5') return 5;
+            if (lower === '4') return 4;
+            if (lower === '3') return 3;
+            if (lower === '2') return 2;
+            if (lower === '1') return 1;
+
+            // 5 - Maximum Expression
+            if (lower.includes('strongly agree') || lower.includes('very interested') || lower.includes('strongly like') || lower.includes('very accurate') || lower.includes('very much') || lower.includes('always')) return 5;
+            
+            // 1 - Minimum Expression
+            if (lower.includes('strongly disagree') || lower.includes('very uninterested') || lower.includes('strongly dislike') || lower.includes('very inaccurate') || lower.includes('not at all') || lower.includes('never')) return 1;
+            
+            // 4 - High Expression (Runs after 5s are caught)
+            if (lower.includes('agree') || lower.includes('interested') || lower.includes('like') || lower.includes('accurate') || lower.includes('mostly') || lower.includes('often')) return 4;
+            
+            // 2 - Low Expression (Runs after 1s are caught)
+            if (lower.includes('disagree') || lower.includes('uninterested') || lower.includes('dislike') || lower.includes('inaccurate') || lower.includes('not much') || lower.includes('rarely')) return 2;
+            
+            // 3 - Neutral Expression
+            if (lower.includes('neutral') || lower.includes('not sure') || lower.includes('neither') || lower.includes('indifferent') || lower.includes('unsure') || lower.includes('somewhat') || lower.includes('sometimes')) return 3;
+
+            // Ultimate Fallback: Extract any number 1-5 from the text
+            const match = v.match(/[1-5]/);
+            if (match) return parseInt(match[0], 10);
+            
+            return 0;
           }
           return 0;
         };
 
         if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
-          num = parseValue(val.answer || val.value || val.score || val.selectedOption);
+          // Checks every possible folder name where the answer could be hiding
+          num = parseValue(val.answer || val.value || val.score || val.selectedOption || val.response || val.text);
         } else {
           num = parseValue(val);
         }
