@@ -86,7 +86,7 @@ export default function BatchOperations() {
       }
     });
 
-    // 2. THE ULTIMATE TEXT-TO-NUMBER PSYCHOMETRIC CALCULATOR
+    // 2. THE MULTIPLE-CHOICE LETTER PARSER
     const oceanScores: Record<string, any> = {
       OPE: { trait: 'Openness to Experience', score: 0 },
       CON: { trait: 'Conscientiousness', score: 0 },
@@ -111,46 +111,40 @@ export default function BatchOperations() {
         const upperKey = key.toUpperCase();
         const val = obj[key];
         
-        // The Aggressive Likert Parser
+        // 🛠️ THE NEW LETTER PARSER
         let num = 0;
         const parseValue = (v: any) => {
           if (typeof v === 'number') return v;
           if (typeof v === 'string') {
             const lower = v.toLowerCase().trim();
             
-            // Check explicit single numbers
+            // Catch Multiple Choice Letters!
+            if (lower === 'a') return 5;
+            if (lower === 'b') return 4;
+            if (lower === 'c') return 3;
+            if (lower === 'd') return 2;
+            if (lower === 'e') return 1;
+
+            // Catch explicitly written numbers
             if (lower === '5') return 5;
             if (lower === '4') return 4;
             if (lower === '3') return 3;
             if (lower === '2') return 2;
             if (lower === '1') return 1;
 
-            // 5 - Maximum Expression
-            if (lower.includes('strongly agree') || lower.includes('very interested') || lower.includes('strongly like') || lower.includes('very accurate') || lower.includes('very much') || lower.includes('always')) return 5;
-            
-            // 1 - Minimum Expression
-            if (lower.includes('strongly disagree') || lower.includes('very uninterested') || lower.includes('strongly dislike') || lower.includes('very inaccurate') || lower.includes('not at all') || lower.includes('never')) return 1;
-            
-            // 4 - High Expression (Runs after 5s are caught)
-            if (lower.includes('agree') || lower.includes('interested') || lower.includes('like') || lower.includes('accurate') || lower.includes('mostly') || lower.includes('often')) return 4;
-            
-            // 2 - Low Expression (Runs after 1s are caught)
-            if (lower.includes('disagree') || lower.includes('uninterested') || lower.includes('dislike') || lower.includes('inaccurate') || lower.includes('not much') || lower.includes('rarely')) return 2;
-            
-            // 3 - Neutral Expression
-            if (lower.includes('neutral') || lower.includes('not sure') || lower.includes('neither') || lower.includes('indifferent') || lower.includes('unsure') || lower.includes('somewhat') || lower.includes('sometimes')) return 3;
+            // Catch written phrases just in case
+            if (lower.includes('strongly agree') || lower.includes('very interested')) return 5;
+            if (lower.includes('strongly disagree') || lower.includes('not at all')) return 1;
+            if (lower.includes('agree') || lower.includes('interested')) return 4;
+            if (lower.includes('disagree')) return 2;
+            if (lower.includes('neutral') || lower.includes('not sure')) return 3;
 
-            // Ultimate Fallback: Extract any number 1-5 from the text
-            const match = v.match(/[1-5]/);
-            if (match) return parseInt(match[0], 10);
-            
-            return 0;
+            return parseInt(lower, 10) || 0;
           }
           return 0;
         };
 
         if (typeof val === 'object' && val !== null && !Array.isArray(val)) {
-          // Checks every possible folder name where the answer could be hiding
           num = parseValue(val.answer || val.value || val.score || val.selectedOption || val.response || val.text);
         } else {
           num = parseValue(val);
@@ -172,7 +166,7 @@ export default function BatchOperations() {
     };
 
     // Run the search
-    traverseDeepSearch(studentData);
+    traverseDeepSearch({ ...studentData, ...(studentData.finalAnswers || {}) });
 
     // Add Dynamic Interpretations
     Object.values(oceanScores).forEach(t => {
