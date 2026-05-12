@@ -63,18 +63,18 @@ export async function POST(req: Request) {
     let testContextInstruction = "";
     if (isRandomizedTest) {
       testContextInstruction = `
-      CRITICAL DATA CONTEXT (RANDOMIZED ASSESSMENT): 
+      CRITICAL DATA CONTEXT (RANDOMIZED/ADAPTIVE ASSESSMENT): 
       This student took a randomized version of the assessment. Because the sample sizes for "Abstract/Logical" and "Spatial & Mechanical" are statistically small, those two scores will be HIDDEN from the final PDF report.
       - DO NOT explicitly mention the words "Abstract", "Logical", "Spatial", or "Mechanical" in your counselor notes or study hacks, as it will confuse the reader.
-      - To place this student in pathways that normally require those hidden scores (like Engineering, CS, or TVET), you MUST substitute the cognitive requirement by heavily weighing their Numerical Score and Holland Personality traits (e.g., High Numerical + Investigative = CS; Average Numerical + Realistic = TVET).
+      - To place this student in pathways that normally require those hidden scores (like Engineering, CS, or TVET), you MUST substitute the cognitive requirement by heavily weighing their Numerical Score and Holland Personality traits.
       `;
     }
 
     // ==========================================
     // 🧠 INJECTING PSYCHOMETRIC DATA FOR AI
     // ==========================================
-    const oceanContext = gradingResult.ocean ? gradingResult.ocean.map((o: any) => `- ${o.trait}: ${o.displayScore}/50`).join('\n') : "No personality data available.";
-    const hollandContext = gradingResult.holland ? gradingResult.holland.map((h: any) => `- ${h.code || h.trait}: ${h.displayScore}/50`).join('\n') : "No interest data available.";
+    const oceanContext = gradingResult.ocean ? gradingResult.ocean.map((o: any) => `- ${o.trait}: ${o.displayScore === "N/A" ? "Not Assessed" : o.displayScore + "/50"}`).join('\n') : "No personality data available.";
+    const hollandContext = gradingResult.holland ? gradingResult.holland.map((h: any) => `- ${h.code || h.trait}: ${h.displayScore === "N/A" ? "Not Assessed" : h.displayScore + "/50"}`).join('\n') : "No interest data available.";
 
     // ==========================================
     // ⚖️ HOLISTIC PATTERN MATCHING MATRIX
@@ -102,8 +102,8 @@ export async function POST(req: Request) {
     ${hollandContext}
 
     CRITICAL ADAPTIVE TESTING RULES (DO NOT HALLUCINATE):
-    1. If any personality or interest score says "N/A" or "Not Assessed", it means the adaptive testing engine SKIPPED those questions to save time. It DOES NOT mean the student is weak or lacks interest in them. 
-    2. DO NOT state that the student "lacks engagement" or "struggles" with a trait just because it says N/A. Simply ignore the N/A traits and focus your evaluation strictly on the traits that were actually scored.
+    1. If any personality or interest score says "Not Assessed", it means the adaptive testing engine SKIPPED those questions to save time. It DOES NOT mean the student is weak or lacks interest in them. 
+    2. DO NOT state that the student "lacks engagement" or "struggles" with a trait just because it was Not Assessed. Simply ignore the unassessed traits and focus your evaluation strictly on the traits that were actually scored.
     3. Look directly at the data provided above. If a student scored high in Conscientiousness or Verbal Reasoning, you MUST explicitly acknowledge and praise those specific high scores in your notes.
 
     YOUR TASK:
@@ -116,48 +116,48 @@ export async function POST(req: Request) {
     - JAMB SUBJECT ALLOWLIST: Step 2 of the roadmap MUST be exactly 4 subjects for the Nigerian UTME/JAMB exam. 'Use of English' is compulsory. The remaining 3 subjects MUST be strictly chosen from this list: Mathematics, Physics, Chemistry, Biology, Agricultural Science, Economics, Geography, Government, Literature-in-English, CRS, IRS, Commerce, Financial Accounting, History, French, or Visual Arts. DO NOT invent subjects like 'Robotics' or 'Technical Drawing' for JAMB.
     
     HOLISTIC PATTERN MATCHING ALGORITHM:
-    You must evaluate all 7 Pathways simultaneously to find the best holistic fit. Use Cognitive Scores to determine the student's raw capacity, but use their Holland Code (Interests) to dictate their destination. 
-    ABSOLUTE STRICT OVERRIDE: If a student's highest (or tied for highest) Holland trait is "Conventional" or "Enterprising", you MUST route them to "Commercial & Business" (Pathway 4). DO NOT put high-Conventional students in Arts or Science.
+    You must evaluate all 7 Pathways simultaneously to find the best holistic fit. 
+    
+    INTEGRATION RULE (SMART FALLBACK):
+    Use Cognitive Scores to determine the student's raw capacity, and use their Holland Code (Interests) to fine-tune their destination. 
+    DO NOT default everyone to Commercial/Business. You may ONLY route a student to Pathway 4 based on "Conventional" or "Enterprising" if those scores are EXPLICITLY measured as high numbers (not "Not Assessed" or tied at 0). 
+    If Holland scores are mostly unassessed, missing, or tied at low numbers, you MUST distribute the student based PURELY on their dominant Cognitive domains:
+    - Dominant Verbal -> Route to Arts/Humanities (Pathway 5 or 6)
+    - Dominant Numerical/Abstract -> Route to Science/Tech (Pathway 1, 2, or 3)
+    - Dominant Spatial -> Route to Engineering/TVET (Pathway 2 or 7)
 
     PATHWAY 1: Bio-Health & Cognitive Sciences
     - Cognitive Base: High Verbal AND High Numerical AND High Abstract.
-    - Personality Match: Investigative or Social traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Biology, Chemistry & Pre-Medical Focus"
 
     PATHWAY 2: Advanced Engineering & Smart Infrastructure
     - Cognitive Base: High Numerical AND High Spatial/Mechanical.
-    - Personality Match: Realistic or Investigative traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Physics, Technical Drawing & Advanced Mathematics Focus"
 
     PATHWAY 3: AI, Computing & Cyber-Physical Systems
     - Cognitive Base: High Abstract/Logical AND High Numerical.
-    - Personality Match: Investigative traits.
     - SSS Recommendation: "Science & Mathematics"
     - SSS Specialization: "Computer Studies, Physics & Mathematics Focus"
 
     PATHWAY 4: Next-Gen Business, Fintech & Analytics
-    - Cognitive Base: Any combination of Verbal and Numerical scores.
-    - Personality Match: STRICT MANDATORY OVERRIDE - If "Enterprising" or "Conventional" are highest, they belong here. 
+    - Cognitive Base: Strong Numerical or Verbal. (Requires High Enterprising/Conventional ONLY if those traits were explicitly measured).
     - SSS Recommendation: "Commercial & Business"
     - SSS Specialization: "Accounting, Commerce & Financial Studies Focus"
     
     PATHWAY 5: Tech-Law, Policy & Digital Humanities
     - Cognitive Base: High Verbal Reasoning.
-    - Personality Match: Heavily favor if the student shows Social, Enterprising, or Investigative traits.
     - SSS Recommendation: "Arts & Humanities"
     - SSS Specialization: "Government, Literature & History Focus"
 
     PATHWAY 6: Synthetic Media, Arts & Immersive Design
     - Cognitive Base: High Verbal AND High Spatial.
-    - Personality Match: Heavily favor if the student shows Artistic traits.
     - SSS Recommendation: "Arts & Humanities"
     - SSS Specialization: "Creative Arts, Literature & Media Studies Focus"
 
     PATHWAY 7: Advanced Applied Technologies (Smart TVET)
     - Cognitive Base: High Spatial/Mechanical, OR an overall accuracy below 55% needing foundational support.
-    - Personality Match: Realistic (hands-on) traits.
     - SSS Recommendation: "Technical & Vocational Education"
     - SSS Specialization: "Applied Sciences, Basic Technology & ICT Focus"
 
