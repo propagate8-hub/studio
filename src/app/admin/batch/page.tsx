@@ -87,7 +87,6 @@ export default function BatchOperations() {
     });
 
     // 2. THE ADAPTIVE PSYCHOMETRIC CALCULATOR
-    // We now track the 'count' of how many questions were actually served!
     const oceanScores: Record<string, any> = {
       OPE: { trait: 'Openness to Experience', score: 0, count: 0 },
       CON: { trait: 'Conscientiousness', score: 0, count: 0 },
@@ -676,7 +675,7 @@ export default function BatchOperations() {
                   <div className="mt-6 text-slate-800 avoid-page-break">
                     <h2 className="text-xl font-bold text-blue-900 border-b-2 border-blue-900 pb-2 mb-6">3. Integrated Summary and Recommendations</h2>
                     
-                    <div className="space-y-6 mb-12">
+                    <div className="space-y-6 mb-6">
                       <div>
                         <h3 className="font-bold text-slate-800 mb-2 text-sm">3.1. Summary of Key Findings</h3>
                         <p className="text-slate-600 text-sm bg-slate-50 p-4 rounded-lg border border-slate-100">
@@ -706,12 +705,12 @@ export default function BatchOperations() {
                     </div>
 
                     <h2 className="text-xl font-bold text-blue-900 border-b-2 border-blue-900 pb-2 mb-6">4. Official Endorsement & Signatures</h2>
-                    <p className="text-slate-600 text-sm mb-8 leading-relaxed">
+                    <p className="text-slate-600 text-sm mb-4 leading-relaxed">
                       The insights contained within this ACET Intelligence Report represent a synthesis of the candidate's cognitive potential, psychometric orientation, and academic readiness. A tailored guidance approach—integrating continuous mentorship, environmental support, and periodic academic re-evaluation—is strongly recommended to assist the student in actualizing their defined career and university trajectory.
                     </p>
 
                     {/* REDESIGNED SIGNATURES & VERIFICATION SECTION */}
-                    <div className="space-y-8 avoid-page-break">
+                    <div className="space-y-4 avoid-page-break">
                       <div>
                         <p className="font-bold text-slate-800 text-sm mb-2">4.1 Internal Counselor's Verification Notes</p>
                         <div className="w-full h-24 border-2 border-dashed border-slate-300 rounded-xl bg-slate-50 flex items-center justify-center">
@@ -719,7 +718,7 @@ export default function BatchOperations() {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-12 pt-12">
+                      <div className="grid grid-cols-2 gap-12 pt-6">
                         <div className="border-t-2 border-slate-400 pt-2">
                           <p className="font-bold text-slate-800 text-center text-sm">Head of Counseling / Psychometrician</p>
                           <p className="text-slate-400 text-center text-[10px] mt-1 uppercase tracking-widest">Signature & Date</p>
