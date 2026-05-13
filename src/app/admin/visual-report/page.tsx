@@ -169,7 +169,7 @@ export default function SummaryReportGenerator() {
             {/* Exec Summary */}
             <div className="bg-white p-6 rounded-lg mb-8 border border-[#e0e6ed] shadow-sm text-justify">
               <p className="text-[#34495e] m-0">
-                <strong>Executive Summary:</strong> The ACET intelligence engine successfully processed the {schoolName} cohort. The AI intelligently mapped students to holistic career pathways by heavily weighing their cognitive capacity alongside intrinsic Holland Personality Traits. This guarantees that students are matched not only to areas of cognitive strength, but to fields where they possess strong occupational interest.
+                <strong>Executive Summary:</strong> The ACET intelligence engine successfully processed the {schoolName} cohort. The ACET Engine intelligently mapped students to holistic career pathways by heavily weighing their cognitive capacity alongside intrinsic Holland Personality Traits. This guarantees that students are matched not only to areas of cognitive strength, but to fields where they possess strong occupational interest.
               </p>
             </div>
 
@@ -189,7 +189,7 @@ export default function SummaryReportGenerator() {
             <div className="text-2xl font-bold text-[#2c3e50] mt-8 mb-4 pb-2 border-b-2 border-[#ecf0f1] avoid-break">Micro Distribution: Futuristic Focus Areas</div>
             <div className="bg-white p-6 rounded-lg mb-6 border border-[#e0e6ed] shadow-sm avoid-break">
               <p className="text-[#34495e] mb-6 text-justify">
-                This breakdown reveals the specific SSS tracks and their futuristic alignments. The AI successfully opened doors to highly sought-after areas such as <strong>{topFocusStr}</strong>. It leveraged personality tie-breakers to differentiate between students who share similar cognitive scores but have vastly different career aspirations.
+                This breakdown reveals the specific SSS tracks and their futuristic alignments. The ACET Engine successfully opened doors to highly sought-after areas such as <strong>{topFocusStr}</strong>. It leveraged personality tie-breakers to differentiate between students who share similar cognitive scores but have vastly different career aspirations.
               </p>
               <BarChart chartData={focusCounts} color="#d35400" />
             </div>
@@ -198,7 +198,7 @@ export default function SummaryReportGenerator() {
             <div className="text-2xl font-bold text-[#2c3e50] mt-8 mb-4 pb-2 border-b-2 border-[#ecf0f1] avoid-break">Counselor Insights: Top Cognitive Performers</div>
             <div className="bg-white p-6 rounded-lg mb-6 border border-[#e0e6ed] shadow-sm avoid-break">
               <p className="text-[#34495e] mb-4 text-justify">
-                The following table highlights the top 5 students by overall cognitive accuracy. Our AI engine ensured that these top-tier students were seamlessly distributed across tracks according to their true occupational interests, avoiding standard legacy tracking monopolies.
+                The following table highlights the top 5 students by overall cognitive accuracy. The ACET Engine ensured that these top-tier students were seamlessly distributed across tracks according to their true occupational interests, avoiding standard legacy tracking monopolies.
               </p>
               <table className="w-full border-collapse">
                 <thead>
@@ -226,7 +226,7 @@ export default function SummaryReportGenerator() {
             <div className="text-2xl font-bold text-[#2c3e50] mt-8 mb-4 pb-2 border-b-2 border-[#ecf0f1] avoid-break">Strategic Counselor Action Plan</div>
             <div className="bg-white p-6 rounded-lg border-l-4 border-[#f39c12] shadow-sm avoid-break">
               <ul className="list-disc pl-5 text-[#34495e] leading-relaxed space-y-2">
-                <li><strong>Leverage the Personality Edge:</strong> Counseling sessions should focus deeply on discussing the students' intrinsic interests to validate the AI's trait-based tracking.</li>
+                <li><strong>Leverage the Personality Edge:</strong> Counseling sessions should focus deeply on discussing the students' intrinsic interests to validate the ACET Engine's trait-based tracking.</li>
                 <li><strong>Support the STEM Pathways:</strong> Ensure students placed in Science or Computer domains have access to foundational math and basic science clubs to build upon their assessed numerical capacities.</li>
                 <li><strong>Empower the Future Founders:</strong> For students directed into Commercial tracks, highlight how their numerical proficiency and 'Enterprising' traits make them natural candidates for leadership and entrepreneurial activities.</li>
                 <li><strong>Develop the Human-Centric Leaders:</strong> Arts & Humanities candidates should be encouraged to join debate teams, literary societies, and policy-focused groups to maximize their strong verbal reasoning.</li>
