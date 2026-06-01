@@ -71,6 +71,26 @@ export async function POST(req: Request) {
     }
 
     // ==========================================
+    // 🏫 INTERNAL ACADEMIC SCORES (NEW UPDATE)
+    // ==========================================
+    let internalDataContext = "";
+    if (studentData?.internalScores) {
+      internalDataContext = `
+      CRITICAL CONTEXT - SCHOOL INTERNAL ASSESSMENT SCORES:
+      The school has provided their own internal academic transcript for this student:
+      - Mathematics: ${studentData.internalScores.Mathematics || 'N/A'}
+      - English Language: ${studentData.internalScores.English || 'N/A'}
+      - Basic Science: ${studentData.internalScores.Science || 'N/A'}
+
+      YOUR INSTRUCTIONS FOR THIS DATA:
+      Please synthesize these internal academic scores with their ACET cognitive profile. 
+      - If their cognitive potential is high but their internal academic scores are low, gently address the potential underachievement and provide study strategies in your counselor notes. 
+      - If both are high, commend their alignment. 
+      - Incorporate this naturally into your evaluation without explicitly stating "I see you scored X".
+      `;
+    }
+
+    // ==========================================
     // 🧠 INJECTING PSYCHOMETRIC DATA FOR AI
     // ==========================================
     const oceanContext = gradingResult.ocean ? gradingResult.ocean.map((o: any) => `- ${o.trait}: ${o.displayScore === "N/A" ? "Not Assessed" : o.displayScore + "/50"}`).join('\n') : "No personality data available.";
@@ -89,6 +109,7 @@ export async function POST(req: Request) {
     
     ${pronounInstruction}
     ${testContextInstruction}
+    ${internalDataContext}
 
     COGNITIVE BREAKDOWN (Format is Correct / Total Asked):
     ${Object.entries(gradingResult.categories).map(([cat, data]: any) => 
@@ -112,7 +133,7 @@ export async function POST(req: Request) {
     CRITICAL NIGERIAN CURRICULUM & PDF FORMATTING RULES:
     - Keep "Study Hacks" descriptions extremely concise (Maximum of 12 words per bullet point).
     - Write professional, clinical, yet encouraging counselor notes based ONLY on the data provided.
-    - SSS SUBJECT COMPLIANCE: Step 1 of the roadmap MUST align with the newly approved Nigerian NERDC curriculum groupings (Core, Humanities, Science/Math, Business, Trade/Vocational). Recommend relevant, modern SSS1 subjects.
+    - SSS SUBJECT COMPLIANCE: Step 1 of the roadmap MUST be exactly 3 subjects for SSS1. DO NOT EVER recommend Junior Secondary (JSS) subjects like "Basic Science", "Basic Technology", "Social Studies", or "Business Studies". You MUST strictly choose from Senior Secondary (SSS) subjects such as: Physics, Chemistry, Biology, Further Mathematics, Economics, Government, Literature-in-English, Financial Accounting, Commerce, Geography, Agricultural Science, Technical Drawing, or Data Processing.
     - JAMB SUBJECT ALLOWLIST: Step 2 of the roadmap MUST be exactly 4 subjects for the Nigerian UTME/JAMB exam. 'Use of English' is compulsory. The remaining 3 subjects MUST be strictly chosen from this list: Mathematics, Physics, Chemistry, Biology, Agricultural Science, Economics, Geography, Government, Literature-in-English, CRS, IRS, Commerce, Financial Accounting, History, French, or Visual Arts. DO NOT invent subjects like 'Robotics' or 'Technical Drawing' for JAMB.
     
     HOLISTIC PATTERN MATCHING ALGORITHM:

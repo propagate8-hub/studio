@@ -607,6 +607,35 @@ export default function BatchOperations() {
                         )})}
                       </tbody>
                     </table>
+
+                    {/* ✨ NEW CONDITIONAL INTERNAL SCORES SECTION ✨ */}
+                    {renderStudent.internalScores && (
+                      <div className="mt-8 avoid-page-break">
+                        <h3 className="font-bold text-slate-800 mb-3 text-sm">1.2. School Internal Assessment (Term Scores)</h3>
+                        <table className="w-full text-left border-collapse font-sans text-sm border border-slate-300 mb-4">
+                          <thead>
+                            <tr className="bg-slate-100">
+                              <th className="py-2 px-3 border border-slate-300">Subject Domain</th>
+                              <th className="py-2 px-3 border border-slate-300 text-center">Recorded Score</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr className="hover:bg-slate-50 transition-colors">
+                              <td className="py-2 px-3 border border-slate-300 font-semibold">Mathematics</td>
+                              <td className="py-2 px-3 border border-slate-300 text-center font-bold text-blue-700">{renderStudent.internalScores.Mathematics}</td>
+                            </tr>
+                            <tr className="hover:bg-slate-50 transition-colors">
+                              <td className="py-2 px-3 border border-slate-300 font-semibold">English Language</td>
+                              <td className="py-2 px-3 border border-slate-300 text-center font-bold text-blue-700">{renderStudent.internalScores.English}</td>
+                            </tr>
+                            <tr className="hover:bg-slate-50 transition-colors">
+                              <td className="py-2 px-3 border border-slate-300 font-semibold">Basic Science</td>
+                              <td className="py-2 px-3 border border-slate-300 text-center font-bold text-blue-700">{renderStudent.internalScores.Science}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
                   </div>
 
                   <div className="html2pdf__page-break"></div>
